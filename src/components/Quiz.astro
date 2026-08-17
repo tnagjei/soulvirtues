@@ -14,7 +14,7 @@ const maxpJson = JSON.stringify(MAXP);
 ---
 
 <div id="quiz-root" class="w-full max-w-4xl mx-auto my-8 font-sans">
-  <!-- 1. Start Screen (起始界面) -->
+  <!-- 1. Start Screen -->
   <div id="quiz-start" class="bg-[#121420] border-2 border-gray-800 rounded-2xl p-6 sm:p-10 text-center shadow-2xl relative overflow-hidden">
     <div class="w-16 h-16 mx-auto mb-6 text-red-500 drop-shadow-[0_0_15px_rgba(239,68,68,0.8)] animate-pulse">
       <svg viewBox="0 0 16 16" fill="currentColor" class="w-full h-full" shape-rendering="crispEdges">
@@ -61,9 +61,9 @@ const maxpJson = JSON.stringify(MAXP);
     </div>
   </div>
 
-  <!-- 2. Active Quiz Screen (做题界面) -->
+  <!-- 2. Active Quiz Screen -->
   <div id="quiz-active" class="hidden bg-[#121420] border border-gray-800 rounded-2xl p-6 sm:p-8 shadow-2xl">
-    <!-- Top HUD (进度抬头) -->
+    <!-- Top HUD -->
     <div class="flex items-center justify-between gap-4 mb-4">
       <div class="flex items-center gap-2">
         <span class="text-xs font-mono font-bold text-red-400 uppercase tracking-wider">Statement</span>
@@ -80,22 +80,22 @@ const maxpJson = JSON.stringify(MAXP);
       </div>
     </div>
 
-    <!-- Progress Bar (进度条) -->
+    <!-- Progress Bar -->
     <div class="w-full bg-gray-900 h-2 rounded-full overflow-hidden mb-8 border border-gray-800">
       <div id="progress-fill" class="bg-gradient-to-r from-red-500 via-amber-500 to-purple-500 h-full w-0 transition-all duration-300"></div>
     </div>
 
-    <!-- Question Box (问题卡片) -->
+    <!-- Question Box -->
     <div class="min-h-[140px] flex items-center justify-center text-center px-2 py-4 mb-8">
       <p id="question-text" class="text-lg sm:text-2xl font-bold text-white leading-relaxed font-sans"></p>
     </div>
 
-    <!-- Likert Options (5点选择按钮) -->
+    <!-- Likert Options -->
     <div id="options-container" class="grid grid-cols-1 sm:grid-cols-5 gap-3 mb-8">
       <!-- Generated via JS -->
     </div>
 
-    <!-- Bottom Navigation Controls (底部切换按钮) -->
+    <!-- Bottom Navigation Controls -->
     <div class="flex items-center justify-between border-t border-gray-800 pt-6">
       <button
         id="btn-prev"
@@ -119,9 +119,9 @@ const maxpJson = JSON.stringify(MAXP);
     </div>
   </div>
 
-  <!-- 3. Result Screen (结果展示界面) -->
+  <!-- 3. Result Screen -->
   <div id="quiz-result" class="hidden bg-[#121420] border-2 border-gray-800 rounded-2xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
-    <!-- Top Result Banner (主导美德展示) -->
+    <!-- Top Result Banner -->
     <div class="text-center mb-10">
       <div id="result-heart" class="w-20 h-20 mx-auto mb-4 transition-transform hover:scale-110 drop-shadow-[0_0_25px_var(--res-color)]" style="--res-color: #ff0000; color: #ff0000;">
         <svg viewBox="0 0 16 16" fill="currentColor" class="w-full h-full" shape-rendering="crispEdges">
@@ -146,7 +146,7 @@ const maxpJson = JSON.stringify(MAXP);
       </blockquote>
     </div>
 
-    <!-- 7-Virtues Percentage Breakdown (七美德分布柱状图) -->
+    <!-- 7-Virtues Percentage Breakdown -->
     <div class="mb-10 bg-[#0b0c13] border border-gray-800 rounded-xl p-5 sm:p-6">
       <h4 class="text-xs font-mono font-bold text-gray-400 uppercase tracking-wider mb-5 flex items-center justify-between">
         <span>7-Dimension Soul Virtues Profile</span>
@@ -158,14 +158,14 @@ const maxpJson = JSON.stringify(MAXP);
       </div>
     </div>
 
-    <!-- Action Buttons & Card Generator (海报下载与分享) -->
+    <!-- Action Buttons & Card Generator -->
     <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
       <button
         id="btn-download-card"
         class="w-full sm:w-auto px-6 py-3.5 bg-gradient-to-r from-red-600 to-amber-600 hover:from-red-500 hover:to-amber-500 text-white font-bold text-sm uppercase tracking-wider rounded-xl shadow-[0_0_20px_rgba(239,68,68,0.3)] active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-2"
       >
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-        Download Result Card (下载海报)
+        Download Result Card
       </button>
 
       <button
@@ -173,7 +173,7 @@ const maxpJson = JSON.stringify(MAXP);
         class="w-full sm:w-auto px-6 py-3.5 bg-gray-800 hover:bg-gray-700 text-gray-200 font-semibold text-sm rounded-xl border border-gray-700 active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-2"
       >
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
-        Copy Summary (复制文案)
+        Copy Summary
       </button>
 
       <button
@@ -184,7 +184,7 @@ const maxpJson = JSON.stringify(MAXP);
       </button>
     </div>
 
-    <!-- Hidden Canvas for card export (离屏画布) -->
+    <!-- Hidden Canvas for card export -->
     <canvas id="export-canvas" width="800" height="1000" class="hidden"></canvas>
   </div>
 </div>
@@ -368,7 +368,7 @@ const maxpJson = JSON.stringify(MAXP);
           <div class="flex items-center justify-between text-xs font-mono">
             <span class="font-bold flex items-center gap-2" style="color: ${soul.hex}">
               <span class="w-2.5 h-2.5 rounded-full inline-block" style="background: ${soul.hex}"></span>
-              ${soul.name} (${soul.chineseName})
+              ${soul.name}
             </span>
             <span class="font-bold text-gray-200">${val}%</span>
           </div>
@@ -462,7 +462,7 @@ const maxpJson = JSON.stringify(MAXP);
       // Label
       ctx.fillStyle = soul.hex;
       ctx.font = "bold 15px monospace";
-      ctx.fillText(soul.name + " (" + soul.chineseName + ")", 70, y + 14);
+      ctx.fillText(soul.name, 70, y + 14);
 
       // Percentage
       ctx.textAlign = "right";
@@ -499,7 +499,7 @@ const maxpJson = JSON.stringify(MAXP);
     const dominant = SOULS[ranked[0]];
     const text = [
       "✨ My Undertale Soul Virtues Result:",
-      "Dominant Soul: " + dominant.name + " (" + dominant.label + " SOUL - " + dominant.chineseName + ")",
+      "Dominant Soul: " + dominant.name + " (" + dominant.label + " SOUL)",
       'Tagline: "' + dominant.tag + '"',
       "",
       "📊 7-Dimension Virtues Breakdown:",

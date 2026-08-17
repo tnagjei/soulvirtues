@@ -1,5 +1,5 @@
 ---
-// input: soul object with code, name, label, hex, tag, description, chineseName
+// input: soul object with code, name, label, hex, tag, description
 // output: Polished individual virtue card with glowing heart and rich description
 // pos: src/components/SoulCard.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
@@ -26,8 +26,8 @@ const { soul } = Astro.props;
         </svg>
       </div>
       <div>
-        <h3 class="text-lg font-extrabold text-white font-mono tracking-wide flex items-center gap-2">
-          {soul.name} <span class="text-xs font-normal text-gray-400">({soul.chineseName})</span>
+        <h3 class="text-lg font-extrabold text-white font-mono tracking-wide">
+          {soul.name}
         </h3>
         <span class="text-[11px] font-semibold tracking-wider uppercase font-mono px-2 py-0.5 rounded" style={`color: ${soul.hex}; background: ${soul.hex}15; border: 1px solid ${soul.hex}30`}>
           {soul.label} SOUL · {soul.hex}

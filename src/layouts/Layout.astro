@@ -36,7 +36,7 @@ const fullCanonical = canonicalUrl.startsWith("http") ? canonicalUrl : `${siteUr
     <meta name="description" content={description} />
     <link rel="canonical" href={fullCanonical} />
 
-    <!-- Open Graph (社交分享元数据) -->
+    <!-- Open Graph Metadata -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={fullCanonical} />
@@ -46,7 +46,7 @@ const fullCanonical = canonicalUrl.startsWith("http") ? canonicalUrl : `${siteUr
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
 
-    <!-- Twitter Card (推特分享卡片) -->
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
@@ -55,7 +55,7 @@ const fullCanonical = canonicalUrl.startsWith("http") ? canonicalUrl : `${siteUr
     <!-- Favicon & Icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <!-- Structured Data (Schema.org JSON-LD 结构化数据) -->
+    <!-- Structured Data (Schema.org JSON-LD) -->
     {structuredData && (
       <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
     )}
