@@ -1,0 +1,593 @@
+---
+// input: Static QUESTIONS list and SOULS metadata dictionary
+// output: Complete interactive 66-question client quiz with real-time scoring, local save, and Canvas card generator
+// pos: src/components/Quiz.astro (更新规则：文件变更需同步本注释与所属目录 README)
+
+import { QUESTIONS } from '../data/questions';
+import { SOULS, SOUL_CODES } from '../data/souls';
+import { MAXP } from '../data/scoring';
+
+const questionsJson = JSON.stringify(QUESTIONS);
+const soulsJson = JSON.stringify(SOULS);
+const soulCodesJson = JSON.stringify(SOUL_CODES);
+const maxpJson = JSON.stringify(MAXP);
+---
+
+<div id="quiz-root" class="w-full max-w-4xl mx-auto my-8 font-sans">
+  <!-- 1. Start Screen (起始界面) -->
+  <div id="quiz-start" class="bg-[#121420] border-2 border-gray-800 rounded-2xl p-6 sm:p-10 text-center shadow-2xl relative overflow-hidden">
+    <div class="w-16 h-16 mx-auto mb-6 text-red-500 drop-shadow-[0_0_15px_rgba(239,68,68,0.8)] animate-pulse">
+      <svg viewBox="0 0 16 16" fill="currentColor" class="w-full h-full" shape-rendering="crispEdges">
+        <path d="M2 0h4v1H2zm8 0h4v1h-4zM1 1h6v1H1zm8 0h6v1H9zM0 2h7v1H0zm9 2h7v1H9zM0 3h7v1H0zm9 3h7v1H9zM0 4h16v6H0zm2 6h12v2H2zm2 2h8v2H4zm2 2h4v2H6z"/>
+      </svg>
+    </div>
+
+    <h2 class="text-2xl sm:text-4xl font-extrabold text-white font-mono tracking-wide mb-3">
+      SOUL VIRTUES EXTRACTOR
+    </h2>
+    <p class="text-xs sm:text-sm text-gray-400 max-w-xl mx-auto mb-6 leading-relaxed">
+      66 calibrated statements designed to measure your resonance across the seven human soul virtues: <span class="text-red-400 font-semibold">Determination</span>, <span class="text-orange-400 font-semibold">Bravery</span>, <span class="text-yellow-400 font-semibold">Justice</span>, <span class="text-green-400 font-semibold">Kindness</span>, <span class="text-cyan-400 font-semibold">Patience</span>, <span class="text-blue-400 font-semibold">Integrity</span>, and <span class="text-purple-400 font-semibold">Perseverance</span>.
+    </p>
+
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <button
+        id="btn-start-fresh"
+        class="w-full sm:w-auto px-8 py-4 bg-red-600 hover:bg-red-500 text-white font-bold font-mono text-base uppercase tracking-wider rounded-xl shadow-[0_0_20px_rgba(239,68,68,0.4)] hover:shadow-[0_0_25px_rgba(239,68,68,0.6)] active:scale-95 transition-all cursor-pointer"
+      >
+        Start 66-Question Test
+      </button>
+
+      <button
+        id="btn-resume-quiz"
+        class="hidden w-full sm:w-auto px-6 py-4 bg-gray-800 hover:bg-gray-700 text-gray-200 font-semibold text-sm rounded-xl border border-gray-700 active:scale-95 transition-all cursor-pointer"
+      >
+        Resume Progress (<span id="resume-count">0</span>/66)
+      </button>
+    </div>
+
+    <div class="mt-8 pt-6 border-t border-gray-800/80 flex flex-wrap items-center justify-center gap-6 text-xs text-gray-500">
+      <span class="flex items-center gap-1.5">
+        <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+        100% Free & No Sign-Up
+      </span>
+      <span class="flex items-center gap-1.5">
+        <svg class="w-4 h-4 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+        Client-Side Privacy Protection
+      </span>
+      <span class="flex items-center gap-1.5">
+        <svg class="w-4 h-4 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        Instant Share Card Generator
+      </span>
+    </div>
+  </div>
+
+  <!-- 2. Active Quiz Screen (做题界面) -->
+  <div id="quiz-active" class="hidden bg-[#121420] border border-gray-800 rounded-2xl p-6 sm:p-8 shadow-2xl">
+    <!-- Top HUD (进度抬头) -->
+    <div class="flex items-center justify-between gap-4 mb-4">
+      <div class="flex items-center gap-2">
+        <span class="text-xs font-mono font-bold text-red-400 uppercase tracking-wider">Statement</span>
+        <span id="hud-index" class="text-lg font-mono font-extrabold text-white">01 / 66</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <button
+          id="btn-quiz-reset"
+          class="text-xs text-gray-500 hover:text-gray-300 transition-colors font-mono cursor-pointer"
+          title="Reset and start over"
+        >
+          Reset
+        </button>
+      </div>
+    </div>
+
+    <!-- Progress Bar (进度条) -->
+    <div class="w-full bg-gray-900 h-2 rounded-full overflow-hidden mb-8 border border-gray-800">
+      <div id="progress-fill" class="bg-gradient-to-r from-red-500 via-amber-500 to-purple-500 h-full w-0 transition-all duration-300"></div>
+    </div>
+
+    <!-- Question Box (问题卡片) -->
+    <div class="min-h-[140px] flex items-center justify-center text-center px-2 py-4 mb-8">
+      <p id="question-text" class="text-lg sm:text-2xl font-bold text-white leading-relaxed font-sans"></p>
+    </div>
+
+    <!-- Likert Options (5点选择按钮) -->
+    <div id="options-container" class="grid grid-cols-1 sm:grid-cols-5 gap-3 mb-8">
+      <!-- Generated via JS -->
+    </div>
+
+    <!-- Bottom Navigation Controls (底部切换按钮) -->
+    <div class="flex items-center justify-between border-t border-gray-800 pt-6">
+      <button
+        id="btn-prev"
+        class="px-5 py-2.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 font-semibold text-xs tracking-wider uppercase transition-all disabled:opacity-30 disabled:pointer-events-none cursor-pointer flex items-center gap-1.5"
+      >
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        Previous
+      </button>
+
+      <span class="hidden sm:block text-[11px] text-gray-500 font-mono">
+        Keyboard: [1-5] Choose &nbsp;·&nbsp; [Enter] Next &nbsp;·&nbsp; [Backspace] Prev
+      </span>
+
+      <button
+        id="btn-next"
+        class="px-6 py-2.5 rounded-lg bg-red-600 hover:bg-red-500 text-white font-bold text-xs tracking-wider uppercase shadow-[0_0_12px_rgba(239,68,68,0.4)] transition-all cursor-pointer flex items-center gap-1.5"
+      >
+        Next
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- 3. Result Screen (结果展示界面) -->
+  <div id="quiz-result" class="hidden bg-[#121420] border-2 border-gray-800 rounded-2xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
+    <!-- Top Result Banner (主导美德展示) -->
+    <div class="text-center mb-10">
+      <div id="result-heart" class="w-20 h-20 mx-auto mb-4 transition-transform hover:scale-110 drop-shadow-[0_0_25px_var(--res-color)]" style="--res-color: #ff0000; color: #ff0000;">
+        <svg viewBox="0 0 16 16" fill="currentColor" class="w-full h-full" shape-rendering="crispEdges">
+          <path d="M2 0h4v1H2zm8 0h4v1h-4zM1 1h6v1H1zm8 0h6v1H9zM0 2h7v1H0zm9 2h7v1H9zM0 3h7v1H0zm9 3h7v1H9zM0 4h16v6H0zm2 6h12v2H2zm2 2h8v2H4zm2 2h4v2H6z"/>
+        </svg>
+      </div>
+
+      <div class="inline-block px-3 py-1 rounded-full text-xs font-mono font-bold tracking-widest uppercase mb-2 border" id="result-badge" style="color: #ff0000; background: #ff000015; border-color: #ff000040;">
+        DOMINANT SOUL TRAIT
+      </div>
+
+      <h3 id="result-trait-name" class="text-3xl sm:text-5xl font-black font-mono tracking-wider text-white mb-2">
+        DETERMINATION
+      </h3>
+
+      <p id="result-color-label" class="text-xs sm:text-sm font-mono text-gray-400 tracking-wider mb-4">
+        RED SOUL · #FF0000
+      </p>
+
+      <blockquote id="result-tagline" class="italic text-sm sm:text-base text-gray-300 max-w-xl mx-auto font-serif border-y border-gray-800 py-3">
+        "Despite how many times I fell, I always got back up."
+      </blockquote>
+    </div>
+
+    <!-- 7-Virtues Percentage Breakdown (七美德分布柱状图) -->
+    <div class="mb-10 bg-[#0b0c13] border border-gray-800 rounded-xl p-5 sm:p-6">
+      <h4 class="text-xs font-mono font-bold text-gray-400 uppercase tracking-wider mb-5 flex items-center justify-between">
+        <span>7-Dimension Soul Virtues Profile</span>
+        <span class="text-[11px] text-gray-500 font-normal">50% = Exact Neutral</span>
+      </h4>
+
+      <div id="result-bars" class="space-y-4">
+        <!-- Bars injected via JS -->
+      </div>
+    </div>
+
+    <!-- Action Buttons & Card Generator (海报下载与分享) -->
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
+      <button
+        id="btn-download-card"
+        class="w-full sm:w-auto px-6 py-3.5 bg-gradient-to-r from-red-600 to-amber-600 hover:from-red-500 hover:to-amber-500 text-white font-bold text-sm uppercase tracking-wider rounded-xl shadow-[0_0_20px_rgba(239,68,68,0.3)] active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-2"
+      >
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+        Download Result Card (下载海报)
+      </button>
+
+      <button
+        id="btn-copy-result"
+        class="w-full sm:w-auto px-6 py-3.5 bg-gray-800 hover:bg-gray-700 text-gray-200 font-semibold text-sm rounded-xl border border-gray-700 active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-2"
+      >
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+        Copy Summary (复制文案)
+      </button>
+
+      <button
+        id="btn-retake"
+        class="w-full sm:w-auto px-6 py-3.5 bg-transparent hover:bg-gray-800 text-gray-400 hover:text-white font-semibold text-sm rounded-xl border border-gray-800 active:scale-95 transition-all cursor-pointer"
+      >
+        Retake Test
+      </button>
+    </div>
+
+    <!-- Hidden Canvas for card export (离屏画布) -->
+    <canvas id="export-canvas" width="800" height="1000" class="hidden"></canvas>
+  </div>
+</div>
+
+<script is:inline define:vars={{ questionsJson, soulsJson, soulCodesJson, maxpJson }}>
+  const QUESTIONS = JSON.parse(questionsJson);
+  const SOULS = JSON.parse(soulsJson);
+  const SOUL_CODES = JSON.parse(soulCodesJson);
+  const MAXP = JSON.parse(maxpJson);
+
+  const STORAGE_KEY = "soul_virtues_answers_v1";
+  const PAYOUT = [-1.2, -0.72, 0, 0.6, 1];
+  const CURVE = 0.6;
+
+  let currentIndex = 0;
+  let userAnswers = new Array(QUESTIONS.length).fill(null);
+
+  // Initialize from LocalStorage if available
+  function initStorage() {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length === QUESTIONS.length) {
+          userAnswers = parsed;
+          const answeredCount = userAnswers.filter(a => a !== null).length;
+          if (answeredCount > 0) {
+            const resumeBtn = document.getElementById("btn-resume-quiz");
+            const resumeCount = document.getElementById("resume-count");
+            if (resumeBtn && resumeCount) {
+              resumeCount.textContent = answeredCount;
+              resumeBtn.classList.remove("hidden");
+            }
+          }
+        }
+      }
+    } catch (e) {}
+  }
+
+  function saveStorage() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(userAnswers));
+    } catch (e) {}
+  }
+
+  function normPct(trait, raw) {
+    if (!MAXP[trait]) return 50;
+    let n = Math.max(-1, Math.min(1, raw / MAXP[trait]));
+    n = n < 0 ? -Math.pow(-n, CURVE) : Math.pow(n, CURVE);
+    return Math.max(0, Math.min(100, ((n + 1) / 2) * 100));
+  }
+
+  function computeScores() {
+    const raw = { DET: 0, BRV: 0, JUS: 0, KND: 0, PAT: 0, INT: 0, PER: 0 };
+    userAnswers.forEach((answerIndex, qi) => {
+      const q = QUESTIONS[qi];
+      if (answerIndex === null || answerIndex === undefined || !q) return;
+      const lean = answerIndex - 2;
+      SOUL_CODES.forEach(trait => {
+        const weight = q.load[trait] || 0;
+        if (weight) {
+          raw[trait] += Math.abs(weight) * PAYOUT[lean * (weight < 0 ? -1 : 1) + 2];
+        }
+      });
+    });
+
+    const pct = {};
+    SOUL_CODES.forEach(trait => {
+      pct[trait] = normPct(trait, raw[trait]);
+    });
+
+    const ranked = [...SOUL_CODES].sort((a, b) => pct[b] - pct[a]);
+    return { raw, pct, ranked };
+  }
+
+  // Screen Switching
+  function showScreen(name) {
+    document.getElementById("quiz-start")?.classList.toggle("hidden", name !== "start");
+    document.getElementById("quiz-active")?.classList.toggle("hidden", name !== "active");
+    document.getElementById("quiz-result")?.classList.toggle("hidden", name !== "result");
+    if (name === "active" || name === "result") {
+      document.getElementById("quiz-root")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+
+  function renderQuestion(index) {
+    currentIndex = index;
+    const q = QUESTIONS[currentIndex];
+    if (!q) return;
+
+    // HUD Index & Progress
+    const hudEl = document.getElementById("hud-index");
+    const progressEl = document.getElementById("progress-fill");
+    const questionTextEl = document.getElementById("question-text");
+    const optionsContainer = document.getElementById("options-container");
+    const prevBtn = document.getElementById("btn-prev");
+    const nextBtn = document.getElementById("btn-next");
+
+    if (hudEl) hudEl.textContent = String(currentIndex + 1).padStart(2, "0") + " / " + String(QUESTIONS.length).padStart(2, "0");
+    if (progressEl) progressEl.style.width = ((currentIndex) / QUESTIONS.length * 100) + "%";
+    if (questionTextEl) questionTextEl.textContent = q.q;
+
+    if (prevBtn) prevBtn.disabled = currentIndex === 0;
+    if (nextBtn) {
+      nextBtn.textContent = currentIndex === QUESTIONS.length - 1 ? "See Results" : "Next";
+    }
+
+    if (optionsContainer) {
+      optionsContainer.innerHTML = "";
+      const selectedOption = userAnswers[currentIndex];
+
+      q.labels.forEach((label, optIndex) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        const isSelected = selectedOption === optIndex;
+
+        btn.className = "p-3 sm:p-4 rounded-xl border text-xs sm:text-sm font-medium transition-all cursor-pointer text-center flex flex-col items-center justify-center gap-1 " +
+          (isSelected
+            ? "bg-red-500/20 border-red-500 text-white shadow-[0_0_12px_rgba(239,68,68,0.4)]"
+            : "bg-[#0b0c13] border-gray-800 text-gray-300 hover:border-gray-700 hover:bg-gray-800/60");
+
+        btn.innerHTML = `
+          <span class="text-xs text-gray-500 font-mono">[${optIndex + 1}]</span>
+          <span class="${isSelected ? 'font-bold text-white' : ''}">${label}</span>
+        `;
+
+        btn.addEventListener("click", () => {
+          userAnswers[currentIndex] = optIndex;
+          saveStorage();
+          renderQuestion(currentIndex);
+          // Auto advance to next after short delay if selecting
+          setTimeout(() => {
+            if (currentIndex < QUESTIONS.length - 1) {
+              renderQuestion(currentIndex + 1);
+            } else {
+              showResults();
+            }
+          }, 180);
+        });
+
+        optionsContainer.appendChild(btn);
+      });
+    }
+  }
+
+  function showResults() {
+    saveStorage();
+    const { pct, ranked } = computeScores();
+    const dominantCode = ranked[0];
+    const dominantSoul = SOULS[dominantCode];
+
+    const heartEl = document.getElementById("result-heart");
+    const badgeEl = document.getElementById("result-badge");
+    const nameEl = document.getElementById("result-trait-name");
+    const colorEl = document.getElementById("result-color-label");
+    const taglineEl = document.getElementById("result-tagline");
+    const barsContainer = document.getElementById("result-bars");
+
+    if (heartEl) {
+      heartEl.style.setProperty("--res-color", dominantSoul.hex);
+      heartEl.style.color = dominantSoul.hex;
+    }
+    if (badgeEl) {
+      badgeEl.style.color = dominantSoul.hex;
+      badgeEl.style.background = dominantSoul.hex + "15";
+      badgeEl.style.borderColor = dominantSoul.hex + "40";
+    }
+    if (nameEl) nameEl.textContent = dominantSoul.name;
+    if (colorEl) colorEl.textContent = dominantSoul.label + " SOUL · " + dominantSoul.hex.toUpperCase();
+    if (taglineEl) taglineEl.textContent = '"' + dominantSoul.tag + '"';
+
+    if (barsContainer) {
+      barsContainer.innerHTML = "";
+      ranked.forEach(trait => {
+        const soul = SOULS[trait];
+        const val = pct[trait].toFixed(1);
+
+        const row = document.createElement("div");
+        row.className = "space-y-1.5";
+        row.innerHTML = `
+          <div class="flex items-center justify-between text-xs font-mono">
+            <span class="font-bold flex items-center gap-2" style="color: ${soul.hex}">
+              <span class="w-2.5 h-2.5 rounded-full inline-block" style="background: ${soul.hex}"></span>
+              ${soul.name} (${soul.chineseName})
+            </span>
+            <span class="font-bold text-gray-200">${val}%</span>
+          </div>
+          <div class="w-full bg-gray-900 h-3 rounded-full overflow-hidden p-0.5 border border-gray-800">
+            <div class="h-full rounded-full transition-all duration-700" style="width: ${val}%; background: ${soul.hex}; box-shadow: 0 0 10px ${soul.hex}60"></div>
+          </div>
+        `;
+        barsContainer.appendChild(row);
+      });
+    }
+
+    showScreen("result");
+  }
+
+  // Draw Result Card on Canvas
+  function drawResultCard() {
+    const canvas = document.getElementById("export-canvas");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const { pct, ranked } = computeScores();
+    const dominantSoul = SOULS[ranked[0]];
+
+    // 1. Background
+    ctx.fillStyle = "#0d0e15";
+    ctx.fillRect(0, 0, 800, 1000);
+
+    // Decorative glow
+    const grad = ctx.createRadialGradient(400, 220, 10, 400, 220, 300);
+    grad.addColorStop(0, dominantSoul.hex + "33");
+    grad.addColorStop(1, "#0d0e1500");
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 800, 1000);
+
+    // Border
+    ctx.strokeStyle = "#1f2438";
+    ctx.lineWidth = 4;
+    ctx.strokeRect(20, 20, 760, 960);
+
+    // 2. Title & Branding
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "bold 28px monospace";
+    ctx.fillText("SOUL VIRTUES EXTRACTOR", 400, 70);
+
+    ctx.fillStyle = "#9ca3af";
+    ctx.font = "14px monospace";
+    ctx.fillText("Undertale 66-Question Trait Assessment", 400, 95);
+
+    // 3. Pixel Soul Heart
+    ctx.fillStyle = dominantSoul.hex;
+    const heartRows = [
+      [[2,3],[12,13]], [[1,5],[10,14]], [[0,6],[9,15]], [[0,6],[9,15]],
+      [[0,15]], [[0,15]], [[0,15]], [[0,15]], [[0,15]], [[0,15]],
+      [[2,13]], [[2,13]], [[4,11]], [[4,11]], [[6,9]], [[6,9]]
+    ];
+    const pxSize = 6;
+    const startX = 400 - (16 * pxSize) / 2;
+    const startY = 130;
+    heartRows.forEach((spans, y) => {
+      spans.forEach(span => {
+        ctx.fillRect(startX + span[0] * pxSize, startY + y * pxSize, (span[1] - span[0] + 1) * pxSize, pxSize);
+      });
+    });
+
+    // 4. Dominant Trait Info
+    ctx.fillStyle = dominantSoul.hex;
+    ctx.font = "bold 36px monospace";
+    ctx.fillText(dominantSoul.name, 400, 270);
+
+    ctx.fillStyle = "#9ca3af";
+    ctx.font = "16px monospace";
+    ctx.fillText(dominantSoul.label + " SOUL · " + dominantSoul.hex.toUpperCase(), 400, 295);
+
+    ctx.fillStyle = "#d1d5db";
+    ctx.font = "italic 16px Georgia, serif";
+    ctx.fillText('"' + dominantSoul.tag + '"', 400, 330);
+
+    // 5. 7 Bars
+    const barStartY = 380;
+    const barHeight = 20;
+    const barGap = 55;
+
+    ctx.textAlign = "left";
+    ranked.forEach((trait, i) => {
+      const soul = SOULS[trait];
+      const val = pct[trait].toFixed(1);
+      const y = barStartY + i * barGap;
+
+      // Label
+      ctx.fillStyle = soul.hex;
+      ctx.font = "bold 15px monospace";
+      ctx.fillText(soul.name + " (" + soul.chineseName + ")", 70, y + 14);
+
+      // Percentage
+      ctx.textAlign = "right";
+      ctx.fillStyle = "#f3f4f6";
+      ctx.font = "bold 15px monospace";
+      ctx.fillText(val + "%", 730, y + 14);
+      ctx.textAlign = "left";
+
+      // Track
+      ctx.fillStyle = "#1e2235";
+      ctx.fillRect(70, y + 22, 660, barHeight);
+
+      // Fill
+      ctx.fillStyle = soul.hex;
+      ctx.fillRect(70, y + 22, (660 * val) / 100, barHeight);
+    });
+
+    // 6. Watermark Footer
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#6b7280";
+    ctx.font = "14px monospace";
+    ctx.fillText("Discover your soul at: soulvirtues.org", 400, 940);
+
+    // Trigger Download
+    const link = document.createElement("a");
+    link.download = "Soul-Virtues-" + dominantSoul.name + ".png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  }
+
+  // Copy Summary text
+  function copySummaryText() {
+    const { pct, ranked } = computeScores();
+    const dominant = SOULS[ranked[0]];
+    const text = [
+      "✨ My Undertale Soul Virtues Result:",
+      "Dominant Soul: " + dominant.name + " (" + dominant.label + " SOUL - " + dominant.chineseName + ")",
+      'Tagline: "' + dominant.tag + '"',
+      "",
+      "📊 7-Dimension Virtues Breakdown:",
+      ranked.map(t => SOULS[t].name + ": " + pct[t].toFixed(1) + "%").join("\n"),
+      "",
+      "Take the free 66-question test at: https://soulvirtues.org"
+    ].join("\n");
+
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById("btn-copy-result");
+      if (btn) {
+        const orig = btn.innerHTML;
+        btn.innerHTML = "✓ Copied to Clipboard!";
+        setTimeout(() => { btn.innerHTML = orig; }, 2000);
+      }
+    });
+  }
+
+  // Setup Event Listeners
+  document.addEventListener("DOMContentLoaded", () => {
+    initStorage();
+
+    document.getElementById("btn-start-fresh")?.addEventListener("click", () => {
+      userAnswers = new Array(QUESTIONS.length).fill(null);
+      saveStorage();
+      showScreen("active");
+      renderQuestion(0);
+    });
+
+    document.getElementById("btn-resume-quiz")?.addEventListener("click", () => {
+      const firstUnanswered = userAnswers.findIndex(a => a === null);
+      showScreen("active");
+      renderQuestion(firstUnanswered !== -1 ? firstUnanswered : 0);
+    });
+
+    document.getElementById("btn-quiz-reset")?.addEventListener("click", () => {
+      if (confirm("Are you sure you want to reset all answers?")) {
+        userAnswers = new Array(QUESTIONS.length).fill(null);
+        saveStorage();
+        showScreen("start");
+      }
+    });
+
+    document.getElementById("btn-prev")?.addEventListener("click", () => {
+      if (currentIndex > 0) renderQuestion(currentIndex - 1);
+    });
+
+    document.getElementById("btn-next")?.addEventListener("click", () => {
+      if (currentIndex < QUESTIONS.length - 1) {
+        renderQuestion(currentIndex + 1);
+      } else {
+        showResults();
+      }
+    });
+
+    document.getElementById("btn-download-card")?.addEventListener("click", drawResultCard);
+    document.getElementById("btn-copy-result")?.addEventListener("click", copySummaryText);
+    document.getElementById("btn-retake")?.addEventListener("click", () => {
+      showScreen("start");
+    });
+
+    // Keyboard navigation
+    window.addEventListener("keydown", (e) => {
+      const activeScreen = document.getElementById("quiz-active");
+      if (!activeScreen || activeScreen.classList.contains("hidden")) return;
+
+      if (e.key >= "1" && e.key <= "5") {
+        const optIndex = parseInt(e.key) - 1;
+        userAnswers[currentIndex] = optIndex;
+        saveStorage();
+        renderQuestion(currentIndex);
+        setTimeout(() => {
+          if (currentIndex < QUESTIONS.length - 1) {
+            renderQuestion(currentIndex + 1);
+          } else {
+            showResults();
+          }
+        }, 150);
+      } else if (e.key === "Enter" || e.key.toLowerCase() === "z") {
+        if (currentIndex < QUESTIONS.length - 1) {
+          renderQuestion(currentIndex + 1);
+        } else {
+          showResults();
+        }
+      } else if (e.key === "Backspace" || e.key.toLowerCase() === "x") {
+        if (currentIndex > 0) renderQuestion(currentIndex - 1);
+      }
+    });
+  });
+</script>
+

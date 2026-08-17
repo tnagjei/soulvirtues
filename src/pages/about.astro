@@ -1,0 +1,56 @@
+---
+// input: None (static About page)
+// output: Full About page detailing project mission, fan-made tribute, and privacy philosophy
+// pos: src/pages/about.astro (更新规则：文件变更需同步本注释与所属目录 README)
+
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="About Us - Soul Virtues Extractor"
+  description="Learn about the Soul Virtues Extractor, our mission, fan tribute background, and commitment to open, privacy-first web tools."
+  canonicalUrl="https://soulvirtues.org/about"
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-16">
+    <div class="mb-10 text-center">
+      <h1 class="text-3xl sm:text-5xl font-black text-white font-mono mb-4">About Soul Virtues Extractor</h1>
+      <p class="text-gray-400 text-sm max-w-xl mx-auto">
+        A passion project dedicated to deep personality exploration through the lens of Undertale lore and philosophical virtues.
+      </p>
+    </div>
+
+    <div class="bg-[#121420] border border-gray-800 rounded-2xl p-6 sm:p-10 space-y-8 text-gray-300 text-sm leading-relaxed">
+      <div>
+        <h2 class="text-xl font-bold text-white font-mono mb-3 text-red-400">Our Mission</h2>
+        <p>
+          The Soul Virtues Extractor was built to provide an insightful, engaging, and multi-dimensional character assessment. While many online tests reduce human nature to simplistic single-label categories, we believe individuals are rich compositions of multiple virtues that shine in different moments of life.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-bold text-white font-mono mb-3 text-amber-400">Fan Tribute & Inspiration</h2>
+        <p class="mb-3">
+          This project is an independent fan creation inspired by the rich themes and seven human soul colors from the legendary indie video game <em>Undertale</em>, created by Toby Fox, as well as the community psychometric models developed around the Soul Virtues assessment.
+        </p>
+        <p>
+          <em>Undertale</em> is a registered trademark of Toby Fox. This website is a fan tribute and is not officially affiliated with, sponsored by, or endorsed by Toby Fox or Royal Sciences.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-bold text-white font-mono mb-3 text-emerald-400">Privacy & Transparency</h2>
+        <p>
+          We strongly believe in modern web privacy. Our 66-question quiz performs all mathematical tallying, normalization, and card generation directly inside your web browser. No responses, scores, or identifiers are logged or sent to any external server.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-xl font-bold text-white font-mono mb-3 text-cyan-400">Contact & Feedback</h2>
+        <p>
+          We welcome community suggestions, feedback, and questions. You can contact the creator at: <a href="mailto:tangjei414@gmail.com" class="text-cyan-400 underline font-mono">tangjei414@gmail.com</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+</Layout>
+

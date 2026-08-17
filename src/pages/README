@@ -1,0 +1,13 @@
+# pages
+- 用途：Astro 静态页面路由文件
+- 关键入口：index.astro
+- 边界/依赖：依赖 layouts/Layout.astro 与各类 components 组件
+> 一旦本目录内容变化，请更新本文件
+
+## Files
+- index.astro：首页，包含 66 题测试、1500+ 词 SEO 详解、七美德科普与 FAQ
+- about.astro：关于我们与同人致敬说明页面
+- privacy.astro：零收集与本地存储隐私协议页面
+- terms.astro：服务条款与免责声明页面
+- contact.astro：联系方式与反馈渠道页面
+

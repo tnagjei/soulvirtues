@@ -1,0 +1,46 @@
+---
+// input: None (static Contact page)
+// output: Clear Contact page with email link and feedback information
+// pos: src/pages/contact.astro (更新规则：文件变更需同步本注释与所属目录 README)
+
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Contact Us - Soul Virtues Extractor"
+  description="Contact the team behind Soul Virtues Extractor (soulvirtues.org) for feedback, bug reports, and inquiries."
+  canonicalUrl="https://soulvirtues.org/contact"
+>
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-16 text-center">
+    <h1 class="text-3xl sm:text-5xl font-black text-white font-mono mb-4">Contact Us</h1>
+    <p class="text-gray-400 text-sm max-w-md mx-auto mb-10">
+      Have a question, feedback about the 66-question test, or a suggestion? We would love to hear from you.
+    </p>
+
+    <div class="bg-[#121420] border border-gray-800 rounded-2xl p-8 sm:p-12 text-left space-y-6">
+      <div class="flex items-center gap-4 border-b border-gray-800 pb-6">
+        <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 flex items-center justify-center flex-shrink-0">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="text-white font-bold font-mono text-base">Direct Email</h3>
+          <a href="mailto:tangjei414@gmail.com" class="text-red-400 font-mono text-sm hover:underline">
+            tangjei414@gmail.com
+          </a>
+        </div>
+      </div>
+
+      <div class="space-y-3 text-xs text-gray-400 leading-relaxed">
+        <p>
+          <strong class="text-gray-300">Feedback:</strong> If you noticed an issue with question phrasing, percentage calculations, or mobile layout, please include your device model and browser type.
+        </p>
+        <p>
+          <strong class="text-gray-300">Response Time:</strong> We aim to reply to all legitimate inquiries within 24-48 business hours.
+        </p>
+      </div>
+    </div>
+  </div>
+</Layout>
+

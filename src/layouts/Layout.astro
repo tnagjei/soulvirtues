@@ -1,0 +1,71 @@
+---
+// input: Title, description, canonicalUrl, ogImage, structuredData schema
+// output: Full HTML page shell with SEO meta tags, fonts, styles, header, and footer
+// pos: src/layouts/Layout.astro (更新规则：文件变更需同步本注释与所属目录 README)
+
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalUrl?: string;
+  ogImage?: string;
+  structuredData?: Record<string, any>;
+}
+
+const {
+  title = "Soul Virtues Extractor - Free 66-Question Soul Virtues Test",
+  description = "Take the free 66-question Soul Virtues Extractor test. Discover your Undertale SOUL trait and color percentage across Determination, Bravery, and more.",
+  canonicalUrl = "https://soulvirtues.org/",
+  ogImage = "https://soulvirtues.org/og-image.png",
+  structuredData,
+} = Astro.props;
+
+const siteUrl = "https://soulvirtues.org";
+const fullCanonical = canonicalUrl.startsWith("http") ? canonicalUrl : `${siteUrl}${canonicalUrl}`;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={fullCanonical} />
+
+    <!-- Open Graph (社交分享元数据) -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={fullCanonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Soul Virtues Extractor" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter Card (推特分享卡片) -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Favicon & Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Structured Data (Schema.org JSON-LD 结构化数据) -->
+    {structuredData && (
+      <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+    )}
+  </head>
+  <body class="bg-[#0b0c13] text-gray-100 min-h-screen flex flex-col font-sans selection:bg-red-500 selection:text-white">
+    <Header />
+    <main class="flex-grow">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
+

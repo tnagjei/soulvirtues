@@ -1,0 +1,56 @@
+---
+// input: None (static page footer)
+// output: Comprehensive footer with copyright, links, and fan-made disclaimer
+// pos: src/components/Footer.astro (更新规则：文件变更需同步本注释与所属目录 README)
+---
+
+<footer class="bg-[#07080c] border-t border-gray-800 text-gray-400 text-sm mt-20">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+      <div class="md:col-span-2">
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-6 h-6 text-red-500">
+            <svg viewBox="0 0 16 16" fill="currentColor" class="w-full h-full" shape-rendering="crispEdges">
+              <path d="M2 0h4v1H2zm8 0h4v1h-4zM1 1h6v1H1zm8 0h6v1H9zM0 2h7v1H0zm9 2h7v1H9zM0 3h7v1H0zm9 3h7v1H9zM0 4h16v6H0zm2 6h12v2H2zm2 2h8v2H4zm2 2h4v2H6z"/>
+            </svg>
+          </div>
+          <span class="font-bold text-white tracking-wider font-mono text-base">SOUL VIRTUES EXTRACTOR</span>
+        </div>
+        <p class="text-gray-400 text-xs leading-relaxed max-w-md">
+          A free, comprehensive 66-question assessment exploring the seven human soul virtues inspired by the Undertale universe. All calculations are performed 100% locally in your browser.
+        </p>
+        <p class="text-gray-500 text-xs mt-3">
+          Contact: <a href="mailto:tangjei414@gmail.com" class="text-gray-400 hover:text-white underline">tangjei414@gmail.com</a>
+        </p>
+      </div>
+
+      <div>
+        <h4 class="text-white font-semibold text-xs uppercase tracking-wider mb-3">Explore</h4>
+        <ul class="space-y-2 text-xs">
+          <li><a href="/#test" class="hover:text-white transition-colors">Soul Virtues Test (测验)</a></li>
+          <li><a href="/#virtues" class="hover:text-white transition-colors">7 Soul Traits (七美德)</a></li>
+          <li><a href="/#scoring" class="hover:text-white transition-colors">Scoring Logic (计分算法)</a></li>
+          <li><a href="/#faq" class="hover:text-white transition-colors">Frequently Asked Questions</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-white font-semibold text-xs uppercase tracking-wider mb-3">Legal & About</h4>
+        <ul class="space-y-2 text-xs">
+          <li><a href="/about" class="hover:text-white transition-colors">About Us (关于我们)</a></li>
+          <li><a href="/privacy" class="hover:text-white transition-colors">Privacy Policy (隐私协议)</a></li>
+          <li><a href="/terms" class="hover:text-white transition-colors">Terms of Service (服务条款)</a></li>
+          <li><a href="/contact" class="hover:text-white transition-colors">Contact (联系方式)</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="border-t border-gray-800/80 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
+      <p>© 2026 Soul Virtues Extractor (soulvirtues.org). All rights reserved.</p>
+      <p class="text-center sm:text-right max-w-lg text-[11px] text-gray-600">
+        Disclaimer: This is an independent fan-made analytical tool. Undertale is a trademark of Toby Fox. This website is not officially affiliated with or endorsed by Toby Fox or original game creators.
+      </p>
+    </div>
+  </div>
+</footer>
+

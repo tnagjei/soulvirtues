@@ -1,0 +1,187 @@
+---
+// input: None (primary landing page)
+// output: Full SSR/SSG page with hero, interactive quiz, 7-soul encyclopedia, scoring guide, and FAQs
+// pos: src/pages/index.astro (更新规则：文件变更需同步本注释与所属目录 README)
+
+import Layout from '../layouts/Layout.astro';
+import Quiz from '../components/Quiz.astro';
+import SoulCard from '../components/SoulCard.astro';
+import FAQ, { FAQS } from '../components/FAQ.astro';
+import { SOULS, SOUL_CODES } from '../data/souls';
+
+const pageTitle = "Soul Virtues Extractor - Free 66-Question Soul Virtues Test";
+const pageDescription = "Take the free 66-question Soul Virtues Extractor test. Discover your Undertale SOUL trait and color percentage across Determination, Bravery, Justice, and more.";
+
+// Schema.org JSON-LD (结构化数据)
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://soulvirtues.org/#website",
+      "url": "https://soulvirtues.org/",
+      "name": "Soul Virtues Extractor",
+      "description": pageDescription
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://soulvirtues.org/#app",
+      "name": "Soul Virtues Extractor & Undertale Soul Test",
+      "applicationCategory": "EntertainmentApplication",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://soulvirtues.org/#faq",
+      "mainEntity": FAQS.map(f => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": f.a
+        }
+      }))
+    }
+  ]
+};
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  canonicalUrl="https://soulvirtues.org/"
+  structuredData={structuredData}
+>
+  <!-- Hero Section (首屏标题与核心引导) -->
+  <section class="relative pt-12 pb-8 px-4 sm:px-6 text-center max-w-5xl mx-auto overflow-hidden">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-mono font-semibold tracking-wider uppercase mb-6">
+      <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+      Official 66-Question Trait Assessment
+    </div>
+
+    <h1 class="text-3xl sm:text-6xl font-black text-white font-mono tracking-tight leading-tight mb-4">
+      SOUL VIRTUES <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-amber-400 to-purple-500">EXTRACTOR</span>
+    </h1>
+
+    <p class="text-base sm:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-6 font-sans">
+      Take the free 66-question <strong class="text-white">Soul Virtues Test</strong> to discover your Undertale SOUL profile across Determination, Bravery, Justice, Kindness, Patience, Integrity, and Perseverance.
+    </p>
+
+    <p class="text-xs sm:text-sm text-gray-400 max-w-2xl mx-auto mb-2 leading-normal">
+      Which Undertale soul are you? Complete the assessment below to reveal your exact multi-dimensional trait breakdown and custom pixel-art soul card.
+    </p>
+  </section>
+
+  <!-- Interactive Quiz Component (核心答题与测试组件) -->
+  <section id="test" class="px-4 sm:px-6 scroll-mt-20">
+    <Quiz />
+  </section>
+
+  <!-- Section 1: What is Soul Virtues Extractor (深入介绍与四层意图覆盖) -->
+  <section class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80">
+    <div class="prose prose-invert max-w-none">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-wide mb-6 flex items-center gap-3">
+        <span class="text-red-500">#</span> What Is the Soul Virtues Extractor?
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-gray-300 text-sm sm:text-base leading-relaxed">
+        <div>
+          <p class="mb-4">
+            The <strong class="text-white">Soul Virtues Extractor</strong> is a weighted psychometric personality assessment designed to measure human character through the seven virtues and soul colors established in the beloved indie game <em>Undertale</em>.
+          </p>
+          <p class="mb-4">
+            Traditional online quizzes force you into a single rigid box with questions like "What is your Undertale soul color?" In contrast, our <strong>Undertale Soul Test</strong> recognizes that human personality is multi-faceted. Every person possesses a unique blend of all seven human soul traits in differing proportions.
+          </p>
+        </div>
+        <div>
+          <p class="mb-4">
+            By answering 66 calibrated statements, you receive a full <strong>7-Dimension Soul Virtues Profile</strong>. Each response affects multiple traits simultaneously, reflecting how real-world decisions involve trade-offs between courage, justice, empathy, discipline, and resolve.
+          </p>
+          <p>
+            Whether you are searching for an <strong>Undertale Soul Quiz</strong>, exploring <strong>Deltarune Soul Test</strong> theories, or seeking deep insight into your personal strengths, this assessment provides transparent, nuanced, and shareable results.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: The Seven Human Soul Virtues & Colors (七大灵魂特质详解) -->
+  <section id="virtues" class="py-16 px-4 sm:px-6 max-w-6xl mx-auto border-t border-gray-800/80 scroll-mt-20">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <h2 class="text-2xl sm:text-4xl font-extrabold text-white font-mono tracking-wide mb-3">
+        The Seven Human Soul Virtues & Colors
+      </h2>
+      <p class="text-xs sm:text-sm text-gray-400">
+        In the world of Undertale, human souls are categorized into seven distinctive colors, each representing a core moral virtue and behavioral drive.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {SOUL_CODES.map((code) => (
+        <SoulCard soul={SOULS[code]} />
+      ))}
+    </div>
+  </section>
+
+  <!-- Section 3: How the 66-Question Test & Scoring System Works (算法与计分说明) -->
+  <section id="scoring" class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80 scroll-mt-20">
+    <div class="bg-[#121420] border border-gray-800 rounded-2xl p-6 sm:p-10">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-wide mb-6 flex items-center gap-3">
+        <span class="text-emerald-400">#</span> How the Scoring Algorithm Works
+      </h2>
+
+      <div class="space-y-6 text-sm text-gray-300 leading-relaxed">
+        <p>
+          Unlike standard tests that simply add +1 to a single category, the <strong>Soul Virtues Extractor</strong> uses a continuous mathematical scoring matrix:
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 my-6">
+          <div class="bg-[#0b0c13] border border-gray-800 p-4 rounded-xl">
+            <div class="text-xs font-mono font-bold text-red-400 uppercase mb-1">Multi-Trait Weighting</div>
+            <p class="text-xs text-gray-400">
+              Each statement can contribute positively to primary virtues while deducting points from conflicting virtues.
+            </p>
+          </div>
+
+          <div class="bg-[#0b0c13] border border-gray-800 p-4 rounded-xl">
+            <div class="text-xs font-mono font-bold text-cyan-400 uppercase mb-1">50% Neutral Baseline</div>
+            <p class="text-xs text-gray-400">
+              50% represents exact neutrality. Scores above 50% indicate natural alignment, while scores below 50% reflect lower preference.
+            </p>
+          </div>
+
+          <div class="bg-[#0b0c13] border border-gray-800 p-4 rounded-xl">
+            <div class="text-xs font-mono font-bold text-purple-400 uppercase mb-1">Non-Linear Power Curve</div>
+            <p class="text-xs text-gray-400">
+              A mathematical power curve (factor 0.6) prevents clustering near the center, delivering distinct and expressive percentages.
+            </p>
+          </div>
+        </div>
+
+        <p>
+          Neutral responses attribute 0 points, functioning as an effortless skip mechanism. Honest responses, especially regarding personal flaws and tough choices, produce the most accurate character profile.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: FAQ (常见问题解答) -->
+  <section id="faq" class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80 scroll-mt-20">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <h2 class="text-2xl sm:text-4xl font-extrabold text-white font-mono tracking-wide mb-3">
+        Frequently Asked Questions
+      </h2>
+      <p class="text-xs sm:text-sm text-gray-400">
+        Everything you need to know about the Soul Virtues Extractor, Undertale soul traits, and test scoring.
+      </p>
+    </div>
+
+    <FAQ />
+  </section>
+</Layout>
+

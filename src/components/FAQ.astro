@@ -1,0 +1,59 @@
+---
+// input: None (static FAQ accordion list)
+// output: Accessible accordion list addressing the top 8 search intent questions
+// pos: src/components/FAQ.astro (更新规则：文件变更需同步本注释与所属目录 README)
+
+export const FAQS = [
+  {
+    q: "What is the Soul Virtues Extractor? (什么是灵魂美德提取器？)",
+    a: "The Soul Virtues Extractor is a weighted, multi-dimensional assessment featuring 66 questions based on the seven human soul traits from Undertale: Determination (Red), Bravery (Orange), Justice (Yellow), Kindness (Green), Patience (Cyan), Integrity (Blue), and Perseverance (Purple). Unlike simple single-result quizzes, it calculates your complete percentage distribution across all seven virtues."
+  },
+  {
+    q: "How many questions are in the Soul Virtues Test? (灵魂美德测试有多少题？)",
+    a: "The full test consists of 66 carefully calibrated statements. Each question uses a 5-point Likert scale (from Strongly Disagree to Strongly Agree) or specialized response choices. Answering Neutral acts as a skip without adding or subtracting points."
+  },
+  {
+    q: "How is my score calculated across all 7 virtues? (七项分数是如何计算的？)",
+    a: "Every answer adds or subtracts weighted points across multiple virtues simultaneously. Total raw scores are normalized against the theoretical maximum for each virtue and adjusted via a mathematical power curve (curve factor 0.6) where 50% represents exact neutrality. Scores above 50% indicate positive affinity, while scores below 50% represent lower alignment."
+  },
+  {
+    q: "Can I have more than one dominant Soul Virtue? (我可以同时拥有多种主导美德吗？)",
+    a: "Yes! Humans are complex. Your final results show your full percentage profile across all 7 traits. Many people find they are close in two or three virtues (for example, High Kindness paired with High Integrity)."
+  },
+  {
+    q: "Is this an Undertale Soul Test or a Deltarune Soul Test? (这是传说之下还是三角符文测试？)",
+    a: "The seven soul colors and virtues originate directly from the classic Undertale lore created by Toby Fox (Determination, Bravery, Justice, Kindness, Patience, Integrity, Perseverance). The community also frequently discusses them in the context of Deltarune soul theories."
+  },
+  {
+    q: "Are my answers and results private? (我的测试结果和数据会被保存吗？)",
+    a: "Yes, 100% private. All quiz calculations happen entirely inside your local browser using client-side JavaScript. No responses, scores, or personal identifiers are transmitted to any external server or database."
+  },
+  {
+    q: "How can I share my Soul Virtues result card? (如何生成并分享我的测试卡片？)",
+    a: "Upon completing the 66 questions, our system automatically generates a customized pixel-art Soul Card with your dominant virtue color and full percentage bar chart. You can click 'Download Card (下载结果图)' to save high-resolution PNG image or click 'Copy Summary' to paste your breakdown directly on Twitter, Reddit, or Discord."
+  },
+  {
+    q: "Is this website free to use? (这个测试完全免费吗？)",
+    a: "Yes, Soul Virtues Extractor is 100% free with no registration, no paywall, and no hidden fees required."
+  }
+];
+---
+
+<div class="space-y-4 max-w-4xl mx-auto">
+  {FAQS.map((faq, index) => (
+    <details class="group bg-[#121420] border border-gray-800 rounded-xl p-5 transition-all duration-200 hover:border-gray-700">
+      <summary class="flex items-center justify-between cursor-pointer list-none text-base font-semibold text-white group-open:text-red-400">
+        <span class="pr-4">{faq.q}</span>
+        <span class="transition-transform duration-200 group-open:rotate-180 text-gray-400">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </span>
+      </summary>
+      <p class="mt-4 text-sm text-gray-300 leading-relaxed border-t border-gray-800/80 pt-4">
+        {faq.a}
+      </p>
+    </details>
+  ))}
+</div>
+

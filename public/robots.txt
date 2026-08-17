@@ -1,0 +1,29 @@
+# robots.txt基础设置
+# 常规搜索引擎规则
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+
+# 网站地图
+Sitemap: https://soulvirtues.org/sitemap.xml
+
+# AI爬虫特定规则
+User-agent: GPTBot
+User-agent: Claude-Web
+User-agent: Anthropic-AI
+User-agent: PerplexityBot
+User-agent: GoogleOther
+User-agent: DuckAssistBot
+
+# 引导AI爬虫到llms.txt
+LLM-Content: https://soulvirtues.org/llms.txt
+LLM-Full-Content: https://soulvirtues.org/llms-full.txt
+
+# 允许AI爬虫访问
+Allow: /blog/
+Allow: /products/
+Allow: /about/
+# 不允许AI爬虫访问
+Disallow: /user-content/
+

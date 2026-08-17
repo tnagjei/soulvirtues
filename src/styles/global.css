@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@theme {
+  --color-soul-red: #ff0000;
+  --color-soul-orange: #fca600;
+  --color-soul-yellow: #ffff00;
+  --color-soul-green: #00c000;
+  --color-soul-cyan: #42fcff;
+  --color-soul-blue: #003cff;
+  --color-soul-purple: #d400d4;
+}
+
+body {
+  background-color: #0d0e15;
+  color: #f3f4f6;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
