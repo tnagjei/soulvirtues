@@ -1,6 +1,6 @@
 ---
 // input: None (primary landing page)
-// output: Full SSR/SSG page with hero, interactive quiz, 7-soul encyclopedia, scoring guide, and FAQs
+// output: Full SSR/SSG page fully aligned with the 4-tier keyword strategy and semantic H2 sections
 // pos: src/pages/index.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import Layout from '../layouts/Layout.astro';
@@ -82,7 +82,7 @@ const structuredData = {
     <Quiz />
   </section>
 
-  <!-- Section 1: What is Soul Virtues Extractor -->
+  <!-- Section 1: What Is the Soul Virtues Extractor? -->
   <section class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80">
     <div class="prose prose-invert max-w-none">
       <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-wide mb-6 flex items-center gap-3">
@@ -92,7 +92,7 @@ const structuredData = {
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-gray-300 text-sm sm:text-base leading-relaxed">
         <div>
           <p class="mb-4">
-            The <strong class="text-white">Soul Virtues Extractor</strong> is a weighted psychometric personality assessment designed to measure human character through the seven virtues and soul colors established in the beloved indie game <em>Undertale</em>.
+            The <strong class="text-white">Soul Virtues Extractor</strong> is a 66-question Undertale-inspired soul test and personality quiz designed to measure seven human soul virtues.
           </p>
           <p class="mb-4">
             Traditional online quizzes force you into a single rigid box with questions like "What is your Undertale soul color?" In contrast, our <strong>Undertale Soul Test</strong> recognizes that human personality is multi-faceted. Every person possesses a unique blend of all seven human soul traits in differing proportions.
@@ -110,11 +110,11 @@ const structuredData = {
     </div>
   </section>
 
-  <!-- Section 2: The Seven Human Soul Virtues & Colors -->
+  <!-- Section 2: What Are the Seven Undertale Soul Traits? -->
   <section id="virtues" class="py-16 px-4 sm:px-6 max-w-6xl mx-auto border-t border-gray-800/80 scroll-mt-20">
     <div class="text-center max-w-3xl mx-auto mb-12">
       <h2 class="text-2xl sm:text-4xl font-extrabold text-white font-mono tracking-wide mb-3">
-        The Seven Human Soul Virtues & Colors
+        What Are the Seven Undertale Soul Traits?
       </h2>
       <p class="text-xs sm:text-sm text-gray-400">
         In the world of Undertale, human souls are categorized into seven distinctive colors, each representing a core moral virtue and behavioral drive.
@@ -128,7 +128,50 @@ const structuredData = {
     </div>
   </section>
 
-  <!-- Section 3: How the 66-Question Test & Scoring System Works -->
+  <!-- Section 3: What Is Your Undertale Soul Color? -->
+  <section class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80">
+    <div class="bg-[#121420] border border-gray-800 rounded-2xl p-6 sm:p-10">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-wide mb-4 flex items-center gap-3">
+        <span class="text-amber-400">#</span> What Is Your Undertale Soul Color?
+      </h2>
+      <p class="text-sm sm:text-base text-gray-300 leading-relaxed mb-6">
+        Your highest Soul Virtue determines your leading soul color, while the complete result shows all seven virtue percentages. Rather than assigning a simplistic single color, this assessment reveals how your dominant soul color interacts with supporting virtues:
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm text-gray-300">
+        <div class="p-4 bg-[#0b0c13] rounded-xl border border-gray-800/80">
+          <span class="font-bold text-red-400 font-mono">RED SOUL · Determination</span>
+          <p class="text-gray-400 text-xs mt-1">Unyielding resolve to push forward when all odds are stacked against you.</p>
+        </div>
+        <div class="p-4 bg-[#0b0c13] rounded-xl border border-gray-800/80">
+          <span class="font-bold text-orange-400 font-mono">ORANGE SOUL · Bravery</span>
+          <p class="text-gray-400 text-xs mt-1">Taking direct action and leading the charge despite palpable fear.</p>
+        </div>
+        <div class="p-4 bg-[#0b0c13] rounded-xl border border-gray-800/80">
+          <span class="font-bold text-yellow-400 font-mono">YELLOW SOUL · Justice</span>
+          <p class="text-gray-400 text-xs mt-1">Uncompromising stand for fairness, equality, and correcting wrongdoing.</p>
+        </div>
+        <div class="p-4 bg-[#0b0c13] rounded-xl border border-gray-800/80">
+          <span class="font-bold text-green-400 font-mono">GREEN SOUL · Kindness</span>
+          <p class="text-gray-400 text-xs mt-1">Active empathy, care, and choosing compassion over conflict.</p>
+        </div>
+        <div class="p-4 bg-[#0b0c13] rounded-xl border border-gray-800/80">
+          <span class="font-bold text-cyan-400 font-mono">CYAN SOUL · Patience</span>
+          <p class="text-gray-400 text-xs mt-1">Emotional serenity, calm endurance, and waiting for the right moment.</p>
+        </div>
+        <div class="p-4 bg-[#0b0c13] rounded-xl border border-gray-800/80">
+          <span class="font-bold text-blue-400 font-mono">BLUE SOUL · Integrity</span>
+          <p class="text-gray-400 text-xs mt-1">Upholding moral honesty and staying true to your core principles.</p>
+        </div>
+        <div class="p-4 bg-[#0b0c13] rounded-xl border border-gray-800/80 sm:col-span-2">
+          <span class="font-bold text-purple-400 font-mono">PURPLE SOUL · Perseverance</span>
+          <p class="text-gray-400 text-xs mt-1">Quiet discipline, methodical study, and finishing what you started.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: How the Scoring Algorithm Works -->
   <section id="scoring" class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80 scroll-mt-20">
     <div class="bg-[#121420] border border-gray-800 rounded-2xl p-6 sm:p-10">
       <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-wide mb-6 flex items-center gap-3">
@@ -170,7 +213,7 @@ const structuredData = {
     </div>
   </section>
 
-  <!-- Section 4: FAQ -->
+  <!-- Section 5: FAQ -->
   <section id="faq" class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80 scroll-mt-20">
     <div class="text-center max-w-3xl mx-auto mb-12">
       <h2 class="text-2xl sm:text-4xl font-extrabold text-white font-mono tracking-wide mb-3">
