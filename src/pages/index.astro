@@ -1,6 +1,6 @@
 ---
 // input: None (primary landing page)
-// output: Full SSR/SSG page fully aligned with the 4-tier keyword strategy and semantic H2 sections
+// output: Full SSR/SSG page fully aligned with AGENTS.md (What, Why, How, Features, FAQ, H1+H2+H3 structure)
 // pos: src/pages/index.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import Layout from '../layouts/Layout.astro';
@@ -110,7 +110,58 @@ const structuredData = {
     </div>
   </section>
 
-  <!-- Section 2: What Are the Seven Undertale Soul Traits? -->
+  <!-- Section 2: Why Take the Soul Virtues Extractor? (新增 Why 结构与 H3 层级) -->
+  <section class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80">
+    <div class="prose prose-invert max-w-none">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-wide mb-6 flex items-center gap-3">
+        <span class="text-purple-400">#</span> Why Take the Soul Virtues Extractor?
+      </h2>
+
+      <p class="text-sm sm:text-base text-gray-300 leading-relaxed mb-8">
+        Most internet quizzes treat personality as a multiple-choice lottery. Here is why the 66-question Soul Virtues assessment delivers a genuinely richer and more reflective self-discovery experience:
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div class="bg-[#121420] border border-gray-800 p-6 rounded-xl">
+          <h3 class="text-base font-bold text-white font-mono mb-2 text-red-400">
+            1. Beyond Single-Label Stereotypes
+          </h3>
+          <p class="text-xs sm:text-sm text-gray-400 leading-relaxed">
+            Real individuals cannot be reduced to a single word. Our continuous mathematical model captures the nuance of having strong Determination alongside deep Kindness, highlighting how your primary and secondary virtues complement each other.
+          </p>
+        </div>
+
+        <div class="bg-[#121420] border border-gray-800 p-6 rounded-xl">
+          <h3 class="text-base font-bold text-white font-mono mb-2 text-amber-400">
+            2. Illuminating Inner Value Conflicts
+          </h3>
+          <p class="text-xs sm:text-sm text-gray-400 leading-relaxed">
+            Every difficult choice involves ethical friction: should you speak out immediately (Bravery) or pause and observe (Patience)? By deducting conflicting weights when appropriate, the test reveals your instinctive priorities under pressure.
+          </p>
+        </div>
+
+        <div class="bg-[#121420] border border-gray-800 p-6 rounded-xl">
+          <h3 class="text-base font-bold text-white font-mono mb-2 text-emerald-400">
+            3. Philosophical & Narrative Depth
+          </h3>
+          <p class="text-xs sm:text-sm text-gray-400 leading-relaxed">
+            Rooted in the timeless themes of Toby Fox's Undertale, each soul virtue reflects an enduring human philosophy: standing firm through adversity, upholding integrity in silence, or choosing mercy in a cynical world.
+          </p>
+        </div>
+
+        <div class="bg-[#121420] border border-gray-800 p-6 rounded-xl">
+          <h3 class="text-base font-bold text-white font-mono mb-2 text-cyan-400">
+            4. 100% Client-Side Privacy Guarantee
+          </h3>
+          <p class="text-xs sm:text-sm text-gray-400 leading-relaxed">
+            Your personal reflections belong to you alone. All 66 answers are calculated entirely inside your device's web browser, with zero server tracking, zero advertising cookies, and zero mandatory registration.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: What Are the Seven Undertale Soul Traits? -->
   <section id="virtues" class="py-16 px-4 sm:px-6 max-w-6xl mx-auto border-t border-gray-800/80 scroll-mt-20">
     <div class="text-center max-w-3xl mx-auto mb-12">
       <h2 class="text-2xl sm:text-4xl font-extrabold text-white font-mono tracking-wide mb-3">
@@ -128,7 +179,7 @@ const structuredData = {
     </div>
   </section>
 
-  <!-- Section 3: What Is Your Undertale Soul Color? -->
+  <!-- Section 4: What Is Your Undertale Soul Color? -->
   <section class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80">
     <div class="bg-[#121420] border border-gray-800 rounded-2xl p-6 sm:p-10">
       <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-wide mb-4 flex items-center gap-3">
@@ -171,7 +222,7 @@ const structuredData = {
     </div>
   </section>
 
-  <!-- Section 4: How the Scoring Algorithm Works -->
+  <!-- Section 5: How the Scoring Algorithm Works -->
   <section id="scoring" class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80 scroll-mt-20">
     <div class="bg-[#121420] border border-gray-800 rounded-2xl p-6 sm:p-10">
       <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-wide mb-6 flex items-center gap-3">
@@ -185,21 +236,21 @@ const structuredData = {
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 my-6">
           <div class="bg-[#0b0c13] border border-gray-800 p-4 rounded-xl">
-            <div class="text-xs font-mono font-bold text-red-400 uppercase mb-1">Multi-Trait Weighting</div>
+            <h3 class="text-xs font-mono font-bold text-red-400 uppercase mb-1">Multi-Trait Weighting</h3>
             <p class="text-xs text-gray-400">
               Each statement can contribute positively to primary virtues while deducting points from conflicting virtues.
             </p>
           </div>
 
           <div class="bg-[#0b0c13] border border-gray-800 p-4 rounded-xl">
-            <div class="text-xs font-mono font-bold text-cyan-400 uppercase mb-1">50% Neutral Baseline</div>
+            <h3 class="text-xs font-mono font-bold text-cyan-400 uppercase mb-1">50% Neutral Baseline</h3>
             <p class="text-xs text-gray-400">
               50% represents exact neutrality. Scores above 50% indicate natural alignment, while scores below 50% reflect lower preference.
             </p>
           </div>
 
           <div class="bg-[#0b0c13] border border-gray-800 p-4 rounded-xl">
-            <div class="text-xs font-mono font-bold text-purple-400 uppercase mb-1">Non-Linear Power Curve</div>
+            <h3 class="text-xs font-mono font-bold text-purple-400 uppercase mb-1">Non-Linear Power Curve</h3>
             <p class="text-xs text-gray-400">
               A mathematical power curve (factor 0.6) prevents clustering near the center, delivering distinct and expressive percentages.
             </p>
@@ -213,7 +264,45 @@ const structuredData = {
     </div>
   </section>
 
-  <!-- Section 5: FAQ -->
+  <!-- Section 6: Key Features (核心特性概览) -->
+  <section class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80">
+    <div class="text-center max-w-3xl mx-auto mb-10">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-wide mb-3">
+        Key Features & Highlights
+      </h2>
+      <p class="text-xs sm:text-sm text-gray-400">
+        Engineered for speed, precision, and privacy.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
+      <div class="bg-[#121420] border border-gray-800 p-5 rounded-xl">
+        <div class="text-2xl mb-2 text-red-400 font-mono">66</div>
+        <h3 class="text-sm font-bold text-white mb-1">Calibrated Items</h3>
+        <p class="text-xs text-gray-400">Carefully structured statements measuring moral trade-offs.</p>
+      </div>
+
+      <div class="bg-[#121420] border border-gray-800 p-5 rounded-xl">
+        <div class="text-2xl mb-2 text-yellow-400 font-mono">7</div>
+        <h3 class="text-sm font-bold text-white mb-1">Full Dimensions</h3>
+        <p class="text-xs text-gray-400">Continuous percentage scores for every Undertale soul trait.</p>
+      </div>
+
+      <div class="bg-[#121420] border border-gray-800 p-5 rounded-xl">
+        <div class="text-2xl mb-2 text-green-400 font-mono">PNG</div>
+        <h3 class="text-sm font-bold text-white mb-1">Instant Share Card</h3>
+        <p class="text-xs text-gray-400">Client-side Canvas rendering ready for Twitter and Discord.</p>
+      </div>
+
+      <div class="bg-[#121420] border border-gray-800 p-5 rounded-xl">
+        <div class="text-2xl mb-2 text-cyan-400 font-mono">0%</div>
+        <h3 class="text-sm font-bold text-white mb-1">Tracking or Ads</h3>
+        <p class="text-xs text-gray-400">100% private, free, and runs purely inside your browser.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 7: FAQ -->
   <section id="faq" class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80 scroll-mt-20">
     <div class="text-center max-w-3xl mx-auto mb-12">
       <h2 class="text-2xl sm:text-4xl font-extrabold text-white font-mono tracking-wide mb-3">
