@@ -10,7 +10,7 @@ Soul Virtues Extractor provides an interactive, client-side psychometric persona
 
 ## Resources
 - [FAQ](https://soulvirtues.org/#faq): Answers to common questions regarding scoring, soul colors, and card sharing
-- [Contact](https://soulvirtues.org/contact): Get in touch with the creator via tangjei414@gmail.com
+- [Contact](https://soulvirtues.org/contact): Get in touch with the creator via contact@soulvirtues.org
 
 ## Legal & About
 - [About Us](https://soulvirtues.org/about): Project background, fan tribute context, and privacy mission
