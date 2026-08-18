@@ -1,6 +1,6 @@
 ---
 // input: Title, description, canonicalUrl, ogImage, structuredData schema
-// output: Full HTML page shell with SEO meta tags, fonts, styles, header, footer, Google Analytics, Clarity analytics, and MakeThisBetter widget
+// output: Full HTML page shell with SEO meta tags, fonts, styles, header, footer, ambient background video, Google Analytics, Clarity analytics, and MakeThisBetter widget
 // pos: src/layouts/Layout.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import Header from '../components/Header.astro';
@@ -78,10 +78,35 @@ const fullCanonical = canonicalUrl.startsWith("http") ? canonicalUrl : `${siteUr
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
       })(window, document, "clarity", "script", "y44qd28h2p");
     </script>
+
+    <!-- 第三方广告代码 (5gvci) -->
+    <script is:inline src="https://5gvci.com/act/files/tag.min.js?z=11601328" data-cfasync="false" async></script>
+
+    <!-- 第三方广告代码 (nap5k) -->
+    <script is:inline>(function(s){s.dataset.zone='11601357',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
+    <!-- 第三方广告代码 (n6wxm) -->
+    <script is:inline>(function(s){s.dataset.zone='11601370',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
   </head>
-  <body class="bg-[#0b0c13] text-gray-100 min-h-screen flex flex-col font-sans selection:bg-red-500 selection:text-white">
+  <body class="bg-[#000000] text-gray-100 min-h-screen flex flex-col font-sans selection:bg-red-500 selection:text-white relative">
+    <!-- 第三方广告代码 (omg10) 隐藏 iframe：该链接是重定向/弹窗类 HTML 页面，必须用 iframe 加载（不能当 <script> 放 head），置于屏幕外 0 尺寸避免影响布局 -->
+    <iframe src="https://omg10.com/4/11601375" width="0" height="0" frameborder="0" scrolling="no" aria-hidden="true" style="position:absolute;width:0;height:0;border:0;overflow:hidden;"></iframe>
+
+    <!-- Ambient Void Video Background -->
+    <video
+      id="bg-video"
+      autoplay
+      loop
+      muted
+      playsinline
+      disablepictureinpicture
+      aria-hidden="true"
+    >
+      <source src="/background.mp4" type="video/mp4" />
+    </video>
+
     <Header />
-    <main class="flex-grow">
+    <main class="flex-grow relative z-10">
       <slot />
     </main>
     <Footer />
