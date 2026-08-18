@@ -6,8 +6,7 @@
 
 ## Files
 - Header.astro：全站顶部导航栏与 LOGO 区域
-- Footer.astro：全站底部版权、外链与免责声明
+- Footer.astro：全站底部版权、外链、免责声明与 MakeThisBetter 反馈看板链接
 - Quiz.astro：66 题交互式答题组件、进度条、结果展示与 Canvas 海报生成器
 - SoulCard.astro：七种灵魂特质单卡展示组件
 - FAQ.astro：可折叠常见问题解答组件
-
