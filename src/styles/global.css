@@ -11,20 +11,11 @@
   --color-soul-purple: #d535d9;
   --font-undertale: 'Determination Mono', 'Courier New', monospace;
   --font-undertale-ui: 'Determination Sans', 'Courier New', monospace;
+  /* 覆盖 Tailwind 默认等宽字体：全站 font-mono 类即游戏像素字体，无需逐处改类名 */
+  --font-mono: 'Determination Mono', 'Courier New', monospace;
 }
 
-:root {
-  --font-mono-pixel: 'Determination Mono', 'Courier New', monospace;
-  --font-ui-pixel: 'Determination Sans', 'Courier New', monospace;
-  --det: #ff0000;
-  --brv: #fca600;
-  --jus: #ffff00;
-  --knd: #00c000;
-  --pat: #42fcff;
-  --int: #003cff;
-  --per: #d535d9;
-}
-
+/* 关闭连字，避免像素字体被字体整形引擎改动 */
 * {
   font-variant-ligatures: none;
   -webkit-font-feature-settings: "liga" 0, "clig" 0, "calt" 0;
@@ -34,17 +25,21 @@
 body {
   background-color: #000000;
   color: #ffffff;
-  font-family: var(--font-mono-pixel);
-  -webkit-font-smoothing: none;
+  /* 正文默认走 sans 易读字体（Tailwind preflight），抗锯齿保留给正文 */
   -moz-osx-font-smoothing: grayscale;
-  image-rendering: pixelated;
 }
 
-/* Authentic Undertale Pixel Box */
+/* 仅像素/等宽字体关闭抗锯齿，保持锐利边缘；正文 sans 不受影响 */
+.font-mono,
+.font-undertale,
+.font-undertale-ui {
+  -webkit-font-smoothing: none;
+}
+
+/* Authentic Undertale Pixel Box（测验主容器：黑底白粗框） */
 .pixel-box {
   border: 6px solid #ffffff;
   background-color: #000000;
-  box-shadow: 0 0 0 2px #000000;
   position: relative;
 }
 
@@ -52,6 +47,30 @@ body {
   .pixel-box {
     border: 8px solid #ffffff;
   }
+}
+
+/* 全站统一像素卡片：黑底 + 白色方框 + 右侧硬投影（无圆角、无模糊阴影） */
+.pixel-card {
+  background-color: #000000;
+  border: 2px solid #ffffff;
+  box-shadow: 4px 4px 0 rgba(255, 255, 255, 0.15);
+}
+
+@media (min-width: 640px) {
+  .pixel-card {
+    border-width: 3px;
+  }
+}
+
+/* 次级网格小卡：灰框静息、白框悬停，层级低于 .pixel-card */
+.pixel-card-sub {
+  background-color: #000000;
+  border: 2px solid #374151;
+  transition: border-color 150ms;
+}
+
+.pixel-card-sub:hover {
+  border-color: #ffffff;
 }
 
 /* Typewriter Stable Text Structure */
