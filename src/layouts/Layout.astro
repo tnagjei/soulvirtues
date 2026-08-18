@@ -1,6 +1,6 @@
 ---
 // input: Title, description, canonicalUrl, ogImage, structuredData schema
-// output: Full HTML page shell with SEO meta tags, fonts, styles, header, footer, ambient background video, Google Analytics, Clarity analytics, and MakeThisBetter widget
+// output: Full HTML page shell with SEO meta tags, fonts, styles, header, footer, ambient background video, Google Analytics, Clarity analytics, MakeThisBetter widget, and deferred third-party ads (load on scroll/dwell)
 // pos: src/layouts/Layout.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import Header from '../components/Header.astro';
@@ -78,17 +78,8 @@ const fullCanonical = canonicalUrl.startsWith("http") ? canonicalUrl : `${siteUr
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
       })(window, document, "clarity", "script", "y44qd28h2p");
     </script>
-
-    <!-- 第三方广告代码 (5gvci) -->
-    <script is:inline src="https://5gvci.com/act/files/tag.min.js?z=11601328" data-cfasync="false" async></script>
-
-    <!-- 第三方广告代码 (nap5k) -->
-    <script is:inline>(function(s){s.dataset.zone='11601357',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
   </head>
   <body class="bg-black text-gray-100 min-h-screen flex flex-col font-sans selection:bg-red-500 selection:text-white relative">
-    <!-- 第三方广告代码 (omg10) 隐藏 iframe：该链接是重定向/弹窗类 HTML 页面，必须用 iframe 加载（不能当 <script> 放 head），置于屏幕外 0 尺寸避免影响布局 -->
-    <iframe src="https://omg10.com/4/11601375" width="0" height="0" frameborder="0" scrolling="no" aria-hidden="true" style="position:absolute;width:0;height:0;border:0;overflow:hidden;"></iframe>
-
     <!-- Ambient Void Video Background -->
     <video
       id="bg-video"
@@ -115,6 +106,64 @@ const fullCanonical = canonicalUrl.startsWith("http") ? canonicalUrl : `${siteUr
         projectKey: "mtb_proj_tkShbrm7MCZZmiyokM2gfV9HCiFt_Ak0",
         locale: "en",
       });
+    </script>
+
+    <!--
+      第三方广告（5gvci / nap5k / omg10）—— 延迟加载。
+      为什么：这三家是弹窗/浮动类广告，若一进首屏就加载会在移动端遮挡导航与按钮，
+      并触发 Google “侵入式插页广告”惩罚（移动端优先索引，直接伤排名）。
+      怎么做：用户向下滚动超过 250px、或停留超过 5 秒，才注入这三段广告代码，且只注入一次。
+      效果：首屏干净（Googlebot 不滚动/不停留，爬到的是无广告页面），变现往后挪、跳出率更低。
+      调参：SCROLL_TRIGGER_PX（滚动阈值）、DWELL_TRIGGER_MS（停留毫秒数）。
+    -->
+    <script is:inline>
+      (function () {
+        var SCROLL_TRIGGER_PX = 250; // 滚动超过此距离即加载广告
+        var DWELL_TRIGGER_MS = 5000; // 停留超过此时长即加载广告
+        var loaded = false;
+
+        function loadAds() {
+          if (loaded) return;
+          loaded = true;
+
+          // 5gvci 弹窗/浮动广告
+          var s1 = document.createElement('script');
+          s1.src = 'https://5gvci.com/act/files/tag.min.js?z=11601328';
+          s1.setAttribute('data-cfasync', 'false');
+          s1.async = true;
+          document.head.appendChild(s1);
+
+          // nap5k 浮动广告（复刻原内联注入逻辑：data-zone + 追加到 body）
+          var s2 = document.createElement('script');
+          s2.setAttribute('data-zone', '11601357');
+          s2.src = 'https://nap5k.com/tag.min.js';
+          document.body.appendChild(s2);
+
+          // omg10 隐藏 iframe（重定向/弹窗类 HTML，必须用 iframe 加载，置于屏幕外 0 尺寸）
+          var f = document.createElement('iframe');
+          f.src = 'https://omg10.com/4/11601375';
+          f.width = '0';
+          f.height = '0';
+          f.setAttribute('frameborder', '0');
+          f.setAttribute('scrolling', 'no');
+          f.setAttribute('aria-hidden', 'true');
+          f.style.cssText = 'position:absolute;width:0;height:0;border:0;overflow:hidden;';
+          document.body.appendChild(f);
+        }
+
+        // 停留超时触发
+        var dwellTimer = setTimeout(loadAds, DWELL_TRIGGER_MS);
+
+        // 滚动触发（先到先生效，二者只触发一次）
+        function onScroll() {
+          if (window.scrollY > SCROLL_TRIGGER_PX) {
+            clearTimeout(dwellTimer);
+            loadAds();
+            window.removeEventListener('scroll', onScroll);
+          }
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+      })();
     </script>
   </body>
 </html>
