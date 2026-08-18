@@ -1,7 +1,7 @@
 # Soul Virtues Extractor
-> The free 66-question Undertale soul trait assessment and multi-dimensional virtue calculator. Discover your exact percentage distribution across Determination, Bravery, Justice, Kindness, Patience, Integrity, and Perseverance.
+> The free 66-question Undertale soul trait assessment and multi-dimensional virtue calculator. Discover your percentage distribution across Determination, Bravery, Justice, Kindness, Patience, Integrity, and Perseverance.
 
-Soul Virtues Extractor provides an interactive, client-side psychometric personality quiz based on the seven human soul traits from Undertale. It features 66 carefully weighted statements, instant 7-trait breakdown, and shareable soul result cards.
+Soul Virtues Extractor provides an interactive, client-side personality quiz based on the seven human soul traits from Undertale. It features 66 weighted statements, instant 7-trait breakdown, and shareable soul result cards.
 
 ## Core Features
 - [Soul Virtues Test](https://soulvirtues.org/): Free 66-question online assessment and instant analysis
@@ -14,6 +14,6 @@ Soul Virtues Extractor provides an interactive, client-side psychometric persona
 
 ## Legal & About
 - [About Us](https://soulvirtues.org/about): Project background, fan tribute context, and privacy mission
-- [Privacy Policy](https://soulvirtues.org/privacy): Local client-side processing and zero tracking guarantee
+- [Privacy Policy](https://soulvirtues.org/privacy): Local client-side processing and local privacy
 - [Terms of Service](https://soulvirtues.org/terms): Usage terms and fan-made disclaimer
 

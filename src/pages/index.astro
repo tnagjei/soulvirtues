@@ -1,6 +1,6 @@
 ---
 // input: None (primary landing page)
-// output: Full SSR/SSG page fully aligned with AGENTS.md (What, Why, How, Features, FAQ, H1+H2+H3 structure)
+// output: Full SSR/SSG page with factually grounded Why, What, Traits, Colors, Scoring, Features, and FAQ
 // pos: src/pages/index.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import Layout from '../layouts/Layout.astro';
@@ -61,7 +61,7 @@ const structuredData = {
   <section class="relative pt-12 pb-8 px-4 sm:px-6 text-center max-w-5xl mx-auto overflow-hidden">
     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-mono font-semibold tracking-wider uppercase mb-6">
       <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
-      Official 66-Question Trait Assessment
+      Free 66-Question Soul Trait Test
     </div>
 
     <h1 class="text-3xl sm:text-6xl font-black text-white font-mono tracking-tight leading-tight mb-4">
@@ -73,7 +73,7 @@ const structuredData = {
     </p>
 
     <p class="text-xs sm:text-sm text-gray-400 max-w-2xl mx-auto mb-2 leading-normal">
-      Which Undertale soul are you? Complete the assessment below to reveal your exact multi-dimensional trait breakdown and custom pixel-art soul card.
+      Which Undertale soul are you? Complete the assessment below to reveal your multi-dimensional trait breakdown and custom pixel-art soul card.
     </p>
   </section>
 
@@ -95,22 +95,22 @@ const structuredData = {
             The <strong class="text-white">Soul Virtues Extractor</strong> is a 66-question Undertale-inspired soul test and personality quiz designed to measure seven human soul virtues.
           </p>
           <p class="mb-4">
-            Traditional online quizzes force you into a single rigid box with questions like "What is your Undertale soul color?" In contrast, our <strong>Undertale Soul Test</strong> recognizes that human personality is multi-faceted. Every person possesses a unique blend of all seven human soul traits in differing proportions.
+            Traditional online quizzes often force you into a single rigid box with questions like "What is your Undertale soul color?" In contrast, our <strong>Undertale Soul Test</strong> recognizes that personality is multi-faceted. Every person possesses a mix of all seven human soul traits in differing proportions.
           </p>
         </div>
         <div>
           <p class="mb-4">
-            By answering 66 calibrated statements, you receive a full <strong>7-Dimension Soul Virtues Profile</strong>. Each response affects multiple traits simultaneously, reflecting how real-world decisions involve trade-offs between courage, justice, empathy, discipline, and resolve.
+            By answering 66 statements, you receive a full <strong>7-Dimension Soul Virtues Profile</strong>. Each response can affect multiple traits simultaneously, showing how different virtues interact rather than treating every question as a single isolated category.
           </p>
           <p>
-            Whether you are searching for an <strong>Undertale Soul Quiz</strong>, exploring <strong>Deltarune Soul Test</strong> theories, or seeking deep insight into your personal strengths, this assessment provides transparent, nuanced, and shareable results.
+            Whether you are searching for an <strong>Undertale Soul Quiz</strong>, exploring <strong>Deltarune Soul Test</strong> concepts, or looking for a detailed fan-made assessment, this tool provides transparent, nuanced, and shareable results.
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Section 2: Why Take the Soul Virtues Extractor? (新增 Why 结构与 H3 层级) -->
+  <!-- Section 2: Why Take the Soul Virtues Extractor? -->
   <section class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80">
     <div class="prose prose-invert max-w-none">
       <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-wide mb-6 flex items-center gap-3">
@@ -118,7 +118,7 @@ const structuredData = {
       </h2>
 
       <p class="text-sm sm:text-base text-gray-300 leading-relaxed mb-8">
-        Most internet quizzes treat personality as a multiple-choice lottery. Here is why the 66-question Soul Virtues assessment delivers a genuinely richer and more reflective self-discovery experience:
+        Why complete a full 66-question test instead of a quick multiple-choice quiz? Here is what makes the Soul Virtues assessment distinct:
       </p>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -127,34 +127,34 @@ const structuredData = {
             1. Beyond Single-Label Stereotypes
           </h3>
           <p class="text-xs sm:text-sm text-gray-400 leading-relaxed">
-            Real individuals cannot be reduced to a single word. Our continuous mathematical model captures the nuance of having strong Determination alongside deep Kindness, highlighting how your primary and secondary virtues complement each other.
+            Instead of assigning only one label, the test shows your percentage scores across all seven traits, so you can see both your strongest and supporting virtues.
           </p>
         </div>
 
         <div class="bg-[#121420] border border-gray-800 p-6 rounded-xl">
           <h3 class="text-base font-bold text-white font-mono mb-2 text-amber-400">
-            2. Illuminating Inner Value Conflicts
+            2. How Your Traits Interact
           </h3>
           <p class="text-xs sm:text-sm text-gray-400 leading-relaxed">
-            Every difficult choice involves ethical friction: should you speak out immediately (Bravery) or pause and observe (Patience)? By deducting conflicting weights when appropriate, the test reveals your instinctive priorities under pressure.
+            Some answers can affect more than one trait. This allows the result to show how different virtues rise or fall together instead of treating every question as belonging to only one category.
           </p>
         </div>
 
         <div class="bg-[#121420] border border-gray-800 p-6 rounded-xl">
           <h3 class="text-base font-bold text-white font-mono mb-2 text-emerald-400">
-            3. Philosophical & Narrative Depth
+            3. See More Than Your Top Result
           </h3>
           <p class="text-xs sm:text-sm text-gray-400 leading-relaxed">
-            Rooted in the timeless themes of Toby Fox's Undertale, each soul virtue reflects an enduring human philosophy: standing firm through adversity, upholding integrity in silence, or choosing mercy in a cynical world.
+            After completing the test, you do not just get one dominant soul; you can review your complete breakdown across all seven virtue percentages.
           </p>
         </div>
 
         <div class="bg-[#121420] border border-gray-800 p-6 rounded-xl">
           <h3 class="text-base font-bold text-white font-mono mb-2 text-cyan-400">
-            4. 100% Client-Side Privacy Guarantee
+            4. Your Answers Stay in Your Browser
           </h3>
           <p class="text-xs sm:text-sm text-gray-400 leading-relaxed">
-            Your personal reflections belong to you alone. All 66 answers are calculated entirely inside your device's web browser, with zero server tracking, zero advertising cookies, and zero mandatory registration.
+            Your quiz answers are calculated locally inside your web browser, and no account or sign-up is required to take the test.
           </p>
         </div>
       </div>
@@ -191,7 +191,7 @@ const structuredData = {
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm text-gray-300">
         <div class="p-4 bg-[#0b0c13] rounded-xl border border-gray-800/80">
-          <span class="font-bold text-red-400 font-mono">RED SOUL · Determination</span>
+          <span class="font-bold text-red-400 font-mono">RED SOUL · Determination*</span>
           <p class="text-gray-400 text-xs mt-1">Unyielding resolve to push forward when all odds are stacked against you.</p>
         </div>
         <div class="p-4 bg-[#0b0c13] rounded-xl border border-gray-800/80">
@@ -219,6 +219,10 @@ const structuredData = {
           <p class="text-gray-400 text-xs mt-1">Quiet discipline, methodical study, and finishing what you started.</p>
         </div>
       </div>
+
+      <p class="text-[11px] text-gray-500 mt-4 italic">
+        *Note: In Undertale lore, the Red SOUL is commonly associated with Determination by fans and community assessments, though the original game does not explicitly name its official trait.
+      </p>
     </div>
   </section>
 
@@ -231,21 +235,21 @@ const structuredData = {
 
       <div class="space-y-6 text-sm text-gray-300 leading-relaxed">
         <p>
-          Unlike standard tests that simply add +1 to a single category, the <strong>Soul Virtues Extractor</strong> uses a continuous mathematical scoring matrix:
+          Unlike simple quizzes that just add +1 to a single category, the <strong>Soul Virtues Extractor</strong> uses a continuous mathematical scoring matrix:
         </p>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 my-6">
           <div class="bg-[#0b0c13] border border-gray-800 p-4 rounded-xl">
             <h3 class="text-xs font-mono font-bold text-red-400 uppercase mb-1">Multi-Trait Weighting</h3>
             <p class="text-xs text-gray-400">
-              Each statement can contribute positively to primary virtues while deducting points from conflicting virtues.
+              Each statement can contribute points to primary virtues while adjusting conflicting virtues where appropriate.
             </p>
           </div>
 
           <div class="bg-[#0b0c13] border border-gray-800 p-4 rounded-xl">
             <h3 class="text-xs font-mono font-bold text-cyan-400 uppercase mb-1">50% Neutral Baseline</h3>
             <p class="text-xs text-gray-400">
-              50% represents exact neutrality. Scores above 50% indicate natural alignment, while scores below 50% reflect lower preference.
+              50% represents exact neutrality. Scores above 50% indicate alignment, while scores below 50% reflect lower preference.
             </p>
           </div>
 
@@ -258,46 +262,46 @@ const structuredData = {
         </div>
 
         <p>
-          Neutral responses attribute 0 points, functioning as an effortless skip mechanism. Honest responses, especially regarding personal flaws and tough choices, produce the most accurate character profile.
+          Neutral responses attribute 0 points, functioning as an effortless skip mechanism. Answering honestly about your personal tendencies helps provide a more representative result.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Section 6: Key Features (核心特性概览) -->
+  <!-- Section 6: Key Features & Highlights -->
   <section class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80">
     <div class="text-center max-w-3xl mx-auto mb-10">
       <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-wide mb-3">
         Key Features & Highlights
       </h2>
       <p class="text-xs sm:text-sm text-gray-400">
-        Engineered for speed, precision, and privacy.
+        66 questions, seven trait scores, and an instant shareable result.
       </p>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
       <div class="bg-[#121420] border border-gray-800 p-5 rounded-xl">
         <div class="text-2xl mb-2 text-red-400 font-mono">66</div>
-        <h3 class="text-sm font-bold text-white mb-1">Calibrated Items</h3>
-        <p class="text-xs text-gray-400">Carefully structured statements measuring moral trade-offs.</p>
+        <h3 class="text-sm font-bold text-white mb-1">66 Questions</h3>
+        <p class="text-xs text-gray-400">66 statements covering choices and preferences across the seven traits.</p>
       </div>
 
       <div class="bg-[#121420] border border-gray-800 p-5 rounded-xl">
         <div class="text-2xl mb-2 text-yellow-400 font-mono">7</div>
-        <h3 class="text-sm font-bold text-white mb-1">Full Dimensions</h3>
-        <p class="text-xs text-gray-400">Continuous percentage scores for every Undertale soul trait.</p>
+        <h3 class="text-sm font-bold text-white mb-1">7 Trait Scores</h3>
+        <p class="text-xs text-gray-400">See your percentage across all seven traits used by the test.</p>
       </div>
 
       <div class="bg-[#121420] border border-gray-800 p-5 rounded-xl">
         <div class="text-2xl mb-2 text-green-400 font-mono">PNG</div>
         <h3 class="text-sm font-bold text-white mb-1">Instant Share Card</h3>
-        <p class="text-xs text-gray-400">Client-side Canvas rendering ready for Twitter and Discord.</p>
+        <p class="text-xs text-gray-400">Download your result as a PNG card and share it anywhere.</p>
       </div>
 
       <div class="bg-[#121420] border border-gray-800 p-5 rounded-xl">
-        <div class="text-2xl mb-2 text-cyan-400 font-mono">0%</div>
-        <h3 class="text-sm font-bold text-white mb-1">Tracking or Ads</h3>
-        <p class="text-xs text-gray-400">100% private, free, and runs purely inside your browser.</p>
+        <div class="text-2xl mb-2 text-cyan-400 font-mono">NO</div>
+        <h3 class="text-sm font-bold text-white mb-1">Sign-Up Required</h3>
+        <p class="text-xs text-gray-400">Take the full 66-question test without creating an account.</p>
       </div>
     </div>
   </section>

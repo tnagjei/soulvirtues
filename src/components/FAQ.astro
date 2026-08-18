@@ -1,24 +1,24 @@
 ---
 // input: None (static FAQ accordion list)
-// output: Accessible accordion list addressing all 8 high-intent questions from the deep research report
+// output: Accessible accordion list addressing top search intent questions in English
 // pos: src/components/FAQ.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 export const FAQS = [
   {
     q: "What is the Soul Virtues Extractor?",
-    a: "The Soul Virtues Extractor is a 66-question Undertale-inspired soul test and personality quiz designed to measure seven human soul virtues: Determination (Red), Bravery (Orange), Justice (Yellow), Kindness (Green), Patience (Cyan), Integrity (Blue), and Perseverance (Purple). Unlike single-result tests, it calculates your complete percentage distribution across all seven dimensions simultaneously."
+    a: "The Soul Virtues Extractor is a 66-question Undertale-inspired soul test and personality quiz designed to measure seven human soul virtues: Determination (Red*), Bravery (Orange), Justice (Yellow), Kindness (Green), Patience (Cyan), Integrity (Blue), and Perseverance (Purple). Unlike single-result tests, it calculates your complete percentage distribution across all seven dimensions simultaneously."
   },
   {
     q: "Which Undertale Soul are you?",
-    a: "Your leading Undertale Soul corresponds to the virtue with your highest calculated percentage score. For instance, achieving top affinity in Determination means your leading trait is the Red Soul, representing relentless willpower and resilience."
+    a: "Your leading Undertale Soul corresponds to the virtue with your highest calculated percentage score. For instance, achieving top affinity in Determination means your leading trait is the Red Soul, representing willpower and resilience."
   },
   {
     q: "What are the seven Undertale Soul Traits?",
-    a: "The seven human soul traits from Undertale lore are: Determination (Red - willpower and drive), Bravery (Orange - confronting fear and taking initiative), Justice (Yellow - fairness and defending others), Kindness (Green - empathy and compassion), Patience (Cyan - calm observation and timing), Integrity (Blue - moral honesty and authentic living), and Perseverance (Purple - discipline, study, and endurance)."
+    a: "The seven human soul traits from Undertale lore are: Determination (Red - willpower and drive*), Bravery (Orange - confronting fear and taking initiative), Justice (Yellow - fairness and defending others), Kindness (Green - empathy and compassion), Patience (Cyan - calm observation and timing), Integrity (Blue - moral honesty and authentic living), and Perseverance (Purple - discipline, study, and endurance)."
   },
   {
     q: "What is your Undertale Soul Color?",
-    a: "Your highest Soul Virtue determines your leading soul color (Red, Orange, Yellow, Green, Cyan, Blue, or Purple), while your full test results showcase all seven virtue percentages, illustrating your complex moral and behavioral profile."
+    a: "Your highest Soul Virtue determines your leading soul color (Red*, Orange, Yellow, Green, Cyan, Blue, or Purple), while your full test results showcase all seven virtue percentages (*Red is widely associated with Determination in community lore)."
   },
   {
     q: "Is this an Undertale Soul Test or Deltarune Soul Test?",
@@ -26,15 +26,15 @@ export const FAQS = [
   },
   {
     q: "How is this different from a normal Undertale Soul Quiz?",
-    a: "Normal quizzes force you into a single categorical answer with trivial questions. The Soul Virtues Extractor uses a weighted 66-statement psychometric matrix and a non-linear power curve where every answer adjusts multiple virtue scores, yielding a continuous, nuanced 7-dimension percentage profile."
+    a: "Normal quizzes force you into a single categorical answer with trivial questions. The Soul Virtues Extractor uses a weighted 66-statement scoring matrix and a non-linear power curve where every answer adjusts multiple virtue scores, yielding a continuous 7-dimension percentage profile."
   },
   {
     q: "How many questions are in the Soul Virtues Test?",
-    a: "The assessment contains 66 calibrated statements. Each question features a 5-point Likert scale (or custom choices). Selecting Neutral awards 0 points, acting as an intentional skip."
+    a: "The assessment contains 66 statements covering choices and preferences. Each question features a 5-point Likert scale (or custom choices). Selecting Neutral awards 0 points, acting as an intentional skip."
   },
   {
     q: "Can I get more than one Soul Virtue?",
-    a: "Yes. Because every person is multi-faceted, your results display your exact percentage across all seven virtues. Many individuals score high in multiple compatible traits, such as High Kindness alongside High Integrity."
+    a: "Yes. Your results display your percentage across all seven virtues. Many individuals score high in multiple traits, such as High Kindness alongside High Integrity."
   }
 ];
 ---

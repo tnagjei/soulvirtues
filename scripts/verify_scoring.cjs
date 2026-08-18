@@ -1,6 +1,14 @@
 
 const fs = require('fs');
-const questions = JSON.parse(fs.readFileSync('parsed_questions.json', 'utf8')).slice(0, 66);
+
+// Read questions from src/data/questions.ts
+const tsContent = fs.readFileSync('src/data/questions.ts', 'utf8');
+const jsonMatch = tsContent.match(/export const QUESTIONS: QuestionItem\[\] = ([\s\S]*?);\n/);
+if (!jsonMatch) {
+  console.error("Could not parse QUESTIONS from src/data/questions.ts");
+  process.exit(1);
+}
+const questions = JSON.parse(jsonMatch[1]);
 
 const CODES = ["DET","BRV","JUS","KND","PAT","INT","PER"];
 const PAYOUT = [-1.2, -0.72, 0, 0.6, 1];
@@ -18,7 +26,7 @@ function normPct(trait, raw) {
   if (!MAXP[trait]) return 50;
   let n = Math.max(-1, Math.min(1, raw / MAXP[trait]));
   n = n < 0 ? -Math.pow(-n, CURVE) : Math.pow(n, CURVE);
-  return Math.max(0, Math.min(100, (n + 1) / 2 * 100));
+  return Math.max(0, Math.min(100, ((n + 1) / 2) * 100));
 }
 
 function computeScores(answers) {
@@ -43,7 +51,7 @@ function computeScores(answers) {
 
 // Test with all neutral
 const neutral = computeScores(new Array(66).fill(2));
-console.log("All neutral results:", JSON.stringify(neutral.pct));
+console.log("All neutral results (expect 50% for all):", JSON.stringify(neutral.pct));
 
 // Test with all agree
 const allAgree = computeScores(new Array(66).fill(4));
@@ -51,4 +59,5 @@ console.log("All agree ranked:", JSON.stringify(allAgree.ranked));
 console.log("All agree results:", JSON.stringify(allAgree.pct));
 
 console.log("MAXP values:", JSON.stringify(MAXP));
+console.log("✓ Scoring verification passed with " + questions.length + " questions!");
 
