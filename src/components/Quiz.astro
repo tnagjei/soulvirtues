@@ -1,6 +1,6 @@
 ---
-// input: Static QUESTIONS list and SOULS metadata dictionary
-// output: Complete interactive 66-question client quiz with real-time scoring, local save, and Canvas card generator
+// input: Static QUESTIONS list, SOULS metadata, and MAXP scoring data
+// output: Complete interactive 66-question Undertale dialogue quiz with authentic typewriter effect, audio pool SFX, BGM, pixel settings modal, and responsive 5-point heart selector
 // pos: src/components/Quiz.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import { QUESTIONS } from '../data/questions';
@@ -13,131 +13,229 @@ const soulCodesJson = JSON.stringify(SOUL_CODES);
 const maxpJson = JSON.stringify(MAXP);
 ---
 
-<div id="quiz-root" class="w-full max-w-4xl mx-auto my-8 font-sans">
+<div id="quiz-root" class="w-full max-w-4xl mx-auto my-6 font-mono text-white select-none relative">
+  <!-- Background Audio Elements -->
+  <audio id="audio-bgm" loop preload="auto" src="/audio/AUDIO_ANOTHERHIM.ogg"></audio>
+  <audio id="audio-move" preload="auto" src="/audio/snd_menumove.wav"></audio>
+  <audio id="audio-select" preload="auto" src="/audio/snd_select.wav"></audio>
+  <audio id="audio-appear" preload="auto" src="/audio/AUDIO_APPEARANCE.wav"></audio>
+
+  <!-- Top Bar: Title & Pixel Settings Button -->
+  <div class="flex items-center justify-between mb-4 px-2 text-xs text-gray-300">
+    <div class="flex items-center gap-2">
+      <span class="inline-block w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
+      <span class="tracking-widest uppercase text-xs font-bold font-sans">UNDERTALE SOUL EXTRACTOR</span>
+    </div>
+
+    <!-- SETTINGS Button (Target Site Matching) -->
+    <div class="relative">
+      <button
+        id="btn-open-settings"
+        type="button"
+        class="px-3 py-1.5 bg-black border-2 sm:border-3 border-white hover:bg-white hover:text-black text-white rounded-none text-xs sm:text-sm font-mono tracking-widest uppercase transition-all cursor-pointer flex items-center gap-2 active:scale-95 shadow-[2px_2px_0px_#ffffff]"
+        title="Audio and Sound Settings"
+      >
+        <span id="sound-indicator-icon">🔊</span>
+        <span>SETTINGS 设置</span>
+      </button>
+
+      <!-- Settings Dropdown / Modal -->
+      <div
+        id="settings-modal"
+        class="hidden absolute right-0 top-full mt-2 w-72 sm:w-80 bg-black border-4 border-white p-4 shadow-[4px_4px_0px_rgba(255,255,255,0.4)] z-50 text-white font-mono"
+      >
+        <div class="flex items-center justify-between border-b-2 border-gray-700 pb-2 mb-4">
+          <span class="font-bold text-sm tracking-widest text-yellow-400 uppercase">AUDIO SETTINGS</span>
+          <button id="btn-close-settings" class="text-xs text-gray-400 hover:text-white border border-gray-600 px-1.5 py-0.5 cursor-pointer">
+            ✕
+          </button>
+        </div>
+
+        <!-- BGM Volume Slider -->
+        <div class="mb-4">
+          <div class="flex justify-between items-center text-xs mb-1.5">
+            <span class="text-gray-300 tracking-wider">MUSIC (BGM):</span>
+            <span id="label-vol-music" class="text-red-400 font-bold">30%</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <input
+              id="slider-vol-music"
+              type="range"
+              min="0"
+              max="100"
+              value="30"
+              class="pixel-slider flex-1"
+            />
+            <button
+              id="btn-toggle-music-mute"
+              class="px-2 py-1 text-[11px] bg-black border border-gray-500 hover:border-white text-gray-300 cursor-pointer"
+            >
+              MUTE
+            </button>
+          </div>
+        </div>
+
+        <!-- SFX Volume Slider -->
+        <div class="mb-4">
+          <div class="flex justify-between items-center text-xs mb-1.5">
+            <span class="text-gray-300 tracking-wider">SOUNDS (SFX):</span>
+            <span id="label-vol-sfx" class="text-yellow-400 font-bold">40%</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <input
+              id="slider-vol-sfx"
+              type="range"
+              min="0"
+              max="100"
+              value="40"
+              class="pixel-slider flex-1"
+            />
+            <button
+              id="btn-toggle-sfx-mute"
+              class="px-2 py-1 text-[11px] bg-black border border-gray-500 hover:border-white text-gray-300 cursor-pointer"
+            >
+              MUTE
+            </button>
+          </div>
+        </div>
+
+        <div class="pt-2 border-t border-gray-800 text-[10px] text-gray-400 text-center font-sans">
+          Undertale Sound Engine · Settings auto-saved
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- 1. Start Screen -->
-  <div id="quiz-start" class="bg-[#121420] border-2 border-gray-800 rounded-2xl p-6 sm:p-10 text-center shadow-2xl relative overflow-hidden">
-    <div class="w-16 h-16 mx-auto mb-6 text-red-500 drop-shadow-[0_0_15px_rgba(239,68,68,0.8)] animate-pulse">
+  <div id="quiz-start" class="pixel-box p-6 sm:p-12 text-center relative overflow-hidden">
+    <div class="w-16 h-16 mx-auto mb-6 text-red-500 drop-shadow-[0_0_18px_rgba(255,0,0,0.85)] animate-pulse">
       <svg viewBox="0 0 16 16" fill="currentColor" class="w-full h-full" shape-rendering="crispEdges">
         <path d="M2 0h4v1H2zm8 0h4v1h-4zM1 1h6v1H1zm8 0h6v1H9zM0 2h7v1H0zm9 2h7v1H9zM0 3h7v1H0zm9 3h7v1H9zM0 4h16v6H0zm2 6h12v2H2zm2 2h8v2H4zm2 2h4v2H6z"/>
       </svg>
     </div>
 
-    <h2 class="text-2xl sm:text-4xl font-extrabold text-white font-mono tracking-wide mb-3">
+    <h2 class="text-2xl sm:text-4xl font-extrabold text-white tracking-widest uppercase mb-4">
       SOUL VIRTUES EXTRACTOR
     </h2>
-    <p class="text-xs sm:text-sm text-gray-400 max-w-xl mx-auto mb-6 leading-relaxed">
-      66 statements designed to show your scores across the seven human soul virtues: <span class="text-red-400 font-semibold">Determination</span>, <span class="text-orange-400 font-semibold">Bravery</span>, <span class="text-yellow-400 font-semibold">Justice</span>, <span class="text-green-400 font-semibold">Kindness</span>, <span class="text-cyan-400 font-semibold">Patience</span>, <span class="text-blue-400 font-semibold">Integrity</span>, and <span class="text-purple-400 font-semibold">Perseverance</span>.
+    <p class="text-xs sm:text-sm text-gray-300 max-w-xl mx-auto mb-8 leading-relaxed font-sans">
+      Seven human soul virtues. Seven colors. 66 statements designed to reveal your multi-dimensional resonance across <span class="text-red-400 font-bold">Determination</span>, <span class="text-orange-400 font-bold">Bravery</span>, <span class="text-yellow-400 font-bold">Justice</span>, <span class="text-green-400 font-bold">Kindness</span>, <span class="text-cyan-400 font-bold">Patience</span>, <span class="text-blue-400 font-bold">Integrity</span>, and <span class="text-purple-400 font-bold">Perseverance</span>.
     </p>
 
     <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
       <button
         id="btn-start-fresh"
-        class="w-full sm:w-auto px-8 py-4 bg-red-600 hover:bg-red-500 text-white font-bold font-mono text-base uppercase tracking-wider rounded-xl shadow-[0_0_20px_rgba(239,68,68,0.4)] hover:shadow-[0_0_25px_rgba(239,68,68,0.6)] active:scale-95 transition-all cursor-pointer"
+        class="w-full sm:w-auto px-8 py-4 bg-black border-4 border-white hover:bg-white hover:text-black text-white font-bold text-base uppercase tracking-widest active:scale-95 transition-all cursor-pointer shadow-[4px_4px_0px_rgba(255,255,255,0.4)]"
       >
-        Start 66-Question Test
+        * PROCEED (START 66 QUESTIONS)
       </button>
 
       <button
         id="btn-resume-quiz"
-        class="hidden w-full sm:w-auto px-6 py-4 bg-gray-800 hover:bg-gray-700 text-gray-200 font-semibold text-sm rounded-xl border border-gray-700 active:scale-95 transition-all cursor-pointer"
+        class="hidden w-full sm:w-auto px-6 py-4 bg-black border-4 border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black font-bold text-sm uppercase tracking-widest active:scale-95 transition-all cursor-pointer shadow-[4px_4px_0px_rgba(250,204,21,0.4)]"
       >
-        Resume Progress (<span id="resume-count">0</span>/66)
+        * RESUME (<span id="resume-count">0</span>/66)
       </button>
     </div>
 
-    <div class="mt-8 pt-6 border-t border-gray-800/80 flex flex-wrap items-center justify-center gap-6 text-xs text-gray-500">
-      <span class="flex items-center gap-1.5">
-        <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-        100% Free & No Sign-Up
-      </span>
-      <span class="flex items-center gap-1.5">
-        <svg class="w-4 h-4 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-        Browser-Based Local Processing
-      </span>
-      <span class="flex items-center gap-1.5">
-        <svg class="w-4 h-4 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-        Instant Share Card Generator
-      </span>
+    <div class="mt-8 pt-6 border-t border-gray-800 flex flex-wrap items-center justify-center gap-6 text-xs text-gray-400 font-sans">
+      <span>✓ 100% Free & No Sign-Up</span>
+      <span>✓ Local Client-Side Calculation</span>
+      <span>✓ Undertale Dialogue & Sound FX</span>
     </div>
   </div>
 
-  <!-- 2. Active Quiz Screen -->
-  <div id="quiz-active" class="hidden bg-[#121420] border border-gray-800 rounded-2xl p-6 sm:p-8 shadow-2xl">
-    <!-- Top HUD -->
-    <div class="flex items-center justify-between gap-4 mb-4">
-      <div class="flex items-center gap-2">
-        <span class="text-xs font-mono font-bold text-red-400 uppercase tracking-wider">Statement</span>
-        <span id="hud-index" class="text-lg font-mono font-extrabold text-white">01 / 66</span>
+  <!-- 2. Active Quiz Screen (Undertale Style) -->
+  <div id="quiz-active" class="hidden">
+    <!-- HUD Header -->
+    <div id="hud" class="flex items-center gap-3 sm:gap-4 mb-4">
+      <span id="hud-index" class="text-xl sm:text-2xl font-bold tracking-widest text-white whitespace-nowrap">01 / 66</span>
+      <div id="completion-bar-track" class="flex-1 h-7 border-4 border-white bg-black p-0.5">
+        <div id="progress-fill" class="h-full bg-red-600 w-0 transition-all duration-150"></div>
       </div>
-      <div class="flex items-center gap-3">
+      <button
+        id="btn-quiz-reset"
+        class="px-2.5 py-1 text-xs text-gray-400 hover:text-white border-2 border-gray-700 hover:border-white bg-black uppercase tracking-wider cursor-pointer"
+        title="Reset all progress"
+      >
+        RESET
+      </button>
+    </div>
+
+    <!-- Dialogue Box (Authentic Undertale Typewriter text) -->
+    <div
+      id="dialogue-box"
+      class="pixel-box p-6 sm:p-8 mb-6 min-h-[140px] sm:min-h-[160px] cursor-pointer"
+      title="Click or press Z/Enter to skip typing animation"
+    >
+      <div id="questions-text" class="text-xl sm:text-3xl font-normal leading-relaxed text-white tracking-wide break-words">
+        <span class="text-white mr-3 font-bold select-none">*</span>
+        <span id="questions-type" class="inline"></span>
+      </div>
+    </div>
+
+    <!-- Answers Box (5-point Scale with Animated Red Heart Selector) -->
+    <div id="answers-box" class="pixel-box p-6 sm:p-8 mb-6">
+      <!-- Extremes labels -->
+      <div class="flex justify-between items-baseline text-xs sm:text-sm text-gray-400 tracking-wider mb-6">
+        <span id="label-extreme-left" class="uppercase">Strongly disagree</span>
+        <span id="label-extreme-right" class="uppercase">Strongly agree</span>
+      </div>
+
+      <!-- 5-Point Scale Row -->
+      <div id="scale-row" class="flex items-center justify-between relative py-2 sm:py-4 px-2 sm:px-8">
+        <!-- Scale points generated via JS -->
+      </div>
+
+      <!-- Centered Selected Option Label (Undertale UI Font) -->
+      <div class="text-center mt-6 min-h-[2em] flex items-center justify-center">
+        <span id="selected-label-text" class="text-xl sm:text-3xl font-bold text-white tracking-widest uppercase">
+          Neutral
+        </span>
+      </div>
+    </div>
+
+    <!-- Footer Controls & Hints -->
+    <div id="question-footer" class="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
+      <div class="flex items-center gap-3 w-full sm:w-auto">
         <button
-          id="btn-quiz-reset"
-          class="text-xs text-gray-500 hover:text-gray-300 transition-colors font-mono cursor-pointer"
-          title="Reset and start over"
+          id="btn-prev"
+          class="flex-1 sm:flex-none px-5 py-2.5 bg-black border-2 border-gray-600 hover:border-white text-gray-300 hover:text-white uppercase tracking-wider disabled:opacity-30 disabled:pointer-events-none cursor-pointer active:scale-95 transition-all"
         >
-          Reset
+          [X] Back
+        </button>
+        <button
+          id="btn-next"
+          class="flex-1 sm:flex-none px-7 py-2.5 bg-black border-2 border-red-500 hover:bg-red-500 hover:text-white text-red-400 font-bold uppercase tracking-wider cursor-pointer active:scale-95 transition-all"
+        >
+          [Z] Confirm / Next
         </button>
       </div>
-    </div>
 
-    <!-- Progress Bar -->
-    <div class="w-full bg-gray-900 h-2 rounded-full overflow-hidden mb-8 border border-gray-800">
-      <div id="progress-fill" class="bg-gradient-to-r from-red-500 via-amber-500 to-purple-500 h-full w-0 transition-all duration-300"></div>
-    </div>
-
-    <!-- Question Box -->
-    <div class="min-h-[140px] flex items-center justify-center text-center px-2 py-4 mb-8">
-      <p id="question-text" class="text-lg sm:text-2xl font-bold text-white leading-relaxed font-sans"></p>
-    </div>
-
-    <!-- Likert Options -->
-    <div id="options-container" class="grid grid-cols-1 sm:grid-cols-5 gap-3 mb-8">
-      <!-- Generated via JS -->
-    </div>
-
-    <!-- Bottom Navigation Controls -->
-    <div class="flex items-center justify-between border-t border-gray-800 pt-6">
-      <button
-        id="btn-prev"
-        class="px-5 py-2.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 font-semibold text-xs tracking-wider uppercase transition-all disabled:opacity-30 disabled:pointer-events-none cursor-pointer flex items-center gap-1.5"
-      >
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-        Previous
-      </button>
-
-      <span class="hidden sm:block text-[11px] text-gray-500 font-mono">
-        Keyboard: [1-5] Choose &nbsp;·&nbsp; [Enter] Next &nbsp;·&nbsp; [Backspace] Prev
-      </span>
-
-      <button
-        id="btn-next"
-        class="px-6 py-2.5 rounded-lg bg-red-600 hover:bg-red-500 text-white font-bold text-xs tracking-wider uppercase shadow-[0_0_12px_rgba(239,68,68,0.4)] transition-all cursor-pointer flex items-center gap-1.5"
-      >
-        Next
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-      </button>
+      <div class="text-[11px] text-gray-400 text-center sm:text-right font-sans">
+        <span>LEFT / RIGHT move &nbsp;·&nbsp; 1-5 jump &nbsp;·&nbsp; Z or ENTER confirm &nbsp;·&nbsp; X back</span>
+      </div>
     </div>
   </div>
 
   <!-- 3. Result Screen -->
-  <div id="quiz-result" class="hidden bg-[#121420] border-2 border-gray-800 rounded-2xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
+  <div id="quiz-result" class="hidden pixel-box p-6 sm:p-12 relative overflow-hidden">
     <!-- Top Result Banner -->
     <div class="text-center mb-10">
-      <div id="result-heart" class="w-20 h-20 mx-auto mb-4 transition-transform hover:scale-110 drop-shadow-[0_0_25px_var(--res-color)]" style="--res-color: #ff0000; color: #ff0000;">
+      <div id="result-heart" class="w-24 h-24 mx-auto mb-4 drop-shadow-[0_0_25px_var(--res-color)]" style="--res-color: #ff0000; color: #ff0000;">
         <svg viewBox="0 0 16 16" fill="currentColor" class="w-full h-full" shape-rendering="crispEdges">
           <path d="M2 0h4v1H2zm8 0h4v1h-4zM1 1h6v1H1zm8 0h6v1H9zM0 2h7v1H0zm9 2h7v1H9zM0 3h7v1H0zm9 3h7v1H9zM0 4h16v6H0zm2 6h12v2H2zm2 2h8v2H4zm2 2h4v2H6z"/>
         </svg>
       </div>
 
-      <div class="inline-block px-3 py-1 rounded-full text-xs font-mono font-bold tracking-widest uppercase mb-2 border" id="result-badge" style="color: #ff0000; background: #ff000015; border-color: #ff000040;">
+      <div class="inline-block px-3 py-1 rounded text-xs font-mono font-bold tracking-widest uppercase mb-2 border-2" id="result-badge" style="color: #ff0000; border-color: #ff0000;">
         DOMINANT SOUL TRAIT
       </div>
 
-      <h3 id="result-trait-name" class="text-3xl sm:text-5xl font-black font-mono tracking-wider text-white mb-2">
+      <h3 id="result-trait-name" class="text-3xl sm:text-5xl font-black tracking-widest text-white mb-2 uppercase">
         DETERMINATION
       </h3>
 
-      <p id="result-color-label" class="text-xs sm:text-sm font-mono text-gray-400 tracking-wider mb-4">
+      <p id="result-color-label" class="text-xs sm:text-sm text-gray-400 tracking-widest mb-4">
         RED SOUL · #FF0000
       </p>
 
@@ -147,10 +245,10 @@ const maxpJson = JSON.stringify(MAXP);
     </div>
 
     <!-- 7-Virtues Percentage Breakdown -->
-    <div class="mb-10 bg-[#0b0c13] border border-gray-800 rounded-xl p-5 sm:p-6">
-      <h4 class="text-xs font-mono font-bold text-gray-400 uppercase tracking-wider mb-5 flex items-center justify-between">
+    <div class="mb-10 bg-black border-4 border-gray-800 p-5 sm:p-6">
+      <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-5 flex items-center justify-between">
         <span>7-Dimension Soul Virtues Profile</span>
-        <span class="text-[11px] text-gray-500 font-normal">50% = Exact Neutral</span>
+        <span class="text-[11px] text-gray-500">50% = Exact Neutral</span>
       </h4>
 
       <div id="result-bars" class="space-y-4">
@@ -162,15 +260,15 @@ const maxpJson = JSON.stringify(MAXP);
     <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
       <button
         id="btn-download-card"
-        class="w-full sm:w-auto px-6 py-3.5 bg-gradient-to-r from-red-600 to-amber-600 hover:from-red-500 hover:to-amber-500 text-white font-bold text-sm uppercase tracking-wider rounded-xl shadow-[0_0_20px_rgba(239,68,68,0.3)] active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-2"
+        class="w-full sm:w-auto px-6 py-3.5 bg-black border-4 border-red-500 hover:bg-red-500 hover:text-white text-red-400 font-bold text-sm uppercase tracking-widest active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-2"
       >
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-        Download Result Card
+        Download Result Card (PNG)
       </button>
 
       <button
         id="btn-copy-result"
-        class="w-full sm:w-auto px-6 py-3.5 bg-gray-800 hover:bg-gray-700 text-gray-200 font-semibold text-sm rounded-xl border border-gray-700 active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-2"
+        class="w-full sm:w-auto px-6 py-3.5 bg-black border-4 border-gray-600 hover:border-white text-white font-bold text-sm uppercase tracking-widest active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-2"
       >
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
         Copy Summary
@@ -178,7 +276,7 @@ const maxpJson = JSON.stringify(MAXP);
 
       <button
         id="btn-retake"
-        class="w-full sm:w-auto px-6 py-3.5 bg-transparent hover:bg-gray-800 text-gray-400 hover:text-white font-semibold text-sm rounded-xl border border-gray-800 active:scale-95 transition-all cursor-pointer"
+        class="w-full sm:w-auto px-6 py-3.5 bg-black border-4 border-gray-800 hover:border-gray-500 text-gray-400 hover:text-white font-bold text-sm uppercase tracking-widest active:scale-95 transition-all cursor-pointer"
       >
         Retake Test
       </button>
@@ -196,40 +294,199 @@ const maxpJson = JSON.stringify(MAXP);
   const MAXP = JSON.parse(maxpJson);
 
   const STORAGE_KEY = "soul_virtues_answers_v1";
+  const AUDIO_STORAGE_KEY = "soul_virtues_audio_v2";
   const PAYOUT = [-1.2, -0.72, 0, 0.6, 1];
   const CURVE = 0.6;
 
   let currentIndex = 0;
+  let currentSelection = 2; // default to Neutral (index 2)
   let userAnswers = new Array(QUESTIONS.length).fill(null);
 
-  // Initialize from LocalStorage if available
-  function initStorage() {
+  // Typewriter state
+  let isTyping = false;
+  let typeTimer = null;
+  let currentFullText = "";
+
+  // -------------------------------------------------------------
+  // Robust Audio Pool System (Undertale SFX & BGM Engine)
+  // -------------------------------------------------------------
+  const audioSettings = {
+    volMusic: 30,
+    volSfx: 40,
+    musicMuted: false,
+    sfxMuted: false,
+  };
+
+  // Load stored audio settings if available
+  try {
+    const savedAudio = localStorage.getItem(AUDIO_STORAGE_KEY);
+    if (savedAudio) {
+      Object.assign(audioSettings, JSON.parse(savedAudio));
+    }
+  } catch (e) {}
+
+  const audioBgm = document.getElementById("audio-bgm");
+  const audioMove = document.getElementById("audio-move");
+  const audioSelect = document.getElementById("audio-select");
+  const audioAppear = document.getElementById("audio-appear");
+
+  // Multi-channel Audio Pool for typing sound to prevent dropped clicks/beeps
+  const TYPE_POOL_SIZE = 6;
+  const typeAudioPool = [];
+  let typePoolIndex = 0;
+
+  for (let i = 0; i < TYPE_POOL_SIZE; i++) {
+    const a = new Audio("/audio/snd_text.wav");
+    a.preload = "auto";
+    typeAudioPool.push(a);
+  }
+
+  // Multi-channel Audio Pool for menu move
+  const MOVE_POOL_SIZE = 3;
+  const moveAudioPool = [];
+  let movePoolIndex = 0;
+  for (let i = 0; i < MOVE_POOL_SIZE; i++) {
+    const a = new Audio("/audio/snd_menumove.wav");
+    a.preload = "auto";
+    moveAudioPool.push(a);
+  }
+
+  function saveAudioSettings() {
     try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length === QUESTIONS.length) {
-          userAnswers = parsed;
-          const answeredCount = userAnswers.filter(a => a !== null).length;
-          if (answeredCount > 0) {
-            const resumeBtn = document.getElementById("btn-resume-quiz");
-            const resumeCount = document.getElementById("resume-count");
-            if (resumeBtn && resumeCount) {
-              resumeCount.textContent = answeredCount;
-              resumeBtn.classList.remove("hidden");
-            }
-          }
-        }
+      localStorage.setItem(AUDIO_STORAGE_KEY, JSON.stringify(audioSettings));
+    } catch (e) {}
+    updateAudioVolumes();
+  }
+
+  function updateAudioVolumes() {
+    if (audioBgm) {
+      if (audioSettings.musicMuted || audioSettings.volMusic === 0) {
+        audioBgm.volume = 0;
+      } else {
+        audioBgm.volume = audioSettings.volMusic / 100;
+      }
+    }
+
+    // UI Updates
+    const labelMusic = document.getElementById("label-vol-music");
+    const labelSfx = document.getElementById("label-vol-sfx");
+    const sliderMusic = document.getElementById("slider-vol-music");
+    const sliderSfx = document.getElementById("slider-vol-sfx");
+    const btnMusicMute = document.getElementById("btn-toggle-music-mute");
+    const btnSfxMute = document.getElementById("btn-toggle-sfx-mute");
+    const soundIndicator = document.getElementById("sound-indicator-icon");
+
+    if (labelMusic) labelMusic.textContent = audioSettings.musicMuted ? "MUTED" : `${audioSettings.volMusic}%`;
+    if (labelSfx) labelSfx.textContent = audioSettings.sfxMuted ? "MUTED" : `${audioSettings.volSfx}%`;
+    if (sliderMusic) sliderMusic.value = audioSettings.volMusic;
+    if (sliderSfx) sliderSfx.value = audioSettings.volSfx;
+    if (btnMusicMute) btnMusicMute.textContent = audioSettings.musicMuted ? "UNMUTE" : "MUTE";
+    if (btnSfxMute) btnSfxMute.textContent = audioSettings.sfxMuted ? "UNMUTE" : "MUTE";
+    if (soundIndicator) soundIndicator.textContent = (audioSettings.musicMuted && audioSettings.sfxMuted) ? "🔇" : "🔊";
+  }
+
+  function playSound(type) {
+    if (audioSettings.sfxMuted || audioSettings.volSfx === 0) return;
+    const sfxVol = audioSettings.volSfx / 100;
+
+    try {
+      if (type === "text") {
+        const audio = typeAudioPool[typePoolIndex];
+        typePoolIndex = (typePoolIndex + 1) % TYPE_POOL_SIZE;
+        audio.volume = Math.min(1, sfxVol * 0.7);
+        audio.currentTime = 0;
+        audio.play().catch(() => {});
+      } else if (type === "move") {
+        const audio = moveAudioPool[movePoolIndex];
+        movePoolIndex = (movePoolIndex + 1) % MOVE_POOL_SIZE;
+        audio.volume = sfxVol;
+        audio.currentTime = 0;
+        audio.play().catch(() => {});
+      } else if (type === "select" && audioSelect) {
+        audioSelect.volume = sfxVol;
+        audioSelect.currentTime = 0;
+        audioSelect.play().catch(() => {});
+      } else if (type === "appear" && audioAppear) {
+        audioAppear.volume = sfxVol;
+        audioAppear.currentTime = 0;
+        audioAppear.play().catch(() => {});
       }
     } catch (e) {}
   }
 
-  function saveStorage() {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(userAnswers));
-    } catch (e) {}
+  let bgmStarted = false;
+  function startBgm() {
+    if (bgmStarted && audioBgm && !audioBgm.paused) return;
+    if (audioBgm) {
+      updateAudioVolumes();
+      audioBgm.play().then(() => {
+        bgmStarted = true;
+      }).catch(() => {
+        // Autoplay policy waiting for user gesture
+      });
+    }
   }
 
+  // -------------------------------------------------------------
+  // Authentic Undertale Typewriter System
+  // -------------------------------------------------------------
+  function setTypedContent(el, fullText, count) {
+    let onSpan = el.querySelector(".typewriter-on");
+    let offSpan = el.querySelector(".typewriter-off");
+    if (!onSpan || !offSpan) {
+      el.innerHTML = '<span class="typewriter-on"></span><span class="typewriter-off"></span>';
+      onSpan = el.querySelector(".typewriter-on");
+      offSpan = el.querySelector(".typewriter-off");
+    }
+    onSpan.textContent = fullText.slice(0, count);
+    offSpan.textContent = fullText.slice(count);
+  }
+
+  function typeOutQuestion(text) {
+    clearTimeout(typeTimer);
+    const container = document.getElementById("questions-type");
+    if (!container) return;
+
+    currentFullText = text;
+    isTyping = true;
+    let charIndex = 0;
+    setTypedContent(container, text, 0);
+
+    function step() {
+      if (charIndex >= text.length) {
+        isTyping = false;
+        return;
+      }
+      charIndex++;
+      setTypedContent(container, text, charIndex);
+
+      const ch = text[charIndex - 1];
+      if (ch && !/\s/.test(ch)) {
+        playSound("text");
+      }
+
+      // Undertale cadence: 110ms on punctuation, 14ms on regular letters
+      const isPunctuation = ch === "." || ch === "," || ch === "!" || ch === "?" || ch === "…";
+      const delay = isPunctuation ? 110 : 14;
+      typeTimer = setTimeout(step, delay);
+    }
+
+    step();
+  }
+
+  function skipTyping() {
+    if (!isTyping) return;
+    clearTimeout(typeTimer);
+    isTyping = false;
+    const container = document.getElementById("questions-type");
+    if (container && currentFullText) {
+      setTypedContent(container, currentFullText, currentFullText.length);
+    }
+  }
+
+  // -------------------------------------------------------------
+  // Scoring & Calculation Logic
+  // -------------------------------------------------------------
   function normPct(trait, raw) {
     if (!MAXP[trait]) return 50;
     let n = Math.max(-1, Math.min(1, raw / MAXP[trait]));
@@ -260,7 +517,6 @@ const maxpJson = JSON.stringify(MAXP);
     return { raw, pct, ranked };
   }
 
-  // Screen Switching
   function showScreen(name) {
     document.getElementById("quiz-start")?.classList.toggle("hidden", name !== "start");
     document.getElementById("quiz-active")?.classList.toggle("hidden", name !== "active");
@@ -270,68 +526,112 @@ const maxpJson = JSON.stringify(MAXP);
     }
   }
 
+  // -------------------------------------------------------------
+  // Question Renderer with 5-Point Red Heart Selector (图一还原)
+  // -------------------------------------------------------------
   function renderQuestion(index) {
     currentIndex = index;
     const q = QUESTIONS[currentIndex];
     if (!q) return;
 
-    // HUD Index & Progress
+    // Load previously answered value or default to Neutral (2)
+    currentSelection = userAnswers[currentIndex] !== null ? userAnswers[currentIndex] : 2;
+
+    // Update HUD
     const hudEl = document.getElementById("hud-index");
     const progressEl = document.getElementById("progress-fill");
-    const questionTextEl = document.getElementById("question-text");
-    const optionsContainer = document.getElementById("options-container");
-    const prevBtn = document.getElementById("btn-prev");
-    const nextBtn = document.getElementById("btn-next");
-
     if (hudEl) hudEl.textContent = String(currentIndex + 1).padStart(2, "0") + " / " + String(QUESTIONS.length).padStart(2, "0");
     if (progressEl) progressEl.style.width = ((currentIndex) / QUESTIONS.length * 100) + "%";
-    if (questionTextEl) questionTextEl.textContent = q.q;
 
-    if (prevBtn) prevBtn.disabled = currentIndex === 0;
-    if (nextBtn) {
-      nextBtn.textContent = currentIndex === QUESTIONS.length - 1 ? "See Results" : "Next";
-    }
+    // Update Extremes
+    const extremeLeft = document.getElementById("label-extreme-left");
+    const extremeRight = document.getElementById("label-extreme-right");
+    if (extremeLeft) extremeLeft.textContent = q.labels[0] || "Strongly disagree";
+    if (extremeRight) extremeRight.textContent = q.labels[q.labels.length - 1] || "Strongly agree";
 
-    if (optionsContainer) {
-      optionsContainer.innerHTML = "";
-      const selectedOption = userAnswers[currentIndex];
+    // Build 5 Scale Points
+    buildScalePoints(q);
 
-      q.labels.forEach((label, optIndex) => {
-        const btn = document.createElement("button");
-        btn.type = "button";
-        const isSelected = selectedOption === optIndex;
+    // Type out statement with typewriter effect
+    typeOutQuestion(q.q);
+  }
 
-        btn.className = "p-3 sm:p-4 rounded-xl border text-xs sm:text-sm font-medium transition-all cursor-pointer text-center flex flex-col items-center justify-center gap-1 " +
-          (isSelected
-            ? "bg-red-500/20 border-red-500 text-white shadow-[0_0_12px_rgba(239,68,68,0.4)]"
-            : "bg-[#0b0c13] border-gray-800 text-gray-300 hover:border-gray-700 hover:bg-gray-800/60");
+  function buildScalePoints(q) {
+    const scaleRow = document.getElementById("scale-row");
+    if (!scaleRow) return;
+    scaleRow.innerHTML = "";
 
-        btn.innerHTML = `
-          <span class="text-xs text-gray-500 font-mono">[${optIndex + 1}]</span>
-          <span class="${isSelected ? 'font-bold text-white' : ''}">${label}</span>
-        `;
+    q.labels.forEach((label, optIdx) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "flex-1 flex flex-col items-center justify-center py-4 bg-transparent border-0 cursor-pointer group outline-none transition-transform active:scale-95";
+      btn.setAttribute("aria-label", label);
 
-        btn.addEventListener("click", () => {
-          userAnswers[currentIndex] = optIndex;
-          saveStorage();
-          renderQuestion(currentIndex);
-          // Auto advance to next after short delay if selecting
-          setTimeout(() => {
-            if (currentIndex < QUESTIONS.length - 1) {
-              renderQuestion(currentIndex + 1);
-            } else {
-              showResults();
-            }
-          }, 180);
-        });
+      const isSelected = currentSelection === optIdx;
 
-        optionsContainer.appendChild(btn);
+      // Authentic Undertale Heart for selected, crisp pixel box for unselected
+      btn.innerHTML = `
+        <div class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center">
+          ${isSelected
+            ? '<div class="w-8 h-8 sm:w-9 sm:h-9 text-red-600 drop-shadow-[0_0_12px_rgba(255,0,0,0.9)] animate-pulse transition-transform scale-110"><svg viewBox="0 0 16 16" fill="currentColor" class="w-full h-full" shape-rendering="crispEdges"><path d="M2 0h4v1H2zm8 0h4v1h-4zM1 1h6v1H1zm8 0h6v1H9zM0 2h7v1H0zm9 2h7v1H9zM0 3h7v1H0zm9 3h7v1H9zM0 4h16v6H0zm2 6h12v2H2zm2 2h8v2H4zm2 2h4v2H6z"/></svg></div>'
+            : '<div class="w-5 h-5 sm:w-6 sm:h-6 bg-black border-3 sm:border-4 border-gray-600 group-hover:border-white transition-colors"></div>'
+          }
+        </div>
+      `;
+
+      btn.addEventListener("click", () => {
+        setSelection(optIdx);
       });
+
+      scaleRow.appendChild(btn);
+    });
+
+    updateSelectedLabel(q);
+  }
+
+  function setSelection(optIdx) {
+    if (optIdx < 0 || optIdx > 4) return;
+    if (currentSelection !== optIdx) {
+      playSound("move");
+    }
+    currentSelection = optIdx;
+    const q = QUESTIONS[currentIndex];
+    buildScalePoints(q);
+  }
+
+  function updateSelectedLabel(q) {
+    const labelEl = document.getElementById("selected-label-text");
+    if (labelEl && q.labels[currentSelection]) {
+      labelEl.textContent = q.labels[currentSelection];
     }
   }
 
+  function confirmAndAdvance() {
+    playSound("select");
+    userAnswers[currentIndex] = currentSelection;
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(userAnswers));
+    } catch (e) {}
+
+    if (currentIndex < QUESTIONS.length - 1) {
+      renderQuestion(currentIndex + 1);
+    } else {
+      showResults();
+    }
+  }
+
+  function goBack() {
+    if (currentIndex > 0) {
+      playSound("move");
+      renderQuestion(currentIndex - 1);
+    }
+  }
+
+  // -------------------------------------------------------------
+  // Results Display & Card Export
+  // -------------------------------------------------------------
   function showResults() {
-    saveStorage();
+    playSound("appear");
     const { pct, ranked } = computeScores();
     const dominantCode = ranked[0];
     const dominantSoul = SOULS[dominantCode];
@@ -349,8 +649,7 @@ const maxpJson = JSON.stringify(MAXP);
     }
     if (badgeEl) {
       badgeEl.style.color = dominantSoul.hex;
-      badgeEl.style.background = dominantSoul.hex + "15";
-      badgeEl.style.borderColor = dominantSoul.hex + "40";
+      badgeEl.style.borderColor = dominantSoul.hex;
     }
     if (nameEl) nameEl.textContent = dominantSoul.name;
     if (colorEl) colorEl.textContent = dominantSoul.label + " SOUL · " + dominantSoul.hex.toUpperCase();
@@ -363,17 +662,17 @@ const maxpJson = JSON.stringify(MAXP);
         const val = pct[trait].toFixed(1);
 
         const row = document.createElement("div");
-        row.className = "space-y-1.5";
+        row.className = "space-y-1";
         row.innerHTML = `
-          <div class="flex items-center justify-between text-xs font-mono">
+          <div class="flex items-center justify-between text-xs sm:text-sm font-mono tracking-wider">
             <span class="font-bold flex items-center gap-2" style="color: ${soul.hex}">
-              <span class="w-2.5 h-2.5 rounded-full inline-block" style="background: ${soul.hex}"></span>
+              <span class="w-3 h-3 inline-block" style="background: ${soul.hex}"></span>
               ${soul.name}
             </span>
-            <span class="font-bold text-gray-200">${val}%</span>
+            <span class="font-bold text-white">${val}%</span>
           </div>
-          <div class="w-full bg-gray-900 h-3 rounded-full overflow-hidden p-0.5 border border-gray-800">
-            <div class="h-full rounded-full transition-all duration-700" style="width: ${val}%; background: ${soul.hex}; box-shadow: 0 0 10px ${soul.hex}60"></div>
+          <div class="w-full bg-black h-4 border-2 border-gray-700 p-0.5">
+            <div class="h-full transition-all duration-500" style="width: ${val}%; background: ${soul.hex}"></div>
           </div>
         `;
         barsContainer.appendChild(row);
@@ -383,7 +682,6 @@ const maxpJson = JSON.stringify(MAXP);
     showScreen("result");
   }
 
-  // Draw Result Card on Canvas
   function drawResultCard() {
     const canvas = document.getElementById("export-canvas");
     if (!canvas) return;
@@ -394,19 +692,12 @@ const maxpJson = JSON.stringify(MAXP);
     const dominantSoul = SOULS[ranked[0]];
 
     // 1. Background
-    ctx.fillStyle = "#0d0e15";
-    ctx.fillRect(0, 0, 800, 1000);
-
-    // Decorative glow
-    const grad = ctx.createRadialGradient(400, 220, 10, 400, 220, 300);
-    grad.addColorStop(0, dominantSoul.hex + "33");
-    grad.addColorStop(1, "#0d0e1500");
-    ctx.fillStyle = grad;
+    ctx.fillStyle = "#000000";
     ctx.fillRect(0, 0, 800, 1000);
 
     // Border
-    ctx.strokeStyle = "#1f2438";
-    ctx.lineWidth = 4;
+    ctx.strokeStyle = "#ffffff";
+    ctx.lineWidth = 6;
     ctx.strokeRect(20, 20, 760, 960);
 
     // 2. Title & Branding
@@ -472,12 +763,15 @@ const maxpJson = JSON.stringify(MAXP);
       ctx.textAlign = "left";
 
       // Track
-      ctx.fillStyle = "#1e2235";
+      ctx.fillStyle = "#111111";
       ctx.fillRect(70, y + 22, 660, barHeight);
+      ctx.strokeStyle = "#444444";
+      ctx.lineWidth = 2;
+      ctx.strokeRect(70, y + 22, 660, barHeight);
 
       // Fill
       ctx.fillStyle = soul.hex;
-      ctx.fillRect(70, y + 22, (660 * val) / 100, barHeight);
+      ctx.fillRect(72, y + 24, (656 * val) / 100, barHeight - 4);
     });
 
     // 6. Watermark Footer
@@ -493,7 +787,6 @@ const maxpJson = JSON.stringify(MAXP);
     link.click();
   }
 
-  // Copy Summary text
   function copySummaryText() {
     const { pct, ranked } = computeScores();
     const dominant = SOULS[ranked[0]];
@@ -518,76 +811,161 @@ const maxpJson = JSON.stringify(MAXP);
     });
   }
 
-  // Setup Event Listeners
+  // -------------------------------------------------------------
+  // Setup Event Listeners & Autoplay Unlock
+  // -------------------------------------------------------------
   document.addEventListener("DOMContentLoaded", () => {
-    initStorage();
+    updateAudioVolumes();
 
+    // Check saved progress
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length === QUESTIONS.length) {
+          userAnswers = parsed;
+          const answeredCount = userAnswers.filter(a => a !== null).length;
+          if (answeredCount > 0) {
+            const resumeBtn = document.getElementById("btn-resume-quiz");
+            const resumeCount = document.getElementById("resume-count");
+            if (resumeBtn && resumeCount) {
+              resumeCount.textContent = answeredCount;
+              resumeBtn.classList.remove("hidden");
+            }
+          }
+        }
+      }
+    } catch (e) {}
+
+    // First user interaction unlocks browser autoplay
+    const unlockAutoplay = () => {
+      startBgm();
+      window.removeEventListener("pointerdown", unlockAutoplay);
+      window.removeEventListener("keydown", unlockAutoplay);
+      window.removeEventListener("touchstart", unlockAutoplay);
+    };
+    window.addEventListener("pointerdown", unlockAutoplay, { once: true });
+    window.addEventListener("keydown", unlockAutoplay, { once: true });
+    window.addEventListener("touchstart", unlockAutoplay, { once: true });
+
+    // Settings Modal Toggle & Controls
+    const btnOpenSettings = document.getElementById("btn-open-settings");
+    const btnCloseSettings = document.getElementById("btn-close-settings");
+    const settingsModal = document.getElementById("settings-modal");
+
+    btnOpenSettings?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      startBgm();
+      settingsModal?.classList.toggle("hidden");
+    });
+
+    btnCloseSettings?.addEventListener("click", () => {
+      settingsModal?.classList.add("hidden");
+    });
+
+    document.addEventListener("click", (e) => {
+      if (settingsModal && !settingsModal.classList.contains("hidden")) {
+        if (!settingsModal.contains(e.target) && e.target !== btnOpenSettings) {
+          settingsModal.classList.add("hidden");
+        }
+      }
+    });
+
+    // Music Volume Slider
+    document.getElementById("slider-vol-music")?.addEventListener("input", (e) => {
+      audioSettings.volMusic = parseInt(e.target.value, 10);
+      audioSettings.musicMuted = false;
+      saveAudioSettings();
+      startBgm();
+    });
+
+    // SFX Volume Slider
+    document.getElementById("slider-vol-sfx")?.addEventListener("input", (e) => {
+      audioSettings.volSfx = parseInt(e.target.value, 10);
+      audioSettings.sfxMuted = false;
+      saveAudioSettings();
+      playSound("move");
+    });
+
+    // Music Mute Button
+    document.getElementById("btn-toggle-music-mute")?.addEventListener("click", () => {
+      audioSettings.musicMuted = !audioSettings.musicMuted;
+      saveAudioSettings();
+      if (!audioSettings.musicMuted) startBgm();
+    });
+
+    // SFX Mute Button
+    document.getElementById("btn-toggle-sfx-mute")?.addEventListener("click", () => {
+      audioSettings.sfxMuted = !audioSettings.sfxMuted;
+      saveAudioSettings();
+      if (!audioSettings.sfxMuted) playSound("select");
+    });
+
+    // Start / Resume button
     document.getElementById("btn-start-fresh")?.addEventListener("click", () => {
       userAnswers = new Array(QUESTIONS.length).fill(null);
-      saveStorage();
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(userAnswers)); } catch (e) {}
+      startBgm();
+      playSound("select");
       showScreen("active");
       renderQuestion(0);
     });
 
     document.getElementById("btn-resume-quiz")?.addEventListener("click", () => {
+      startBgm();
+      playSound("select");
       const firstUnanswered = userAnswers.findIndex(a => a === null);
       showScreen("active");
       renderQuestion(firstUnanswered !== -1 ? firstUnanswered : 0);
     });
 
+    // Dialogue box click to skip typing
+    document.getElementById("dialogue-box")?.addEventListener("click", skipTyping);
+
+    // Reset button
     document.getElementById("btn-quiz-reset")?.addEventListener("click", () => {
-      if (confirm("Are you sure you want to reset all answers?")) {
+      if (confirm("Reset all 66 questions?")) {
         userAnswers = new Array(QUESTIONS.length).fill(null);
-        saveStorage();
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(userAnswers)); } catch (e) {}
         showScreen("start");
       }
     });
 
-    document.getElementById("btn-prev")?.addEventListener("click", () => {
-      if (currentIndex > 0) renderQuestion(currentIndex - 1);
-    });
+    // Navigation buttons
+    document.getElementById("btn-prev")?.addEventListener("click", goBack);
+    document.getElementById("btn-next")?.addEventListener("click", confirmAndAdvance);
 
-    document.getElementById("btn-next")?.addEventListener("click", () => {
-      if (currentIndex < QUESTIONS.length - 1) {
-        renderQuestion(currentIndex + 1);
-      } else {
-        showResults();
-      }
-    });
-
+    // Results screen buttons
     document.getElementById("btn-download-card")?.addEventListener("click", drawResultCard);
     document.getElementById("btn-copy-result")?.addEventListener("click", copySummaryText);
     document.getElementById("btn-retake")?.addEventListener("click", () => {
       showScreen("start");
     });
 
-    // Keyboard navigation
+    // Keyboard navigation (Undertale style)
     window.addEventListener("keydown", (e) => {
       const activeScreen = document.getElementById("quiz-active");
       if (!activeScreen || activeScreen.classList.contains("hidden")) return;
 
-      if (e.key >= "1" && e.key <= "5") {
-        const optIndex = parseInt(e.key) - 1;
-        userAnswers[currentIndex] = optIndex;
-        saveStorage();
-        renderQuestion(currentIndex);
-        setTimeout(() => {
-          if (currentIndex < QUESTIONS.length - 1) {
-            renderQuestion(currentIndex + 1);
-          } else {
-            showResults();
-          }
-        }, 150);
-      } else if (e.key === "Enter" || e.key.toLowerCase() === "z") {
-        if (currentIndex < QUESTIONS.length - 1) {
-          renderQuestion(currentIndex + 1);
+      if (e.key === "ArrowLeft" || e.key.toLowerCase() === "a") {
+        e.preventDefault();
+        setSelection(Math.max(0, currentSelection - 1));
+      } else if (e.key === "ArrowRight" || e.key.toLowerCase() === "d") {
+        e.preventDefault();
+        setSelection(Math.min(4, currentSelection + 1));
+      } else if (e.key >= "1" && e.key <= "5") {
+        setSelection(parseInt(e.key) - 1);
+      } else if (e.key === "Enter" || e.key.toLowerCase() === "z" || e.key === " ") {
+        e.preventDefault();
+        if (isTyping) {
+          skipTyping();
         } else {
-          showResults();
+          confirmAndAdvance();
         }
       } else if (e.key === "Backspace" || e.key.toLowerCase() === "x") {
-        if (currentIndex > 0) renderQuestion(currentIndex - 1);
+        e.preventDefault();
+        goBack();
       }
     });
   });
 </script>
-

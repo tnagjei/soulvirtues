@@ -4,6 +4,10 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://soulvirtues.org',
+  server: {
+    port: 4328,
+    host: true,
+  },
   vite: {
     plugins: [tailwindcss()],
   },
