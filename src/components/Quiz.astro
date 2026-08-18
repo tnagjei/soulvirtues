@@ -1,6 +1,6 @@
 ---
 // input: Static QUESTIONS list, SOULS metadata, and MAXP scoring data
-// output: Complete interactive 66-question Undertale dialogue quiz with authentic typewriter effect, audio pool SFX, BGM, pixel settings modal, and responsive 5-point heart selector
+// output: Complete interactive 66-question Undertale dialogue quiz with void intro sequence, authentic typewriter effect, audio pool SFX, BGM, pixel settings modal, secondary virtue callout, answers review, souls gallery, and responsive 5-point heart selector
 // pos: src/components/Quiz.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import { QUESTIONS } from '../data/questions';
@@ -103,6 +103,25 @@ const maxpJson = JSON.stringify(MAXP);
           Undertale Sound Engine · Settings auto-saved
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- 0. Void Intro Sequence（黑场开场三幕，原创文案，Gaster 风格节奏） -->
+  <div id="quiz-intro" class="hidden min-h-[300px] sm:min-h-[360px] relative cursor-pointer" title="Click or press Z to continue">
+    <div class="absolute inset-0 flex items-center justify-center px-4">
+      <div class="text-xl sm:text-3xl font-normal leading-relaxed text-white tracking-widest text-center max-w-2xl">
+        <span id="intro-type" class="inline"></span>
+      </div>
+    </div>
+    <div class="absolute bottom-1 right-1 sm:bottom-2 sm:right-2 flex items-center gap-3 sm:gap-4">
+      <span class="text-[11px] sm:text-xs text-gray-500 tracking-wider font-sans">press Z or click to continue</span>
+      <button
+        id="btn-skip-intro"
+        type="button"
+        class="px-3 py-1.5 bg-black border-2 border-gray-600 hover:border-white text-gray-300 hover:text-white text-xs tracking-widest uppercase cursor-pointer active:scale-95 transition-all"
+      >
+        SKIP
+      </button>
     </div>
   </div>
 
@@ -242,6 +261,20 @@ const maxpJson = JSON.stringify(MAXP);
       <blockquote id="result-tagline" class="italic text-sm sm:text-base text-gray-300 max-w-xl mx-auto font-serif border-y border-gray-800 py-3">
         "Despite how many times I fell, I always got back up."
       </blockquote>
+
+      <!-- Secondary Virtue Callout（影子特质：第二高分维度） -->
+      <div class="mt-6 max-w-xl mx-auto border-2 border-dashed border-gray-700 p-4 flex items-center gap-4 text-left">
+        <div id="shadow-heart" class="w-9 h-9 sm:w-10 sm:h-10 flex-shrink-0" style="color: #fca600;">
+          <svg viewBox="0 0 16 16" fill="currentColor" class="w-full h-full" shape-rendering="crispEdges">
+            <path d="M2 0h4v1H2zm8 0h4v1h-4zM1 1h6v1H1zm8 0h6v1H9zM0 2h7v1H0zm9 2h7v1H9zM0 3h7v1H0zm9 3h7v1H9zM0 4h16v6H0zm2 6h12v2H2zm2 2h8v2H4zm2 2h4v2H6z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="text-[10px] sm:text-[11px] font-bold tracking-widest uppercase text-gray-500">Your Secondary Virtue · The Shadow of Your Soul</div>
+          <div id="shadow-name" class="text-base sm:text-lg font-bold tracking-widest uppercase" style="color: #fca600;">BRAVERY</div>
+          <p id="shadow-text" class="text-xs text-gray-400 mt-1 font-sans leading-relaxed"></p>
+        </div>
+      </div>
     </div>
 
     <!-- 7-Virtues Percentage Breakdown -->
@@ -275,6 +308,20 @@ const maxpJson = JSON.stringify(MAXP);
       </button>
 
       <button
+        id="btn-review-answers"
+        class="w-full sm:w-auto px-6 py-3.5 bg-black border-4 border-gray-600 hover:border-white text-white font-bold text-sm uppercase tracking-widest active:scale-95 transition-all cursor-pointer"
+      >
+        See My Answers
+      </button>
+
+      <button
+        id="btn-browse-souls"
+        class="w-full sm:w-auto px-6 py-3.5 bg-black border-4 border-gray-600 hover:border-white text-white font-bold text-sm uppercase tracking-widest active:scale-95 transition-all cursor-pointer"
+      >
+        Other Souls
+      </button>
+
+      <button
         id="btn-retake"
         class="w-full sm:w-auto px-6 py-3.5 bg-black border-4 border-gray-800 hover:border-gray-500 text-gray-400 hover:text-white font-bold text-sm uppercase tracking-widest active:scale-95 transition-all cursor-pointer"
       >
@@ -284,6 +331,46 @@ const maxpJson = JSON.stringify(MAXP);
 
     <!-- Hidden Canvas for card export -->
     <canvas id="export-canvas" width="800" height="1000" class="hidden"></canvas>
+  </div>
+
+  <!-- 4. Answers Review Screen（答案回顾） -->
+  <div id="quiz-review" class="hidden pixel-box p-6 sm:p-10 relative">
+    <h3 class="text-xl sm:text-3xl font-extrabold tracking-widest uppercase text-center mb-6">YOUR ANSWERS</h3>
+    <div id="review-list" class="max-h-[46vh] overflow-y-auto space-y-5 pr-2 mb-6"></div>
+    <div class="text-center">
+      <button
+        id="btn-review-back"
+        class="px-6 py-3 bg-black border-4 border-gray-600 hover:border-white text-white font-bold text-sm uppercase tracking-widest active:scale-95 transition-all cursor-pointer"
+      >
+        Back to Result
+      </button>
+    </div>
+  </div>
+
+  <!-- 5. Souls Gallery Screen（七灵魂图鉴） -->
+  <div id="quiz-souls" class="hidden pixel-box p-6 sm:p-10 relative">
+    <h3 class="text-xl sm:text-3xl font-extrabold tracking-widest uppercase text-center mb-2">OTHER SOULS</h3>
+    <p class="text-center text-xs sm:text-sm text-gray-400 tracking-wider mb-6 font-sans">Seven colors. Seven virtues. Choose one to learn more.</p>
+    <div id="souls-grid" class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-6"></div>
+    <div id="soul-detail" class="hidden border-2 border-gray-700 p-5 sm:p-6 mb-6 text-center">
+      <div id="soul-detail-heart" class="w-14 h-14 mx-auto mb-3" style="color: #ff0000;">
+        <svg viewBox="0 0 16 16" fill="currentColor" class="w-full h-full" shape-rendering="crispEdges">
+          <path d="M2 0h4v1H2zm8 0h4v1h-4zM1 1h6v1H1zm8 0h6v1H9zM0 2h7v1H0zm9 2h7v1H9zM0 3h7v1H0zm9 3h7v1H9zM0 4h16v6H0zm2 6h12v2H2zm2 2h8v2H4zm2 2h4v2H6z"/>
+        </svg>
+      </div>
+      <div id="soul-detail-name" class="text-xl sm:text-2xl font-extrabold tracking-widest uppercase mb-1">DETERMINATION</div>
+      <div id="soul-detail-label" class="text-[11px] tracking-widest uppercase text-gray-400 mb-3">RED SOUL · #FF0000</div>
+      <blockquote id="soul-detail-tag" class="italic text-sm text-gray-300 font-serif border-y border-gray-800 py-2 max-w-lg mx-auto mb-3"></blockquote>
+      <p id="soul-detail-desc" class="text-xs sm:text-sm text-gray-400 leading-relaxed max-w-xl mx-auto font-sans"></p>
+    </div>
+    <div class="text-center">
+      <button
+        id="btn-souls-back"
+        class="px-6 py-3 bg-black border-4 border-gray-600 hover:border-white text-white font-bold text-sm uppercase tracking-widest active:scale-95 transition-all cursor-pointer"
+      >
+        Back
+      </button>
+    </div>
   </div>
 </div>
 
@@ -485,6 +572,65 @@ const maxpJson = JSON.stringify(MAXP);
   }
 
   // -------------------------------------------------------------
+  // Void Intro Sequence（黑场开场三幕，文案为本站原创）
+  // -------------------------------------------------------------
+  const INTRO_LINES = [
+    "AH. A VISITOR IN THE VOID.",
+    "YOUR SOUL TREMBLES WITH SEVEN COLORS.",
+    "LET US SEE WHICH ONE BURNS BRIGHTEST.",
+  ];
+  let introIndex = 0;
+  let introTyping = false;
+  let introTimer = null;
+
+  function typeIntroLine(index) {
+    clearTimeout(introTimer);
+    const container = document.getElementById("intro-type");
+    if (!container) return;
+    const text = INTRO_LINES[index];
+    introTyping = true;
+    let charIndex = 0;
+    setTypedContent(container, text, 0);
+
+    function step() {
+      if (charIndex >= text.length) {
+        introTyping = false;
+        return;
+      }
+      charIndex++;
+      setTypedContent(container, text, charIndex);
+      const ch = text[charIndex - 1];
+      if (ch && !/\s/.test(ch)) {
+        playSound("text");
+      }
+      // 开场比答题更缓慢，营造仪式感
+      const isPunctuation = ch === "." || ch === "," || ch === "!" || ch === "?" || ch === "…";
+      introTimer = setTimeout(step, isPunctuation ? 160 : 34);
+    }
+
+    step();
+  }
+
+  function advanceIntro() {
+    const container = document.getElementById("intro-type");
+    // 打字中：先补全当前行，再次推进才翻页
+    if (introTyping && container) {
+      clearTimeout(introTimer);
+      introTyping = false;
+      setTypedContent(container, INTRO_LINES[introIndex], INTRO_LINES[introIndex].length);
+      return;
+    }
+    if (introIndex < INTRO_LINES.length - 1) {
+      introIndex++;
+      playSound("move");
+      typeIntroLine(introIndex);
+    } else {
+      playSound("select");
+      showScreen("start");
+    }
+  }
+
+  // -------------------------------------------------------------
   // Scoring & Calculation Logic
   // -------------------------------------------------------------
   function normPct(trait, raw) {
@@ -518,10 +664,13 @@ const maxpJson = JSON.stringify(MAXP);
   }
 
   function showScreen(name) {
+    document.getElementById("quiz-intro")?.classList.toggle("hidden", name !== "intro");
     document.getElementById("quiz-start")?.classList.toggle("hidden", name !== "start");
     document.getElementById("quiz-active")?.classList.toggle("hidden", name !== "active");
     document.getElementById("quiz-result")?.classList.toggle("hidden", name !== "result");
-    if (name === "active" || name === "result") {
+    document.getElementById("quiz-review")?.classList.toggle("hidden", name !== "review");
+    document.getElementById("quiz-souls")?.classList.toggle("hidden", name !== "souls");
+    if (name !== "intro" && name !== "start") {
       document.getElementById("quiz-root")?.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   }
@@ -654,6 +803,21 @@ const maxpJson = JSON.stringify(MAXP);
     if (nameEl) nameEl.textContent = dominantSoul.name;
     if (colorEl) colorEl.textContent = dominantSoul.label + " SOUL · " + dominantSoul.hex.toUpperCase();
     if (taglineEl) taglineEl.textContent = '"' + dominantSoul.tag + '"';
+
+    // 影子特质（第二高分维度）解读
+    const shadowCode = ranked[1];
+    const shadowSoul = SOULS[shadowCode];
+    const shadowHeart = document.getElementById("shadow-heart");
+    const shadowName = document.getElementById("shadow-name");
+    const shadowText = document.getElementById("shadow-text");
+    if (shadowHeart) shadowHeart.style.color = shadowSoul.hex;
+    if (shadowName) {
+      shadowName.textContent = shadowSoul.name;
+      shadowName.style.color = shadowSoul.hex;
+    }
+    if (shadowText) {
+      shadowText.textContent = "Beneath your dominant " + dominantSoul.name + ", a quieter current of " + shadowSoul.name + " still shapes how you move through the world. \"" + shadowSoul.tag + "\"";
+    }
 
     if (barsContainer) {
       barsContainer.innerHTML = "";
@@ -811,6 +975,79 @@ const maxpJson = JSON.stringify(MAXP);
     });
   }
 
+  // 答案回顾列表：编号 + 题目 + 所选项
+  function buildReviewList() {
+    const list = document.getElementById("review-list");
+    if (!list) return;
+    list.innerHTML = "";
+    QUESTIONS.forEach((q, i) => {
+      const ans = userAnswers[i];
+      const label = (ans !== null && ans !== undefined && q.labels[ans]) ? q.labels[ans] : "Unanswered";
+      const item = document.createElement("div");
+      item.innerHTML = `
+        <div class="text-sm sm:text-base text-white leading-relaxed tracking-wide">
+          <span class="text-gray-500 mr-2">${String(i + 1).padStart(2, "0")}.</span>${q.q}
+        </div>
+        <div class="text-yellow-400 text-xs sm:text-sm tracking-widest uppercase mt-1 pl-7">&gt; ${label}</div>
+      `;
+      list.appendChild(item);
+    });
+  }
+
+  // 七灵魂图鉴：按钮网格 + 点击展开详情
+  function buildSoulsGallery() {
+    const grid = document.getElementById("souls-grid");
+    if (!grid) return;
+    grid.innerHTML = "";
+    SOUL_CODES.forEach(code => {
+      const soul = SOULS[code];
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "flex items-center gap-2 px-3 py-2 bg-black border-2 border-gray-600 hover:border-white text-xs sm:text-sm font-bold tracking-widest uppercase cursor-pointer active:scale-95 transition-all";
+      btn.style.color = soul.hex;
+      btn.innerHTML = `
+        <span class="w-4 h-4 inline-block"><svg viewBox="0 0 16 16" fill="currentColor" class="w-full h-full" shape-rendering="crispEdges"><path d="M2 0h4v1H2zm8 0h4v1h-4zM1 1h6v1H1zm8 0h6v1H9zM0 2h7v1H0zm9 2h7v1H9zM0 3h7v1H0zm9 3h7v1H9zM0 4h16v6H0zm2 6h12v2H2zm2 2h8v2H4zm2 2h4v2H6z"/></svg></span>
+        <span>${soul.name}</span>
+      `;
+      btn.addEventListener("click", () => {
+        playSound("select");
+        const detail = document.getElementById("soul-detail");
+        const heartEl = document.getElementById("soul-detail-heart");
+        const nameEl = document.getElementById("soul-detail-name");
+        if (heartEl) heartEl.style.color = soul.hex;
+        if (nameEl) {
+          nameEl.textContent = soul.name;
+          nameEl.style.color = soul.hex;
+        }
+        document.getElementById("soul-detail-label").textContent = soul.label + " SOUL · " + soul.hex.toUpperCase();
+        document.getElementById("soul-detail-tag").textContent = '"' + soul.tag + '"';
+        document.getElementById("soul-detail-desc").textContent = soul.description;
+        detail?.classList.remove("hidden");
+      });
+      grid.appendChild(btn);
+    });
+  }
+
+  // -------------------------------------------------------------
+  // First Screen Decision（同步执行避免闪烁：无存档新访客看开场，老访客直达标题屏）
+  // -------------------------------------------------------------
+  (function initFirstScreen() {
+    let hasProgress = false;
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        hasProgress = Array.isArray(parsed) && parsed.some(a => a !== null);
+      }
+    } catch (e) {}
+    if (hasProgress) {
+      showScreen("start");
+    } else {
+      showScreen("intro");
+      typeIntroLine(0);
+    }
+  })();
+
   // -------------------------------------------------------------
   // Setup Event Listeners & Autoplay Unlock
   // -------------------------------------------------------------
@@ -911,6 +1148,35 @@ const maxpJson = JSON.stringify(MAXP);
       renderQuestion(0);
     });
 
+    // 开场序列：点击任意处推进；SKIP 直达标题屏
+    document.getElementById("quiz-intro")?.addEventListener("click", advanceIntro);
+    document.getElementById("btn-skip-intro")?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      playSound("select");
+      showScreen("start");
+    });
+
+    // 结果页延展：答案回顾与七灵魂图鉴
+    document.getElementById("btn-review-answers")?.addEventListener("click", () => {
+      playSound("select");
+      buildReviewList();
+      showScreen("review");
+    });
+    document.getElementById("btn-review-back")?.addEventListener("click", () => {
+      playSound("move");
+      showScreen("result");
+    });
+    document.getElementById("btn-browse-souls")?.addEventListener("click", () => {
+      playSound("select");
+      buildSoulsGallery();
+      document.getElementById("soul-detail")?.classList.add("hidden");
+      showScreen("souls");
+    });
+    document.getElementById("btn-souls-back")?.addEventListener("click", () => {
+      playSound("move");
+      showScreen("result");
+    });
+
     document.getElementById("btn-resume-quiz")?.addEventListener("click", () => {
       startBgm();
       playSound("select");
@@ -944,6 +1210,16 @@ const maxpJson = JSON.stringify(MAXP);
 
     // Keyboard navigation (Undertale style)
     window.addEventListener("keydown", (e) => {
+      // 开场序列：Z / Enter / 空格推进
+      const introScreen = document.getElementById("quiz-intro");
+      if (introScreen && !introScreen.classList.contains("hidden")) {
+        if (e.key === "Enter" || e.key.toLowerCase() === "z" || e.key === " ") {
+          e.preventDefault();
+          advanceIntro();
+        }
+        return;
+      }
+
       const activeScreen = document.getElementById("quiz-active");
       if (!activeScreen || activeScreen.classList.contains("hidden")) return;
 
