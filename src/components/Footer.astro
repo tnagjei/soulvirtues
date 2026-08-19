@@ -1,56 +1,105 @@
 ---
-// input: None (static page footer)
-// output: Comprehensive footer with copyright, links, official domain email, fan-made disclaimer, and MakeThisBetter board link
+// input: lang ('en' | 'ja' | 'es' | 'pt')
+// output: Comprehensive pixel-styled footer with localized navigation, official domain email, fan disclaimer, and 4-language switcher
 // pos: src/components/Footer.astro (更新规则：文件变更需同步本注释与所属目录 README)
+
+import { getTranslations, type Locale } from '../i18n';
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = 'en' } = Astro.props;
+const t = getTranslations(lang);
+
+const homeLink = lang === 'en' ? '/' : `/${lang}/`;
+const testLink = lang === 'en' ? '/#test' : `/${lang}/#test`;
+const virtuesLink = lang === 'en' ? '/#virtues' : `/${lang}/#virtues`;
+const scoringLink = lang === 'en' ? '/#scoring' : `/${lang}/#scoring`;
+const faqLink = lang === 'en' ? '/#faq' : `/${lang}/#faq`;
 ---
 
 <footer class="bg-black border-t-2 border-white text-gray-400 text-sm mt-20">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+      <!-- Col 1 & 2: Site Info & Description -->
       <div class="md:col-span-2">
-        <div class="flex items-center gap-2 mb-4">
-          <div class="w-6 h-6 text-red-500">
+        <a href={homeLink} class="flex items-center gap-2 mb-4 group inline-block">
+          <div class="w-6 h-6 text-red-500 transition-transform group-hover:scale-110">
             <svg viewBox="0 0 16 16" fill="currentColor" class="w-full h-full" shape-rendering="crispEdges">
               <path d="M2 0h4v1H2zm8 0h4v1h-4zM1 1h6v1H1zm8 0h6v1H9zM0 2h7v1H0zm9 2h7v1H9zM0 3h7v1H0zm9 3h7v1H9zM0 4h16v6H0zm2 6h12v2H2zm2 2h8v2H4zm2 2h4v2H6z"/>
             </svg>
           </div>
-          <span class="font-bold text-white tracking-wider font-mono text-base">SOUL VIRTUES EXTRACTOR</span>
-        </div>
+          <span class="font-bold text-white tracking-wider font-mono text-base">{t.footer.title}</span>
+        </a>
         <p class="text-gray-400 text-xs leading-relaxed max-w-md">
-          A free, comprehensive 66-question assessment exploring the seven human soul virtues inspired by the Undertale universe. All calculations are performed 100% locally in your browser.
+          {t.footer.desc}
         </p>
-        <p class="text-gray-500 text-xs mt-3">
-          Contact: <a href="mailto:contact@soulvirtues.org" class="text-gray-400 hover:text-white underline font-mono">contact@soulvirtues.org</a>
+        <p class="text-gray-500 text-xs mt-3 font-mono">
+          {t.footer.contact} <a href="mailto:contact@soulvirtues.org" class="text-gray-400 hover:text-white underline font-mono">contact@soulvirtues.org</a>
         </p>
+
+        <!-- Footer Language Quick Selector -->
+        <div class="mt-4 flex flex-wrap items-center gap-2 text-xs font-mono">
+          <span class="text-gray-500">🌐 Language:</span>
+          <a
+            href="/"
+            class={`px-2 py-0.5 border ${lang === 'en' ? 'border-yellow-400 text-yellow-400 bg-gray-900 font-bold' : 'border-gray-700 text-gray-400 hover:text-white hover:border-white'}`}
+          >
+            English
+          </a>
+          <a
+            href="/ja/"
+            class={`px-2 py-0.5 border ${lang === 'ja' ? 'border-yellow-400 text-yellow-400 bg-gray-900 font-bold' : 'border-gray-700 text-gray-400 hover:text-white hover:border-white'}`}
+          >
+            日本語
+          </a>
+          <a
+            href="/es/"
+            class={`px-2 py-0.5 border ${lang === 'es' ? 'border-yellow-400 text-yellow-400 bg-gray-900 font-bold' : 'border-gray-700 text-gray-400 hover:text-white hover:border-white'}`}
+          >
+            Español
+          </a>
+          <a
+            href="/pt/"
+            class={`px-2 py-0.5 border ${lang === 'pt' ? 'border-yellow-400 text-yellow-400 bg-gray-900 font-bold' : 'border-gray-700 text-gray-400 hover:text-white hover:border-white'}`}
+          >
+            Português
+          </a>
+        </div>
       </div>
 
+      <!-- Col 3: Explore Links -->
       <div>
-        <h4 class="text-white font-semibold text-xs uppercase tracking-wider mb-3">Explore</h4>
+        <h4 class="text-white font-semibold text-xs uppercase tracking-wider mb-3 font-mono">{t.footer.exploreTitle}</h4>
         <ul class="space-y-2 text-xs">
-          <li><a href="/#test" class="hover:text-white transition-colors">Soul Virtues Test</a></li>
-          <li><a href="/#virtues" class="hover:text-white transition-colors">7 Soul Traits</a></li>
-          <li><a href="/#scoring" class="hover:text-white transition-colors">Scoring Logic</a></li>
-          <li><a href="/#faq" class="hover:text-white transition-colors">Frequently Asked Questions</a></li>
+          <li><a href={testLink} class="hover:text-white transition-colors">{t.footer.testLink}</a></li>
+          <li><a href={virtuesLink} class="hover:text-white transition-colors">{t.footer.traitsLink}</a></li>
+          <li><a href={scoringLink} class="hover:text-white transition-colors">{t.footer.scoringLink}</a></li>
+          <li><a href={faqLink} class="hover:text-white transition-colors">{t.footer.faqLink}</a></li>
         </ul>
       </div>
 
+      <!-- Col 4: Legal & About Links -->
       <div>
-        <h4 class="text-white font-semibold text-xs uppercase tracking-wider mb-3">Legal & About</h4>
+        <h4 class="text-white font-semibold text-xs uppercase tracking-wider mb-3 font-mono">{t.footer.legalTitle}</h4>
         <ul class="space-y-2 text-xs">
-          <li><a href="/about" class="hover:text-white transition-colors">About Us</a></li>
-          <li><a href="/privacy" class="hover:text-white transition-colors">Privacy Policy</a></li>
-          <li><a href="/terms" class="hover:text-white transition-colors">Terms of Service</a></li>
-          <li><a href="/contact" class="hover:text-white transition-colors">Contact</a></li>
-          <li><a href="https://soulvirtues.makethisbetter.dev" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Feedback</a></li>
+          <li><a href="/about" class="hover:text-white transition-colors">{t.footer.aboutLink}</a></li>
+          <li><a href="/privacy" class="hover:text-white transition-colors">{t.footer.privacyLink}</a></li>
+          <li><a href="/terms" class="hover:text-white transition-colors">{t.footer.termsLink}</a></li>
+          <li><a href="/contact" class="hover:text-white transition-colors">{t.footer.contactLink}</a></li>
+          <li><a href="https://soulvirtues.makethisbetter.dev" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">{t.footer.feedbackLink}</a></li>
         </ul>
       </div>
     </div>
 
+    <!-- Bottom Disclaimer & Copyright -->
     <div class="border-t border-gray-800/80 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
-      <p>© 2026 Soul Virtues Extractor (soulvirtues.org). All rights reserved.</p>
+      <p>{t.footer.copyright}</p>
       <p class="text-center sm:text-right max-w-lg text-[11px] text-gray-600">
-        Disclaimer: This is an independent fan-made analytical tool. Undertale is a trademark of Toby Fox. This website is not officially affiliated with or endorsed by Toby Fox or original game creators.
+        {t.footer.disclaimer}
       </p>
     </div>
   </div>
 </footer>
+

@@ -1,9 +1,11 @@
 ---
-// input: None (static FAQ accordion list)
-// output: Accessible accordion list addressing top search intent questions in English
+// input: optional faqs array of {q, a} items
+// output: Accessible pixel-card accordion list addressing top search intent questions
 // pos: src/components/FAQ.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
-export const FAQS = [
+import type { FAQItem } from '../i18n/types';
+
+export const FAQS: FAQItem[] = [
   {
     q: "What is the Soul Virtues Extractor?",
     a: "The Soul Virtues Extractor is a 66-question Undertale-inspired soul test and personality quiz designed to measure seven human soul virtues: Determination (Red*), Bravery (Orange), Justice (Yellow), Kindness (Green), Patience (Cyan), Integrity (Blue), and Perseverance (Purple). Unlike single-result tests, it calculates your complete percentage distribution across all seven dimensions simultaneously."
@@ -37,10 +39,16 @@ export const FAQS = [
     a: "Yes. Your results display your percentage across all seven virtues. Many individuals score high in multiple traits, such as High Kindness alongside High Integrity."
   }
 ];
+
+interface Props {
+  faqs?: FAQItem[];
+}
+
+const { faqs = FAQS } = Astro.props;
 ---
 
 <div class="space-y-4 max-w-4xl mx-auto">
-  {FAQS.map((faq) => (
+  {faqs.map((faq) => (
     <details class="group pixel-card-sub p-5">
       <summary class="flex items-center justify-between cursor-pointer list-none text-base font-semibold text-white group-open:text-red-400">
         <span class="pr-4">{faq.q}</span>

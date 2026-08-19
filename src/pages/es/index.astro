@@ -1,16 +1,16 @@
 ---
-// input: None (primary English landing page)
-// output: Full SSR/SSG page with factually grounded Why, What, Traits, Colors, Scoring, Features, and FAQ in English
-// pos: src/pages/index.astro (更新规则：文件变更需同步本注释与所属目录 README)
+// input: None (primary Spanish landing page)
+// output: Full SSR/SSG page with factually grounded Why, What, Traits, Colors, Scoring, Features, and FAQ in Spanish
+// pos: src/pages/es/index.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
-import Layout from '../layouts/Layout.astro';
-import Quiz from '../components/Quiz.astro';
-import SoulCard from '../components/SoulCard.astro';
-import FAQ from '../components/FAQ.astro';
-import { SOUL_CODES } from '../data/souls';
-import { getTranslations } from '../i18n';
+import Layout from '../../layouts/Layout.astro';
+import Quiz from '../../components/Quiz.astro';
+import SoulCard from '../../components/SoulCard.astro';
+import FAQ from '../../components/FAQ.astro';
+import { SOUL_CODES } from '../../data/souls';
+import { getTranslations } from '../../i18n';
 
-const lang = 'en';
+const lang = 'es';
 const t = getTranslations(lang);
 
 // Schema.org JSON-LD
@@ -19,15 +19,15 @@ const structuredData = {
   "@graph": [
     {
       "@type": "WebSite",
-      "@id": "https://soulvirtues.org/#website",
-      "url": "https://soulvirtues.org/",
-      "name": "Soul Virtues Extractor",
+      "@id": "https://soulvirtues.org/es/#website",
+      "url": "https://soulvirtues.org/es/",
+      "name": "Soul Virtues Extractor (Español)",
       "description": t.pageDescription
     },
     {
       "@type": "SoftwareApplication",
-      "@id": "https://soulvirtues.org/#app",
-      "name": "Soul Virtues Extractor & Undertale Soul Test",
+      "@id": "https://soulvirtues.org/es/#app",
+      "name": "Soul Virtues Extractor & Test de Almas de Undertale",
       "applicationCategory": "EntertainmentApplication",
       "operatingSystem": "All",
       "offers": {
@@ -38,7 +38,7 @@ const structuredData = {
     },
     {
       "@type": "FAQPage",
-      "@id": "https://soulvirtues.org/#faq",
+      "@id": "https://soulvirtues.org/es/#faq",
       "mainEntity": t.faq.items.map(f => ({
         "@type": "Question",
         "name": f.q,
@@ -55,7 +55,7 @@ const structuredData = {
 <Layout
   title={t.pageTitle}
   description={t.pageDescription}
-  canonicalUrl="https://soulvirtues.org/"
+  canonicalUrl="https://soulvirtues.org/es/"
   structuredData={structuredData}
   lang={lang}
 >
@@ -66,14 +66,18 @@ const structuredData = {
       {t.heroBadge}
     </div>
 
-    <h1 class="text-3xl sm:text-6xl font-black text-white font-mono tracking-tight leading-tight mb-4">
+    <h1 class="text-3xl sm:text-6xl font-black text-white font-mono tracking-tight leading-tight mb-2">
       {t.heroTitle} <span class="text-red-500">{t.heroTitleHighlight}</span>
     </h1>
+
+    <div class="text-xs sm:text-sm font-bold tracking-widest text-gray-400 font-mono uppercase mb-4">
+      Test de Almas de Undertale (Undertale Soul Test)
+    </div>
 
     <p class="text-base sm:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-6 font-sans" set:html={t.heroSubtitle}>
     </p>
 
-    <p class="text-xs sm:text-sm text-gray-400 max-w-2xl mx-auto mb-2 leading-normal">
+    <p class="text-xs sm:text-sm text-gray-400 max-w-2xl mx-auto mb-2 leading-normal font-sans">
       {t.heroNote}
     </p>
   </section>
@@ -84,7 +88,7 @@ const structuredData = {
   </section>
 
   <!-- Section 1: What Is the Soul Virtues Extractor? -->
-  <section class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80">
+  <section class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80 font-sans">
     <div class="prose prose-invert max-w-none">
       <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-wide mb-6 flex items-center gap-3">
         <span class="text-red-500">#</span> {t.what.title}
@@ -104,7 +108,7 @@ const structuredData = {
   </section>
 
   <!-- Section 2: Why Take the Soul Virtues Extractor? -->
-  <section class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80">
+  <section class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80 font-sans">
     <div class="prose prose-invert max-w-none">
       <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-wide mb-6 flex items-center gap-3">
         <span class="text-purple-400">#</span> {t.why.title}
@@ -120,7 +124,7 @@ const structuredData = {
             <h3 class={`text-base font-bold text-white font-mono mb-2 ${idx === 0 ? 'text-red-400' : idx === 1 ? 'text-amber-400' : idx === 2 ? 'text-emerald-400' : 'text-cyan-400'}`}>
               {pt.title}
             </h3>
-            <p class="text-xs sm:text-sm text-gray-400 leading-relaxed">
+            <p class="text-xs sm:text-sm text-gray-400 leading-relaxed font-sans">
               {pt.desc}
             </p>
           </div>
@@ -130,12 +134,12 @@ const structuredData = {
   </section>
 
   <!-- Section 3: What Are the Seven Undertale Soul Traits? -->
-  <section id="virtues" class="py-16 px-4 sm:px-6 max-w-6xl mx-auto border-t border-gray-800/80 scroll-mt-20">
+  <section id="virtues" class="py-16 px-4 sm:px-6 max-w-6xl mx-auto border-t border-gray-800/80 scroll-mt-20 font-sans">
     <div class="text-center max-w-3xl mx-auto mb-12">
       <h2 class="text-2xl sm:text-4xl font-extrabold text-white font-mono tracking-wide mb-3">
         {t.traits.title}
       </h2>
-      <p class="text-xs sm:text-sm text-gray-400">
+      <p class="text-xs sm:text-sm text-gray-400 font-sans">
         {t.traits.subtitle}
       </p>
     </div>
@@ -148,12 +152,12 @@ const structuredData = {
   </section>
 
   <!-- Section 4: What Is Your Undertale Soul Color? -->
-  <section class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80">
+  <section class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80 font-sans">
     <div class="pixel-card p-6 sm:p-10">
       <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-wide mb-4 flex items-center gap-3">
         <span class="text-amber-400">#</span> {t.colors.title}
       </h2>
-      <p class="text-sm sm:text-base text-gray-300 leading-relaxed mb-6">
+      <p class="text-sm sm:text-base text-gray-300 leading-relaxed mb-6 font-sans">
         {t.colors.desc}
       </p>
 
@@ -161,32 +165,32 @@ const structuredData = {
         {t.colors.items.map(item => (
           <div class={`p-4 bg-black border border-gray-800 ${item.colSpan2 ? 'sm:col-span-2' : ''}`}>
             <span class="font-bold text-white font-mono">{item.title}</span>
-            <p class="text-gray-400 text-xs mt-1">{item.desc}</p>
+            <p class="text-gray-400 text-xs mt-1 font-sans">{item.desc}</p>
           </div>
         ))}
       </div>
 
-      <p class="text-[11px] text-gray-500 mt-4 italic">
+      <p class="text-[11px] text-gray-500 mt-4 italic font-sans">
         {t.colors.note}
       </p>
     </div>
   </section>
 
   <!-- Section 5: How the Scoring Algorithm Works -->
-  <section id="scoring" class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80 scroll-mt-20">
+  <section id="scoring" class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80 scroll-mt-20 font-sans">
     <div class="pixel-card p-6 sm:p-10">
       <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-wide mb-6 flex items-center gap-3">
         <span class="text-emerald-400">#</span> {t.scoring.title}
       </h2>
 
-      <div class="space-y-6 text-sm text-gray-300 leading-relaxed">
+      <div class="space-y-6 text-sm text-gray-300 leading-relaxed font-sans">
         <p set:html={t.scoring.intro}></p>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 my-6">
           {t.scoring.cards.map((c, idx) => (
             <div class="bg-black border border-gray-800 p-4">
               <h3 class={`text-xs font-mono font-bold uppercase mb-1 ${idx === 0 ? 'text-red-400' : idx === 1 ? 'text-cyan-400' : 'text-purple-400'}`}>{c.title}</h3>
-              <p class="text-xs text-gray-400">{c.desc}</p>
+              <p class="text-xs text-gray-400 font-sans">{c.desc}</p>
             </div>
           ))}
         </div>
@@ -197,12 +201,12 @@ const structuredData = {
   </section>
 
   <!-- Section 6: Key Features & Highlights -->
-  <section class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80">
+  <section class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80 font-sans">
     <div class="text-center max-w-3xl mx-auto mb-10">
       <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-wide mb-3">
         {t.features.title}
       </h2>
-      <p class="text-xs sm:text-sm text-gray-400">
+      <p class="text-xs sm:text-sm text-gray-400 font-sans">
         {t.features.subtitle}
       </p>
     </div>
@@ -211,20 +215,20 @@ const structuredData = {
       {t.features.items.map((feat, idx) => (
         <div class="pixel-card-sub p-5">
           <div class={`text-2xl mb-2 font-mono ${idx === 0 ? 'text-red-400' : idx === 1 ? 'text-yellow-400' : idx === 2 ? 'text-green-400' : 'text-cyan-400'}`}>{feat.num}</div>
-          <h3 class="text-sm font-bold text-white mb-1">{feat.title}</h3>
-          <p class="text-xs text-gray-400">{feat.desc}</p>
+          <h3 class="text-sm font-bold text-white mb-1 font-sans">{feat.title}</h3>
+          <p class="text-xs text-gray-400 font-sans">{feat.desc}</p>
         </div>
       ))}
     </div>
   </section>
 
   <!-- Section 7: FAQ -->
-  <section id="faq" class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80 scroll-mt-20">
+  <section id="faq" class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80 scroll-mt-20 font-sans">
     <div class="text-center max-w-3xl mx-auto mb-12">
       <h2 class="text-2xl sm:text-4xl font-extrabold text-white font-mono tracking-wide mb-3">
         {t.faq.title}
       </h2>
-      <p class="text-xs sm:text-sm text-gray-400">
+      <p class="text-xs sm:text-sm text-gray-400 font-sans">
         {t.faq.subtitle}
       </p>
     </div>

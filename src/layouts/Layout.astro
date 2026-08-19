@@ -1,10 +1,12 @@
 ---
-// input: Title, description, canonicalUrl, ogImage, structuredData schema
-// output: Full HTML page shell with SEO meta tags, fonts, styles, header, footer, ambient background video, Google Analytics, Clarity analytics, MakeThisBetter widget, and deferred third-party ads (load on scroll/dwell)
+// input: Title, description, canonicalUrl, ogImage, structuredData schema, lang ('en' | 'ja' | 'es' | 'pt')
+// output: Full HTML page shell with multilingual hreflang meta tags, fonts, styles, header, footer, bottom-right language suggestion toast, ambient background video, Google Analytics, Clarity analytics, MakeThisBetter widget, and deferred third-party ads (load on scroll/dwell)
 // pos: src/layouts/Layout.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import LangDetector from '../components/LangDetector.astro';
+import type { Locale } from '../i18n';
 import '../styles/global.css';
 
 interface Props {
@@ -13,6 +15,7 @@ interface Props {
   canonicalUrl?: string;
   ogImage?: string;
   structuredData?: Record<string, any>;
+  lang?: Locale;
 }
 
 const {
@@ -21,20 +24,32 @@ const {
   canonicalUrl = "https://soulvirtues.org/",
   ogImage = "https://soulvirtues.org/og-image.png",
   structuredData,
+  lang = "en",
 } = Astro.props;
 
 const siteUrl = "https://soulvirtues.org";
 const fullCanonical = canonicalUrl.startsWith("http") ? canonicalUrl : `${siteUrl}${canonicalUrl}`;
+const homeEn = `${siteUrl}/`;
+const homeJa = `${siteUrl}/ja/`;
+const homeEs = `${siteUrl}/es/`;
+const homePt = `${siteUrl}/pt/`;
 ---
 
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang={lang} class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={fullCanonical} />
+
+    <!-- Multilingual Hreflang SEO Tags -->
+    <link rel="alternate" hreflang="en" href={homeEn} />
+    <link rel="alternate" hreflang="ja" href={homeJa} />
+    <link rel="alternate" hreflang="es" href={homeEs} />
+    <link rel="alternate" hreflang="pt" href={homePt} />
+    <link rel="alternate" hreflang="x-default" href={homeEn} />
 
     <!-- Open Graph Metadata -->
     <meta property="og:title" content={title} />
@@ -93,11 +108,14 @@ const fullCanonical = canonicalUrl.startsWith("http") ? canonicalUrl : `${siteUr
       <source src="/background.mp4" type="video/mp4" />
     </video>
 
-    <Header />
+    <Header lang={lang} />
     <main class="flex-grow relative z-10">
       <slot />
     </main>
-    <Footer />
+    <Footer lang={lang} />
+
+    <!-- Bottom-Right Floating Smart Language Detector -->
+    <LangDetector lang={lang} />
 
     <!-- MakeThisBetter Feedback Widget -->
     <script is:inline src="https://unpkg.com/makethisbetter@1/dist/makethisbetter.js"></script>

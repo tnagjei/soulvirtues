@@ -1,32 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://soulvirtues.org/</loc>
-    <lastmod>2026-08-17</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/" />
+    <lastmod>2026-08-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://soulvirtues.org/ja/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/" />
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/es/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/" />
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/pt/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/" />
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://soulvirtues.org/about</loc>
-    <lastmod>2026-08-17</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://soulvirtues.org/privacy</loc>
-    <lastmod>2026-08-17</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://soulvirtues.org/terms</loc>
-    <lastmod>2026-08-17</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://soulvirtues.org/contact</loc>
-    <lastmod>2026-08-17</lastmod>
+    <lastmod>2026-08-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>

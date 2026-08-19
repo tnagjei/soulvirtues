@@ -1,38 +1,173 @@
 ---
-// input: None (static navigation menu component)
-// output: Top sticky navigation bar with Undertale soul logo and anchors
+// input: lang ('en' | 'ja' | 'es' | 'pt')
+// output: Sticky pixel-styled top navigation bar with responsive mobile menu and 4-language switcher
 // pos: src/components/Header.astro (更新规则：文件变更需同步本注释与所属目录 README)
+
+import { getTranslations, locales, localeNames, type Locale } from '../i18n';
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = 'en' } = Astro.props;
+const t = getTranslations(lang);
+
+const homeLink = lang === 'en' ? '/' : `/${lang}/`;
+const testLink = lang === 'en' ? '/#test' : `/${lang}/#test`;
+const virtuesLink = lang === 'en' ? '/#virtues' : `/${lang}/#virtues`;
+const scoringLink = lang === 'en' ? '/#scoring' : `/${lang}/#scoring`;
+const faqLink = lang === 'en' ? '/#faq' : `/${lang}/#faq`;
 ---
 
-<header class="sticky top-0 z-40 bg-black/90 backdrop-blur-md border-b-2 border-white">
+<header class="sticky top-0 z-40 bg-black/95 backdrop-blur-md border-b-2 border-white">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-    <a href="/" class="flex items-center gap-3 group">
+    <!-- Logo -->
+    <a href={homeLink} class="flex items-center gap-3 group">
       <div class="w-7 h-7 text-red-500 transition-transform group-hover:scale-110 drop-shadow-[0_0_8px_rgba(239,68,68,0.6)]">
         <svg viewBox="0 0 16 16" fill="currentColor" class="w-full h-full" shape-rendering="crispEdges">
           <path d="M2 0h4v1H2zm8 0h4v1h-4zM1 1h6v1H1zm8 0h6v1H9zM0 2h7v1H0zm9 2h7v1H9zM0 3h7v1H0zm9 3h7v1H9zM0 4h16v6H0zm2 6h12v2H2zm2 2h8v2H4zm2 2h4v2H6z"/>
         </svg>
       </div>
-      <span class="font-extrabold tracking-wider text-lg sm:text-xl text-white font-mono">
+      <span class="font-extrabold tracking-wider text-base sm:text-xl text-white font-mono">
         SOUL <span class="text-red-500">VIRTUES</span>
       </span>
     </a>
 
+    <!-- Desktop Navigation -->
     <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-300">
-      <a href="/#test" class="hover:text-red-400 transition-colors">Start Test</a>
-      <a href="/#virtues" class="hover:text-amber-400 transition-colors">7 Virtues</a>
-      <a href="/#scoring" class="hover:text-emerald-400 transition-colors">How It Works</a>
-      <a href="/#faq" class="hover:text-cyan-400 transition-colors">FAQ</a>
-      <a href="/about" class="hover:text-purple-400 transition-colors">About</a>
+      <a href={testLink} class="hover:text-red-400 transition-colors">{t.nav.startTest}</a>
+      <a href={virtuesLink} class="hover:text-amber-400 transition-colors">{t.nav.sevenVirtues}</a>
+      <a href={scoringLink} class="hover:text-emerald-400 transition-colors">{t.nav.howItWorks}</a>
+      <a href={faqLink} class="hover:text-cyan-400 transition-colors">{t.nav.faq}</a>
+      <a href="/about" class="hover:text-purple-400 transition-colors">{t.nav.about}</a>
     </nav>
 
-    <div class="flex items-center gap-3">
+    <!-- Right Controls: Language Selector & CTA & Mobile Toggle -->
+    <div class="flex items-center gap-2 sm:gap-3">
+      <!-- Language Selector (Desktop & Tablet) -->
+      <div class="relative group" id="lang-menu-desktop">
+        <button
+          type="button"
+          class="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-mono font-bold uppercase tracking-wider text-gray-200 bg-black border-2 border-gray-600 hover:border-white hover:text-white transition-all cursor-pointer shadow-[2px_2px_0px_rgba(255,255,255,0.2)]"
+          aria-label="Select Language"
+        >
+          <span class="text-sm">🌐</span>
+          <span>{localeNames[lang]?.name || 'Language'}</span>
+          <span class="text-[10px] text-gray-400">▼</span>
+        </button>
+
+        <!-- Dropdown Menu -->
+        <div class="hidden group-hover:block hover:block focus-within:block absolute right-0 top-full pt-1.5 w-36 z-50">
+          <div class="bg-black border-2 border-white shadow-[3px_3px_0px_#ffffff] py-1 text-xs font-mono">
+            <a
+              href="/"
+              class={`block px-3 py-1.5 hover:bg-white hover:text-black transition-colors ${lang === 'en' ? 'text-yellow-400 font-bold bg-gray-900/60' : 'text-gray-300'}`}
+            >
+              * English
+            </a>
+            <a
+              href="/ja/"
+              class={`block px-3 py-1.5 hover:bg-white hover:text-black transition-colors ${lang === 'ja' ? 'text-yellow-400 font-bold bg-gray-900/60' : 'text-gray-300'}`}
+            >
+              * 日本語
+            </a>
+            <a
+              href="/es/"
+              class={`block px-3 py-1.5 hover:bg-white hover:text-black transition-colors ${lang === 'es' ? 'text-yellow-400 font-bold bg-gray-900/60' : 'text-gray-300'}`}
+            >
+              * Español
+            </a>
+            <a
+              href="/pt/"
+              class={`block px-3 py-1.5 hover:bg-white hover:text-black transition-colors ${lang === 'pt' ? 'text-yellow-400 font-bold bg-gray-900/60' : 'text-gray-300'}`}
+            >
+              * Português
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Take Quiz CTA Button -->
       <a
-        href="/#test"
-        class="inline-flex items-center justify-center px-4 py-2 text-xs sm:text-sm font-bold uppercase tracking-wider text-black bg-white hover:bg-gray-200 transition-all shadow-[3px_3px_0px_rgba(255,255,255,0.35)] active:scale-95"
+        href={testLink}
+        class="hidden sm:inline-flex items-center justify-center px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-black bg-white hover:bg-gray-200 transition-all shadow-[2px_2px_0px_rgba(255,255,255,0.4)] active:scale-95 font-mono"
       >
-        Take Quiz
+        {t.nav.takeQuiz}
       </a>
+
+      <!-- Mobile Hamburger Button -->
+      <button
+        id="btn-mobile-menu"
+        type="button"
+        class="md:hidden p-2 text-gray-300 hover:text-white border-2 border-gray-600 hover:border-white bg-black cursor-pointer shadow-[2px_2px_0px_rgba(255,255,255,0.2)]"
+        aria-label="Toggle navigation menu"
+      >
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Dropdown Panel -->
+  <div id="mobile-menu-panel" class="hidden md:hidden bg-black border-b-2 border-white px-4 py-4 space-y-3 font-mono text-sm">
+    <nav class="flex flex-col space-y-2 border-b border-gray-800 pb-3">
+      <a href={testLink} class="mobile-nav-link text-gray-200 hover:text-red-400 py-1">* {t.nav.startTest}</a>
+      <a href={virtuesLink} class="mobile-nav-link text-gray-200 hover:text-amber-400 py-1">* {t.nav.sevenVirtues}</a>
+      <a href={scoringLink} class="mobile-nav-link text-gray-200 hover:text-emerald-400 py-1">* {t.nav.howItWorks}</a>
+      <a href={faqLink} class="mobile-nav-link text-gray-200 hover:text-cyan-400 py-1">* {t.nav.faq}</a>
+      <a href="/about" class="mobile-nav-link text-gray-200 hover:text-purple-400 py-1">* {t.nav.about}</a>
+    </nav>
+
+    <!-- Mobile Language Switcher (2x2 Grid) -->
+    <div class="pt-2">
+      <div class="text-xs text-gray-400 uppercase tracking-widest mb-2 flex items-center gap-1.5">
+        <span>🌐</span> Language / Idioma / 言語
+      </div>
+      <div class="grid grid-cols-2 gap-2 text-xs">
+        <a
+          href="/"
+          class={`px-3 py-2 text-center border-2 transition-colors ${lang === 'en' ? 'border-yellow-400 text-yellow-400 bg-gray-900 font-bold' : 'border-gray-700 text-gray-400 hover:border-white hover:text-white'}`}
+        >
+          English
+        </a>
+        <a
+          href="/ja/"
+          class={`px-3 py-2 text-center border-2 transition-colors ${lang === 'ja' ? 'border-yellow-400 text-yellow-400 bg-gray-900 font-bold' : 'border-gray-700 text-gray-400 hover:border-white hover:text-white'}`}
+        >
+          日本語
+        </a>
+        <a
+          href="/es/"
+          class={`px-3 py-2 text-center border-2 transition-colors ${lang === 'es' ? 'border-yellow-400 text-yellow-400 bg-gray-900 font-bold' : 'border-gray-700 text-gray-400 hover:border-white hover:text-white'}`}
+        >
+          Español
+        </a>
+        <a
+          href="/pt/"
+          class={`px-3 py-2 text-center border-2 transition-colors ${lang === 'pt' ? 'border-yellow-400 text-yellow-400 bg-gray-900 font-bold' : 'border-gray-700 text-gray-400 hover:border-white hover:text-white'}`}
+        >
+          Português
+        </a>
+      </div>
     </div>
   </div>
 </header>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('btn-mobile-menu');
+    const panel = document.getElementById('mobile-menu-panel');
+    if (btn && panel) {
+      btn.addEventListener('click', () => {
+        panel.classList.toggle('hidden');
+      });
+      panel.querySelectorAll('.mobile-nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+          panel.classList.add('hidden');
+        });
+      });
+    }
+  });
+</script>
 

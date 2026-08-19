@@ -1,19 +1,36 @@
 ---
-// input: Static QUESTIONS list, SOULS metadata, and MAXP scoring data
-// output: Complete interactive 66-question Undertale dialogue quiz with void intro sequence, authentic typewriter effect, audio pool SFX, BGM, pixel settings modal, secondary virtue callout, answers review, souls gallery, and responsive 5-point heart selector
+// input: lang ('en' | 'ja'), static scoring data and localized i18n dictionaries
+// output: Complete interactive 66-question Undertale dialogue quiz supporting English and Japanese with localized typewriter effect, sound FX, BGM, pixel settings modal, shadow traits, answer review, souls gallery, and canvas share card generator
 // pos: src/components/Quiz.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
-import { QUESTIONS } from '../data/questions';
-import { SOULS, SOUL_CODES } from '../data/souls';
+import { getTranslations, type Locale } from '../i18n';
+import { SOUL_CODES } from '../data/souls';
 import { MAXP } from '../data/scoring';
 
-const questionsJson = JSON.stringify(QUESTIONS);
-const soulsJson = JSON.stringify(SOULS);
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = 'en' } = Astro.props;
+const t = getTranslations(lang);
+
+const questionsJson = JSON.stringify(t.questions);
+const soulsJson = JSON.stringify(t.souls);
 const soulCodesJson = JSON.stringify(SOUL_CODES);
 const maxpJson = JSON.stringify(MAXP);
+const quizUIJson = JSON.stringify(t.quizUI);
 ---
 
-<div id="quiz-root" class="w-full max-w-4xl mx-auto my-6 font-mono text-white select-none relative">
+<div
+  id="quiz-root"
+  class="w-full max-w-4xl mx-auto my-6 font-mono text-white select-none relative"
+  data-lang={lang}
+  data-questions={questionsJson}
+  data-souls={soulsJson}
+  data-soul-codes={soulCodesJson}
+  data-maxp={maxpJson}
+  data-quiz-ui={quizUIJson}
+>
   <!-- Background Audio Elements -->
   <audio id="audio-bgm" loop preload="auto" src="/audio/AUDIO_ANOTHERHIM.ogg"></audio>
   <audio id="audio-move" preload="auto" src="/audio/snd_menumove.wav"></audio>
@@ -24,10 +41,10 @@ const maxpJson = JSON.stringify(MAXP);
   <div class="flex items-center justify-between mb-4 px-2 text-xs text-gray-300">
     <div class="flex items-center gap-2">
       <span class="inline-block w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
-      <span class="tracking-widest uppercase text-xs font-bold font-sans">UNDERTALE SOUL EXTRACTOR</span>
+      <span class="tracking-widest uppercase text-xs font-bold font-sans">{t.quizUI.title}</span>
     </div>
 
-    <!-- SETTINGS Button (Target Site Matching) -->
+    <!-- SETTINGS Button -->
     <div class="relative">
       <button
         id="btn-open-settings"
@@ -36,7 +53,7 @@ const maxpJson = JSON.stringify(MAXP);
         title="Audio and Sound Settings"
       >
         <span id="sound-indicator-icon">🔊</span>
-        <span>SETTINGS 设置</span>
+        <span>{t.quizUI.settingsBtn}</span>
       </button>
 
       <!-- Settings Dropdown / Modal -->
@@ -45,7 +62,7 @@ const maxpJson = JSON.stringify(MAXP);
         class="hidden absolute right-0 top-full mt-2 w-72 sm:w-80 bg-black border-4 border-white p-4 shadow-[4px_4px_0px_rgba(255,255,255,0.4)] z-50 text-white font-mono"
       >
         <div class="flex items-center justify-between border-b-2 border-gray-700 pb-2 mb-4">
-          <span class="font-bold text-sm tracking-widest text-yellow-400 uppercase">AUDIO SETTINGS</span>
+          <span class="font-bold text-sm tracking-widest text-yellow-400 uppercase">{t.quizUI.audioSettingsTitle}</span>
           <button id="btn-close-settings" class="text-xs text-gray-400 hover:text-white border border-gray-600 px-1.5 py-0.5 cursor-pointer">
             ✕
           </button>
@@ -54,7 +71,7 @@ const maxpJson = JSON.stringify(MAXP);
         <!-- BGM Volume Slider -->
         <div class="mb-4">
           <div class="flex justify-between items-center text-xs mb-1.5">
-            <span class="text-gray-300 tracking-wider">MUSIC (BGM):</span>
+            <span class="text-gray-300 tracking-wider">{t.quizUI.musicBgmLabel}</span>
             <span id="label-vol-music" class="text-red-400 font-bold">30%</span>
           </div>
           <div class="flex items-center gap-3">
@@ -70,7 +87,7 @@ const maxpJson = JSON.stringify(MAXP);
               id="btn-toggle-music-mute"
               class="px-2 py-1 text-[11px] bg-black border border-gray-500 hover:border-white text-gray-300 cursor-pointer"
             >
-              MUTE
+              {t.quizUI.muteBtn}
             </button>
           </div>
         </div>
@@ -78,7 +95,7 @@ const maxpJson = JSON.stringify(MAXP);
         <!-- SFX Volume Slider -->
         <div class="mb-4">
           <div class="flex justify-between items-center text-xs mb-1.5">
-            <span class="text-gray-300 tracking-wider">SOUNDS (SFX):</span>
+            <span class="text-gray-300 tracking-wider">{t.quizUI.soundSfxLabel}</span>
             <span id="label-vol-sfx" class="text-yellow-400 font-bold">40%</span>
           </div>
           <div class="flex items-center gap-3">
@@ -94,19 +111,19 @@ const maxpJson = JSON.stringify(MAXP);
               id="btn-toggle-sfx-mute"
               class="px-2 py-1 text-[11px] bg-black border border-gray-500 hover:border-white text-gray-300 cursor-pointer"
             >
-              MUTE
+              {t.quizUI.muteBtn}
             </button>
           </div>
         </div>
 
         <div class="pt-2 border-t border-gray-800 text-[10px] text-gray-400 text-center font-sans">
-          Undertale Sound Engine · Settings auto-saved
+          {t.quizUI.soundEngineNote}
         </div>
       </div>
     </div>
   </div>
 
-  <!-- 0. Void Intro Sequence（黑场开场三幕，原创文案，Gaster 风格节奏） -->
+  <!-- 0. Void Intro Sequence -->
   <div id="quiz-intro" class="hidden min-h-[300px] sm:min-h-[360px] relative cursor-pointer" title="Click or press Z to continue">
     <div class="absolute inset-0 flex items-center justify-center px-4">
       <div class="text-xl sm:text-3xl font-normal leading-relaxed text-white tracking-widest text-center max-w-2xl">
@@ -114,13 +131,13 @@ const maxpJson = JSON.stringify(MAXP);
       </div>
     </div>
     <div class="absolute bottom-1 right-1 sm:bottom-2 sm:right-2 flex items-center gap-3 sm:gap-4">
-      <span class="text-[11px] sm:text-xs text-gray-500 tracking-wider font-sans">press Z or click to continue</span>
+      <span class="text-[11px] sm:text-xs text-gray-500 tracking-wider font-sans">{t.quizUI.introContinueHint}</span>
       <button
         id="btn-skip-intro"
         type="button"
         class="px-3 py-1.5 bg-black border-2 border-gray-600 hover:border-white text-gray-300 hover:text-white text-xs tracking-widest uppercase cursor-pointer active:scale-95 transition-all"
       >
-        SKIP
+        {t.quizUI.skipBtn}
       </button>
     </div>
   </div>
@@ -134,10 +151,10 @@ const maxpJson = JSON.stringify(MAXP);
     </div>
 
     <h2 class="text-2xl sm:text-4xl font-extrabold text-white tracking-widest uppercase mb-4">
-      SOUL VIRTUES EXTRACTOR
+      {t.quizUI.startTitle}
     </h2>
     <p class="text-xs sm:text-sm text-gray-300 max-w-xl mx-auto mb-8 leading-relaxed font-sans">
-      Seven human soul virtues. Seven colors. 66 statements designed to reveal your multi-dimensional resonance across <span class="text-red-400 font-bold">Determination</span>, <span class="text-orange-400 font-bold">Bravery</span>, <span class="text-yellow-400 font-bold">Justice</span>, <span class="text-green-400 font-bold">Kindness</span>, <span class="text-cyan-400 font-bold">Patience</span>, <span class="text-blue-400 font-bold">Integrity</span>, and <span class="text-purple-400 font-bold">Perseverance</span>.
+      {t.quizUI.startDesc}
     </p>
 
     <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -145,21 +162,21 @@ const maxpJson = JSON.stringify(MAXP);
         id="btn-start-fresh"
         class="w-full sm:w-auto px-8 py-4 bg-black border-4 border-white hover:bg-white hover:text-black text-white font-bold text-base uppercase tracking-widest active:scale-95 transition-all cursor-pointer shadow-[4px_4px_0px_rgba(255,255,255,0.4)]"
       >
-        * PROCEED (START 66 QUESTIONS)
+        {t.quizUI.startProceedBtn}
       </button>
 
       <button
         id="btn-resume-quiz"
         class="hidden w-full sm:w-auto px-6 py-4 bg-black border-4 border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black font-bold text-sm uppercase tracking-widest active:scale-95 transition-all cursor-pointer shadow-[4px_4px_0px_rgba(250,204,21,0.4)]"
       >
-        * RESUME (<span id="resume-count">0</span>/66)
+        {t.quizUI.startResumeBtn} (<span id="resume-count">0</span>/66)
       </button>
     </div>
 
     <div class="mt-8 pt-6 border-t border-gray-800 flex flex-wrap items-center justify-center gap-6 text-xs text-gray-400 font-sans">
-      <span>✓ 100% Free & No Sign-Up</span>
-      <span>✓ Local Client-Side Calculation</span>
-      <span>✓ Undertale Dialogue & Sound FX</span>
+      {t.quizUI.startFeatures.map(feat => (
+        <span>{feat}</span>
+      ))}
     </div>
   </div>
 
@@ -176,7 +193,7 @@ const maxpJson = JSON.stringify(MAXP);
         class="px-2.5 py-1 text-xs text-gray-400 hover:text-white border-2 border-gray-700 hover:border-white bg-black uppercase tracking-wider cursor-pointer"
         title="Reset all progress"
       >
-        RESET
+        {t.quizUI.hudResetBtn}
       </button>
     </div>
 
@@ -184,7 +201,7 @@ const maxpJson = JSON.stringify(MAXP);
     <div
       id="dialogue-box"
       class="pixel-box p-6 sm:p-8 mb-6 min-h-[140px] sm:min-h-[160px] cursor-pointer"
-      title="Click or press Z/Enter to skip typing animation"
+      title={t.quizUI.dialogueHint}
     >
       <div id="questions-text" class="text-xl sm:text-3xl font-normal leading-relaxed text-white tracking-wide break-words">
         <span class="text-white mr-3 font-bold select-none">*</span>
@@ -196,8 +213,8 @@ const maxpJson = JSON.stringify(MAXP);
     <div id="answers-box" class="pixel-box p-6 sm:p-8 mb-6">
       <!-- Extremes labels -->
       <div class="flex justify-between items-baseline text-xs sm:text-sm text-gray-400 tracking-wider mb-6">
-        <span id="label-extreme-left" class="uppercase">Strongly disagree</span>
-        <span id="label-extreme-right" class="uppercase">Strongly agree</span>
+        <span id="label-extreme-left" class="uppercase">{t.quizUI.extremeLeft}</span>
+        <span id="label-extreme-right" class="uppercase">{t.quizUI.extremeRight}</span>
       </div>
 
       <!-- 5-Point Scale Row -->
@@ -205,10 +222,10 @@ const maxpJson = JSON.stringify(MAXP);
         <!-- Scale points generated via JS -->
       </div>
 
-      <!-- Centered Selected Option Label (Undertale UI Font) -->
+      <!-- Centered Selected Option Label -->
       <div class="text-center mt-6 min-h-[2em] flex items-center justify-center">
         <span id="selected-label-text" class="text-xl sm:text-3xl font-bold text-white tracking-widest uppercase">
-          Neutral
+          {t.quizUI.likertLabels[2]}
         </span>
       </div>
     </div>
@@ -220,13 +237,13 @@ const maxpJson = JSON.stringify(MAXP);
           id="btn-prev"
           class="flex-1 sm:flex-none px-5 py-2.5 bg-black border-2 border-gray-600 hover:border-white text-gray-300 hover:text-white uppercase tracking-wider disabled:opacity-30 disabled:pointer-events-none cursor-pointer active:scale-95 transition-all"
         >
-          [X] Back
+          [X] {t.quizUI.backBtn}
         </button>
         <button
           id="btn-next"
           class="flex-1 sm:flex-none px-7 py-2.5 bg-black border-2 border-red-500 hover:bg-red-500 hover:text-white text-red-400 font-bold uppercase tracking-wider cursor-pointer active:scale-95 transition-all"
         >
-          [Z] Confirm / Next
+          [Z] {t.quizUI.confirmBtn}
         </button>
       </div>
 
@@ -247,7 +264,7 @@ const maxpJson = JSON.stringify(MAXP);
       </div>
 
       <div class="inline-block px-3 py-1 text-xs font-mono font-bold tracking-widest uppercase mb-2 border-2" id="result-badge" style="color: #ff0000; border-color: #ff0000;">
-        DOMINANT SOUL TRAIT
+        {t.quizUI.primaryVirtue}
       </div>
 
       <h3 id="result-trait-name" class="text-3xl sm:text-5xl font-black tracking-widest text-white mb-2 uppercase">
@@ -262,853 +279,796 @@ const maxpJson = JSON.stringify(MAXP);
         "Despite how many times I fell, I always got back up."
       </blockquote>
 
-      <!-- Secondary Virtue Callout（影子特质：第二高分维度） -->
-      <div class="mt-6 max-w-xl mx-auto border-2 border-dashed border-gray-700 p-4 flex items-center gap-4 text-left">
-        <div id="shadow-heart" class="w-9 h-9 sm:w-10 sm:h-10 flex-shrink-0" style="color: #fca600;">
+      <p id="result-description" class="text-xs sm:text-sm text-gray-300 max-w-2xl mx-auto mt-6 leading-relaxed font-sans text-left bg-black/60 border-2 border-gray-800 p-5">
+        <!-- Injected via JS -->
+      </p>
+    </div>
+
+    <!-- Secondary Virtue / Shadow Trait Callout -->
+    <div id="secondary-callout" class="mb-10 p-5 bg-black border-3 border-gray-700 relative">
+      <div class="flex items-start gap-4">
+        <div id="secondary-heart" class="w-8 h-8 flex-shrink-0 mt-0.5" style="color: #42fcff;">
+          <svg viewBox="0 0 16 16" fill="currentColor" class="w-full h-full" shape-rendering="crispEdges">
+            <path d="M2 0h4v1H2zm8 0h4v1h-4zM1 1h6v1H1zm8 0h6v1H9zM0 2h7v1H0zm9 2h7v1H9zM0 3h7v1H0zm9 3h7v1H9zM0 4h16v6H0zm2 6h12v2H2zm2 2h8v2H4zm2 2h4v2H6z"/>
+          </svg>
+        </div>
+        <div class="flex-1">
+          <div class="text-[11px] text-gray-400 uppercase tracking-widest font-bold mb-1">{t.quizUI.secondaryVirtue}</div>
+          <div class="text-base sm:text-lg font-bold text-white mb-1">
+            <span id="secondary-name">PATIENCE</span> · <span id="secondary-pct" class="text-yellow-400">78.4%</span>
+          </div>
+          <p id="secondary-desc" class="text-xs text-gray-300 leading-relaxed font-sans">
+            <!-- Injected via JS -->
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7 Virtues Breakdown Progress Bars -->
+    <div class="mb-10">
+      <h4 class="text-center font-bold text-sm sm:text-base tracking-widest text-white uppercase mb-6 flex items-center justify-center gap-3">
+        <span class="text-red-500">★</span> {t.quizUI.breakdownTitle} <span class="text-red-500">★</span>
+      </h4>
+      <div id="virtue-bars" class="space-y-4 max-w-2xl mx-auto">
+        <!-- 7 Bars injected via JS -->
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 pt-6 border-t-2 border-gray-800">
+      <button
+        id="btn-download-card"
+        class="w-full sm:w-auto px-5 py-3 bg-black border-3 border-green-500 hover:bg-green-500 hover:text-black text-green-400 font-bold text-xs uppercase tracking-widest active:scale-95 transition-all cursor-pointer shadow-[3px_3px_0px_rgba(34,197,94,0.4)]"
+      >
+        💾 {t.quizUI.downloadCardBtn}
+      </button>
+
+      <button
+        id="btn-copy-result"
+        class="w-full sm:w-auto px-5 py-3 bg-black border-3 border-yellow-400 hover:bg-yellow-400 hover:text-black text-yellow-400 font-bold text-xs uppercase tracking-widest active:scale-95 transition-all cursor-pointer shadow-[3px_3px_0px_rgba(250,204,21,0.4)]"
+      >
+        📋 {t.quizUI.copyResultBtn}
+      </button>
+
+      <button
+        id="btn-review-answers"
+        class="w-full sm:w-auto px-5 py-3 bg-black border-3 border-cyan-400 hover:bg-cyan-400 hover:text-black text-cyan-400 font-bold text-xs uppercase tracking-widest active:scale-95 transition-all cursor-pointer shadow-[3px_3px_0px_rgba(6,182,212,0.4)]"
+      >
+        📝 {t.quizUI.reviewAnswersBtn}
+      </button>
+
+      <button
+        id="btn-browse-souls"
+        class="w-full sm:w-auto px-5 py-3 bg-black border-3 border-purple-400 hover:bg-purple-400 hover:text-black text-purple-400 font-bold text-xs uppercase tracking-widest active:scale-95 transition-all cursor-pointer shadow-[3px_3px_0px_rgba(192,132,252,0.4)]"
+      >
+        📖 {t.quizUI.browseSoulsBtn}
+      </button>
+
+      <button
+        id="btn-retake"
+        class="w-full sm:w-auto px-5 py-3 bg-black border-3 border-white hover:bg-white hover:text-black text-white font-bold text-xs uppercase tracking-widest active:scale-95 transition-all cursor-pointer shadow-[3px_3px_0px_rgba(255,255,255,0.4)]"
+      >
+        ↺ {t.quizUI.retakeBtn}
+      </button>
+    </div>
+  </div>
+
+  <!-- 4. Review Screen -->
+  <div id="quiz-review" class="hidden pixel-box p-6 sm:p-10 relative">
+    <div class="flex items-center justify-between border-b-2 border-gray-700 pb-4 mb-6">
+      <h3 class="text-lg sm:text-xl font-bold tracking-widest text-cyan-400 uppercase">
+        {t.quizUI.reviewTitle}
+      </h3>
+      <button
+        id="btn-review-back"
+        class="px-4 py-2 bg-black border-2 border-white hover:bg-white hover:text-black text-white text-xs uppercase tracking-wider cursor-pointer active:scale-95"
+      >
+        ← {t.quizUI.reviewBackBtn}
+      </button>
+    </div>
+
+    <div id="review-list" class="space-y-4 max-h-[500px] overflow-y-auto pr-2 text-xs sm:text-sm font-sans">
+      <!-- 66 questions and answers injected via JS -->
+    </div>
+  </div>
+
+  <!-- 5. Souls Gallery Screen -->
+  <div id="quiz-souls" class="hidden pixel-box p-6 sm:p-10 relative">
+    <div class="flex items-center justify-between border-b-2 border-gray-700 pb-4 mb-6">
+      <h3 class="text-lg sm:text-xl font-bold tracking-widest text-purple-400 uppercase">
+        {t.quizUI.soulsGalleryTitle}
+      </h3>
+      <button
+        id="btn-souls-back"
+        class="px-4 py-2 bg-black border-2 border-white hover:bg-white hover:text-black text-white text-xs uppercase tracking-wider cursor-pointer active:scale-95"
+      >
+        ← {t.quizUI.soulsBackBtn}
+      </button>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6" id="souls-grid">
+      <!-- Injected via JS -->
+    </div>
+
+    <div id="soul-detail" class="hidden p-6 bg-black border-3 border-white">
+      <div class="flex items-center gap-4 mb-4">
+        <div id="soul-detail-heart" class="w-12 h-12 flex-shrink-0">
           <svg viewBox="0 0 16 16" fill="currentColor" class="w-full h-full" shape-rendering="crispEdges">
             <path d="M2 0h4v1H2zm8 0h4v1h-4zM1 1h6v1H1zm8 0h6v1H9zM0 2h7v1H0zm9 2h7v1H9zM0 3h7v1H0zm9 3h7v1H9zM0 4h16v6H0zm2 6h12v2H2zm2 2h8v2H4zm2 2h4v2H6z"/>
           </svg>
         </div>
         <div>
-          <div class="text-[10px] sm:text-[11px] font-bold tracking-widest uppercase text-gray-500">Your Secondary Virtue · The Shadow of Your Soul</div>
-          <div id="shadow-name" class="text-base sm:text-lg font-bold tracking-widest uppercase" style="color: #fca600;">BRAVERY</div>
-          <p id="shadow-text" class="text-xs text-gray-400 mt-1 font-sans leading-relaxed"></p>
+          <h4 id="soul-detail-name" class="text-xl font-black tracking-widest text-white uppercase">DETERMINATION</h4>
+          <span id="soul-detail-label" class="text-xs font-mono text-gray-400 uppercase">RED SOUL</span>
         </div>
       </div>
-    </div>
-
-    <!-- 7-Virtues Percentage Breakdown -->
-    <div class="mb-10 bg-black border-4 border-gray-800 p-5 sm:p-6">
-      <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-5 flex items-center justify-between">
-        <span>7-Dimension Soul Virtues Profile</span>
-        <span class="text-[11px] text-gray-500">50% = Exact Neutral</span>
-      </h4>
-
-      <div id="result-bars" class="space-y-4">
-        <!-- Bars injected via JS -->
-      </div>
-    </div>
-
-    <!-- Action Buttons & Card Generator -->
-    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-      <button
-        id="btn-download-card"
-        class="w-full sm:w-auto px-6 py-3.5 bg-black border-4 border-red-500 hover:bg-red-500 hover:text-white text-red-400 font-bold text-sm uppercase tracking-widest active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-2"
-      >
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-        Download Result Card (PNG)
-      </button>
-
-      <button
-        id="btn-copy-result"
-        class="w-full sm:w-auto px-6 py-3.5 bg-black border-4 border-gray-600 hover:border-white text-white font-bold text-sm uppercase tracking-widest active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-2"
-      >
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
-        Copy Summary
-      </button>
-
-      <button
-        id="btn-review-answers"
-        class="w-full sm:w-auto px-6 py-3.5 bg-black border-4 border-gray-600 hover:border-white text-white font-bold text-sm uppercase tracking-widest active:scale-95 transition-all cursor-pointer"
-      >
-        See My Answers
-      </button>
-
-      <button
-        id="btn-browse-souls"
-        class="w-full sm:w-auto px-6 py-3.5 bg-black border-4 border-gray-600 hover:border-white text-white font-bold text-sm uppercase tracking-widest active:scale-95 transition-all cursor-pointer"
-      >
-        Other Souls
-      </button>
-
-      <button
-        id="btn-retake"
-        class="w-full sm:w-auto px-6 py-3.5 bg-black border-4 border-gray-800 hover:border-gray-500 text-gray-400 hover:text-white font-bold text-sm uppercase tracking-widest active:scale-95 transition-all cursor-pointer"
-      >
-        Retake Test
-      </button>
-    </div>
-
-    <!-- Hidden Canvas for card export -->
-    <canvas id="export-canvas" width="800" height="1000" class="hidden"></canvas>
-  </div>
-
-  <!-- 4. Answers Review Screen（答案回顾） -->
-  <div id="quiz-review" class="hidden pixel-box p-6 sm:p-10 relative">
-    <h3 class="text-xl sm:text-3xl font-extrabold tracking-widest uppercase text-center mb-6">YOUR ANSWERS</h3>
-    <div id="review-list" class="max-h-[46vh] overflow-y-auto space-y-5 pr-2 mb-6"></div>
-    <div class="text-center">
-      <button
-        id="btn-review-back"
-        class="px-6 py-3 bg-black border-4 border-gray-600 hover:border-white text-white font-bold text-sm uppercase tracking-widest active:scale-95 transition-all cursor-pointer"
-      >
-        Back to Result
-      </button>
-    </div>
-  </div>
-
-  <!-- 5. Souls Gallery Screen（七灵魂图鉴） -->
-  <div id="quiz-souls" class="hidden pixel-box p-6 sm:p-10 relative">
-    <h3 class="text-xl sm:text-3xl font-extrabold tracking-widest uppercase text-center mb-2">OTHER SOULS</h3>
-    <p class="text-center text-xs sm:text-sm text-gray-400 tracking-wider mb-6 font-sans">Seven colors. Seven virtues. Choose one to learn more.</p>
-    <div id="souls-grid" class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-6"></div>
-    <div id="soul-detail" class="hidden border-2 border-gray-700 p-5 sm:p-6 mb-6 text-center">
-      <div id="soul-detail-heart" class="w-14 h-14 mx-auto mb-3" style="color: #ff0000;">
-        <svg viewBox="0 0 16 16" fill="currentColor" class="w-full h-full" shape-rendering="crispEdges">
-          <path d="M2 0h4v1H2zm8 0h4v1h-4zM1 1h6v1H1zm8 0h6v1H9zM0 2h7v1H0zm9 2h7v1H9zM0 3h7v1H0zm9 3h7v1H9zM0 4h16v6H0zm2 6h12v2H2zm2 2h8v2H4zm2 2h4v2H6z"/>
-        </svg>
-      </div>
-      <div id="soul-detail-name" class="text-xl sm:text-2xl font-extrabold tracking-widest uppercase mb-1">DETERMINATION</div>
-      <div id="soul-detail-label" class="text-[11px] tracking-widest uppercase text-gray-400 mb-3">RED SOUL · #FF0000</div>
-      <blockquote id="soul-detail-tag" class="italic text-sm text-gray-300 font-serif border-y border-gray-800 py-2 max-w-lg mx-auto mb-3"></blockquote>
-      <p id="soul-detail-desc" class="text-xs sm:text-sm text-gray-400 leading-relaxed max-w-xl mx-auto font-sans"></p>
-    </div>
-    <div class="text-center">
-      <button
-        id="btn-souls-back"
-        class="px-6 py-3 bg-black border-4 border-gray-600 hover:border-white text-white font-bold text-sm uppercase tracking-widest active:scale-95 transition-all cursor-pointer"
-      >
-        Back
-      </button>
+      <blockquote id="soul-detail-tag" class="italic text-xs text-gray-300 border-l-2 pl-3 py-1 mb-4 border-gray-700 font-serif"></blockquote>
+      <p id="soul-detail-desc" class="text-xs text-gray-300 leading-relaxed font-sans"></p>
     </div>
   </div>
 </div>
 
-<script is:inline define:vars={{ questionsJson, soulsJson, soulCodesJson, maxpJson }}>
-  const QUESTIONS = JSON.parse(questionsJson);
-  const SOULS = JSON.parse(soulsJson);
-  const SOUL_CODES = JSON.parse(soulCodesJson);
-  const MAXP = JSON.parse(maxpJson);
-
-  const STORAGE_KEY = "soul_virtues_answers_v1";
-  const AUDIO_STORAGE_KEY = "soul_virtues_audio_v2";
-  const PAYOUT = [-1.2, -0.72, 0, 0.6, 1];
-  const CURVE = 0.6;
-
-  let currentIndex = 0;
-  let currentSelection = 2; // default to Neutral (index 2)
-  let userAnswers = new Array(QUESTIONS.length).fill(null);
-
-  // Typewriter state
-  let isTyping = false;
-  let typeTimer = null;
-  let currentFullText = "";
-
-  // -------------------------------------------------------------
-  // Robust Audio Pool System (Undertale SFX & BGM Engine)
-  // -------------------------------------------------------------
-  const audioSettings = {
-    volMusic: 30,
-    volSfx: 40,
-    musicMuted: false,
-    sfxMuted: false,
-  };
-
-  // Load stored audio settings if available
-  try {
-    const savedAudio = localStorage.getItem(AUDIO_STORAGE_KEY);
-    if (savedAudio) {
-      Object.assign(audioSettings, JSON.parse(savedAudio));
-    }
-  } catch (e) {}
-
-  const audioBgm = document.getElementById("audio-bgm");
-  const audioMove = document.getElementById("audio-move");
-  const audioSelect = document.getElementById("audio-select");
-  const audioAppear = document.getElementById("audio-appear");
-
-  // Multi-channel Audio Pool for typing sound to prevent dropped clicks/beeps
-  const TYPE_POOL_SIZE = 6;
-  const typeAudioPool = [];
-  let typePoolIndex = 0;
-
-  for (let i = 0; i < TYPE_POOL_SIZE; i++) {
-    const a = new Audio("/audio/snd_text.wav");
-    a.preload = "auto";
-    typeAudioPool.push(a);
-  }
-
-  // Multi-channel Audio Pool for menu move
-  const MOVE_POOL_SIZE = 3;
-  const moveAudioPool = [];
-  let movePoolIndex = 0;
-  for (let i = 0; i < MOVE_POOL_SIZE; i++) {
-    const a = new Audio("/audio/snd_menumove.wav");
-    a.preload = "auto";
-    moveAudioPool.push(a);
-  }
-
-  function saveAudioSettings() {
-    try {
-      localStorage.setItem(AUDIO_STORAGE_KEY, JSON.stringify(audioSettings));
-    } catch (e) {}
-    updateAudioVolumes();
-  }
-
-  function updateAudioVolumes() {
-    if (audioBgm) {
-      if (audioSettings.musicMuted || audioSettings.volMusic === 0) {
-        audioBgm.volume = 0;
-      } else {
-        audioBgm.volume = audioSettings.volMusic / 100;
-      }
-    }
-
-    // UI Updates
-    const labelMusic = document.getElementById("label-vol-music");
-    const labelSfx = document.getElementById("label-vol-sfx");
-    const sliderMusic = document.getElementById("slider-vol-music");
-    const sliderSfx = document.getElementById("slider-vol-sfx");
-    const btnMusicMute = document.getElementById("btn-toggle-music-mute");
-    const btnSfxMute = document.getElementById("btn-toggle-sfx-mute");
-    const soundIndicator = document.getElementById("sound-indicator-icon");
-
-    if (labelMusic) labelMusic.textContent = audioSettings.musicMuted ? "MUTED" : `${audioSettings.volMusic}%`;
-    if (labelSfx) labelSfx.textContent = audioSettings.sfxMuted ? "MUTED" : `${audioSettings.volSfx}%`;
-    if (sliderMusic) sliderMusic.value = audioSettings.volMusic;
-    if (sliderSfx) sliderSfx.value = audioSettings.volSfx;
-    if (btnMusicMute) btnMusicMute.textContent = audioSettings.musicMuted ? "UNMUTE" : "MUTE";
-    if (btnSfxMute) btnSfxMute.textContent = audioSettings.sfxMuted ? "UNMUTE" : "MUTE";
-    if (soundIndicator) soundIndicator.textContent = (audioSettings.musicMuted && audioSettings.sfxMuted) ? "🔇" : "🔊";
-  }
-
-  function playSound(type) {
-    if (audioSettings.sfxMuted || audioSettings.volSfx === 0) return;
-    const sfxVol = audioSettings.volSfx / 100;
-
-    try {
-      if (type === "text") {
-        const audio = typeAudioPool[typePoolIndex];
-        typePoolIndex = (typePoolIndex + 1) % TYPE_POOL_SIZE;
-        audio.volume = Math.min(1, sfxVol * 0.7);
-        audio.currentTime = 0;
-        audio.play().catch(() => {});
-      } else if (type === "move") {
-        const audio = moveAudioPool[movePoolIndex];
-        movePoolIndex = (movePoolIndex + 1) % MOVE_POOL_SIZE;
-        audio.volume = sfxVol;
-        audio.currentTime = 0;
-        audio.play().catch(() => {});
-      } else if (type === "select" && audioSelect) {
-        audioSelect.volume = sfxVol;
-        audioSelect.currentTime = 0;
-        audioSelect.play().catch(() => {});
-      } else if (type === "appear" && audioAppear) {
-        audioAppear.volume = sfxVol;
-        audioAppear.currentTime = 0;
-        audioAppear.play().catch(() => {});
-      }
-    } catch (e) {}
-  }
-
-  let bgmStarted = false;
-  function startBgm() {
-    if (bgmStarted && audioBgm && !audioBgm.paused) return;
-    if (audioBgm) {
-      updateAudioVolumes();
-      audioBgm.play().then(() => {
-        bgmStarted = true;
-      }).catch(() => {
-        // Autoplay policy waiting for user gesture
-      });
-    }
-  }
-
-  // -------------------------------------------------------------
-  // Authentic Undertale Typewriter System
-  // -------------------------------------------------------------
-  function setTypedContent(el, fullText, count) {
-    let onSpan = el.querySelector(".typewriter-on");
-    let offSpan = el.querySelector(".typewriter-off");
-    if (!onSpan || !offSpan) {
-      el.innerHTML = '<span class="typewriter-on"></span><span class="typewriter-off"></span>';
-      onSpan = el.querySelector(".typewriter-on");
-      offSpan = el.querySelector(".typewriter-off");
-    }
-    onSpan.textContent = fullText.slice(0, count);
-    offSpan.textContent = fullText.slice(count);
-  }
-
-  function typeOutQuestion(text) {
-    clearTimeout(typeTimer);
-    const container = document.getElementById("questions-type");
-    if (!container) return;
-
-    currentFullText = text;
-    isTyping = true;
-    let charIndex = 0;
-    setTypedContent(container, text, 0);
-
-    function step() {
-      if (charIndex >= text.length) {
-        isTyping = false;
-        return;
-      }
-      charIndex++;
-      setTypedContent(container, text, charIndex);
-
-      const ch = text[charIndex - 1];
-      if (ch && !/\s/.test(ch)) {
-        playSound("text");
-      }
-
-      // Undertale cadence: 110ms on punctuation, 14ms on regular letters
-      const isPunctuation = ch === "." || ch === "," || ch === "!" || ch === "?" || ch === "…";
-      const delay = isPunctuation ? 110 : 14;
-      typeTimer = setTimeout(step, delay);
-    }
-
-    step();
-  }
-
-  function skipTyping() {
-    if (!isTyping) return;
-    clearTimeout(typeTimer);
-    isTyping = false;
-    const container = document.getElementById("questions-type");
-    if (container && currentFullText) {
-      setTypedContent(container, currentFullText, currentFullText.length);
-    }
-  }
-
-  // -------------------------------------------------------------
-  // Void Intro Sequence（黑场开场三幕，文案为本站原创）
-  // -------------------------------------------------------------
-  const INTRO_LINES = [
-    "AH. A VISITOR IN THE VOID.",
-    "YOUR SOUL TREMBLES WITH SEVEN COLORS.",
-    "LET US SEE WHICH ONE BURNS BRIGHTEST.",
-  ];
-  let introIndex = 0;
-  let introTyping = false;
-  let introTimer = null;
-
-  function typeIntroLine(index) {
-    clearTimeout(introTimer);
-    const container = document.getElementById("intro-type");
-    if (!container) return;
-    const text = INTRO_LINES[index];
-    introTyping = true;
-    let charIndex = 0;
-    setTypedContent(container, text, 0);
-
-    function step() {
-      if (charIndex >= text.length) {
-        introTyping = false;
-        return;
-      }
-      charIndex++;
-      setTypedContent(container, text, charIndex);
-      const ch = text[charIndex - 1];
-      if (ch && !/\s/.test(ch)) {
-        playSound("text");
-      }
-      // 开场比答题更缓慢，营造仪式感
-      const isPunctuation = ch === "." || ch === "," || ch === "!" || ch === "?" || ch === "…";
-      introTimer = setTimeout(step, isPunctuation ? 160 : 34);
-    }
-
-    step();
-  }
-
-  function advanceIntro() {
-    const container = document.getElementById("intro-type");
-    // 打字中：先补全当前行，再次推进才翻页
-    if (introTyping && container) {
-      clearTimeout(introTimer);
-      introTyping = false;
-      setTypedContent(container, INTRO_LINES[introIndex], INTRO_LINES[introIndex].length);
-      return;
-    }
-    if (introIndex < INTRO_LINES.length - 1) {
-      introIndex++;
-      playSound("move");
-      typeIntroLine(introIndex);
-    } else {
-      playSound("select");
-      showScreen("start");
-    }
-  }
-
-  // -------------------------------------------------------------
-  // Scoring & Calculation Logic
-  // -------------------------------------------------------------
-  function normPct(trait, raw) {
-    if (!MAXP[trait]) return 50;
-    let n = Math.max(-1, Math.min(1, raw / MAXP[trait]));
-    n = n < 0 ? -Math.pow(-n, CURVE) : Math.pow(n, CURVE);
-    return Math.max(0, Math.min(100, ((n + 1) / 2) * 100));
-  }
-
-  function computeScores() {
-    const raw = { DET: 0, BRV: 0, JUS: 0, KND: 0, PAT: 0, INT: 0, PER: 0 };
-    userAnswers.forEach((answerIndex, qi) => {
-      const q = QUESTIONS[qi];
-      if (answerIndex === null || answerIndex === undefined || !q) return;
-      const lean = answerIndex - 2;
-      SOUL_CODES.forEach(trait => {
-        const weight = q.load[trait] || 0;
-        if (weight) {
-          raw[trait] += Math.abs(weight) * PAYOUT[lean * (weight < 0 ? -1 : 1) + 2];
-        }
-      });
-    });
-
-    const pct = {};
-    SOUL_CODES.forEach(trait => {
-      pct[trait] = normPct(trait, raw[trait]);
-    });
-
-    const ranked = [...SOUL_CODES].sort((a, b) => pct[b] - pct[a]);
-    return { raw, pct, ranked };
-  }
-
-  function showScreen(name) {
-    document.getElementById("quiz-intro")?.classList.toggle("hidden", name !== "intro");
-    document.getElementById("quiz-start")?.classList.toggle("hidden", name !== "start");
-    document.getElementById("quiz-active")?.classList.toggle("hidden", name !== "active");
-    document.getElementById("quiz-result")?.classList.toggle("hidden", name !== "result");
-    document.getElementById("quiz-review")?.classList.toggle("hidden", name !== "review");
-    document.getElementById("quiz-souls")?.classList.toggle("hidden", name !== "souls");
-    if (name !== "intro" && name !== "start") {
-      document.getElementById("quiz-root")?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  }
-
-  // -------------------------------------------------------------
-  // Question Renderer with 5-Point Red Heart Selector (图一还原)
-  // -------------------------------------------------------------
-  function renderQuestion(index) {
-    currentIndex = index;
-    const q = QUESTIONS[currentIndex];
-    if (!q) return;
-
-    // Load previously answered value or default to Neutral (2)
-    currentSelection = userAnswers[currentIndex] !== null ? userAnswers[currentIndex] : 2;
-
-    // Update HUD
-    const hudEl = document.getElementById("hud-index");
-    const progressEl = document.getElementById("progress-fill");
-    if (hudEl) hudEl.textContent = String(currentIndex + 1).padStart(2, "0") + " / " + String(QUESTIONS.length).padStart(2, "0");
-    if (progressEl) progressEl.style.width = ((currentIndex) / QUESTIONS.length * 100) + "%";
-
-    // Update Extremes
-    const extremeLeft = document.getElementById("label-extreme-left");
-    const extremeRight = document.getElementById("label-extreme-right");
-    if (extremeLeft) extremeLeft.textContent = q.labels[0] || "Strongly disagree";
-    if (extremeRight) extremeRight.textContent = q.labels[q.labels.length - 1] || "Strongly agree";
-
-    // Build 5 Scale Points
-    buildScalePoints(q);
-
-    // Type out statement with typewriter effect
-    typeOutQuestion(q.q);
-  }
-
-  function buildScalePoints(q) {
-    const scaleRow = document.getElementById("scale-row");
-    if (!scaleRow) return;
-    scaleRow.innerHTML = "";
-
-    q.labels.forEach((label, optIdx) => {
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "flex-1 flex flex-col items-center justify-center py-4 bg-transparent border-0 cursor-pointer group outline-none transition-transform active:scale-95";
-      btn.setAttribute("aria-label", label);
-
-      const isSelected = currentSelection === optIdx;
-
-      // Authentic Undertale Heart for selected, crisp pixel box for unselected
-      btn.innerHTML = `
-        <div class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center">
-          ${isSelected
-            ? '<div class="w-8 h-8 sm:w-9 sm:h-9 text-red-600 drop-shadow-[0_0_12px_rgba(255,0,0,0.9)] animate-pulse transition-transform scale-110"><svg viewBox="0 0 16 16" fill="currentColor" class="w-full h-full" shape-rendering="crispEdges"><path d="M2 0h4v1H2zm8 0h4v1h-4zM1 1h6v1H1zm8 0h6v1H9zM0 2h7v1H0zm9 2h7v1H9zM0 3h7v1H0zm9 3h7v1H9zM0 4h16v6H0zm2 6h12v2H2zm2 2h8v2H4zm2 2h4v2H6z"/></svg></div>'
-            : '<div class="w-5 h-5 sm:w-6 sm:h-6 bg-black border-3 sm:border-4 border-gray-600 group-hover:border-white transition-colors"></div>'
-          }
-        </div>
-      `;
-
-      btn.addEventListener("click", () => {
-        setSelection(optIdx);
-      });
-
-      scaleRow.appendChild(btn);
-    });
-
-    updateSelectedLabel(q);
-  }
-
-  function setSelection(optIdx) {
-    if (optIdx < 0 || optIdx > 4) return;
-    if (currentSelection !== optIdx) {
-      playSound("move");
-    }
-    currentSelection = optIdx;
-    const q = QUESTIONS[currentIndex];
-    buildScalePoints(q);
-  }
-
-  function updateSelectedLabel(q) {
-    const labelEl = document.getElementById("selected-label-text");
-    if (labelEl && q.labels[currentSelection]) {
-      labelEl.textContent = q.labels[currentSelection];
-    }
-  }
-
-  function confirmAndAdvance() {
-    playSound("select");
-    userAnswers[currentIndex] = currentSelection;
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(userAnswers));
-    } catch (e) {}
-
-    if (currentIndex < QUESTIONS.length - 1) {
-      renderQuestion(currentIndex + 1);
-    } else {
-      showResults();
-    }
-  }
-
-  function goBack() {
-    if (currentIndex > 0) {
-      playSound("move");
-      renderQuestion(currentIndex - 1);
-    }
-  }
-
-  // -------------------------------------------------------------
-  // Results Display & Card Export
-  // -------------------------------------------------------------
-  function showResults() {
-    playSound("appear");
-    const { pct, ranked } = computeScores();
-    const dominantCode = ranked[0];
-    const dominantSoul = SOULS[dominantCode];
-
-    const heartEl = document.getElementById("result-heart");
-    const badgeEl = document.getElementById("result-badge");
-    const nameEl = document.getElementById("result-trait-name");
-    const colorEl = document.getElementById("result-color-label");
-    const taglineEl = document.getElementById("result-tagline");
-    const barsContainer = document.getElementById("result-bars");
-
-    if (heartEl) {
-      heartEl.style.setProperty("--res-color", dominantSoul.hex);
-      heartEl.style.color = dominantSoul.hex;
-    }
-    if (badgeEl) {
-      badgeEl.style.color = dominantSoul.hex;
-      badgeEl.style.borderColor = dominantSoul.hex;
-    }
-    if (nameEl) nameEl.textContent = dominantSoul.name;
-    if (colorEl) colorEl.textContent = dominantSoul.label + " SOUL · " + dominantSoul.hex.toUpperCase();
-    if (taglineEl) taglineEl.textContent = '"' + dominantSoul.tag + '"';
-
-    // 影子特质（第二高分维度）解读
-    const shadowCode = ranked[1];
-    const shadowSoul = SOULS[shadowCode];
-    const shadowHeart = document.getElementById("shadow-heart");
-    const shadowName = document.getElementById("shadow-name");
-    const shadowText = document.getElementById("shadow-text");
-    if (shadowHeart) shadowHeart.style.color = shadowSoul.hex;
-    if (shadowName) {
-      shadowName.textContent = shadowSoul.name;
-      shadowName.style.color = shadowSoul.hex;
-    }
-    if (shadowText) {
-      shadowText.textContent = "Beneath your dominant " + dominantSoul.name + ", a quieter current of " + shadowSoul.name + " still shapes how you move through the world. \"" + shadowSoul.tag + "\"";
-    }
-
-    if (barsContainer) {
-      barsContainer.innerHTML = "";
-      ranked.forEach(trait => {
-        const soul = SOULS[trait];
-        const val = pct[trait].toFixed(1);
-
-        const row = document.createElement("div");
-        row.className = "space-y-1";
-        row.innerHTML = `
-          <div class="flex items-center justify-between text-xs sm:text-sm font-mono tracking-wider">
-            <span class="font-bold flex items-center gap-2" style="color: ${soul.hex}">
-              <span class="w-3 h-3 inline-block" style="background: ${soul.hex}"></span>
-              ${soul.name}
-            </span>
-            <span class="font-bold text-white">${val}%</span>
-          </div>
-          <div class="w-full bg-black h-4 border-2 border-gray-700 p-0.5">
-            <div class="h-full transition-all duration-500" style="width: ${val}%; background: ${soul.hex}"></div>
-          </div>
-        `;
-        barsContainer.appendChild(row);
-      });
-    }
-
-    showScreen("result");
-  }
-
-  function drawResultCard() {
-    const canvas = document.getElementById("export-canvas");
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const { pct, ranked } = computeScores();
-    const dominantSoul = SOULS[ranked[0]];
-
-    // 1. Background
-    ctx.fillStyle = "#000000";
-    ctx.fillRect(0, 0, 800, 1000);
-
-    // Border
-    ctx.strokeStyle = "#ffffff";
-    ctx.lineWidth = 6;
-    ctx.strokeRect(20, 20, 760, 960);
-
-    // 2. Title & Branding
-    ctx.textAlign = "center";
-    ctx.fillStyle = "#ffffff";
-    ctx.font = "bold 28px monospace";
-    ctx.fillText("SOUL VIRTUES EXTRACTOR", 400, 70);
-
-    ctx.fillStyle = "#9ca3af";
-    ctx.font = "14px monospace";
-    ctx.fillText("Undertale 66-Question Trait Assessment", 400, 95);
-
-    // 3. Pixel Soul Heart
-    ctx.fillStyle = dominantSoul.hex;
-    const heartRows = [
-      [[2,3],[12,13]], [[1,5],[10,14]], [[0,6],[9,15]], [[0,6],[9,15]],
-      [[0,15]], [[0,15]], [[0,15]], [[0,15]], [[0,15]], [[0,15]],
-      [[2,13]], [[2,13]], [[4,11]], [[4,11]], [[6,9]], [[6,9]]
-    ];
-    const pxSize = 6;
-    const startX = 400 - (16 * pxSize) / 2;
-    const startY = 130;
-    heartRows.forEach((spans, y) => {
-      spans.forEach(span => {
-        ctx.fillRect(startX + span[0] * pxSize, startY + y * pxSize, (span[1] - span[0] + 1) * pxSize, pxSize);
-      });
-    });
-
-    // 4. Dominant Trait Info
-    ctx.fillStyle = dominantSoul.hex;
-    ctx.font = "bold 36px monospace";
-    ctx.fillText(dominantSoul.name, 400, 270);
-
-    ctx.fillStyle = "#9ca3af";
-    ctx.font = "16px monospace";
-    ctx.fillText(dominantSoul.label + " SOUL · " + dominantSoul.hex.toUpperCase(), 400, 295);
-
-    ctx.fillStyle = "#d1d5db";
-    ctx.font = "italic 16px Georgia, serif";
-    ctx.fillText('"' + dominantSoul.tag + '"', 400, 330);
-
-    // 5. 7 Bars
-    const barStartY = 380;
-    const barHeight = 20;
-    const barGap = 55;
-
-    ctx.textAlign = "left";
-    ranked.forEach((trait, i) => {
-      const soul = SOULS[trait];
-      const val = pct[trait].toFixed(1);
-      const y = barStartY + i * barGap;
-
-      // Label
-      ctx.fillStyle = soul.hex;
-      ctx.font = "bold 15px monospace";
-      ctx.fillText(soul.name, 70, y + 14);
-
-      // Percentage
-      ctx.textAlign = "right";
-      ctx.fillStyle = "#f3f4f6";
-      ctx.font = "bold 15px monospace";
-      ctx.fillText(val + "%", 730, y + 14);
-      ctx.textAlign = "left";
-
-      // Track
-      ctx.fillStyle = "#111111";
-      ctx.fillRect(70, y + 22, 660, barHeight);
-      ctx.strokeStyle = "#444444";
-      ctx.lineWidth = 2;
-      ctx.strokeRect(70, y + 22, 660, barHeight);
-
-      // Fill
-      ctx.fillStyle = soul.hex;
-      ctx.fillRect(72, y + 24, (656 * val) / 100, barHeight - 4);
-    });
-
-    // 6. Watermark Footer
-    ctx.textAlign = "center";
-    ctx.fillStyle = "#6b7280";
-    ctx.font = "14px monospace";
-    ctx.fillText("Discover your soul at: soulvirtues.org", 400, 940);
-
-    // Trigger Download
-    const link = document.createElement("a");
-    link.download = "Soul-Virtues-" + dominantSoul.name + ".png";
-    link.href = canvas.toDataURL("image/png");
-    link.click();
-  }
-
-  function copySummaryText() {
-    const { pct, ranked } = computeScores();
-    const dominant = SOULS[ranked[0]];
-    const text = [
-      "✨ My Undertale Soul Virtues Result:",
-      "Dominant Soul: " + dominant.name + " (" + dominant.label + " SOUL)",
-      'Tagline: "' + dominant.tag + '"',
-      "",
-      "📊 7-Dimension Virtues Breakdown:",
-      ranked.map(t => SOULS[t].name + ": " + pct[t].toFixed(1) + "%").join("\n"),
-      "",
-      "Take the free 66-question test at: https://soulvirtues.org"
-    ].join("\n");
-
-    navigator.clipboard.writeText(text).then(() => {
-      const btn = document.getElementById("btn-copy-result");
-      if (btn) {
-        const orig = btn.innerHTML;
-        btn.innerHTML = "✓ Copied to Clipboard!";
-        setTimeout(() => { btn.innerHTML = orig; }, 2000);
-      }
-    });
-  }
-
-  // 答案回顾列表：编号 + 题目 + 所选项
-  function buildReviewList() {
-    const list = document.getElementById("review-list");
-    if (!list) return;
-    list.innerHTML = "";
-    QUESTIONS.forEach((q, i) => {
-      const ans = userAnswers[i];
-      const label = (ans !== null && ans !== undefined && q.labels[ans]) ? q.labels[ans] : "Unanswered";
-      const item = document.createElement("div");
-      item.innerHTML = `
-        <div class="text-sm sm:text-base text-white leading-relaxed tracking-wide">
-          <span class="text-gray-500 mr-2">${String(i + 1).padStart(2, "0")}.</span>${q.q}
-        </div>
-        <div class="text-yellow-400 text-xs sm:text-sm tracking-widest uppercase mt-1 pl-7">&gt; ${label}</div>
-      `;
-      list.appendChild(item);
-    });
-  }
-
-  // 七灵魂图鉴：按钮网格 + 点击展开详情
-  function buildSoulsGallery() {
-    const grid = document.getElementById("souls-grid");
-    if (!grid) return;
-    grid.innerHTML = "";
-    SOUL_CODES.forEach(code => {
-      const soul = SOULS[code];
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "flex items-center gap-2 px-3 py-2 bg-black border-2 border-gray-600 hover:border-white text-xs sm:text-sm font-bold tracking-widest uppercase cursor-pointer active:scale-95 transition-all";
-      btn.style.color = soul.hex;
-      btn.innerHTML = `
-        <span class="w-4 h-4 inline-block"><svg viewBox="0 0 16 16" fill="currentColor" class="w-full h-full" shape-rendering="crispEdges"><path d="M2 0h4v1H2zm8 0h4v1h-4zM1 1h6v1H1zm8 0h6v1H9zM0 2h7v1H0zm9 2h7v1H9zM0 3h7v1H0zm9 3h7v1H9zM0 4h16v6H0zm2 6h12v2H2zm2 2h8v2H4zm2 2h4v2H6z"/></svg></span>
-        <span>${soul.name}</span>
-      `;
-      btn.addEventListener("click", () => {
-        playSound("select");
-        const detail = document.getElementById("soul-detail");
-        const heartEl = document.getElementById("soul-detail-heart");
-        const nameEl = document.getElementById("soul-detail-name");
-        if (heartEl) heartEl.style.color = soul.hex;
-        if (nameEl) {
-          nameEl.textContent = soul.name;
-          nameEl.style.color = soul.hex;
-        }
-        document.getElementById("soul-detail-label").textContent = soul.label + " SOUL · " + soul.hex.toUpperCase();
-        document.getElementById("soul-detail-tag").textContent = '"' + soul.tag + '"';
-        document.getElementById("soul-detail-desc").textContent = soul.description;
-        detail?.classList.remove("hidden");
-      });
-      grid.appendChild(btn);
-    });
-  }
-
-  // -------------------------------------------------------------
-  // First Screen Decision（同步执行避免闪烁：无存档新访客看开场，老访客直达标题屏）
-  // -------------------------------------------------------------
-  (function initFirstScreen() {
-    let hasProgress = false;
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        hasProgress = Array.isArray(parsed) && parsed.some(a => a !== null);
-      }
-    } catch (e) {}
-    if (hasProgress) {
-      showScreen("start");
-    } else {
-      showScreen("intro");
-      typeIntroLine(0);
-    }
-  })();
-
-  // -------------------------------------------------------------
-  // Setup Event Listeners & Autoplay Unlock
-  // -------------------------------------------------------------
+<script is:inline>
   document.addEventListener("DOMContentLoaded", () => {
-    updateAudioVolumes();
+    const root = document.getElementById("quiz-root");
+    if (!root) return;
 
-    // Check saved progress
+    const LANG = root.getAttribute("data-lang") || "en";
+    const QUESTIONS = JSON.parse(root.getAttribute("data-questions") || "[]");
+    const SOULS = JSON.parse(root.getAttribute("data-souls") || "{}");
+    const SOUL_CODES = JSON.parse(root.getAttribute("data-soul-codes") || "[]");
+    const MAXP = JSON.parse(root.getAttribute("data-maxp") || "{}");
+    const QUIZ_UI = JSON.parse(root.getAttribute("data-quiz-ui") || "{}");
+
+    const STORAGE_KEY = "soulvirtues_answers_" + LANG;
+    const SETTINGS_KEY = "soulvirtues_audio_settings";
+
+    // -------------------------------------------------------------
+    // Audio Engine & Settings
+    // -------------------------------------------------------------
+    let audioSettings = {
+      volMusic: 30,
+      volSfx: 40,
+      musicMuted: false,
+      sfxMuted: false,
+    };
+
     try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const parsed = JSON.parse(saved);
+      const savedSettings = localStorage.getItem(SETTINGS_KEY);
+      if (savedSettings) {
+        audioSettings = { ...audioSettings, ...JSON.parse(savedSettings) };
+      }
+    } catch (e) {}
+
+    const audioBgm = document.getElementById("audio-bgm");
+    const audioMove = document.getElementById("audio-move");
+    const audioSelect = document.getElementById("audio-select");
+    const audioAppear = document.getElementById("audio-appear");
+
+    const TYPE_POOL_SIZE = 6;
+    const typeAudioPool = [];
+    for (let i = 0; i < TYPE_POOL_SIZE; i++) {
+      const a = new Audio("/audio/snd_txt1.wav");
+      a.preload = "auto";
+      typeAudioPool.push(a);
+    }
+    let typePoolIndex = 0;
+
+    const MOVE_POOL_SIZE = 4;
+    const moveAudioPool = [];
+    for (let i = 0; i < MOVE_POOL_SIZE; i++) {
+      const a = new Audio("/audio/snd_menumove.wav");
+      a.preload = "auto";
+      moveAudioPool.push(a);
+    }
+    let movePoolIndex = 0;
+
+    function saveAudioSettings() {
+      try {
+        localStorage.setItem(SETTINGS_KEY, JSON.stringify(audioSettings));
+      } catch (e) {}
+      updateAudioVolumes();
+    }
+
+    function updateAudioVolumes() {
+      if (audioBgm) {
+        if (audioSettings.musicMuted || audioSettings.volMusic === 0) {
+          audioBgm.volume = 0;
+        } else {
+          audioBgm.volume = audioSettings.volMusic / 100;
+        }
+      }
+
+      const labelMusic = document.getElementById("label-vol-music");
+      const labelSfx = document.getElementById("label-vol-sfx");
+      const sliderMusic = document.getElementById("slider-vol-music");
+      const sliderSfx = document.getElementById("slider-vol-sfx");
+      const btnMusicMute = document.getElementById("btn-toggle-music-mute");
+      const btnSfxMute = document.getElementById("btn-toggle-sfx-mute");
+      const soundIndicator = document.getElementById("sound-indicator-icon");
+
+      if (labelMusic) labelMusic.textContent = audioSettings.musicMuted ? "MUTED" : `${audioSettings.volMusic}%`;
+      if (labelSfx) labelSfx.textContent = audioSettings.sfxMuted ? "MUTED" : `${audioSettings.volSfx}%`;
+      if (sliderMusic) sliderMusic.value = audioSettings.volMusic;
+      if (sliderSfx) sliderSfx.value = audioSettings.volSfx;
+      if (btnMusicMute) btnMusicMute.textContent = audioSettings.musicMuted ? "UNMUTE" : QUIZ_UI.muteBtn;
+      if (btnSfxMute) btnSfxMute.textContent = audioSettings.sfxMuted ? "UNMUTE" : QUIZ_UI.muteBtn;
+      if (soundIndicator) soundIndicator.textContent = (audioSettings.musicMuted && audioSettings.sfxMuted) ? "🔇" : "🔊";
+    }
+
+    function playSound(type) {
+      if (audioSettings.sfxMuted || audioSettings.volSfx === 0) return;
+      const sfxVol = audioSettings.volSfx / 100;
+
+      try {
+        if (type === "text") {
+          const audio = typeAudioPool[typePoolIndex];
+          typePoolIndex = (typePoolIndex + 1) % TYPE_POOL_SIZE;
+          audio.volume = Math.min(1, sfxVol * 0.7);
+          audio.currentTime = 0;
+          audio.play().catch(() => {});
+        } else if (type === "move") {
+          const audio = moveAudioPool[movePoolIndex];
+          movePoolIndex = (movePoolIndex + 1) % MOVE_POOL_SIZE;
+          audio.volume = sfxVol;
+          audio.currentTime = 0;
+          audio.play().catch(() => {});
+        } else if (type === "select" && audioSelect) {
+          audioSelect.volume = sfxVol;
+          audioSelect.currentTime = 0;
+          audioSelect.play().catch(() => {});
+        } else if (type === "appear" && audioAppear) {
+          audioAppear.volume = sfxVol;
+          audioAppear.currentTime = 0;
+          audioAppear.play().catch(() => {});
+        }
+      } catch (e) {}
+    }
+
+    let bgmStarted = false;
+    function startBgm() {
+      if (bgmStarted && audioBgm && !audioBgm.paused) return;
+      if (audioBgm) {
+        updateAudioVolumes();
+        audioBgm.play().then(() => {
+          bgmStarted = true;
+        }).catch(() => {});
+      }
+    }
+
+    // -------------------------------------------------------------
+    // Typewriter System
+    // -------------------------------------------------------------
+    function setTypedContent(el, fullText, count) {
+      let onSpan = el.querySelector(".typewriter-on");
+      let offSpan = el.querySelector(".typewriter-off");
+      if (!onSpan || !offSpan) {
+        el.innerHTML = '<span class="typewriter-on"></span><span class="typewriter-off" style="visibility:hidden"></span>';
+        onSpan = el.querySelector(".typewriter-on");
+        offSpan = el.querySelector(".typewriter-off");
+      }
+      onSpan.textContent = fullText.slice(0, count);
+      offSpan.textContent = fullText.slice(count);
+    }
+
+    let typeInterval = null;
+    let isTyping = false;
+    let currentFullText = "";
+
+    function typeOut(el, text, speed = 25, onComplete) {
+      if (typeInterval) clearInterval(typeInterval);
+      currentFullText = text;
+      isTyping = true;
+      let i = 0;
+      setTypedContent(el, text, 0);
+
+      typeInterval = setInterval(() => {
+        if (i < text.length) {
+          i++;
+          setTypedContent(el, text, i);
+          const char = text[i - 1];
+          if (char !== " " && char !== "\n") {
+            playSound("text");
+          }
+        } else {
+          clearInterval(typeInterval);
+          typeInterval = null;
+          isTyping = false;
+          if (onComplete) onComplete();
+        }
+      }, speed);
+    }
+
+    function skipTyping() {
+      if (isTyping && typeInterval) {
+        clearInterval(typeInterval);
+        typeInterval = null;
+        isTyping = false;
+        const target = document.getElementById("questions-type");
+        if (target) {
+          setTypedContent(target, currentFullText, currentFullText.length);
+        }
+      }
+    }
+
+    // -------------------------------------------------------------
+    // Void Intro Sequence
+    // -------------------------------------------------------------
+    let introStep = 0;
+    const introScenes = QUIZ_UI.introScenes || [
+      "ARE WE CONNECTED?",
+      "VERY INTERESTING. A SOUL IN THE VOID...",
+      "LET US EXTRACT YOUR TRUE VIRTUE.",
+    ];
+
+    function runIntroScene(step) {
+      const typeEl = document.getElementById("intro-type");
+      if (!typeEl) return;
+      if (step >= introScenes.length) {
+        showScreen("start");
+        return;
+      }
+      typeOut(typeEl, introScenes[step], 50);
+    }
+
+    function advanceIntro() {
+      if (isTyping) {
+        if (typeInterval) clearInterval(typeInterval);
+        typeInterval = null;
+        isTyping = false;
+        const typeEl = document.getElementById("intro-type");
+        if (typeEl) setTypedContent(typeEl, currentFullText, currentFullText.length);
+      } else {
+        introStep++;
+        runIntroScene(introStep);
+      }
+    }
+
+    // -------------------------------------------------------------
+    // Quiz State & Progression
+    // -------------------------------------------------------------
+    let currentIndex = 0;
+    let userAnswers = new Array(QUESTIONS.length).fill(null);
+    let currentSelection = 2; // Default Neutral
+
+    try {
+      const savedAnswers = localStorage.getItem(STORAGE_KEY);
+      if (savedAnswers) {
+        const parsed = JSON.parse(savedAnswers);
         if (Array.isArray(parsed) && parsed.length === QUESTIONS.length) {
           userAnswers = parsed;
-          const answeredCount = userAnswers.filter(a => a !== null).length;
-          if (answeredCount > 0) {
-            const resumeBtn = document.getElementById("btn-resume-quiz");
-            const resumeCount = document.getElementById("resume-count");
-            if (resumeBtn && resumeCount) {
-              resumeCount.textContent = answeredCount;
-              resumeBtn.classList.remove("hidden");
-            }
-          }
         }
       }
     } catch (e) {}
 
-    // First user interaction unlocks browser autoplay
-    const unlockAutoplay = () => {
-      startBgm();
-      window.removeEventListener("pointerdown", unlockAutoplay);
-      window.removeEventListener("keydown", unlockAutoplay);
-      window.removeEventListener("touchstart", unlockAutoplay);
-    };
-    window.addEventListener("pointerdown", unlockAutoplay, { once: true });
-    window.addEventListener("keydown", unlockAutoplay, { once: true });
-    window.addEventListener("touchstart", unlockAutoplay, { once: true });
+    function showScreen(screen) {
+      ["intro", "start", "active", "result", "review", "souls"].forEach(s => {
+        const el = document.getElementById("quiz-" + s);
+        if (el) {
+          if (s === screen) {
+            el.classList.remove("hidden");
+          } else {
+            el.classList.add("hidden");
+          }
+        }
+      });
+      window.scrollTo({ top: document.getElementById("quiz-root").offsetTop - 80, behavior: "smooth" });
+    }
 
-    // Settings Modal Toggle & Controls
+    // Initial Screen Decision
+    const answeredCount = userAnswers.filter(a => a !== null).length;
+    if (answeredCount === QUESTIONS.length) {
+      showScreen("result");
+      showResults();
+    } else {
+      showScreen("intro");
+      runIntroScene(0);
+      if (answeredCount > 0) {
+        const resumeBtn = document.getElementById("btn-resume-quiz");
+        const resumeCount = document.getElementById("resume-count");
+        if (resumeBtn && resumeCount) {
+          resumeBtn.classList.remove("hidden");
+          resumeCount.textContent = answeredCount;
+        }
+      }
+    }
+
+    function renderQuestion(index) {
+      currentIndex = index;
+      const q = QUESTIONS[index];
+      if (!q) return;
+
+      currentSelection = userAnswers[index] !== null ? userAnswers[index] : 2;
+
+      // Update HUD
+      const hudIndex = document.getElementById("hud-index");
+      const progressFill = document.getElementById("progress-fill");
+      if (hudIndex) hudIndex.textContent = `${String(index + 1).padStart(2, "0")} / ${QUESTIONS.length}`;
+      if (progressFill) progressFill.style.width = `${((index) / QUESTIONS.length) * 100}%`;
+
+      const prevBtn = document.getElementById("btn-prev");
+      if (prevBtn) prevBtn.disabled = index === 0;
+
+      // Extremes labels
+      const extremeLeft = document.getElementById("label-extreme-left");
+      const extremeRight = document.getElementById("label-extreme-right");
+      if (extremeLeft && q.labels) extremeLeft.textContent = q.labels[0];
+      if (extremeRight && q.labels) extremeRight.textContent = q.labels[q.labels.length - 1];
+
+      buildScalePoints(q);
+
+      const target = document.getElementById("questions-type");
+      if (target) {
+        typeOut(target, q.q, 20);
+      }
+    }
+
+    function buildScalePoints(q) {
+      const scaleRow = document.getElementById("scale-row");
+      if (!scaleRow) return;
+      scaleRow.innerHTML = "";
+
+      q.labels.forEach((label, optIdx) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "flex-1 flex flex-col items-center justify-center py-4 bg-transparent border-0 cursor-pointer group outline-none transition-transform active:scale-95";
+        btn.setAttribute("aria-label", label);
+
+        const isSelected = currentSelection === optIdx;
+
+        btn.innerHTML = `
+          <div class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center">
+            ${isSelected
+              ? '<div class="w-8 h-8 sm:w-9 sm:h-9 text-red-600 drop-shadow-[0_0_12px_rgba(255,0,0,0.9)] animate-pulse transition-transform scale-110"><svg viewBox="0 0 16 16" fill="currentColor" class="w-full h-full" shape-rendering="crispEdges"><path d="M2 0h4v1H2zm8 0h4v1h-4zM1 1h6v1H1zm8 0h6v1H9zM0 2h7v1H0zm9 2h7v1H9zM0 3h7v1H0zm9 3h7v1H9zM0 4h16v6H0zm2 6h12v2H2zm2 2h8v2H4zm2 2h4v2H6z"/></svg></div>'
+              : '<div class="w-5 h-5 sm:w-6 sm:h-6 bg-black border-3 sm:border-4 border-gray-600 group-hover:border-white transition-colors"></div>'
+            }
+          </div>
+        `;
+
+        btn.addEventListener("click", () => {
+          setSelection(optIdx);
+        });
+
+        scaleRow.appendChild(btn);
+      });
+
+      updateSelectedLabel(q);
+    }
+
+    function setSelection(optIdx) {
+      if (optIdx < 0 || optIdx > 4) return;
+      if (currentSelection !== optIdx) {
+        playSound("move");
+      }
+      currentSelection = optIdx;
+      const q = QUESTIONS[currentIndex];
+      buildScalePoints(q);
+    }
+
+    function updateSelectedLabel(q) {
+      const labelEl = document.getElementById("selected-label-text");
+      if (labelEl && q.labels && q.labels[currentSelection]) {
+        labelEl.textContent = q.labels[currentSelection];
+      }
+    }
+
+    function confirmAndAdvance() {
+      playSound("select");
+      userAnswers[currentIndex] = currentSelection;
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(userAnswers));
+      } catch (e) {}
+
+      if (currentIndex < QUESTIONS.length - 1) {
+        renderQuestion(currentIndex + 1);
+      } else {
+        showResults();
+      }
+    }
+
+    function goBack() {
+      if (currentIndex > 0) {
+        playSound("move");
+        renderQuestion(currentIndex - 1);
+      }
+    }
+
+    // -------------------------------------------------------------
+    // Mathematical Scoring Engine
+    // -------------------------------------------------------------
+    function computeScores() {
+      const scores = { DET: 0, BRV: 0, JUS: 0, KND: 0, PAT: 0, INT: 0, PER: 0 };
+      const CHOICE_FACTORS = [-1.0, -0.5, 0.0, 0.5, 1.0];
+
+      userAnswers.forEach((ans, qIdx) => {
+        if (ans === null || ans === undefined) return;
+        const factor = CHOICE_FACTORS[ans];
+        const q = QUESTIONS[qIdx];
+        if (!q || !q.load) return;
+
+        Object.entries(q.load).forEach(([trait, weight]) => {
+          if (scores[trait] !== undefined) {
+            scores[trait] += factor * weight;
+          }
+        });
+      });
+
+      const pct = {};
+      SOUL_CODES.forEach(code => {
+        const raw = scores[code];
+        const max = MAXP[code] || 1;
+        const normalized = Math.max(-1, Math.min(1, raw / max));
+        const sign = normalized >= 0 ? 1 : -1;
+        const curved = sign * Math.pow(Math.abs(normalized), 0.6);
+        const finalPct = 50 + curved * 50;
+        pct[code] = Math.max(0, Math.min(100, finalPct));
+      });
+
+      const ranked = [...SOUL_CODES].sort((a, b) => pct[b] - pct[a]);
+      return { pct, ranked };
+    }
+
+    // -------------------------------------------------------------
+    // Results Rendering & Exports
+    // -------------------------------------------------------------
+    function showResults() {
+      playSound("appear");
+      const { pct, ranked } = computeScores();
+      const dominantCode = ranked[0];
+      const dominantSoul = SOULS[dominantCode];
+
+      const heartEl = document.getElementById("result-heart");
+      const badgeEl = document.getElementById("result-badge");
+      const nameEl = document.getElementById("result-trait-name");
+      const colorLabelEl = document.getElementById("result-color-label");
+      const taglineEl = document.getElementById("result-tagline");
+      const descEl = document.getElementById("result-description");
+
+      if (heartEl) {
+        heartEl.style.color = dominantSoul.hex;
+        heartEl.style.setProperty("--res-color", dominantSoul.hex);
+      }
+      if (badgeEl) {
+        badgeEl.style.color = dominantSoul.hex;
+        badgeEl.style.borderColor = dominantSoul.hex;
+      }
+      if (nameEl) nameEl.textContent = dominantSoul.name;
+      if (colorLabelEl) colorLabelEl.textContent = `${dominantSoul.label} · ${dominantSoul.hex.toUpperCase()}`;
+      if (taglineEl) taglineEl.textContent = `"${dominantSoul.tag}"`;
+      if (descEl) descEl.textContent = dominantSoul.description;
+
+      // Secondary Virtue / Shadow Trait
+      const secondaryCode = ranked[1];
+      const secondarySoul = SOULS[secondaryCode];
+      const secHeart = document.getElementById("secondary-heart");
+      const secName = document.getElementById("secondary-name");
+      const secPct = document.getElementById("secondary-pct");
+      const secDesc = document.getElementById("secondary-desc");
+
+      if (secHeart) secHeart.style.color = secondarySoul.hex;
+      if (secName) secName.textContent = secondarySoul.name;
+      if (secPct) secPct.textContent = `${pct[secondaryCode].toFixed(1)}%`;
+      if (secDesc) secDesc.textContent = secondarySoul.description;
+
+      // 7 Trait Bars
+      const barsContainer = document.getElementById("virtue-bars");
+      if (barsContainer) {
+        barsContainer.innerHTML = "";
+        ranked.forEach(code => {
+          const s = SOULS[code];
+          const val = pct[code].toFixed(1);
+          const row = document.createElement("div");
+          row.className = "space-y-1";
+          row.innerHTML = `
+            <div class="flex justify-between items-center text-xs font-mono">
+              <span class="font-bold tracking-wider" style="color: ${s.hex}">${s.name} (${s.label})</span>
+              <span class="text-white font-bold">${val}%</span>
+            </div>
+            <div class="h-4 border-2 border-gray-700 bg-black p-0.5">
+              <div class="h-full transition-all duration-500" style="width: ${val}%; background: ${s.hex}"></div>
+            </div>
+          `;
+          barsContainer.appendChild(row);
+        });
+      }
+
+      showScreen("result");
+    }
+
+    // Share Card Canvas Generator
+    function drawResultCard() {
+      playSound("select");
+      const { pct, ranked } = computeScores();
+      const dominant = SOULS[ranked[0]];
+
+      const canvas = document.createElement("canvas");
+      canvas.width = 1200;
+      canvas.height = 630;
+      const ctx = canvas.getContext("2d");
+
+      // Black Void Background
+      ctx.fillStyle = "#050505";
+      ctx.fillRect(0, 0, 1200, 630);
+
+      // Pixel border frame
+      ctx.strokeStyle = "#ffffff";
+      ctx.lineWidth = 8;
+      ctx.strokeRect(16, 16, 1168, 598);
+
+      ctx.strokeStyle = dominant.hex;
+      ctx.lineWidth = 2;
+      ctx.strokeRect(28, 28, 1144, 574);
+
+      // Header Brand
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "bold 24px monospace";
+      ctx.fillText("SOUL VIRTUES EXTRACTOR", 60, 75);
+
+      ctx.fillStyle = "#888888";
+      ctx.font = "16px monospace";
+      ctx.fillText("soulvirtues.org · 66-Question Test", 60, 105);
+
+      // Dominant Trait Callout
+      ctx.fillStyle = dominant.hex;
+      ctx.font = "bold 64px monospace";
+      ctx.fillText(dominant.name, 60, 200);
+
+      ctx.fillStyle = "#aaaaaa";
+      ctx.font = "bold 20px monospace";
+      ctx.fillText(`${dominant.label} SOUL · ${dominant.hex.toUpperCase()}`, 60, 240);
+
+      // Tagline
+      ctx.fillStyle = "#e0e0e0";
+      ctx.font = "italic 22px serif";
+      ctx.fillText(`"${dominant.tag}"`, 60, 300);
+
+      // 7 Virtues Bars on the Right Column
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "bold 18px monospace";
+      ctx.fillText(QUIZ_UI.breakdownTitle, 680, 80);
+
+      const startY = 120;
+      ranked.forEach((code, idx) => {
+        const s = SOULS[code];
+        const val = pct[code];
+        const y = startY + idx * 60;
+
+        ctx.fillStyle = s.hex;
+        ctx.font = "bold 16px monospace";
+        ctx.fillText(s.name, 680, y);
+
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "bold 16px monospace";
+        ctx.fillText(`${val.toFixed(1)}%`, 1080, y);
+
+        // Track
+        ctx.fillStyle = "#1a1a1a";
+        ctx.fillRect(680, y + 10, 440, 16);
+        ctx.strokeStyle = "#333333";
+        ctx.lineWidth = 1;
+        ctx.strokeRect(680, y + 10, 440, 16);
+
+        // Fill
+        ctx.fillStyle = s.hex;
+        ctx.fillRect(682, y + 12, (436 * val) / 100, 12);
+      });
+
+      // Footer disclaimer
+      ctx.fillStyle = "#666666";
+      ctx.font = "14px monospace";
+      ctx.fillText("Undertale-inspired Fan Analytical Assessment · 100% Client-Side", 60, 560);
+
+      const link = document.createElement("a");
+      link.download = `soul-virtues-${dominant.name.toLowerCase()}-${LANG}.png`;
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    }
+
+    function copySummaryText() {
+      const { pct, ranked } = computeScores();
+      const dominant = SOULS[ranked[0]];
+      const text = [
+        "✨ My Undertale Soul Virtues Result:",
+        `Dominant Soul: ${dominant.name} (${dominant.label} SOUL)`,
+        `Tagline: "${dominant.tag}"`,
+        "",
+        `📊 ${QUIZ_UI.breakdownTitle}:`,
+        ranked.map(t => `${SOULS[t].name}: ${pct[t].toFixed(1)}%`).join("\n"),
+        "",
+        `Take the free 66-question test at: https://soulvirtues.org${LANG === 'ja' ? '/ja/' : '/'}`
+      ].join("\n");
+
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById("btn-copy-result");
+        if (btn) {
+          const orig = btn.innerHTML;
+          btn.innerHTML = `✓ ${QUIZ_UI.copiedNotice}`;
+          setTimeout(() => { btn.innerHTML = orig; }, 2000);
+        }
+      });
+    }
+
+    // Answers Review List
+    function buildReviewList() {
+      const list = document.getElementById("review-list");
+      if (!list) return;
+      list.innerHTML = "";
+      QUESTIONS.forEach((q, i) => {
+        const ans = userAnswers[i];
+        const label = (ans !== null && ans !== undefined && q.labels && q.labels[ans]) ? q.labels[ans] : "Unanswered";
+        const item = document.createElement("div");
+        item.innerHTML = `
+          <div class="text-sm sm:text-base text-white leading-relaxed tracking-wide">
+            <span class="text-gray-500 mr-2">${String(i + 1).padStart(2, "0")}.</span>${q.q}
+          </div>
+          <div class="text-yellow-400 text-xs sm:text-sm tracking-widest uppercase mt-1 pl-7">&gt; ${label}</div>
+        `;
+        list.appendChild(item);
+      });
+    }
+
+    // Souls Gallery
+    function buildSoulsGallery() {
+      const grid = document.getElementById("souls-grid");
+      if (!grid) return;
+      grid.innerHTML = "";
+      SOUL_CODES.forEach(code => {
+        const soul = SOULS[code];
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "flex items-center gap-2 px-3 py-2 bg-black border-2 border-gray-600 hover:border-white text-xs sm:text-sm font-bold tracking-widest uppercase cursor-pointer active:scale-95 transition-all";
+        btn.style.color = soul.hex;
+        btn.innerHTML = `
+          <span class="w-4 h-4 inline-block"><svg viewBox="0 0 16 16" fill="currentColor" class="w-full h-full" shape-rendering="crispEdges"><path d="M2 0h4v1H2zm8 0h4v1h-4zM1 1h6v1H1zm8 0h6v1H9zM0 2h7v1H0zm9 2h7v1H9zM0 3h7v1H0zm9 3h7v1H9zM0 4h16v6H0zm2 6h12v2H2zm2 2h8v2H4zm2 2h4v2H6z"/></svg></span>
+          <span>${soul.name}</span>
+        `;
+        btn.addEventListener("click", () => {
+          playSound("select");
+          const detail = document.getElementById("soul-detail");
+          const heartEl = document.getElementById("soul-detail-heart");
+          const nameEl = document.getElementById("soul-detail-name");
+          const labelEl = document.getElementById("soul-detail-label");
+          const tagEl = document.getElementById("soul-detail-tag");
+          const descEl = document.getElementById("soul-detail-desc");
+
+          if (heartEl) heartEl.style.color = soul.hex;
+          if (nameEl) {
+            nameEl.textContent = soul.name;
+            nameEl.style.color = soul.hex;
+          }
+          if (labelEl) labelEl.textContent = `${soul.label} SOUL · ${soul.hex.toUpperCase()}`;
+          if (tagEl) tagEl.textContent = `"${soul.tag}"`;
+          if (descEl) descEl.textContent = soul.description;
+          if (detail) detail.classList.remove("hidden");
+        });
+        grid.appendChild(btn);
+      });
+    }
+
+    // -------------------------------------------------------------
+    // Event Listeners
+    // -------------------------------------------------------------
     const btnOpenSettings = document.getElementById("btn-open-settings");
     const btnCloseSettings = document.getElementById("btn-close-settings");
     const settingsModal = document.getElementById("settings-modal");
 
     btnOpenSettings?.addEventListener("click", (e) => {
       e.stopPropagation();
-      startBgm();
+      playSound("select");
       settingsModal?.classList.toggle("hidden");
     });
 
     btnCloseSettings?.addEventListener("click", () => {
+      playSound("move");
       settingsModal?.classList.add("hidden");
     });
 
     document.addEventListener("click", (e) => {
-      if (settingsModal && !settingsModal.classList.contains("hidden")) {
-        if (!settingsModal.contains(e.target) && e.target !== btnOpenSettings) {
-          settingsModal.classList.add("hidden");
-        }
+      if (settingsModal && !settingsModal.contains(e.target) && e.target !== btnOpenSettings) {
+        settingsModal.classList.add("hidden");
       }
     });
 
-    // Music Volume Slider
     document.getElementById("slider-vol-music")?.addEventListener("input", (e) => {
       audioSettings.volMusic = parseInt(e.target.value, 10);
       audioSettings.musicMuted = false;
@@ -1116,7 +1076,6 @@ const maxpJson = JSON.stringify(MAXP);
       startBgm();
     });
 
-    // SFX Volume Slider
     document.getElementById("slider-vol-sfx")?.addEventListener("input", (e) => {
       audioSettings.volSfx = parseInt(e.target.value, 10);
       audioSettings.sfxMuted = false;
@@ -1124,21 +1083,18 @@ const maxpJson = JSON.stringify(MAXP);
       playSound("move");
     });
 
-    // Music Mute Button
     document.getElementById("btn-toggle-music-mute")?.addEventListener("click", () => {
       audioSettings.musicMuted = !audioSettings.musicMuted;
       saveAudioSettings();
       if (!audioSettings.musicMuted) startBgm();
     });
 
-    // SFX Mute Button
     document.getElementById("btn-toggle-sfx-mute")?.addEventListener("click", () => {
       audioSettings.sfxMuted = !audioSettings.sfxMuted;
       saveAudioSettings();
       if (!audioSettings.sfxMuted) playSound("select");
     });
 
-    // Start / Resume button
     document.getElementById("btn-start-fresh")?.addEventListener("click", () => {
       userAnswers = new Array(QUESTIONS.length).fill(null);
       try { localStorage.setItem(STORAGE_KEY, JSON.stringify(userAnswers)); } catch (e) {}
@@ -1148,7 +1104,6 @@ const maxpJson = JSON.stringify(MAXP);
       renderQuestion(0);
     });
 
-    // 开场序列：点击任意处推进；SKIP 直达标题屏
     document.getElementById("quiz-intro")?.addEventListener("click", advanceIntro);
     document.getElementById("btn-skip-intro")?.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -1156,7 +1111,6 @@ const maxpJson = JSON.stringify(MAXP);
       showScreen("start");
     });
 
-    // 结果页延展：答案回顾与七灵魂图鉴
     document.getElementById("btn-review-answers")?.addEventListener("click", () => {
       playSound("select");
       buildReviewList();
@@ -1185,32 +1139,27 @@ const maxpJson = JSON.stringify(MAXP);
       renderQuestion(firstUnanswered !== -1 ? firstUnanswered : 0);
     });
 
-    // Dialogue box click to skip typing
     document.getElementById("dialogue-box")?.addEventListener("click", skipTyping);
 
-    // Reset button
     document.getElementById("btn-quiz-reset")?.addEventListener("click", () => {
-      if (confirm("Reset all 66 questions?")) {
+      if (confirm(QUIZ_UI.resetConfirm || "Reset all 66 questions?")) {
         userAnswers = new Array(QUESTIONS.length).fill(null);
         try { localStorage.setItem(STORAGE_KEY, JSON.stringify(userAnswers)); } catch (e) {}
         showScreen("start");
       }
     });
 
-    // Navigation buttons
     document.getElementById("btn-prev")?.addEventListener("click", goBack);
     document.getElementById("btn-next")?.addEventListener("click", confirmAndAdvance);
 
-    // Results screen buttons
     document.getElementById("btn-download-card")?.addEventListener("click", drawResultCard);
     document.getElementById("btn-copy-result")?.addEventListener("click", copySummaryText);
     document.getElementById("btn-retake")?.addEventListener("click", () => {
       showScreen("start");
     });
 
-    // Keyboard navigation (Undertale style)
+    // Keyboard navigation
     window.addEventListener("keydown", (e) => {
-      // 开场序列：Z / Enter / 空格推进
       const introScreen = document.getElementById("quiz-intro");
       if (introScreen && !introScreen.classList.contains("hidden")) {
         if (e.key === "Enter" || e.key.toLowerCase() === "z" || e.key === " ") {
@@ -1245,3 +1194,4 @@ const maxpJson = JSON.stringify(MAXP);
     });
   });
 </script>
+

@@ -1,0 +1,9 @@
+# ja
+- 用途：日文版静态页面路由目录
+- 关键入口：src/pages/ja/index.astro
+- 边界/依赖：依赖 src/layouts/Layout.astro 与 src/i18n 多语言数据
+> 一旦本目录内容变化，请更新本文件
+
+## Files
+- index.astro：日文版首页，包含日文全量 66 题测试、Undertale 官方对齐专有名词科普与 FAQ
+

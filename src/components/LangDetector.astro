@@ -1,0 +1,184 @@
+---
+// input: lang ('en' | 'ja' | 'es' | 'pt')
+// output: Bottom-right floating pixel-styled language recommendation prompt based on browser language detection
+// pos: src/components/LangDetector.astro (更新规则：文件变更需同步本注释与所属目录 README)
+
+import type { Locale } from '../i18n';
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = 'en' } = Astro.props;
+---
+
+<div
+  id="pixel-lang-prompt"
+  class="hidden fixed bottom-4 right-4 z-50 max-w-sm w-[calc(100vw-2rem)] sm:w-96 bg-black border-4 border-white p-4 shadow-[6px_6px_0px_rgba(255,255,255,0.4)] font-mono text-white select-none transition-all duration-300"
+  data-current-lang={lang}
+  role="dialog"
+  aria-label="Language Suggestion"
+>
+  <!-- Header Bar with Undertale Heart -->
+  <div class="flex items-center justify-between border-b-2 border-gray-700 pb-2 mb-3">
+    <div class="flex items-center gap-2">
+      <div class="w-4 h-4 text-red-500 animate-pulse flex-shrink-0">
+        <svg viewBox="0 0 16 16" fill="currentColor" class="w-full h-full" shape-rendering="crispEdges">
+          <path d="M2 0h4v1H2zm8 0h4v1h-4zM1 1h6v1H1zm8 0h6v1H9zM0 2h7v1H0zm9 2h7v1H9zM0 3h7v1H0zm9 3h7v1H9zM0 4h16v6H0zm2 6h12v2H2zm2 2h8v2H4zm2 2h4v2H6z"/>
+        </svg>
+      </div>
+      <span class="text-xs font-bold tracking-widest text-yellow-400 uppercase" id="lang-prompt-title">
+        LANGUAGE / 言語
+      </span>
+    </div>
+    <button
+      id="btn-dismiss-lang"
+      type="button"
+      class="text-xs text-gray-400 hover:text-white border border-gray-600 hover:border-white px-2 py-0.5 cursor-pointer active:scale-95 transition-all"
+      aria-label="Close"
+    >
+      ✕
+    </button>
+  </div>
+
+  <!-- Prompt Message Body -->
+  <p id="lang-prompt-text" class="text-xs text-gray-200 leading-relaxed font-sans mb-4">
+    <!-- Injected dynamically based on detected language -->
+  </p>
+
+  <!-- Action Buttons -->
+  <div class="flex items-center justify-end gap-2 text-xs">
+    <button
+      id="btn-stay-lang"
+      type="button"
+      class="px-3 py-1.5 bg-black border-2 border-gray-600 hover:border-white text-gray-300 hover:text-white uppercase tracking-wider cursor-pointer active:scale-95 transition-all font-mono"
+    >
+      <span id="label-stay-btn">Dismiss</span>
+    </button>
+    <a
+      id="link-switch-lang"
+      href="/"
+      class="inline-flex items-center justify-center px-4 py-1.5 bg-white hover:bg-gray-200 text-black font-bold uppercase tracking-wider cursor-pointer active:scale-95 transition-all shadow-[2px_2px_0px_rgba(255,255,255,0.4)] font-mono"
+    >
+      <span id="label-switch-btn">* Switch</span>
+    </a>
+  </div>
+</div>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const promptEl = document.getElementById('pixel-lang-prompt');
+    if (!promptEl) return;
+
+    const currentLang = promptEl.getAttribute('data-current-lang') || 'en';
+    const DISMISS_KEY = 'soulvirtues_lang_prompt_dismissed_until';
+
+    // Check if previously dismissed (within 30 days)
+    try {
+      const dismissedUntil = localStorage.getItem(DISMISS_KEY);
+      if (dismissedUntil && Date.now() < parseInt(dismissedUntil, 10)) {
+        return; // Still in 30-day quiet period
+      }
+    } catch (e) {}
+
+    // Multilingual Prompt Dictionary
+    const PROMPT_DATA = {
+      ja: {
+        title: '言語設定 / LANGUAGE',
+        text: '日本語をご利用ですか？ 日本語版で診断テストを受けますか？',
+        switchLabel: '* 日本語で開く',
+        stayLabel: 'このまま (EN)',
+        targetUrl: '/ja/',
+      },
+      es: {
+        title: 'IDIOMA / LANGUAGE',
+        text: '¿Prefieres usar español? ¿Deseas cambiar a la versión en español?',
+        switchLabel: '* Cambiar a Español',
+        stayLabel: 'Quedarme aquí',
+        targetUrl: '/es/',
+      },
+      pt: {
+        title: 'IDIOMA / LANGUAGE',
+        text: 'Você prefere português? Deseja alternar para a versão em português?',
+        switchLabel: '* Mudar para Português',
+        stayLabel: 'Ficar nesta versão',
+        targetUrl: '/pt/',
+      },
+      en: {
+        title: 'LANGUAGE SUGGESTION',
+        text: 'Prefer English? Would you like to switch to the English version?',
+        switchLabel: '* Switch to English',
+        stayLabel: 'Dismiss',
+        targetUrl: '/',
+      },
+    };
+
+    // Detect browser languages
+    const browserLangs = navigator.languages ? Array.from(navigator.languages) : [navigator.language || 'en'];
+    let detectedLang = null;
+
+    for (const rawLang of browserLangs) {
+      const l = (rawLang || '').toLowerCase();
+      if (l.startsWith('ja')) {
+        detectedLang = 'ja';
+        break;
+      }
+      if (l.startsWith('es')) {
+        detectedLang = 'es';
+        break;
+      }
+      if (l.startsWith('pt')) {
+        detectedLang = 'pt';
+        break;
+      }
+      if (l.startsWith('en')) {
+        detectedLang = 'en';
+        break;
+      }
+    }
+
+    // Only prompt if detected language differs from current page language
+    if (!detectedLang || detectedLang === currentLang) {
+      return;
+    }
+
+    const data = PROMPT_DATA[detectedLang];
+    if (!data) return;
+
+    // Fill content
+    const titleEl = document.getElementById('lang-prompt-title');
+    const textEl = document.getElementById('lang-prompt-text');
+    const switchBtn = document.getElementById('label-switch-btn');
+    const stayBtn = document.getElementById('label-stay-btn');
+    const switchLink = document.getElementById('link-switch-lang');
+
+    if (titleEl) titleEl.textContent = data.title;
+    if (textEl) textEl.textContent = data.text;
+    if (switchBtn) switchBtn.textContent = data.switchLabel;
+    if (stayBtn) stayBtn.textContent = data.stayLabel;
+    if (switchLink) switchLink.setAttribute('href', data.targetUrl);
+
+    // Show prompt after 1.2s delay for seamless entrance
+    setTimeout(() => {
+      promptEl.classList.remove('hidden');
+    }, 1200);
+
+    function dismissPrompt() {
+      promptEl.classList.add('hidden');
+      try {
+        // Suppress for 30 days
+        localStorage.setItem(DISMISS_KEY, String(Date.now() + 30 * 24 * 60 * 60 * 1000));
+      } catch (e) {}
+    }
+
+    document.getElementById('btn-dismiss-lang')?.addEventListener('click', dismissPrompt);
+    document.getElementById('btn-stay-lang')?.addEventListener('click', dismissPrompt);
+    document.getElementById('link-switch-lang')?.addEventListener('click', () => {
+      try {
+        // Record choice so prompt won't re-trigger
+        localStorage.setItem(DISMISS_KEY, String(Date.now() + 30 * 24 * 60 * 60 * 1000));
+      } catch (e) {}
+    });
+  });
+</script>
+
