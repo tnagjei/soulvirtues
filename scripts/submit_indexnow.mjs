@@ -11,7 +11,12 @@ const siteUrl = (process.env.SITE_URL || "https://soulvirtues.org").replace(/\/$
 const host = new URL(siteUrl).host;
 const indexNowKey = "e74f83b2d1c94a5ea6e0b7f8c9d1a2e3";
 const keyLocation = `${siteUrl}/${indexNowKey}.txt`;
-const endpoint = "https://api.indexnow.org/indexnow";
+const endpoints = [
+  "https://api.indexnow.org/indexnow",
+  "https://www.bing.com/indexnow",
+  "https://yandex.com/indexnow",
+  "https://indexnow.seznam.cz/indexnow"
+];
 
 async function getAllDistUrls() {
   const distDir = path.join(root, "dist");
@@ -67,25 +72,38 @@ async function main() {
     urlList,
   };
 
-  try {
-    const res = await fetch(endpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-      },
-      body: JSON.stringify(payload),
-    });
+  let succeeded = false;
+  let lastError = "";
 
-    const body = await res.text();
-    if (res.status === 200 || res.status === 202) {
-      console.log(`✅ IndexNow submission successful! Status: ${res.status} ${res.statusText}`);
-      console.log(`Indexed endpoints will notify Bing, Yandex, Naver, Seznam, and participating search engines.`);
-    } else {
-      console.error(`❌ IndexNow submission failed with status ${res.status}: ${body}`);
-      process.exit(1);
+  for (const endpoint of endpoints) {
+    try {
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const body = await res.text();
+      if (res.status === 200 || res.status === 202) {
+        console.log(`✅ IndexNow submission successful via ${new URL(endpoint).host}! Status: ${res.status} ${res.statusText}`);
+        console.log(`Indexed endpoints will notify Bing, Yandex, Naver, Seznam, and participating search engines.`);
+        succeeded = true;
+        break;
+      } else {
+        lastError = `Status ${res.status}: ${body}`;
+        console.warn(`⚠️ ${new URL(endpoint).host} returned ${res.status} (${body})`);
+      }
+    } catch (error) {
+      lastError = error.message;
+      console.warn(`⚠️ Failed to contact ${new URL(endpoint).host}: ${error.message}`);
     }
-  } catch (error) {
-    console.error("❌ Failed to contact IndexNow API:", error);
+  }
+
+  if (!succeeded) {
+    console.error(`\n❌ All IndexNow endpoints returned an error: ${lastError}`);
+    console.error(`👉 Note: New domains on Bing require 10-30 minutes for DNS/crawler key validation cache propagation, or direct verification in Bing Webmaster Tools.`);
     process.exit(1);
   }
 }
