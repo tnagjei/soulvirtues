@@ -17,6 +17,7 @@ const testLink = lang === 'en' ? '/#test' : `/${lang}/#test`;
 const virtuesLink = lang === 'en' ? '/#virtues' : `/${lang}/#virtues`;
 const scoringLink = lang === 'en' ? '/#scoring' : `/${lang}/#scoring`;
 const faqLink = lang === 'en' ? '/#faq' : `/${lang}/#faq`;
+const soulsPrefix = lang === 'en' ? '/souls' : `/${lang}/souls`;
 ---
 
 <footer class="bg-black border-t-2 border-white text-gray-400 text-sm mt-20">
@@ -93,6 +94,37 @@ const faqLink = lang === 'en' ? '/#faq' : `/${lang}/#faq`;
       </div>
     </div>
 
+    <!-- 7 Undertale Soul Traits Internal Link Hub -->
+    <div class="border-t border-gray-800/80 pt-6 pb-6">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-3">
+        <span class="text-xs font-mono font-bold text-white uppercase tracking-wider">The 7 Undertale SOUL Traits:</span>
+        <span class="text-[11px] text-gray-500 font-mono">Detailed lore, items & battle mechanics</span>
+      </div>
+      <div class="flex flex-wrap gap-2 text-xs font-mono">
+        <a href={`${soulsPrefix}/determination`} class="px-2.5 py-1 bg-black border border-red-900/60 text-red-400 hover:border-red-500 hover:text-white transition-colors">
+          ❤️ Determination (Red)
+        </a>
+        <a href={`${soulsPrefix}/bravery`} class="px-2.5 py-1 bg-black border border-amber-900/60 text-amber-400 hover:border-amber-500 hover:text-white transition-colors">
+          🧡 Bravery (Orange)
+        </a>
+        <a href={`${soulsPrefix}/justice`} class="px-2.5 py-1 bg-black border border-yellow-900/60 text-yellow-400 hover:border-yellow-500 hover:text-white transition-colors">
+          💛 Justice (Yellow)
+        </a>
+        <a href={`${soulsPrefix}/kindness`} class="px-2.5 py-1 bg-black border border-emerald-900/60 text-emerald-400 hover:border-emerald-500 hover:text-white transition-colors">
+          💚 Kindness (Green)
+        </a>
+        <a href={`${soulsPrefix}/patience`} class="px-2.5 py-1 bg-black border border-cyan-900/60 text-cyan-400 hover:border-cyan-500 hover:text-white transition-colors">
+          🩵 Patience (Cyan)
+        </a>
+        <a href={`${soulsPrefix}/integrity`} class="px-2.5 py-1 bg-black border border-blue-900/60 text-blue-400 hover:border-blue-500 hover:text-white transition-colors">
+          💙 Integrity (Blue)
+        </a>
+        <a href={`${soulsPrefix}/perseverance`} class="px-2.5 py-1 bg-black border border-purple-900/60 text-purple-400 hover:border-purple-500 hover:text-white transition-colors">
+          💜 Perseverance (Purple)
+        </a>
+      </div>
+    </div>
+
     <!-- Bottom Disclaimer & Copyright -->
     <div class="border-t border-gray-800/80 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
       <p>{t.footer.copyright}</p>
@@ -102,4 +134,3 @@ const faqLink = lang === 'en' ? '/#faq' : `/${lang}/#faq`;
     </div>
   </div>
 </footer>
-

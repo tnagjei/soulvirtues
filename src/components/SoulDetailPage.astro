@@ -1,0 +1,272 @@
+---
+// input: soulDetail object with localized copy, lang ('en' | 'ja' | 'es' | 'pt')
+// output: Complete responsive single-trait SEO landing page template with schema, equipment, mechanics, and CTA
+// pos: src/components/SoulDetailPage.astro (更新规则：文件变更需同步本注释与所属目录 README)
+
+import Layout from '../layouts/Layout.astro';
+import type { SoulDetail } from '../data/soulDetails';
+import { SOUL_SLUGS } from '../data/soulDetails';
+import { getLocalizedSoulDetails } from '../data/soulDetailsI18n';
+import type { Locale } from '../i18n';
+
+interface Props {
+  soulDetail: SoulDetail;
+  lang?: Locale;
+}
+
+const { soulDetail, lang = 'en' } = Astro.props;
+const siteUrl = "https://soulvirtues.org";
+const langPrefix = lang === 'en' ? '' : `/${lang}`;
+const pagePath = `${langPrefix}/souls/${soulDetail.slug}`;
+const pageUrl = `${siteUrl}${pagePath}`;
+const homeUrl = `${siteUrl}${langPrefix}/`;
+const testAnchor = `${langPrefix}/#test`;
+const virtuesAnchor = `${langPrefix}/#virtues`;
+
+const allLocalized = getLocalizedSoulDetails(lang);
+const otherSouls = SOUL_SLUGS.filter(s => s !== soulDetail.slug).map(s => allLocalized[s] || soulDetail);
+
+// Standard Schema.org Breadcrumb without hashtag anchors for clean search crawler validation
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": soulDetail.labels.home,
+          "item": homeUrl
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": soulDetail.labels.traitsBreadcrumb,
+          "item": homeUrl
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": `${soulDetail.name} (${soulDetail.colorName} SOUL)`,
+          "item": pageUrl
+        }
+      ]
+    },
+    {
+      "@type": "Article",
+      "@id": `${pageUrl}#article`,
+      "headline": soulDetail.seoTitle,
+      "description": soulDetail.seoDescription,
+      "mainEntityOfPage": pageUrl,
+      "inLanguage": lang,
+      "author": {
+        "@type": "Organization",
+        "name": "Soul Virtues Extractor",
+        "url": siteUrl
+      }
+    }
+  ]
+};
+---
+
+<Layout
+  title={soulDetail.seoTitle}
+  description={soulDetail.seoDescription}
+  canonicalUrl={pageUrl}
+  structuredData={structuredData}
+  lang={lang}
+>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-10" style={`--soul-theme-color: ${soulDetail.hex}`}>
+    <!-- Breadcrumb Navigation -->
+    <nav class="flex items-center gap-2 text-xs font-mono text-gray-400 mb-8" aria-label="Breadcrumb">
+      <a href={langPrefix || '/'} class="hover:text-white transition-colors">{soulDetail.labels.home}</a>
+      <span>/</span>
+      <a href={virtuesAnchor} class="hover:text-white transition-colors">{soulDetail.labels.traitsBreadcrumb}</a>
+      <span>/</span>
+      <span class="text-white font-bold" style={`color: ${soulDetail.hex}`}>{soulDetail.name}</span>
+    </nav>
+
+    <!-- Hero Header Area -->
+    <header class="pixel-card p-6 sm:p-10 mb-10 relative overflow-hidden border-2" style={`border-color: ${soulDetail.hex}`}>
+      <div class="absolute -right-16 -top-16 w-64 h-64 rounded-full opacity-15 blur-3xl pointer-events-none" style={`background: ${soulDetail.hex}`}></div>
+
+      <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6 relative z-10">
+        <!-- Giant Pixel Heart Icon -->
+        <div class="w-20 h-20 sm:w-24 sm:h-24 flex-shrink-0 drop-shadow-[0_0_16px_var(--soul-theme-color)]" style={`color: ${soulDetail.hex}`}>
+          <svg viewBox="0 0 16 16" fill="currentColor" class="w-full h-full" shape-rendering="crispEdges">
+            <path d="M2 0h4v1H2zm8 0h4v1h-4zM1 1h6v1H1zm8 0h6v1H9zM0 2h7v1H0zm9 2h7v1H9zM0 3h7v1H0zm9 3h7v1H9zM0 4h16v6H0zm2 6h12v2H2zm2 2h8v2H4zm2 2h4v2H6z"/>
+          </svg>
+        </div>
+
+        <div class="text-center sm:text-left flex-1">
+          <div class="inline-flex items-center gap-2 px-3 py-1 bg-black border text-xs font-mono font-bold tracking-wider uppercase mb-3" style={`border-color: ${soulDetail.hex}; color: ${soulDetail.hex}`}>
+            {soulDetail.colorName} SOUL · {soulDetail.hex}
+          </div>
+
+          <h1 class="text-3xl sm:text-5xl font-black text-white font-mono tracking-tight mb-2">
+            {soulDetail.name}
+          </h1>
+
+          <p class="text-xs sm:text-sm text-gray-300 font-mono italic mb-4 border-l-2 pl-3 py-1 border-gray-700">
+            "{soulDetail.tagQuote}"
+          </p>
+
+          <div class="p-3 bg-black/60 border border-gray-800 text-xs text-gray-300 font-mono">
+            <span class="text-yellow-400 font-bold">{soulDetail.labels.ballGameLabel}</span> {soulDetail.ballGameQuote}
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <div class="space-y-12">
+      <!-- Section 1: Lore & Underground History -->
+      <section class="pixel-card-sub p-6 sm:p-8">
+        <h2 class="text-xl sm:text-2xl font-bold text-white font-mono mb-4 flex items-center gap-2">
+          <span class="text-lg" style={`color: ${soulDetail.hex}`}>✦</span>
+          {soulDetail.labels.loreHeading}
+        </h2>
+        <p class="text-sm text-gray-300 leading-relaxed">
+          {soulDetail.gameLore}
+        </p>
+      </section>
+
+      <!-- Section 2: Associated Items & Equipment -->
+      <section class="pixel-card-sub p-6 sm:p-8">
+        <h2 class="text-xl sm:text-2xl font-bold text-white font-mono mb-2 flex items-center gap-2">
+          <span class="text-lg" style={`color: ${soulDetail.hex}`}>✦</span>
+          {soulDetail.labels.itemsHeading}
+        </h2>
+        <p class="text-xs text-gray-400 mb-6">
+          {soulDetail.labels.itemsSub}
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {soulDetail.items.map((item) => (
+            <div class="bg-black/70 border border-gray-800 p-5 relative group hover:border-gray-600 transition-colors">
+              <div class="flex items-center justify-between gap-2 mb-2">
+                <span class="text-xs uppercase px-2 py-0.5 font-mono font-semibold" style={`color: ${soulDetail.hex}; background: ${soulDetail.hex}20`}>
+                  {item.type}
+                </span>
+                <span class="text-xs font-mono text-yellow-400">{item.stats}</span>
+              </div>
+              <h3 class="text-base font-bold text-white font-mono mb-1">
+                {item.name}
+              </h3>
+              <p class="text-xs text-gray-400 font-mono mb-3">
+                <strong class="text-gray-300">{soulDetail.labels.itemLocation}</strong> {item.location}
+              </p>
+              <p class="text-xs text-gray-300 leading-relaxed">
+                {item.lore}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- Section 3: Battle Mode & Attack Mechanics -->
+      <section class="pixel-card-sub p-6 sm:p-8">
+        <h2 class="text-xl sm:text-2xl font-bold text-white font-mono mb-3 flex items-center gap-2">
+          <span class="text-lg" style={`color: ${soulDetail.hex}`}>✦</span>
+          {soulDetail.battleMechanicsTitle}
+        </h2>
+        <p class="text-sm text-gray-300 leading-relaxed mb-4">
+          {soulDetail.battleMechanicsDesc}
+        </p>
+      </section>
+
+      <!-- Section 4: Psychological Analysis & Personality Profile -->
+      <section class="pixel-card-sub p-6 sm:p-8">
+        <h2 class="text-xl sm:text-2xl font-bold text-white font-mono mb-4 flex items-center gap-2">
+          <span class="text-lg" style={`color: ${soulDetail.hex}`}>✦</span>
+          {soulDetail.labels.personalityHeading}
+        </h2>
+
+        <div class="mb-6 p-4 bg-black/60 border border-gray-800">
+          <h3 class="text-xs font-mono uppercase text-gray-400 mb-1">{soulDetail.labels.motivationLabel}</h3>
+          <p class="text-sm text-white font-medium">
+            {soulDetail.personalityAnalysis.coreMotivation}
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+          <div class="bg-black/50 border border-emerald-900/50 p-4">
+            <h3 class="text-xs font-mono uppercase text-emerald-400 mb-3 flex items-center gap-1">
+              <span>✓</span> {soulDetail.labels.strengthsLabel}
+            </h3>
+            <ul class="space-y-2 text-xs text-gray-300">
+              {soulDetail.personalityAnalysis.strengths.map((s) => (
+                <li class="flex items-start gap-2">
+                  <span class="text-emerald-400">•</span>
+                  <span>{s}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="bg-black/50 border border-red-900/50 p-4">
+            <h3 class="text-xs font-mono uppercase text-red-400 mb-3 flex items-center gap-1">
+              <span>⚠</span> {soulDetail.labels.weaknessesLabel}
+            </h3>
+            <ul class="space-y-2 text-xs text-gray-300">
+              {soulDetail.personalityAnalysis.weaknesses.map((w) => (
+                <li class="flex items-start gap-2">
+                  <span class="text-red-400">•</span>
+                  <span>{w}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <p class="text-xs sm:text-sm text-gray-300 leading-relaxed p-4 bg-black/40 border-l-2 border-gray-700">
+          <strong class="text-white font-mono">{soulDetail.labels.realWorldLabel}</strong> {soulDetail.personalityAnalysis.realWorldTraits}
+        </p>
+      </section>
+
+      <!-- Section 5: Take the Test Call to Action -->
+      <section class="pixel-card p-8 text-center relative overflow-hidden bg-gradient-to-b from-gray-900 to-black border-2 border-red-500 shadow-[0_0_24px_rgba(239,68,68,0.25)]">
+        <h2 class="text-2xl sm:text-3xl font-black text-white font-mono mb-3">
+          {soulDetail.labels.ctaTitle}
+        </h2>
+        <p class="text-xs sm:text-sm text-gray-300 max-w-2xl mx-auto mb-6">
+          {soulDetail.labels.ctaDesc}
+        </p>
+        <a
+          href={testAnchor}
+          class="inline-block px-8 py-4 bg-red-600 hover:bg-red-500 text-white font-bold font-mono text-xs sm:text-sm tracking-wider uppercase border-2 border-white shadow-[4px_4px_0px_#000] hover:shadow-[2px_2px_0px_#000] active:translate-x-[2px] active:translate-y-[2px] transition-all"
+        >
+          {soulDetail.labels.ctaBtn}
+        </a>
+      </section>
+
+      <!-- Section 6: Explore All 7 Soul Traits -->
+      <section class="pt-6 border-t border-gray-800">
+        <h2 class="text-lg sm:text-xl font-bold text-white font-mono mb-4 text-center">
+          {soulDetail.labels.exploreOther}
+        </h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+          {otherSouls.map((other) => (
+            <a
+              href={`${langPrefix}/souls/${other.slug}`}
+              class="p-3 bg-black border border-gray-800 hover:border-white transition-all text-center group block"
+            >
+              <div class="w-6 h-6 mx-auto mb-2 transition-transform group-hover:scale-110" style={`color: ${other.hex}`}>
+                <svg viewBox="0 0 16 16" fill="currentColor" class="w-full h-full" shape-rendering="crispEdges">
+                  <path d="M2 0h4v1H2zm8 0h4v1h-4zM1 1h6v1H1zm8 0h6v1H9zM0 2h7v1H0zm9 2h7v1H9zM0 3h7v1H0zm9 3h7v1H9zM0 4h16v6H0zm2 6h12v2H2zm2 2h8v2H4zm2 2h4v2H6z"/>
+                </svg>
+              </div>
+              <div class="text-[11px] font-bold text-white font-mono tracking-tight group-hover:text-yellow-400">
+                {other.name}
+              </div>
+              <div class="text-[10px] text-gray-500 font-mono">
+                {other.colorName} SOUL
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    </div>
+  </div>
+</Layout>

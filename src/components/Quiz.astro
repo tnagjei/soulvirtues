@@ -282,6 +282,18 @@ const quizUIJson = JSON.stringify(t.quizUI);
       <p id="result-description" class="text-xs sm:text-sm text-gray-300 max-w-2xl mx-auto mt-6 leading-relaxed font-sans text-left bg-black/60 border-2 border-gray-800 p-5">
         <!-- Injected via JS -->
       </p>
+
+      <!-- Direct High-Converting Soul Trait Subpage Internal Link -->
+      <div class="mt-6 text-center">
+        <a
+          id="btn-explore-dominant-soul"
+          href="/souls/determination"
+          class="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-black border-2 border-yellow-400 hover:bg-yellow-400 hover:text-black text-yellow-400 font-bold font-mono text-xs sm:text-sm tracking-wider uppercase shadow-[3px_3px_0px_rgba(250,204,21,0.5)] active:translate-x-[2px] active:translate-y-[2px] transition-all group"
+        >
+          <span class="text-base group-hover:scale-110 transition-transform">📖</span>
+          <span id="btn-explore-dominant-text">Explore Determination Lore, Items & Combat Mechanics →</span>
+        </a>
+      </div>
     </div>
 
     <!-- Secondary Virtue / Shadow Trait Callout -->
@@ -409,9 +421,11 @@ const quizUIJson = JSON.stringify(t.quizUI);
 </div>
 
 <script is:inline>
-  document.addEventListener("DOMContentLoaded", () => {
+  function initQuiz() {
     const root = document.getElementById("quiz-root");
     if (!root) return;
+    if (root.dataset.initialized === "true") return;
+    root.dataset.initialized = "true";
 
     const LANG = root.getAttribute("data-lang") || "en";
     const QUESTIONS = JSON.parse(root.getAttribute("data-questions") || "[]");
@@ -448,7 +462,7 @@ const quizUIJson = JSON.stringify(t.quizUI);
     const TYPE_POOL_SIZE = 6;
     const typeAudioPool = [];
     for (let i = 0; i < TYPE_POOL_SIZE; i++) {
-      const a = new Audio("/audio/snd_txt1.wav");
+      const a = new Audio("/audio/snd_text.wav");
       a.preload = "auto";
       typeAudioPool.push(a);
     }
@@ -726,13 +740,19 @@ const quizUIJson = JSON.stringify(t.quizUI);
         `;
 
         btn.addEventListener("click", () => {
-          setSelection(optIdx);
+          selectAndAdvance(optIdx);
         });
 
         scaleRow.appendChild(btn);
       });
 
       updateSelectedLabel(q);
+    }
+
+    function selectAndAdvance(optIdx) {
+      if (optIdx < 0 || optIdx > 4) return;
+      currentSelection = optIdx;
+      confirmAndAdvance();
     }
 
     function setSelection(optIdx) {
@@ -849,6 +869,27 @@ const quizUIJson = JSON.stringify(t.quizUI);
       if (secName) secName.textContent = secondarySoul.name;
       if (secPct) secPct.textContent = `${pct[secondaryCode].toFixed(1)}%`;
       if (secDesc) secDesc.textContent = secondarySoul.description;
+
+      // Direct Internal Link to Dominant Soul Subpage
+      const exploreBtn = document.getElementById("btn-explore-dominant-soul");
+      const exploreText = document.getElementById("btn-explore-dominant-text");
+      if (exploreBtn && exploreText) {
+        const soulSlugMap = {
+          DET: 'determination',
+          BRV: 'bravery',
+          JUS: 'justice',
+          KND: 'kindness',
+          PAT: 'patience',
+          INT: 'integrity',
+          PER: 'perseverance'
+        };
+        const slug = soulSlugMap[dominantCode] || 'determination';
+        const langPrefix = LANG === 'en' ? '' : `/${LANG}`;
+        exploreBtn.href = `${langPrefix}/souls/${slug}`;
+        exploreBtn.style.borderColor = dominantSoul.hex;
+        exploreBtn.style.color = dominantSoul.hex;
+        exploreText.textContent = `Explore ${dominantSoul.name} Lore, Items & Combat Secrets →`;
+      }
 
       // 7 Trait Bars
       const barsContainer = document.getElementById("virtue-bars");
@@ -1179,7 +1220,8 @@ const quizUIJson = JSON.stringify(t.quizUI);
         e.preventDefault();
         setSelection(Math.min(4, currentSelection + 1));
       } else if (e.key >= "1" && e.key <= "5") {
-        setSelection(parseInt(e.key) - 1);
+        e.preventDefault();
+        selectAndAdvance(parseInt(e.key) - 1);
       } else if (e.key === "Enter" || e.key.toLowerCase() === "z" || e.key === " ") {
         e.preventDefault();
         if (isTyping) {
@@ -1192,6 +1234,12 @@ const quizUIJson = JSON.stringify(t.quizUI);
         goBack();
       }
     });
-  });
-</script>
+  }
 
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initQuiz);
+  } else {
+    initQuiz();
+  }
+  document.addEventListener("astro:page-load", initQuiz);
+</script>

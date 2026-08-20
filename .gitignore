@@ -17,3 +17,9 @@ Thumbs.db
 
 # WorkBuddy 工作区数据
 .workbuddy/
+
+# Local research & screenshot scratchpads
+.freebuff/
+public/screenshots/
+screenshots/
+scripts/capture_*.py

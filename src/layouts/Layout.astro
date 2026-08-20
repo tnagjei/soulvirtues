@@ -29,10 +29,17 @@ const {
 
 const siteUrl = "https://soulvirtues.org";
 const fullCanonical = canonicalUrl.startsWith("http") ? canonicalUrl : `${siteUrl}${canonicalUrl}`;
-const homeEn = `${siteUrl}/`;
-const homeJa = `${siteUrl}/ja/`;
-const homeEs = `${siteUrl}/es/`;
-const homePt = `${siteUrl}/pt/`;
+
+// Calculate canonical relative path across all 4 languages dynamically
+const pathname = Astro.url.pathname;
+const cleanRel = pathname.replace(/^\/(ja|es|pt)(\/|$)/, '/').replace(/\/$/, '') || '';
+const baseRel = cleanRel === '' ? '/' : cleanRel;
+
+const hrefEn = `${siteUrl}${baseRel}`;
+const hrefJa = `${siteUrl}/ja${baseRel === '/' ? '/' : baseRel}`;
+const hrefEs = `${siteUrl}/es${baseRel === '/' ? '/' : baseRel}`;
+const hrefPt = `${siteUrl}/pt${baseRel === '/' ? '/' : baseRel}`;
+const hrefDefault = `${siteUrl}${baseRel}`;
 ---
 
 <!doctype html>
@@ -45,11 +52,11 @@ const homePt = `${siteUrl}/pt/`;
     <link rel="canonical" href={fullCanonical} />
 
     <!-- Multilingual Hreflang SEO Tags -->
-    <link rel="alternate" hreflang="en" href={homeEn} />
-    <link rel="alternate" hreflang="ja" href={homeJa} />
-    <link rel="alternate" hreflang="es" href={homeEs} />
-    <link rel="alternate" hreflang="pt" href={homePt} />
-    <link rel="alternate" hreflang="x-default" href={homeEn} />
+    <link rel="alternate" hreflang="en" href={hrefEn} />
+    <link rel="alternate" hreflang="ja" href={hrefJa} />
+    <link rel="alternate" hreflang="es" href={hrefEs} />
+    <link rel="alternate" hreflang="pt" href={hrefPt} />
+    <link rel="alternate" hreflang="x-default" href={hrefDefault} />
 
     <!-- Open Graph Metadata -->
     <meta property="og:title" content={title} />
