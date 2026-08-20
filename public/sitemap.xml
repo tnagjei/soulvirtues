@@ -8,7 +8,7 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/" />
     <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/" />
-    <lastmod>2026-08-19</lastmod>
+    <lastmod>2026-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -19,7 +19,7 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/" />
     <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/" />
-    <lastmod>2026-08-19</lastmod>
+    <lastmod>2026-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -30,7 +30,7 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/" />
     <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/" />
-    <lastmod>2026-08-19</lastmod>
+    <lastmod>2026-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -41,33 +41,340 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/" />
     <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/" />
-    <lastmod>2026-08-19</lastmod>
+    <lastmod>2026-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://soulvirtues.org/about</loc>
-    <lastmod>2026-08-19</lastmod>
+    <loc>https://soulvirtues.org/souls/determination/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/souls/determination/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/souls/determination/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/souls/determination/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/souls/determination/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/souls/determination/" />
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/ja/souls/determination/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/souls/determination/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/souls/determination/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/souls/determination/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/souls/determination/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/souls/determination/" />
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/es/souls/determination/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/souls/determination/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/souls/determination/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/souls/determination/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/souls/determination/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/souls/determination/" />
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/pt/souls/determination/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/souls/determination/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/souls/determination/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/souls/determination/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/souls/determination/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/souls/determination/" />
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/souls/bravery/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/souls/bravery/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/souls/bravery/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/souls/bravery/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/souls/bravery/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/souls/bravery/" />
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/ja/souls/bravery/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/souls/bravery/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/souls/bravery/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/souls/bravery/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/souls/bravery/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/souls/bravery/" />
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/es/souls/bravery/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/souls/bravery/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/souls/bravery/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/souls/bravery/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/souls/bravery/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/souls/bravery/" />
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/pt/souls/bravery/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/souls/bravery/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/souls/bravery/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/souls/bravery/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/souls/bravery/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/souls/bravery/" />
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/souls/justice/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/souls/justice/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/souls/justice/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/souls/justice/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/souls/justice/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/souls/justice/" />
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/ja/souls/justice/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/souls/justice/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/souls/justice/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/souls/justice/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/souls/justice/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/souls/justice/" />
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/es/souls/justice/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/souls/justice/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/souls/justice/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/souls/justice/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/souls/justice/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/souls/justice/" />
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/pt/souls/justice/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/souls/justice/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/souls/justice/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/souls/justice/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/souls/justice/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/souls/justice/" />
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/souls/kindness/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/souls/kindness/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/souls/kindness/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/souls/kindness/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/souls/kindness/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/souls/kindness/" />
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/ja/souls/kindness/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/souls/kindness/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/souls/kindness/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/souls/kindness/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/souls/kindness/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/souls/kindness/" />
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/es/souls/kindness/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/souls/kindness/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/souls/kindness/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/souls/kindness/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/souls/kindness/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/souls/kindness/" />
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/pt/souls/kindness/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/souls/kindness/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/souls/kindness/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/souls/kindness/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/souls/kindness/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/souls/kindness/" />
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/souls/patience/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/souls/patience/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/souls/patience/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/souls/patience/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/souls/patience/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/souls/patience/" />
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/ja/souls/patience/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/souls/patience/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/souls/patience/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/souls/patience/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/souls/patience/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/souls/patience/" />
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/es/souls/patience/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/souls/patience/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/souls/patience/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/souls/patience/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/souls/patience/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/souls/patience/" />
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/pt/souls/patience/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/souls/patience/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/souls/patience/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/souls/patience/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/souls/patience/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/souls/patience/" />
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/souls/integrity/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/souls/integrity/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/souls/integrity/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/souls/integrity/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/souls/integrity/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/souls/integrity/" />
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/ja/souls/integrity/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/souls/integrity/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/souls/integrity/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/souls/integrity/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/souls/integrity/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/souls/integrity/" />
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/es/souls/integrity/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/souls/integrity/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/souls/integrity/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/souls/integrity/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/souls/integrity/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/souls/integrity/" />
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/pt/souls/integrity/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/souls/integrity/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/souls/integrity/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/souls/integrity/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/souls/integrity/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/souls/integrity/" />
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/souls/perseverance/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/souls/perseverance/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/souls/perseverance/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/souls/perseverance/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/souls/perseverance/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/souls/perseverance/" />
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/ja/souls/perseverance/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/souls/perseverance/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/souls/perseverance/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/souls/perseverance/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/souls/perseverance/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/souls/perseverance/" />
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/es/souls/perseverance/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/souls/perseverance/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/souls/perseverance/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/souls/perseverance/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/souls/perseverance/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/souls/perseverance/" />
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/pt/souls/perseverance/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/souls/perseverance/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/souls/perseverance/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/souls/perseverance/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/souls/perseverance/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/souls/perseverance/" />
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/about/</loc>
+    <lastmod>2026-08-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://soulvirtues.org/privacy</loc>
-    <lastmod>2026-08-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://soulvirtues.org/terms</loc>
-    <lastmod>2026-08-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://soulvirtues.org/contact</loc>
-    <lastmod>2026-08-19</lastmod>
+    <loc>https://soulvirtues.org/contact/</loc>
+    <lastmod>2026-08-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
+  <url>
+    <loc>https://soulvirtues.org/privacy/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/terms/</loc>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
 </urlset>
-
