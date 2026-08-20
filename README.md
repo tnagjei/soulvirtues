@@ -12,6 +12,7 @@
 - 日文（Undertale 官方术语对齐）：`/ja/ (https://soulvirtues.org/ja/)`
 - 西文（Undertale 西语术语对齐）：`/es/ (https://soulvirtues.org/es/)`
 - 葡文（Undertale 巴西社区术语对齐）：`/pt/ (https://soulvirtues.org/pt/)`
+- 对比页：6组已审核双特质组合，共24个四语言页面。
 - SEO 关联：4 大语种版本具备自动 `hreflang` 互相指向与 `x-default`。
 
 ## 运行与构建命令
@@ -23,4 +24,3 @@
 - 构建命令 (Build Command)：`npm run build`
 - 构建输出目录 (Build output directory)：`dist`
 - 生产域名：`https://soulvirtues.org`
-

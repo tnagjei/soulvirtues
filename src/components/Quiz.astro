@@ -1,11 +1,13 @@
 ---
-// input: lang ('en' | 'ja'), static scoring data and localized i18n dictionaries
-// output: Complete interactive 66-question Undertale dialogue quiz supporting English and Japanese with localized typewriter effect, sound FX, BGM, pixel settings modal, shadow traits, answer review, souls gallery, and canvas share card generator
+// input: lang ('en' | 'ja' | 'es' | 'pt'), static scoring data, localized dictionaries, and six approved comparison pairs
+// output: Four-language 66-question quiz with localized results, matching top-two comparison links, review, gallery, and share card
 // pos: src/components/Quiz.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import { getTranslations, type Locale } from '../i18n';
 import { SOUL_CODES } from '../data/souls';
 import { MAXP } from '../data/scoring';
+import { SOUL_DETAILS } from '../data/soulDetails';
+import { SOUL_COMPARISONS } from '../data/soulComparisons';
 
 interface Props {
   lang?: Locale;
@@ -19,6 +21,16 @@ const soulsJson = JSON.stringify(t.souls);
 const soulCodesJson = JSON.stringify(SOUL_CODES);
 const maxpJson = JSON.stringify(MAXP);
 const quizUIJson = JSON.stringify(t.quizUI);
+const comparisonPairsJson = JSON.stringify(Object.fromEntries(
+  SOUL_COMPARISONS.map((comparison) => {
+    const key = [SOUL_DETAILS[comparison.leftSlug].code, SOUL_DETAILS[comparison.rightSlug].code].sort().join('-');
+    const prefix = lang === 'en' ? '' : `/${lang}`;
+    return [key, {
+      path: `${prefix}/compare/${comparison.slug}`,
+      label: `${comparison.copy[lang].heading} →`,
+    }];
+  }),
+));
 ---
 
 <div
@@ -30,6 +42,7 @@ const quizUIJson = JSON.stringify(t.quizUI);
   data-soul-codes={soulCodesJson}
   data-maxp={maxpJson}
   data-quiz-ui={quizUIJson}
+  data-comparison-pairs={comparisonPairsJson}
 >
   <!-- Background Audio Elements -->
   <audio id="audio-bgm" loop preload="auto" src="/audio/AUDIO_ANOTHERHIM.ogg"></audio>
@@ -312,6 +325,13 @@ const quizUIJson = JSON.stringify(t.quizUI);
           <p id="secondary-desc" class="text-xs text-gray-300 leading-relaxed font-sans">
             <!-- Injected via JS -->
           </p>
+          <a
+            id="btn-compare-top-souls"
+            href="#"
+            class="hidden mt-4 items-center gap-2 border-2 border-purple-500 px-4 py-2.5 text-xs font-mono font-bold text-purple-300 hover:bg-purple-500 hover:text-black transition-colors"
+          >
+            Compare top two traits →
+          </a>
         </div>
       </div>
     </div>
@@ -433,6 +453,7 @@ const quizUIJson = JSON.stringify(t.quizUI);
     const SOUL_CODES = JSON.parse(root.getAttribute("data-soul-codes") || "[]");
     const MAXP = JSON.parse(root.getAttribute("data-maxp") || "{}");
     const QUIZ_UI = JSON.parse(root.getAttribute("data-quiz-ui") || "{}");
+    const COMPARISON_PAIRS = JSON.parse(root.getAttribute("data-comparison-pairs") || "{}");
 
     const STORAGE_KEY = "soulvirtues_answers_" + LANG;
     const SETTINGS_KEY = "soulvirtues_audio_settings";
@@ -869,6 +890,17 @@ const quizUIJson = JSON.stringify(t.quizUI);
       if (secName) secName.textContent = secondarySoul.name;
       if (secPct) secPct.textContent = `${pct[secondaryCode].toFixed(1)}%`;
       if (secDesc) secDesc.textContent = secondarySoul.description;
+
+      const compareBtn = document.getElementById("btn-compare-top-souls");
+      const comparison = COMPARISON_PAIRS[[dominantCode, secondaryCode].sort().join("-")];
+      if (compareBtn) {
+        compareBtn.classList.toggle("hidden", !comparison);
+        compareBtn.classList.toggle("inline-flex", Boolean(comparison));
+        if (comparison) {
+          compareBtn.href = comparison.path;
+          compareBtn.textContent = comparison.label;
+        }
+      }
 
       // Direct Internal Link to Dominant Soul Subpage
       const exploreBtn = document.getElementById("btn-explore-dominant-soul");

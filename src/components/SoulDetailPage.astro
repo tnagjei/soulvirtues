@@ -7,6 +7,7 @@ import Layout from '../layouts/Layout.astro';
 import type { SoulDetail } from '../data/soulDetails';
 import { SOUL_SLUGS } from '../data/soulDetails';
 import { getLocalizedSoulDetails } from '../data/soulDetailsI18n';
+import { getComparisonsForSoul } from '../data/soulComparisons';
 import type { Locale } from '../i18n';
 
 interface Props {
@@ -25,6 +26,10 @@ const virtuesAnchor = `${langPrefix}/#virtues`;
 
 const allLocalized = getLocalizedSoulDetails(lang);
 const otherSouls = SOUL_SLUGS.filter(s => s !== soulDetail.slug).map(s => allLocalized[s] || soulDetail);
+const comparisonLinks = getComparisonsForSoul(soulDetail.slug).map((comparison) => ({
+  path: `${langPrefix}/compare/${comparison.slug}`,
+  copy: comparison.copy[lang],
+}));
 
 // Standard Schema.org Breadcrumb without hashtag anchors for clean search crawler validation
 const structuredData = {
@@ -240,6 +245,29 @@ const structuredData = {
           {soulDetail.labels.ctaBtn}
         </a>
       </section>
+
+      {comparisonLinks.length > 0 && (
+        <section class="border-2 border-purple-500 bg-black p-5 sm:p-7">
+          <div class="text-[11px] font-mono font-bold tracking-widest text-purple-400 mb-2">
+            {comparisonLinks[0].copy.eyebrow}
+          </div>
+          <div class="grid gap-5">
+            {comparisonLinks.map(({ path, copy }) => (
+              <article>
+                <h2 class="text-xl sm:text-2xl font-black font-mono text-white mb-2">
+                  {copy.heading}
+                </h2>
+                <p class="text-sm text-gray-300 leading-relaxed mb-3">
+                  {copy.quickAnswer}
+                </p>
+                <a href={path} class="inline-flex items-center gap-2 text-sm font-mono font-bold text-purple-300 hover:text-white transition-colors">
+                  {copy.heading} →
+                </a>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
 
       <!-- Section 6: Explore All 7 Soul Traits -->
       <section class="pt-6 border-t border-gray-800">

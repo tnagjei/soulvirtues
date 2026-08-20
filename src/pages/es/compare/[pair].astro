@@ -1,0 +1,19 @@
+---
+// input: Six approved comparison records
+// output: Spanish static comparison routes generated from the pair slug
+// pos: src/pages/es/compare/[pair].astro (更新规则：路由数据变化需同步本注释与本目录 README)
+
+import SoulComparisonPage from '../../../components/SoulComparisonPage.astro';
+import { SOUL_COMPARISONS } from '../../../data/soulComparisons';
+
+export function getStaticPaths() {
+  return SOUL_COMPARISONS.map((comparison) => ({
+    params: { pair: comparison.slug },
+    props: { comparison },
+  }));
+}
+
+const { comparison } = Astro.props;
+---
+
+<SoulComparisonPage comparison={comparison} lang="es" />

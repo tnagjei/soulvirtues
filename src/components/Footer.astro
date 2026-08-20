@@ -18,6 +18,12 @@ const virtuesLink = lang === 'en' ? '/#virtues' : `/${lang}/#virtues`;
 const scoringLink = lang === 'en' ? '/#scoring' : `/${lang}/#scoring`;
 const faqLink = lang === 'en' ? '/#faq' : `/${lang}/#faq`;
 const soulsPrefix = lang === 'en' ? '/souls' : `/${lang}/souls`;
+const rawCurrentPath = Astro.url.pathname.replace(/^\/(ja|es|pt)(?=\/|$)/, '') || '/';
+const currentPath = rawCurrentPath === '/' ? '/' : rawCurrentPath.replace(/\/$/, '');
+const englishPath = currentPath;
+const japanesePath = `/ja${currentPath}`;
+const spanishPath = `/es${currentPath}`;
+const portuguesePath = `/pt${currentPath}`;
 ---
 
 <footer class="bg-black border-t-2 border-white text-gray-400 text-sm mt-20">
@@ -44,25 +50,25 @@ const soulsPrefix = lang === 'en' ? '/souls' : `/${lang}/souls`;
         <div class="mt-4 flex flex-wrap items-center gap-2 text-xs font-mono">
           <span class="text-gray-500">🌐 Language:</span>
           <a
-            href="/"
+            href={englishPath}
             class={`px-2 py-0.5 border ${lang === 'en' ? 'border-yellow-400 text-yellow-400 bg-gray-900 font-bold' : 'border-gray-700 text-gray-400 hover:text-white hover:border-white'}`}
           >
             English
           </a>
           <a
-            href="/ja/"
+            href={japanesePath}
             class={`px-2 py-0.5 border ${lang === 'ja' ? 'border-yellow-400 text-yellow-400 bg-gray-900 font-bold' : 'border-gray-700 text-gray-400 hover:text-white hover:border-white'}`}
           >
             日本語
           </a>
           <a
-            href="/es/"
+            href={spanishPath}
             class={`px-2 py-0.5 border ${lang === 'es' ? 'border-yellow-400 text-yellow-400 bg-gray-900 font-bold' : 'border-gray-700 text-gray-400 hover:text-white hover:border-white'}`}
           >
             Español
           </a>
           <a
-            href="/pt/"
+            href={portuguesePath}
             class={`px-2 py-0.5 border ${lang === 'pt' ? 'border-yellow-400 text-yellow-400 bg-gray-900 font-bold' : 'border-gray-700 text-gray-400 hover:text-white hover:border-white'}`}
           >
             Português

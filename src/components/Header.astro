@@ -17,6 +17,12 @@ const testLink = lang === 'en' ? '/#test' : `/${lang}/#test`;
 const virtuesLink = lang === 'en' ? '/#virtues' : `/${lang}/#virtues`;
 const scoringLink = lang === 'en' ? '/#scoring' : `/${lang}/#scoring`;
 const faqLink = lang === 'en' ? '/#faq' : `/${lang}/#faq`;
+const rawCurrentPath = Astro.url.pathname.replace(/^\/(ja|es|pt)(?=\/|$)/, '') || '/';
+const currentPath = rawCurrentPath === '/' ? '/' : rawCurrentPath.replace(/\/$/, '');
+const englishPath = currentPath;
+const japanesePath = `/ja${currentPath}`;
+const spanishPath = `/es${currentPath}`;
+const portuguesePath = `/pt${currentPath}`;
 ---
 
 <header class="sticky top-0 z-40 bg-black/95 backdrop-blur-md border-b-2 border-white">
@@ -60,25 +66,25 @@ const faqLink = lang === 'en' ? '/#faq' : `/${lang}/#faq`;
         <div class="hidden group-hover:block hover:block focus-within:block absolute right-0 top-full pt-1.5 w-36 z-50">
           <div class="bg-black border-2 border-white shadow-[3px_3px_0px_#ffffff] py-1 text-xs font-mono">
             <a
-              href="/"
+              href={englishPath}
               class={`block px-3 py-1.5 hover:bg-white hover:text-black transition-colors ${lang === 'en' ? 'text-yellow-400 font-bold bg-gray-900/60' : 'text-gray-300'}`}
             >
               * English
             </a>
             <a
-              href="/ja/"
+              href={japanesePath}
               class={`block px-3 py-1.5 hover:bg-white hover:text-black transition-colors ${lang === 'ja' ? 'text-yellow-400 font-bold bg-gray-900/60' : 'text-gray-300'}`}
             >
               * 日本語
             </a>
             <a
-              href="/es/"
+              href={spanishPath}
               class={`block px-3 py-1.5 hover:bg-white hover:text-black transition-colors ${lang === 'es' ? 'text-yellow-400 font-bold bg-gray-900/60' : 'text-gray-300'}`}
             >
               * Español
             </a>
             <a
-              href="/pt/"
+              href={portuguesePath}
               class={`block px-3 py-1.5 hover:bg-white hover:text-black transition-colors ${lang === 'pt' ? 'text-yellow-400 font-bold bg-gray-900/60' : 'text-gray-300'}`}
             >
               * Português
@@ -126,25 +132,25 @@ const faqLink = lang === 'en' ? '/#faq' : `/${lang}/#faq`;
       </div>
       <div class="grid grid-cols-2 gap-2 text-xs">
         <a
-          href="/"
+          href={englishPath}
           class={`px-3 py-2 text-center border-2 transition-colors ${lang === 'en' ? 'border-yellow-400 text-yellow-400 bg-gray-900 font-bold' : 'border-gray-700 text-gray-400 hover:border-white hover:text-white'}`}
         >
           English
         </a>
         <a
-          href="/ja/"
+          href={japanesePath}
           class={`px-3 py-2 text-center border-2 transition-colors ${lang === 'ja' ? 'border-yellow-400 text-yellow-400 bg-gray-900 font-bold' : 'border-gray-700 text-gray-400 hover:border-white hover:text-white'}`}
         >
           日本語
         </a>
         <a
-          href="/es/"
+          href={spanishPath}
           class={`px-3 py-2 text-center border-2 transition-colors ${lang === 'es' ? 'border-yellow-400 text-yellow-400 bg-gray-900 font-bold' : 'border-gray-700 text-gray-400 hover:border-white hover:text-white'}`}
         >
           Español
         </a>
         <a
-          href="/pt/"
+          href={portuguesePath}
           class={`px-3 py-2 text-center border-2 transition-colors ${lang === 'pt' ? 'border-yellow-400 text-yellow-400 bg-gray-900 font-bold' : 'border-gray-700 text-gray-400 hover:border-white hover:text-white'}`}
         >
           Português
@@ -170,4 +176,3 @@ const faqLink = lang === 'en' ? '/#faq' : `/${lang}/#faq`;
     }
   });
 </script>
-

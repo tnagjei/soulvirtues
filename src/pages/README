@@ -7,9 +7,10 @@
 ## Files
 - index.astro：英文默认首页，包含 66 题测试、SEO 详解、七美德科普与 FAQ
 - souls/：七大单特质详解动态路由子目录（souls/[trait].astro）
-- ja/：日文版页面路由子目录（含日文版首页 ja/index.astro 与 ja/souls/[trait].astro）
-- es/：西语版页面路由子目录（含西语版首页 es/index.astro 与 es/souls/[trait].astro）
-- pt/：葡语版页面路由子目录（含葡语版首页 pt/index.astro 与 pt/souls/[trait].astro）
+- compare/：6组已审核双特质英语动态路由
+- ja/：日文版页面路由子目录（含首页、单特质页与对比样板页）
+- es/：西语版页面路由子目录（含首页、单特质页与对比样板页）
+- pt/：葡语版页面路由子目录（含首页、单特质页与对比样板页）
 - about.astro：关于我们与同人致敬说明页面
 - privacy.astro：零收集与本地存储隐私协议页面
 - terms.astro：服务条款与免责声明页面

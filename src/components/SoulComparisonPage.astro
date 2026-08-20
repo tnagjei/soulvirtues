@@ -1,0 +1,244 @@
+---
+// input: Approved comparison sample, locale, and localized soul detail records
+// output: Responsive SEO comparison page with evidence labels, dual-trait interpretation, and internal links
+// pos: src/components/SoulComparisonPage.astro (更新规则：页面结构变化需同步本注释与 src/components/README.md)
+
+import Layout from '../layouts/Layout.astro';
+import type { Locale } from '../i18n';
+import type { ComparisonSample } from '../data/soulComparisonSample';
+import { getLocalizedSoulDetails } from '../data/soulDetailsI18n';
+
+interface Props {
+  comparison: ComparisonSample;
+  lang?: Locale;
+}
+
+const { comparison, lang = 'en' } = Astro.props;
+const copy = comparison.copy[lang];
+const souls = getLocalizedSoulDetails(lang);
+const left = souls[comparison.leftSlug];
+const right = souls[comparison.rightSlug];
+const siteUrl = 'https://soulvirtues.org';
+const langPrefix = lang === 'en' ? '' : `/${lang}`;
+const pagePath = `${langPrefix}/compare/${comparison.slug}`;
+const pageUrl = `${siteUrl}${pagePath}`;
+const homePath = `${langPrefix}/`;
+const homeUrl = `${siteUrl}${homePath}`;
+const testPath = `${langPrefix}/#test`;
+const leftPath = `${langPrefix}/souls/${left.slug}`;
+const rightPath = `${langPrefix}/souls/${right.slug}`;
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: left.labels.home,
+          item: homeUrl,
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: copy.heading,
+          item: pageUrl,
+        },
+      ],
+    },
+    {
+      '@type': 'Article',
+      '@id': `${pageUrl}#article`,
+      headline: copy.seoTitle,
+      description: copy.seoDescription,
+      mainEntityOfPage: pageUrl,
+      inLanguage: lang,
+      author: {
+        '@type': 'Organization',
+        name: 'Soul Virtues Extractor',
+        url: siteUrl,
+      },
+    },
+  ],
+};
+---
+
+<Layout
+  title={copy.seoTitle}
+  description={copy.seoDescription}
+  canonicalUrl={pageUrl}
+  structuredData={structuredData}
+  lang={lang}
+>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-10">
+    <nav class="flex flex-wrap items-center gap-2 text-xs font-mono text-gray-400 mb-8" aria-label="Breadcrumb">
+      <a href={homePath} class="hover:text-white transition-colors">{left.labels.home}</a>
+      <span aria-hidden="true">/</span>
+      <span>{copy.breadcrumbCompare}</span>
+      <span aria-hidden="true">/</span>
+      <span class="text-white">{copy.heading}</span>
+    </nav>
+
+    <header class="pixel-card p-6 sm:p-10 mb-10 overflow-hidden">
+      <div class="text-center mb-8">
+        <span class="inline-block px-3 py-1 border border-gray-600 text-[11px] font-mono font-bold tracking-widest text-gray-300 mb-4">
+          {copy.eyebrow}
+        </span>
+        <h1 class="text-3xl sm:text-5xl font-black text-white font-mono tracking-tight mb-4">
+          {copy.heading}
+        </h1>
+        <p class="max-w-3xl mx-auto text-sm sm:text-base text-gray-300 leading-relaxed">
+          {copy.intro}
+        </p>
+      </div>
+
+      <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-3 sm:gap-8 max-w-3xl mx-auto">
+        <a href={leftPath} class="text-center group min-w-0">
+          <div class="w-14 h-14 sm:w-24 sm:h-24 mx-auto mb-3 drop-shadow-[0_0_15px_var(--left-color)] transition-transform group-hover:scale-105" style={`--left-color:${left.hex};color:${left.hex}`}>
+            <svg viewBox="0 0 16 16" fill="currentColor" class="w-full h-full" shape-rendering="crispEdges" aria-hidden="true">
+              <path d="M2 0h4v1H2zm8 0h4v1h-4zM1 1h6v1H1zm8 0h6v1H9zM0 2h7v1H0zm9 2h7v1H9zM0 3h7v1H0zm9 3h7v1H9zM0 4h16v6H0zm2 6h12v2H2zm2 2h8v2H4zm2 2h4v2H6z"/>
+            </svg>
+          </div>
+          <div class="text-xs sm:text-lg font-black font-mono break-words" style={`color:${left.hex}`}>{left.name}</div>
+          <div class="text-[10px] sm:text-xs text-gray-500 font-mono">{left.colorName} SOUL</div>
+        </a>
+
+        <span class="text-xl sm:text-4xl font-black font-mono text-white" aria-label="versus">VS</span>
+
+        <a href={rightPath} class="text-center group min-w-0">
+          <div class="w-14 h-14 sm:w-24 sm:h-24 mx-auto mb-3 drop-shadow-[0_0_15px_var(--right-color)] transition-transform group-hover:scale-105" style={`--right-color:${right.hex};color:${right.hex}`}>
+            <svg viewBox="0 0 16 16" fill="currentColor" class="w-full h-full" shape-rendering="crispEdges" aria-hidden="true">
+              <path d="M2 0h4v1H2zm8 0h4v1h-4zM1 1h6v1H1zm8 0h6v1H9zM0 2h7v1H0zm9 2h7v1H9zM0 3h7v1H0zm9 3h7v1H9zM0 4h16v6H0zm2 6h12v2H2zm2 2h8v2H4zm2 2h4v2H6z"/>
+            </svg>
+          </div>
+          <div class="text-xs sm:text-lg font-black font-mono break-words" style={`color:${right.hex}`}>{right.name}</div>
+          <div class="text-[10px] sm:text-xs text-gray-500 font-mono">{right.colorName} SOUL</div>
+        </a>
+      </div>
+    </header>
+
+    <main class="space-y-10">
+      <section class="border-2 border-yellow-400 bg-black p-5 sm:p-7 text-center">
+        <h2 class="text-xs font-mono font-bold tracking-widest text-yellow-400 mb-2">{copy.quickAnswerLabel}</h2>
+        <p class="text-lg sm:text-2xl text-white font-bold">{copy.quickAnswer}</p>
+      </section>
+
+      <section class="pixel-card-sub p-5 sm:p-8">
+        <h2 class="text-xl sm:text-3xl font-black font-mono text-white mb-6">{copy.matrixTitle}</h2>
+        <div class="hidden sm:grid grid-cols-[minmax(9rem,0.7fr)_1fr_1fr] gap-px bg-gray-700 border border-gray-700">
+          <div class="bg-black p-4"></div>
+          <div class="bg-black p-4 font-bold font-mono" style={`color:${left.hex}`}>{copy.leftLabel}</div>
+          <div class="bg-black p-4 font-bold font-mono" style={`color:${right.hex}`}>{copy.rightLabel}</div>
+          {copy.rows.map((row) => (
+            <>
+              <div class="bg-gray-950 p-4">
+                <div class="text-sm font-bold text-white mb-2">{row.label}</div>
+                <span class={`inline-block text-[10px] font-mono px-2 py-0.5 border ${row.evidence === 'game' ? 'border-emerald-600 text-emerald-400' : 'border-gray-600 text-gray-400'}`}>
+                  {row.evidence === 'game' ? copy.gameEvidenceLabel : copy.interpretationLabel}
+                </span>
+              </div>
+              <div class="bg-black p-4 text-sm text-gray-300 leading-relaxed">{row.left}</div>
+              <div class="bg-black p-4 text-sm text-gray-300 leading-relaxed">{row.right}</div>
+            </>
+          ))}
+        </div>
+
+        <div class="sm:hidden space-y-4">
+          {copy.rows.map((row) => (
+            <article class="border border-gray-700 bg-black p-4">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                <h3 class="font-bold text-white">{row.label}</h3>
+                <span class={`text-[10px] font-mono px-2 py-0.5 border ${row.evidence === 'game' ? 'border-emerald-600 text-emerald-400' : 'border-gray-600 text-gray-400'}`}>
+                  {row.evidence === 'game' ? copy.gameEvidenceLabel : copy.interpretationLabel}
+                </span>
+              </div>
+              <div class="space-y-3">
+                <div>
+                  <div class="text-xs font-mono font-bold mb-1" style={`color:${left.hex}`}>{copy.leftLabel}</div>
+                  <p class="text-sm text-gray-300 leading-relaxed">{row.left}</p>
+                </div>
+                <div>
+                  <div class="text-xs font-mono font-bold mb-1" style={`color:${right.hex}`}>{copy.rightLabel}</div>
+                  <p class="text-sm text-gray-300 leading-relaxed">{row.right}</p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="pixel-card-sub p-5 sm:p-8">
+        <h2 class="text-xl sm:text-3xl font-black font-mono text-white mb-5">{copy.differenceTitle}</h2>
+        <div class="space-y-4 text-sm sm:text-base text-gray-300 leading-relaxed">
+          {copy.differenceParagraphs.map((paragraph) => <p>{paragraph}</p>)}
+        </div>
+      </section>
+
+      <section class="pixel-card-sub p-5 sm:p-8">
+        <h2 class="text-xl sm:text-3xl font-black font-mono text-white mb-6">{copy.scenariosTitle}</h2>
+        <div class="space-y-5">
+          {copy.scenarios.map((scenario) => (
+            <article class="border border-gray-700 bg-black p-4 sm:p-5">
+              <h3 class="text-base font-bold text-white mb-4">{scenario.title}</h3>
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div class="border-l-2 pl-3" style={`border-color:${left.hex}`}>
+                  <div class="text-xs font-mono font-bold mb-1" style={`color:${left.hex}`}>{copy.leftLabel}</div>
+                  <p class="text-sm text-gray-300 leading-relaxed">{scenario.left}</p>
+                </div>
+                <div class="border-l-2 pl-3" style={`border-color:${right.hex}`}>
+                  <div class="text-xs font-mono font-bold mb-1" style={`color:${right.hex}`}>{copy.rightLabel}</div>
+                  <p class="text-sm text-gray-300 leading-relaxed">{scenario.right}</p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="pixel-card-sub p-5 sm:p-8">
+        <h2 class="text-xl sm:text-3xl font-black font-mono text-white mb-4">{copy.hybridTitle}</h2>
+        <p class="text-sm sm:text-base text-gray-300 leading-relaxed mb-6">{copy.hybridIntro}</p>
+        <div class="grid sm:grid-cols-2 gap-5">
+          <div class="border border-emerald-800 bg-black p-5">
+            <h3 class="text-sm font-mono font-bold text-emerald-400 mb-3">{copy.strengthsTitle}</h3>
+            <ul class="space-y-2 text-sm text-gray-300">
+              {copy.strengths.map((item) => <li class="flex gap-2"><span class="text-emerald-400">✓</span><span>{item}</span></li>)}
+            </ul>
+          </div>
+          <div class="border border-red-900 bg-black p-5">
+            <h3 class="text-sm font-mono font-bold text-red-400 mb-3">{copy.risksTitle}</h3>
+            <ul class="space-y-2 text-sm text-gray-300">
+              {copy.risks.map((item) => <li class="flex gap-2"><span class="text-red-400">!</span><span>{item}</span></li>)}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <aside class="border-2 border-cyan-700 bg-cyan-950/20 p-5 sm:p-7">
+        <h2 class="text-lg sm:text-xl font-black font-mono text-cyan-300 mb-3">{copy.evidenceTitle}</h2>
+        <p class="text-sm text-gray-300 leading-relaxed">{copy.evidenceBody}</p>
+      </aside>
+
+      <section class="pixel-card p-6 sm:p-9 text-center">
+        <h2 class="text-xl sm:text-3xl font-black font-mono text-white mb-3">{copy.testTitle}</h2>
+        <p class="max-w-2xl mx-auto text-sm text-gray-300 leading-relaxed mb-6">{copy.testBody}</p>
+        <a href={testPath} class="inline-block w-full sm:w-auto px-7 py-4 border-2 border-white bg-red-600 text-white font-mono font-bold text-xs sm:text-sm hover:bg-red-500 transition-colors">
+          {copy.testButton}
+        </a>
+      </section>
+
+      <section class="grid sm:grid-cols-2 gap-4">
+        <a href={leftPath} class="border-2 bg-black p-5 hover:bg-gray-950 transition-colors" style={`border-color:${left.hex}`}>
+          <div class="text-xs text-gray-400 mb-2">{copy.exploreLabel}</div>
+          <div class="font-mono font-black" style={`color:${left.hex}`}>{left.name} →</div>
+        </a>
+        <a href={rightPath} class="border-2 bg-black p-5 hover:bg-gray-950 transition-colors" style={`border-color:${right.hex}`}>
+          <div class="text-xs text-gray-400 mb-2">{copy.exploreLabel}</div>
+          <div class="font-mono font-black" style={`color:${right.hex}`}>{right.name} →</div>
+        </a>
+      </section>
+    </main>
+  </div>
+</Layout>
