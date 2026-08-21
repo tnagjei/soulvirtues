@@ -1,6 +1,6 @@
 ---
 // input: lang ('en' | 'ja' | 'es' | 'pt')
-// output: Comprehensive pixel-styled footer with localized navigation, official domain email, fan disclaimer, and 4-language switcher
+// output: Comprehensive pixel-styled footer with localized navigation, official domain email, fan disclaimer, 4-language switcher, and FrogDR marquee badge
 // pos: src/components/Footer.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import { getTranslations, type Locale } from '../i18n';
@@ -100,6 +100,19 @@ const portuguesePath = `/pt${currentPath}`;
       </div>
     </div>
 
+    <div class="border-t border-gray-800/80 py-4 overflow-hidden" aria-label="FrogDR domain rating monitor">
+      <div class="frogdr-marquee">
+        <div class="frogdr-marquee__track">
+          <a href="https://frogdr.com/soulvirtues.org?utm_source=soulvirtues.org" target="_blank" rel="noopener noreferrer" aria-label="Monitor your Domain Rating with FrogDR">
+            <img src="https://frogdr.com/soulvirtues.org/badge-white.svg" alt="Monitor your Domain Rating with FrogDR" width="125" height="27" />
+          </a>
+          <a href="https://frogdr.com/soulvirtues.org?utm_source=soulvirtues.org" target="_blank" rel="noopener noreferrer" aria-hidden="true" tabindex="-1">
+            <img src="https://frogdr.com/soulvirtues.org/badge-white.svg" alt="" width="125" height="27" />
+          </a>
+        </div>
+      </div>
+    </div>
+
     <!-- 7 Undertale Soul Traits Internal Link Hub -->
     <div class="border-t border-gray-800/80 pt-6 pb-6">
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-3">
@@ -140,3 +153,37 @@ const portuguesePath = `/pt${currentPath}`;
     </div>
   </div>
 </footer>
+
+<style>
+  .frogdr-marquee {
+    width: min(100%, 250px);
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  .frogdr-marquee__track {
+    display: flex;
+    width: max-content;
+    gap: 2rem;
+    animation: frogdr-marquee 14s linear infinite;
+  }
+
+  .frogdr-marquee__track a {
+    display: block;
+    flex: 0 0 auto;
+  }
+
+  .frogdr-marquee__track img {
+    display: block;
+    width: 125px;
+    height: 27px;
+  }
+
+  @keyframes frogdr-marquee {
+    to { transform: translateX(calc(-125px - 2rem)); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .frogdr-marquee__track { animation: none; }
+  }
+</style>
