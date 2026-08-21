@@ -24,3 +24,5 @@ public/screenshots/
 screenshots/
 scripts/capture_*.py
 scripts/verify_*.mjs
+.gstack/
+spd-v2-quality-*.md
