@@ -1,6 +1,6 @@
 ---
 // input: lang ('en' | 'ja' | 'es' | 'pt')
-// output: Comprehensive pixel-styled footer with localized navigation, official domain email, fan disclaimer, 4-language switcher, and FrogDR marquee badge
+// output: Comprehensive pixel-styled footer with localized navigation, official domain email, fan disclaimer, 4-language switcher, and external friend links
 // pos: src/components/Footer.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import { getTranslations, type Locale } from '../i18n';
@@ -96,6 +96,7 @@ const portuguesePath = `/pt${currentPath}`;
           <li><a href="/terms" class="hover:text-white transition-colors">{t.footer.termsLink}</a></li>
           <li><a href="/contact" class="hover:text-white transition-colors">{t.footer.contactLink}</a></li>
           <li><a href="https://soulvirtues.makethisbetter.dev" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">{t.footer.feedbackLink}</a></li>
+          <li><a href="https://aiblog.tools" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Find us on AIBlog.tools</a></li>
         </ul>
       </div>
     </div>
