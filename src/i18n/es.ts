@@ -326,6 +326,7 @@ export const esTranslations: Translations = {
     dialogueHint: "Haz clic o pulsa Z/Enter para omitir animación de texto",
     extremeLeft: "Muy en desacuerdo",
     extremeRight: "Muy de acuerdo",
+    tapAnswerHint: "Toca una respuesta para continuar",
     likertLabels: [
       "Muy en desacuerdo",
       "En desacuerdo",
@@ -355,4 +356,3 @@ export const esTranslations: Translations = {
   souls: ES_SOULS,
   questions: ES_QUESTIONS,
 };
-

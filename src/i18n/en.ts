@@ -144,6 +144,7 @@ export const enTranslations: Translations = {
     dialogueHint: "Click or press Z/Enter to skip typing animation",
     extremeLeft: "Strongly disagree",
     extremeRight: "Strongly agree",
+    tapAnswerHint: "Tap one answer to continue",
     likertLabels: [
       "Strongly disagree",
       "Disagree",
@@ -173,4 +174,3 @@ export const enTranslations: Translations = {
   souls: SOULS,
   questions: QUESTIONS,
 };
-

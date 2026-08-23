@@ -104,6 +104,7 @@ export interface QuizUITranslations {
   dialogueHint: string;
   extremeLeft: string;
   extremeRight: string;
+  tapAnswerHint: string;
   likertLabels: string[];
   backBtn: string;
   confirmBtn: string;
@@ -148,4 +149,3 @@ export interface Translations {
   souls: Record<SoulCode, SoulDefinition>;
   questions: QuestionItem[];
 }
-

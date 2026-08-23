@@ -326,6 +326,7 @@ export const jaTranslations: Translations = {
     dialogueHint: "クリックまたはZ/Enterで早送り",
     extremeLeft: "まったくそう思わない",
     extremeRight: "強くそう思う",
+    tapAnswerHint: "答えを1つタップして次へ",
     likertLabels: [
       "まったくそう思わない",
       "そう思わない",
@@ -355,5 +356,4 @@ export const jaTranslations: Translations = {
   souls: JA_SOULS,
   questions: JA_QUESTIONS,
 };
-
 

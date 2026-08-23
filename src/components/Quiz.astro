@@ -1,6 +1,6 @@
 ---
 // input: lang ('en' | 'ja' | 'es' | 'pt'), static scoring data, localized dictionaries, and six approved comparison pairs
-// output: Four-language 66-question quiz with localized results, matching top-two comparison links, review, gallery, and share card
+// output: Four-language 66-question quiz with explicit mobile answer controls, localized results, comparison links, review, gallery, and share card
 // pos: src/components/Quiz.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import { getTranslations, type Locale } from '../i18n';
@@ -224,14 +224,18 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
 
     <!-- Answers Box (5-point Scale with Animated Red Heart Selector) -->
     <div id="answers-box" class="pixel-box p-6 sm:p-8 mb-6">
+      <p id="tap-answer-hint" class="sm:hidden mb-4 text-center text-xs font-bold uppercase tracking-widest text-yellow-400">
+        * {t.quizUI.tapAnswerHint}
+      </p>
+
       <!-- Extremes labels -->
-      <div class="flex justify-between items-baseline text-xs sm:text-sm text-gray-400 tracking-wider mb-6">
+      <div class="flex justify-between items-baseline text-[10px] sm:text-sm text-gray-400 tracking-wider mb-4 sm:mb-6">
         <span id="label-extreme-left" class="uppercase">{t.quizUI.extremeLeft}</span>
         <span id="label-extreme-right" class="uppercase">{t.quizUI.extremeRight}</span>
       </div>
 
       <!-- 5-Point Scale Row -->
-      <div id="scale-row" class="flex items-center justify-between relative py-2 sm:py-4 px-2 sm:px-8">
+      <div id="scale-row" class="flex items-stretch justify-between gap-1 sm:gap-2 relative py-2 sm:py-4 sm:px-8">
         <!-- Scale points generated via JS -->
       </div>
 
@@ -254,13 +258,13 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
         </button>
         <button
           id="btn-next"
-          class="flex-1 sm:flex-none px-7 py-2.5 bg-black border-2 border-red-500 hover:bg-red-500 hover:text-white text-red-400 font-bold uppercase tracking-wider cursor-pointer active:scale-95 transition-all"
+          class="hidden sm:inline-flex px-7 py-2.5 bg-black border-2 border-red-500 hover:bg-red-500 hover:text-white text-red-400 font-bold uppercase tracking-wider cursor-pointer active:scale-95 transition-all"
         >
           [Z] {t.quizUI.confirmBtn}
         </button>
       </div>
 
-      <div class="text-[11px] text-gray-400 text-center sm:text-right font-sans">
+      <div class="hidden sm:block text-[11px] text-gray-400 text-center sm:text-right font-sans">
         <span>LEFT / RIGHT move &nbsp;·&nbsp; 1-5 jump &nbsp;·&nbsp; Z or ENTER confirm &nbsp;·&nbsp; X back</span>
       </div>
     </div>
@@ -746,12 +750,17 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       q.labels.forEach((label, optIdx) => {
         const btn = document.createElement("button");
         btn.type = "button";
-        btn.className = "flex-1 flex flex-col items-center justify-center py-4 bg-transparent border-0 cursor-pointer group outline-none transition-transform active:scale-95";
-        btn.setAttribute("aria-label", label);
-
         const isSelected = currentSelection === optIdx;
+        btn.className = `flex-1 min-w-0 min-h-16 flex flex-col items-center justify-center gap-1 py-2 border-2 cursor-pointer group outline-none transition-colors active:scale-95 focus-visible:border-white ${
+          isSelected
+            ? "border-red-500 bg-red-950/30"
+            : "border-gray-700 bg-black hover:border-white"
+        }`;
+        btn.setAttribute("aria-label", label);
+        btn.setAttribute("aria-describedby", "tap-answer-hint");
 
         btn.innerHTML = `
+          <span class="text-[10px] font-bold text-gray-400" aria-hidden="true">${optIdx + 1}</span>
           <div class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center">
             ${isSelected
               ? '<div class="w-8 h-8 sm:w-9 sm:h-9 text-red-600 drop-shadow-[0_0_12px_rgba(255,0,0,0.9)] animate-pulse transition-transform scale-110"><svg viewBox="0 0 16 16" fill="currentColor" class="w-full h-full" shape-rendering="crispEdges"><path d="M2 0h4v1H2zm8 0h4v1h-4zM1 1h6v1H1zm8 0h6v1H9zM0 2h7v1H0zm9 2h7v1H9zM0 3h7v1H0zm9 3h7v1H9zM0 4h16v6H0zm2 6h12v2H2zm2 2h8v2H4zm2 2h4v2H6z"/></svg></div>'

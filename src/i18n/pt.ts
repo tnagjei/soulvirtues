@@ -326,6 +326,7 @@ export const ptTranslations: Translations = {
     dialogueHint: "Clique ou pressione Z/Enter para pular digitação",
     extremeLeft: "Discordo totalmente",
     extremeRight: "Concordo totalmente",
+    tapAnswerHint: "Toque em uma resposta para continuar",
     likertLabels: [
       "Discordo totalmente",
       "Discordo",
@@ -355,4 +356,3 @@ export const ptTranslations: Translations = {
   souls: PT_SOULS,
   questions: PT_QUESTIONS,
 };
-
