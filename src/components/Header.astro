@@ -18,11 +18,11 @@ const virtuesLink = lang === 'en' ? '/#virtues' : `/${lang}/#virtues`;
 const scoringLink = lang === 'en' ? '/#scoring' : `/${lang}/#scoring`;
 const faqLink = lang === 'en' ? '/#faq' : `/${lang}/#faq`;
 const rawCurrentPath = Astro.url.pathname.replace(/^\/(ja|es|pt)(?=\/|$)/, '') || '/';
-const currentPath = rawCurrentPath === '/' ? '/' : rawCurrentPath.replace(/\/$/, '');
+const currentPath = rawCurrentPath.replace(/\/?$/, '/');
 const englishPath = currentPath;
-const japanesePath = `/ja${currentPath}`;
-const spanishPath = `/es${currentPath}`;
-const portuguesePath = `/pt${currentPath}`;
+const japanesePath = `/ja${currentPath === '/' ? '/' : currentPath}`;
+const spanishPath = `/es${currentPath === '/' ? '/' : currentPath}`;
+const portuguesePath = `/pt${currentPath === '/' ? '/' : currentPath}`;
 ---
 
 <header class="sticky top-0 z-40 bg-black/95 backdrop-blur-md border-b-2 border-white">
@@ -45,7 +45,7 @@ const portuguesePath = `/pt${currentPath}`;
       <a href={virtuesLink} class="hover:text-amber-400 transition-colors">{t.nav.sevenVirtues}</a>
       <a href={scoringLink} class="hover:text-emerald-400 transition-colors">{t.nav.howItWorks}</a>
       <a href={faqLink} class="hover:text-cyan-400 transition-colors">{t.nav.faq}</a>
-      <a href="/about" class="hover:text-purple-400 transition-colors">{t.nav.about}</a>
+      <a href="/about/" class="hover:text-purple-400 transition-colors">{t.nav.about}</a>
     </nav>
 
     <!-- Right Controls: Language Selector & CTA & Mobile Toggle -->
@@ -122,7 +122,7 @@ const portuguesePath = `/pt${currentPath}`;
       <a href={virtuesLink} class="mobile-nav-link text-gray-200 hover:text-amber-400 py-1">* {t.nav.sevenVirtues}</a>
       <a href={scoringLink} class="mobile-nav-link text-gray-200 hover:text-emerald-400 py-1">* {t.nav.howItWorks}</a>
       <a href={faqLink} class="mobile-nav-link text-gray-200 hover:text-cyan-400 py-1">* {t.nav.faq}</a>
-      <a href="/about" class="mobile-nav-link text-gray-200 hover:text-purple-400 py-1">* {t.nav.about}</a>
+      <a href="/about/" class="mobile-nav-link text-gray-200 hover:text-purple-400 py-1">* {t.nav.about}</a>
     </nav>
 
     <!-- Mobile Language Switcher (2x2 Grid) -->

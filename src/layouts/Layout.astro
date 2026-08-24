@@ -28,12 +28,13 @@ const {
 } = Astro.props;
 
 const siteUrl = "https://soulvirtues.org";
-const fullCanonical = canonicalUrl.startsWith("http") ? canonicalUrl : `${siteUrl}${canonicalUrl}`;
+const rawCanonical = canonicalUrl.startsWith("http") ? canonicalUrl : `${siteUrl}${canonicalUrl}`;
+const fullCanonical = rawCanonical.replace(/\/?$/, '/');
 
 // Calculate canonical relative path across all 4 languages dynamically
 const pathname = Astro.url.pathname;
-const cleanRel = pathname.replace(/^\/(ja|es|pt)(\/|$)/, '/').replace(/\/$/, '') || '';
-const baseRel = cleanRel === '' ? '/' : cleanRel;
+const cleanRel = pathname.replace(/^\/(ja|es|pt)(\/|$)/, '/').replace(/\/+$/, '') || '';
+const baseRel = cleanRel === '' ? '/' : `${cleanRel}/`;
 
 const hrefEn = `${siteUrl}${baseRel}`;
 const hrefJa = `${siteUrl}/ja${baseRel === '/' ? '/' : baseRel}`;

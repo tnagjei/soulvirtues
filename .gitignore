@@ -22,6 +22,7 @@ Thumbs.db
 .freebuff/
 public/screenshots/
 screenshots/
+public/8.24 GSC网页报错/
 scripts/capture_*.py
 scripts/verify_*.mjs
 .gstack/

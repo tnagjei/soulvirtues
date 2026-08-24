@@ -20,13 +20,13 @@ const left = souls[comparison.leftSlug];
 const right = souls[comparison.rightSlug];
 const siteUrl = 'https://soulvirtues.org';
 const langPrefix = lang === 'en' ? '' : `/${lang}`;
-const pagePath = `${langPrefix}/compare/${comparison.slug}`;
+const pagePath = `${langPrefix}/compare/${comparison.slug}/`;
 const pageUrl = `${siteUrl}${pagePath}`;
 const homePath = `${langPrefix}/`;
 const homeUrl = `${siteUrl}${homePath}`;
 const testPath = `${langPrefix}/#test`;
-const leftPath = `${langPrefix}/souls/${left.slug}`;
-const rightPath = `${langPrefix}/souls/${right.slug}`;
+const leftPath = `${langPrefix}/souls/${left.slug}/`;
+const rightPath = `${langPrefix}/souls/${right.slug}/`;
 
 const structuredData = {
   '@context': 'https://schema.org',

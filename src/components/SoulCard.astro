@@ -13,7 +13,7 @@ interface Props {
 const { soul, lang = 'en' } = Astro.props;
 const slug = soul.name.toLowerCase();
 const soulsPrefix = lang === 'en' ? '/souls' : `/${lang}/souls`;
-const detailLink = `${soulsPrefix}/${slug}`;
+const detailLink = `${soulsPrefix}/${slug}/`;
 ---
 
 <div

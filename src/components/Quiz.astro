@@ -304,7 +304,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       <div class="mt-6 text-center">
         <a
           id="btn-explore-dominant-soul"
-          href="/souls/determination"
+          href="/souls/determination/"
           class="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-black border-2 border-yellow-400 hover:bg-yellow-400 hover:text-black text-yellow-400 font-bold font-mono text-xs sm:text-sm tracking-wider uppercase shadow-[3px_3px_0px_rgba(250,204,21,0.5)] active:translate-x-[2px] active:translate-y-[2px] transition-all group"
         >
           <span class="text-base group-hover:scale-110 transition-transform">📖</span>
@@ -926,7 +926,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
         };
         const slug = soulSlugMap[dominantCode] || 'determination';
         const langPrefix = LANG === 'en' ? '' : `/${LANG}`;
-        exploreBtn.href = `${langPrefix}/souls/${slug}`;
+        exploreBtn.href = `${langPrefix}/souls/${slug}/`;
         exploreBtn.style.borderColor = dominantSoul.hex;
         exploreBtn.style.color = dominantSoul.hex;
         exploreText.textContent = `Explore ${dominantSoul.name} Lore, Items & Combat Secrets →`;

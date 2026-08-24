@@ -19,11 +19,11 @@ const scoringLink = lang === 'en' ? '/#scoring' : `/${lang}/#scoring`;
 const faqLink = lang === 'en' ? '/#faq' : `/${lang}/#faq`;
 const soulsPrefix = lang === 'en' ? '/souls' : `/${lang}/souls`;
 const rawCurrentPath = Astro.url.pathname.replace(/^\/(ja|es|pt)(?=\/|$)/, '') || '/';
-const currentPath = rawCurrentPath === '/' ? '/' : rawCurrentPath.replace(/\/$/, '');
+const currentPath = rawCurrentPath.replace(/\/?$/, '/');
 const englishPath = currentPath;
-const japanesePath = `/ja${currentPath}`;
-const spanishPath = `/es${currentPath}`;
-const portuguesePath = `/pt${currentPath}`;
+const japanesePath = `/ja${currentPath === '/' ? '/' : currentPath}`;
+const spanishPath = `/es${currentPath === '/' ? '/' : currentPath}`;
+const portuguesePath = `/pt${currentPath === '/' ? '/' : currentPath}`;
 ---
 
 <footer class="bg-black border-t-2 border-white text-gray-400 text-sm mt-20">
@@ -91,10 +91,10 @@ const portuguesePath = `/pt${currentPath}`;
       <div>
         <h4 class="text-white font-semibold text-xs uppercase tracking-wider mb-3 font-mono">{t.footer.legalTitle}</h4>
         <ul class="space-y-2 text-xs">
-          <li><a href="/about" class="hover:text-white transition-colors">{t.footer.aboutLink}</a></li>
-          <li><a href="/privacy" class="hover:text-white transition-colors">{t.footer.privacyLink}</a></li>
-          <li><a href="/terms" class="hover:text-white transition-colors">{t.footer.termsLink}</a></li>
-          <li><a href="/contact" class="hover:text-white transition-colors">{t.footer.contactLink}</a></li>
+          <li><a href="/about/" class="hover:text-white transition-colors">{t.footer.aboutLink}</a></li>
+          <li><a href="/privacy/" class="hover:text-white transition-colors">{t.footer.privacyLink}</a></li>
+          <li><a href="/terms/" class="hover:text-white transition-colors">{t.footer.termsLink}</a></li>
+          <li><a href="/contact/" class="hover:text-white transition-colors">{t.footer.contactLink}</a></li>
           <li><a href="https://soulvirtues.makethisbetter.dev" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">{t.footer.feedbackLink}</a></li>
           <li><a href="https://aiblog.tools" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Find us on AIBlog.tools</a></li>
         </ul>
@@ -121,25 +121,25 @@ const portuguesePath = `/pt${currentPath}`;
         <span class="text-[11px] text-gray-500 font-mono">Detailed lore, items & battle mechanics</span>
       </div>
       <div class="flex flex-wrap gap-2 text-xs font-mono">
-        <a href={`${soulsPrefix}/determination`} class="px-2.5 py-1 bg-black border border-red-900/60 text-red-400 hover:border-red-500 hover:text-white transition-colors">
+        <a href={`${soulsPrefix}/determination/`} class="px-2.5 py-1 bg-black border border-red-900/60 text-red-400 hover:border-red-500 hover:text-white transition-colors">
           ❤️ Determination (Red)
         </a>
-        <a href={`${soulsPrefix}/bravery`} class="px-2.5 py-1 bg-black border border-amber-900/60 text-amber-400 hover:border-amber-500 hover:text-white transition-colors">
+        <a href={`${soulsPrefix}/bravery/`} class="px-2.5 py-1 bg-black border border-amber-900/60 text-amber-400 hover:border-amber-500 hover:text-white transition-colors">
           🧡 Bravery (Orange)
         </a>
-        <a href={`${soulsPrefix}/justice`} class="px-2.5 py-1 bg-black border border-yellow-900/60 text-yellow-400 hover:border-yellow-500 hover:text-white transition-colors">
+        <a href={`${soulsPrefix}/justice/`} class="px-2.5 py-1 bg-black border border-yellow-900/60 text-yellow-400 hover:border-yellow-500 hover:text-white transition-colors">
           💛 Justice (Yellow)
         </a>
-        <a href={`${soulsPrefix}/kindness`} class="px-2.5 py-1 bg-black border border-emerald-900/60 text-emerald-400 hover:border-emerald-500 hover:text-white transition-colors">
+        <a href={`${soulsPrefix}/kindness/`} class="px-2.5 py-1 bg-black border border-emerald-900/60 text-emerald-400 hover:border-emerald-500 hover:text-white transition-colors">
           💚 Kindness (Green)
         </a>
-        <a href={`${soulsPrefix}/patience`} class="px-2.5 py-1 bg-black border border-cyan-900/60 text-cyan-400 hover:border-cyan-500 hover:text-white transition-colors">
+        <a href={`${soulsPrefix}/patience/`} class="px-2.5 py-1 bg-black border border-cyan-900/60 text-cyan-400 hover:border-cyan-500 hover:text-white transition-colors">
           🩵 Patience (Cyan)
         </a>
-        <a href={`${soulsPrefix}/integrity`} class="px-2.5 py-1 bg-black border border-blue-900/60 text-blue-400 hover:border-blue-500 hover:text-white transition-colors">
+        <a href={`${soulsPrefix}/integrity/`} class="px-2.5 py-1 bg-black border border-blue-900/60 text-blue-400 hover:border-blue-500 hover:text-white transition-colors">
           💙 Integrity (Blue)
         </a>
-        <a href={`${soulsPrefix}/perseverance`} class="px-2.5 py-1 bg-black border border-purple-900/60 text-purple-400 hover:border-purple-500 hover:text-white transition-colors">
+        <a href={`${soulsPrefix}/perseverance/`} class="px-2.5 py-1 bg-black border border-purple-900/60 text-purple-400 hover:border-purple-500 hover:text-white transition-colors">
           💜 Perseverance (Purple)
         </a>
       </div>
