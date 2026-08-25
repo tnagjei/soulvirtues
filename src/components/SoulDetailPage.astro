@@ -104,12 +104,12 @@ const structuredData = {
           </svg>
         </div>
 
-        <div class="text-center sm:text-left flex-1">
-          <div class="inline-flex items-center gap-2 px-3 py-1 bg-black border text-xs font-mono font-bold tracking-wider uppercase mb-3" style={`border-color: ${soulDetail.hex}; color: ${soulDetail.hex}`}>
-            {soulDetail.colorName} SOUL · {soulDetail.hex}
-          </div>
+       <div class="text-center sm:text-left flex-1">
+          <a href={virtuesAnchor} class="inline-flex items-center gap-2 px-3 py-1 bg-black border hover:brightness-125 transition-all text-xs font-mono font-bold tracking-wider uppercase mb-3 cursor-pointer" style={`border-color: ${soulDetail.hex}; color: ${soulDetail.hex}`} title={soulDetail.labels.traitsBreadcrumb}>
+           {soulDetail.colorName} SOUL · {soulDetail.hex}
+          </a>
 
-          <h1 class="text-3xl sm:text-5xl font-black text-white font-mono tracking-tight mb-2">
+         <h1 class="text-3xl sm:text-5xl font-black text-white font-mono tracking-tight mb-2">
             {soulDetail.name}
           </h1>
 

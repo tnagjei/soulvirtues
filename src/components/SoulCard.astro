@@ -34,23 +34,23 @@ const detailLink = `${soulsPrefix}/${slug}/`;
   <div>
     <div class="absolute -right-8 -top-8 w-32 h-32 rounded-full opacity-10 blur-2xl pointer-events-none group-hover:opacity-20 transition-opacity" style={`background: ${soul.hex}`}></div>
 
-    <div class="flex items-start justify-between gap-4 mb-4">
-      <div class="flex items-center gap-3">
-        <div class="w-8 h-8 flex-shrink-0 drop-shadow-[0_0_8px_var(--soul-color)]" style={`color: ${soul.hex}`}>
-          <svg viewBox="0 0 16 16" fill="currentColor" class="w-full h-full" shape-rendering="crispEdges">
-            <path d="M2 0h4v1H2zm8 0h4v1h-4zM1 1h6v1H1zm8 0h6v1H9zM0 2h7v1H0zm9 2h7v1H9zM0 3h7v1H0zm9 3h7v1H9zM0 4h16v6H0zm2 6h12v2H2zm2 2h8v2H4zm2 2h4v2H6z"/>
-          </svg>
-        </div>
-        <div>
-          <h3 class="text-lg font-extrabold text-white font-mono tracking-wide">
-            {soul.name}
-          </h3>
-          <span class="text-[11px] font-semibold tracking-wider uppercase font-mono px-2 py-0.5" style={`color: ${soul.hex}; background: ${soul.hex}15; border: 1px solid ${soul.hex}30`}>
-            {soul.label} SOUL · {soul.hex}
-          </span>
-        </div>
-      </div>
-    </div>
+   <div class="flex items-start justify-between gap-4 mb-4">
+      <a href={detailLink} class="flex items-center gap-3 group/title hover:opacity-90 transition-opacity">
+       <div class="w-8 h-8 flex-shrink-0 drop-shadow-[0_0_8px_var(--soul-color)]" style={`color: ${soul.hex}`}>
+         <svg viewBox="0 0 16 16" fill="currentColor" class="w-full h-full" shape-rendering="crispEdges">
+           <path d="M2 0h4v1H2zm8 0h4v1h-4zM1 1h6v1H1zm8 0h6v1H9zM0 2h7v1H0zm9 2h7v1H9zM0 3h7v1H0zm9 3h7v1H9zM0 4h16v6H0zm2 6h12v2H2zm2 2h8v2H4zm2 2h4v2H6z"/>
+         </svg>
+       </div>
+       <div>
+          <h3 class="text-lg font-extrabold text-white font-mono tracking-wide group-hover/title:underline">
+           {soul.name}
+         </h3>
+         <span class="text-[11px] font-semibold tracking-wider uppercase font-mono px-2 py-0.5" style={`color: ${soul.hex}; background: ${soul.hex}15; border: 1px solid ${soul.hex}30`}>
+           {soul.label} SOUL · {soul.hex}
+         </span>
+       </div>
+      </a>
+   </div>
 
     <blockquote class="italic text-xs text-gray-300 border-l-2 pl-3 py-1 mb-4 border-gray-700 font-serif">
       "{soul.tag}"
