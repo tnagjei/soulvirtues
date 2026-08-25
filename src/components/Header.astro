@@ -19,10 +19,13 @@ const scoringLink = lang === 'en' ? '/#scoring' : `/${lang}/#scoring`;
 const faqLink = lang === 'en' ? '/#faq' : `/${lang}/#faq`;
 const rawCurrentPath = Astro.url.pathname.replace(/^\/(ja|es|pt)(?=\/|$)/, '') || '/';
 const currentPath = rawCurrentPath.replace(/\/?$/, '/');
+const UNLOCALIZED_ROUTES = new Set(['/about/', '/contact/', '/privacy/', '/terms/']);
+const isUnlocalized = UNLOCALIZED_ROUTES.has(currentPath);
+
 const englishPath = currentPath;
-const japanesePath = `/ja${currentPath === '/' ? '/' : currentPath}`;
-const spanishPath = `/es${currentPath === '/' ? '/' : currentPath}`;
-const portuguesePath = `/pt${currentPath === '/' ? '/' : currentPath}`;
+const japanesePath = isUnlocalized ? '/ja/' : `/ja${currentPath === '/' ? '/' : currentPath}`;
+const spanishPath = isUnlocalized ? '/es/' : `/es${currentPath === '/' ? '/' : currentPath}`;
+const portuguesePath = isUnlocalized ? '/pt/' : `/pt${currentPath === '/' ? '/' : currentPath}`;
 ---
 
 <header class="sticky top-0 z-40 bg-black/95 backdrop-blur-md border-b-2 border-white">

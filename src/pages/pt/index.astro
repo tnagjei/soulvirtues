@@ -91,7 +91,7 @@ const structuredData = {
   <section class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80 font-sans">
     <div class="prose prose-invert max-w-none">
       <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-wide mb-6 flex items-center gap-3">
-        <span class="text-red-500">#</span> {t.what.title}
+        {t.what.title}
       </h2>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-gray-300 text-sm sm:text-base leading-relaxed">
@@ -111,7 +111,7 @@ const structuredData = {
   <section class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80 font-sans">
     <div class="prose prose-invert max-w-none">
       <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-wide mb-6 flex items-center gap-3">
-        <span class="text-purple-400">#</span> {t.why.title}
+        {t.why.title}
       </h2>
 
       <p class="text-sm sm:text-base text-gray-300 leading-relaxed mb-8">
@@ -146,7 +146,7 @@ const structuredData = {
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {SOUL_CODES.map((code) => (
-        <SoulCard soul={t.souls[code]} />
+        <SoulCard soul={t.souls[code]} lang={lang} />
       ))}
     </div>
   </section>
@@ -155,7 +155,7 @@ const structuredData = {
   <section class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80 font-sans">
     <div class="pixel-card p-6 sm:p-10">
       <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-wide mb-4 flex items-center gap-3">
-        <span class="text-amber-400">#</span> {t.colors.title}
+        {t.colors.title}
       </h2>
       <p class="text-sm sm:text-base text-gray-300 leading-relaxed mb-6 font-sans">
         {t.colors.desc}
@@ -180,7 +180,7 @@ const structuredData = {
   <section id="scoring" class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80 scroll-mt-20 font-sans">
     <div class="pixel-card p-6 sm:p-10">
       <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-wide mb-6 flex items-center gap-3">
-        <span class="text-emerald-400">#</span> {t.scoring.title}
+        {t.scoring.title}
       </h2>
 
       <div class="space-y-6 text-sm text-gray-300 leading-relaxed font-sans">

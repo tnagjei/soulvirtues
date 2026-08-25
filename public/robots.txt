@@ -21,8 +21,10 @@ LLM-Content: https://soulvirtues.org/llms.txt
 LLM-Full-Content: https://soulvirtues.org/llms-full.txt
 
 # Public routes
-Allow: /blog/
-Allow: /products/
 Allow: /about/
+Allow: /contact/
+Allow: /privacy/
+Allow: /terms/
+Allow: /souls/
+Allow: /compare/
 Disallow: /user-content/
-

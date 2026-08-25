@@ -27,4 +27,5 @@ scripts/capture_*.py
 scripts/verify_*.mjs
 .gstack/
 seo-input/gsc-api/
+seo-input/clarity-api/
 spd-v2-quality-*.md

@@ -4,12 +4,29 @@
 // pos: src/pages/contact.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import Layout from '../layouts/Layout.astro';
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "@id": "https://soulvirtues.org/contact/#webpage",
+  "url": "https://soulvirtues.org/contact/",
+  "name": "Contact Us - Soul Virtues Extractor",
+  "description": "Contact the team behind Soul Virtues Extractor (soulvirtues.org) for feedback, bug reports, and inquiries.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": "https://soulvirtues.org/#website",
+    "name": "Soul Virtues Extractor",
+    "url": "https://soulvirtues.org/"
+  }
+};
 ---
 
 <Layout
   title="Contact Us - Soul Virtues Extractor"
   description="Contact the team behind Soul Virtues Extractor (soulvirtues.org) for feedback, bug reports, and inquiries."
   canonicalUrl="https://soulvirtues.org/contact/"
+  structuredData={structuredData}
 >
   <div class="max-w-3xl mx-auto px-4 sm:px-6 py-16 text-center">
     <h1 class="text-3xl sm:text-5xl font-black text-white font-mono mb-4">Contact Us</h1>

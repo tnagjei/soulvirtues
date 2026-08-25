@@ -20,10 +20,13 @@ const faqLink = lang === 'en' ? '/#faq' : `/${lang}/#faq`;
 const soulsPrefix = lang === 'en' ? '/souls' : `/${lang}/souls`;
 const rawCurrentPath = Astro.url.pathname.replace(/^\/(ja|es|pt)(?=\/|$)/, '') || '/';
 const currentPath = rawCurrentPath.replace(/\/?$/, '/');
+const UNLOCALIZED_ROUTES = new Set(['/about/', '/contact/', '/privacy/', '/terms/']);
+const isUnlocalized = UNLOCALIZED_ROUTES.has(currentPath);
+
 const englishPath = currentPath;
-const japanesePath = `/ja${currentPath === '/' ? '/' : currentPath}`;
-const spanishPath = `/es${currentPath === '/' ? '/' : currentPath}`;
-const portuguesePath = `/pt${currentPath === '/' ? '/' : currentPath}`;
+const japanesePath = isUnlocalized ? '/ja/' : `/ja${currentPath === '/' ? '/' : currentPath}`;
+const spanishPath = isUnlocalized ? '/es/' : `/es${currentPath === '/' ? '/' : currentPath}`;
+const portuguesePath = isUnlocalized ? '/pt/' : `/pt${currentPath === '/' ? '/' : currentPath}`;
 ---
 
 <footer class="bg-black border-t-2 border-white text-gray-400 text-sm mt-20">
@@ -108,7 +111,7 @@ const portuguesePath = `/pt${currentPath === '/' ? '/' : currentPath}`;
             <img src="https://frogdr.com/soulvirtues.org/badge-white.svg" alt="Monitor your Domain Rating with FrogDR" width="125" height="27" />
           </a>
           <a href="https://frogdr.com/soulvirtues.org?utm_source=soulvirtues.org" target="_blank" rel="noopener noreferrer" aria-hidden="true" tabindex="-1">
-            <img src="https://frogdr.com/soulvirtues.org/badge-white.svg" alt="" width="125" height="27" />
+            <img src="https://frogdr.com/soulvirtues.org/badge-white.svg" alt="Monitor your Domain Rating with FrogDR" width="125" height="27" />
           </a>
         </div>
       </div>

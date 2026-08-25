@@ -4,12 +4,29 @@
 // pos: src/pages/privacy.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import Layout from '../layouts/Layout.astro';
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://soulvirtues.org/privacy/#webpage",
+  "url": "https://soulvirtues.org/privacy/",
+  "name": "Privacy Policy - Soul Virtues Extractor",
+  "description": "Privacy Policy for Soul Virtues Extractor (soulvirtues.org). Transparent client-side processing, no account required, and local data protection.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": "https://soulvirtues.org/#website",
+    "name": "Soul Virtues Extractor",
+    "url": "https://soulvirtues.org/"
+  }
+};
 ---
 
 <Layout
   title="Privacy Policy - Soul Virtues Extractor"
   description="Privacy Policy for Soul Virtues Extractor (soulvirtues.org). Transparent client-side processing, no account required, and local data protection."
   canonicalUrl="https://soulvirtues.org/privacy/"
+  structuredData={structuredData}
 >
   <div class="max-w-4xl mx-auto px-4 sm:px-6 py-16">
     <div class="mb-10 text-center">

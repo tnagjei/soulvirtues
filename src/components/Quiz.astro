@@ -331,7 +331,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
           </p>
           <a
             id="btn-compare-top-souls"
-            href="#"
+            href={lang === 'en' ? '/compare/bravery-vs-determination/' : `/${lang}/compare/bravery-vs-determination/`}
             class="hidden mt-4 items-center gap-2 border-2 border-purple-500 px-4 py-2.5 text-xs font-mono font-bold text-purple-300 hover:bg-purple-500 hover:text-black transition-colors"
           >
             Compare top two traits →

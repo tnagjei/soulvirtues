@@ -3,7 +3,7 @@
 // output: Polished individual virtue card with glowing heart, rich description, and direct link to single-trait SEO page
 // pos: src/components/SoulCard.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
-import type { SoulDefinition } from '../data/souls';
+import type { SoulDefinition, SoulCode } from '../data/souls';
 
 interface Props {
   soul: SoulDefinition;
@@ -11,7 +11,18 @@ interface Props {
 }
 
 const { soul, lang = 'en' } = Astro.props;
-const slug = soul.name.toLowerCase();
+
+const CODE_TO_SLUG: Record<SoulCode, string> = {
+  DET: 'determination',
+  BRV: 'bravery',
+  JUS: 'justice',
+  KND: 'kindness',
+  PAT: 'patience',
+  INT: 'integrity',
+  PER: 'perseverance',
+};
+
+const slug = (soul.code && CODE_TO_SLUG[soul.code]) || soul.name.toLowerCase();
 const soulsPrefix = lang === 'en' ? '/souls' : `/${lang}/souls`;
 const detailLink = `${soulsPrefix}/${slug}/`;
 ---

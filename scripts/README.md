@@ -8,3 +8,4 @@
 - verify_scoring.cjs：验证非线性计分算法与归一化正确性
 - check_comparison_sample.mjs：验证6组共24个对比页、SEO 标签、证据边界、站点地图与内链
 - submit_indexnow.mjs：自动扫描站点全部路由并向 Bing/IndexNow 提交即时收录通知
+- fetch_clarity_data.mjs：读取环境变量或 macOS 钥匙串中的 Clarity API 密钥，拉取最近 1-3 天的整体、页面、页面×设备与页面×来源数据

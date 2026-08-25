@@ -8,12 +8,28 @@ Soul Virtues Extractor provides an interactive, client-side personality quiz bas
 - [Seven Soul Virtues](https://soulvirtues.org/#virtues): In-depth guide to Determination, Bravery, Justice, Kindness, Patience, Integrity, and Perseverance
 - [Scoring System](https://soulvirtues.org/#scoring): Multi-dimensional weighting and non-linear power curve algorithm
 
+## Seven Undertale Soul Trait Guides
+- [Determination Soul (Red)](https://soulvirtues.org/souls/determination/): Willpower, resilience, lore, items, and battle mechanics
+- [Bravery Soul (Orange)](https://soulvirtues.org/souls/bravery/): Courage, initiative, lore, items, and combat mechanics
+- [Justice Soul (Yellow)](https://soulvirtues.org/souls/justice/): Fairness, accountability, lore, items, and shooter mechanics
+- [Kindness Soul (Green)](https://soulvirtues.org/souls/kindness/): Compassion, healing, lore, items, and shield mechanics
+- [Patience Soul (Cyan)](https://soulvirtues.org/souls/patience/): Calm timing, stillness, lore, items, and mechanics
+- [Integrity Soul (Blue)](https://soulvirtues.org/souls/integrity/): Moral honesty, authentic code, lore, items, and jump mechanics
+- [Perseverance Soul (Purple)](https://soulvirtues.org/souls/perseverance/): Discipline, study, lore, items, and web movement mechanics
+
+## Soul Comparison Matrix
+- [Bravery vs Determination](https://soulvirtues.org/compare/bravery-vs-determination/): Action in fear versus refusal to accept defeat
+- [Determination vs Perseverance](https://soulvirtues.org/compare/determination-vs-perseverance/): Rejecting endings versus disciplined routine
+- [Integrity vs Justice](https://soulvirtues.org/compare/integrity-vs-justice/): Inner moral alignment versus outward fairness
+- [Kindness vs Patience](https://soulvirtues.org/compare/kindness-vs-patience/): Active empathy versus calm waiting
+- [Bravery vs Patience](https://soulvirtues.org/compare/bravery-vs-patience/): Immediate movement versus calculated pause
+- [Justice vs Kindness](https://soulvirtues.org/compare/justice-vs-kindness/): Strict fairness versus gentle harm reduction
+
 ## Resources
 - [FAQ](https://soulvirtues.org/#faq): Answers to common questions regarding scoring, soul colors, and card sharing
-- [Contact](https://soulvirtues.org/contact): Get in touch with the creator via contact@soulvirtues.org
+- [Contact](https://soulvirtues.org/contact/): Get in touch with the creator via contact@soulvirtues.org
 
 ## Legal & About
-- [About Us](https://soulvirtues.org/about): Project background, fan tribute context, and privacy mission
-- [Privacy Policy](https://soulvirtues.org/privacy): Local client-side processing and local privacy
-- [Terms of Service](https://soulvirtues.org/terms): Usage terms and fan-made disclaimer
-
+- [About Us](https://soulvirtues.org/about/): Project background, fan tribute context, and privacy mission
+- [Privacy Policy](https://soulvirtues.org/privacy/): Local client-side processing and local privacy
+- [Terms of Service](https://soulvirtues.org/terms/): Usage terms and fan-made disclaimer

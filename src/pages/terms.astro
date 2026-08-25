@@ -4,12 +4,29 @@
 // pos: src/pages/terms.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import Layout from '../layouts/Layout.astro';
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://soulvirtues.org/terms/#webpage",
+  "url": "https://soulvirtues.org/terms/",
+  "name": "Terms of Service - Soul Virtues Extractor",
+  "description": "Terms of Service for Soul Virtues Extractor (soulvirtues.org). Acceptable use guidelines, intellectual property notices, and disclaimers.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": "https://soulvirtues.org/#website",
+    "name": "Soul Virtues Extractor",
+    "url": "https://soulvirtues.org/"
+  }
+};
 ---
 
 <Layout
   title="Terms of Service - Soul Virtues Extractor"
   description="Terms of Service for Soul Virtues Extractor (soulvirtues.org). Acceptable use guidelines, intellectual property notices, and disclaimers."
   canonicalUrl="https://soulvirtues.org/terms/"
+  structuredData={structuredData}
 >
   <div class="max-w-4xl mx-auto px-4 sm:px-6 py-16">
     <div class="mb-10 text-center">
