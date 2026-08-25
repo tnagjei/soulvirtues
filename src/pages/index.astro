@@ -59,12 +59,16 @@ const structuredData = {
   structuredData={structuredData}
   lang={lang}
 >
-  <!-- Hero Section -->
-  <section class="relative pt-12 pb-8 px-4 sm:px-6 text-center max-w-5xl mx-auto overflow-hidden">
-    <div class="inline-flex items-center gap-2 px-3 py-1 bg-black border-2 border-red-500 shadow-[3px_3px_0px_rgba(239,68,68,0.35)] text-red-400 text-xs font-mono font-semibold tracking-wider uppercase mb-6">
-      <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
-      {t.heroBadge}
-    </div>
+ <!-- Hero Section -->
+ <section class="relative pt-12 pb-8 px-4 sm:px-6 text-center max-w-5xl mx-auto overflow-hidden">
+    <a
+      href="#test"
+      class="inline-flex items-center gap-2 px-3.5 py-1.5 min-h-[44px] bg-black border-2 border-red-500 hover:bg-red-500/10 active:translate-x-[1px] active:translate-y-[1px] shadow-[3px_3px_0px_rgba(239,68,68,0.35)] text-red-400 text-xs font-mono font-semibold tracking-wider uppercase mb-6 cursor-pointer transition-colors"
+      aria-label={t.heroBadge}
+    >
+      <span class="w-2 h-2 rounded-full bg-red-500 animate-ping pointer-events-none"></span>
+      <span>{t.heroBadge}</span>
+    </a>
 
     <h1 class="text-3xl sm:text-6xl font-black text-white font-mono tracking-tight leading-tight mb-4">
       {t.heroTitle} <span class="text-red-500">{t.heroTitleHighlight}</span>
@@ -232,4 +236,3 @@ const structuredData = {
     <FAQ faqs={t.faq.items} />
   </section>
 </Layout>
-
