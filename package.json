@@ -8,7 +8,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "submit:indexnow": "node scripts/submit_indexnow.mjs"
+    "submit:indexnow": "node scripts/submit_indexnow.mjs",
+    "audit:seo": "node scripts/audit_site_seo.mjs"
   },
   "dependencies": {
     "astro": "^5.4.2",

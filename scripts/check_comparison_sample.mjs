@@ -31,7 +31,7 @@ for (const pair of pairs) {
     const html = await load(`dist/${pathPrefix}compare/${pair.slug}/index.html`);
 
     assert.match(html, new RegExp(`<html lang="${locale.lang}"`));
-    assert.match(html, new RegExp(`<link rel="canonical" href="https://soulvirtues.org${locale.prefix}/compare/${pair.slug}"`));
+    assert.match(html, new RegExp(`<link rel="canonical" href="https://soulvirtues.org${locale.prefix}/compare/${pair.slug}/"`));
     if (locale.lang === 'en') {
       const title = html.match(/<title>(.*?)<\/title>/)?.[1] || '';
       const description = html.match(/<meta name="description" content="([^"]+)"/)?.[1] || '';
@@ -39,13 +39,13 @@ for (const pair of pairs) {
       assert.ok(description.length >= 140 && description.length <= 160, `${pair.slug} description length: ${description.length}`);
     }
     for (const prefix of languagePrefixes) {
-      assert.match(html, new RegExp(`hreflang="${prefix ? prefix.slice(1) : 'en'}" href="https://soulvirtues.org${prefix}/compare/${pair.slug}"`));
-      assert.match(html, new RegExp(`href="${prefix}/compare/${pair.slug}"`));
+      assert.match(html, new RegExp(`hreflang="${prefix ? prefix.slice(1) : 'en'}" href="https://soulvirtues.org${prefix}/compare/${pair.slug}/"`));
+      assert.match(html, new RegExp(`href="${prefix}/compare/${pair.slug}/"`));
     }
     assert.match(html, /"@type":"BreadcrumbList"/);
     assert.match(html, /"@type":"Article"/);
-    assert.match(html, new RegExp(`href="${locale.prefix}/souls/${pair.left}"`));
-    assert.match(html, new RegExp(`href="${locale.prefix}/souls/${pair.right}"`));
+    assert.match(html, new RegExp(`href="${locale.prefix}/souls/${pair.left}/"`));
+    assert.match(html, new RegExp(`href="${locale.prefix}/souls/${pair.right}/"`));
     assert.match(html, new RegExp(`href="${locale.prefix}/#test"`));
   }
 }
@@ -57,7 +57,7 @@ assert.match(english, /Determination rejects the ending; Perseverance keeps the 
 for (const pair of pairs) {
   for (const trait of [pair.left, pair.right]) {
     const html = await load(`dist/souls/${trait}/index.html`);
-    assert.match(html, new RegExp(`href="/compare/${pair.slug}"`));
+    assert.match(html, new RegExp(`href="/compare/${pair.slug}/"`));
   }
 }
 
@@ -70,7 +70,7 @@ for (const pair of pairs) {
 const sitemap = await load('public/sitemap.xml');
 for (const pair of pairs) {
   for (const locale of locales) {
-    assert.match(sitemap, new RegExp(`<loc>https://soulvirtues.org${locale.prefix}/compare/${pair.slug}</loc>`));
+    assert.match(sitemap, new RegExp(`<loc>https://soulvirtues.org${locale.prefix}/compare/${pair.slug}/</loc>`));
   }
 }
 assert.equal((sitemap.match(/<loc>https:\/\/soulvirtues\.org\/(?:ja\/|es\/|pt\/)?compare\//g) || []).length, 24);
