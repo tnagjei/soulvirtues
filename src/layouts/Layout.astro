@@ -1,5 +1,5 @@
 ---
-// input: Title, description, canonicalUrl, ogImage, structuredData schema, lang ('en' | 'ja' | 'es' | 'pt')
+// input: Title, description, canonicalUrl, ogImage, structuredData schema, lang ('en' | 'ja' | 'es' | 'pt' | 'ru')
 // output: Full HTML page shell with multilingual hreflang meta tags, fonts, styles, header, footer, bottom-right language suggestion toast, ambient background video, Google Analytics, Clarity analytics, MakeThisBetter widget, and deferred third-party ads (load on scroll/dwell)
 // pos: src/layouts/Layout.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
@@ -31,9 +31,9 @@ const siteUrl = "https://soulvirtues.org";
 const rawCanonical = canonicalUrl.startsWith("http") ? canonicalUrl : `${siteUrl}${canonicalUrl}`;
 const fullCanonical = rawCanonical.replace(/\/?$/, '/');
 
-// Calculate canonical relative path across all 4 languages dynamically
+// Calculate canonical relative path across all 5 languages dynamically
 const pathname = Astro.url.pathname;
-const cleanRel = pathname.replace(/^\/(ja|es|pt)(\/|$)/, '/').replace(/\/+$/, '') || '';
+const cleanRel = pathname.replace(/^\/(ja|es|pt|ru)(\/|$)/, '/').replace(/\/+$/, '') || '';
 const baseRel = cleanRel === '' ? '/' : `${cleanRel}/`;
 
 const UNLOCALIZED_ROUTES = new Set(['/about/', '/contact/', '/privacy/', '/terms/']);
@@ -43,6 +43,7 @@ const hrefEn = `${siteUrl}${baseRel}`;
 const hrefJa = `${siteUrl}/ja${baseRel === '/' ? '/' : baseRel}`;
 const hrefEs = `${siteUrl}/es${baseRel === '/' ? '/' : baseRel}`;
 const hrefPt = `${siteUrl}/pt${baseRel === '/' ? '/' : baseRel}`;
+const hrefRu = `${siteUrl}/ru${baseRel === '/' ? '/' : baseRel}`;
 const hrefDefault = `${siteUrl}${baseRel}`;
 ---
 
@@ -69,6 +70,7 @@ const hrefDefault = `${siteUrl}${baseRel}`;
         <link rel="alternate" hreflang="ja" href={hrefJa} />
         <link rel="alternate" hreflang="es" href={hrefEs} />
         <link rel="alternate" hreflang="pt" href={hrefPt} />
+        <link rel="alternate" hreflang="ru" href={hrefRu} />
         <link rel="alternate" hreflang="x-default" href={hrefDefault} />
       </>
     )}

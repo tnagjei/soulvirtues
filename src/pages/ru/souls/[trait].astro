@@ -1,0 +1,25 @@
+---
+// input: Astro.props.soulDetail containing complete metadata for one Undertale soul trait in Russian
+// output: Full responsive single-trait SEO landing page rendered via SoulDetailPage component
+// pos: src/pages/ru/souls/[trait].astro (更新规则：文件变更需同步本注释与所属目录 README)
+
+import SoulDetailPage from '../../../components/SoulDetailPage.astro';
+import { SOUL_SLUGS, type SoulDetail } from '../../../data/soulDetails';
+import { RU_SOUL_DETAILS } from '../../../data/soulDetailsI18n';
+
+export function getStaticPaths() {
+  return SOUL_SLUGS.map((slug) => ({
+    params: { trait: slug },
+    props: { soulDetail: RU_SOUL_DETAILS[slug] },
+  }));
+}
+
+interface Props {
+  soulDetail: SoulDetail;
+}
+
+const { soulDetail } = Astro.props;
+---
+
+<SoulDetailPage soulDetail={soulDetail} lang="ru" />
+

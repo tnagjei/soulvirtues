@@ -1,5 +1,5 @@
 ---
-// input: lang ('en' | 'ja' | 'es' | 'pt')
+// input: lang ('en' | 'ja' | 'es' | 'pt' | 'ru')
 // output: Bottom-right floating pixel-styled language recommendation prompt based on browser language detection
 // pos: src/components/LangDetector.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
@@ -111,6 +111,13 @@ const { lang = 'en' } = Astro.props;
         stayLabel: 'Dismiss',
         targetUrl: '/',
       },
+      ru: {
+        title: 'ЯЗЫК / LANGUAGE',
+        text: 'Вы говорите по-русски? Хотите открыть русскую версию теста?',
+        switchLabel: '* Перейти на русский',
+        stayLabel: 'Остаться',
+        targetUrl: '/ru/',
+      },
     };
 
     // Detect browser languages
@@ -129,6 +136,10 @@ const { lang = 'en' } = Astro.props;
       }
       if (l.startsWith('pt')) {
         detectedLang = 'pt';
+        break;
+      }
+      if (l.startsWith('ru') || l.startsWith('be') || l.startsWith('kk')) {
+        detectedLang = 'ru';
         break;
       }
       if (l.startsWith('en')) {
@@ -181,4 +192,3 @@ const { lang = 'en' } = Astro.props;
     });
   });
 </script>
-

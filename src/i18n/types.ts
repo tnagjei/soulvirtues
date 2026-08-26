@@ -126,8 +126,10 @@ export interface QuizUITranslations {
   soulSelectHint: string;
 }
 
+export type Locale = 'en' | 'ja' | 'es' | 'pt' | 'ru';
+
 export interface Translations {
-  locale: 'en' | 'ja' | 'es' | 'pt';
+  locale: Locale;
   localeName: string;
   pageTitle: string;
   pageDescription: string;

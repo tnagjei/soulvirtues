@@ -368,9 +368,131 @@ export const PT_SOUL_DETAILS: Record<string, SoulDetail> = {
   }
 };
 
-export function getLocalizedSoulDetails(lang: 'en' | 'ja' | 'es' | 'pt'): Record<string, SoulDetail> {
+const ruLabels: SoulDetailLabels = {
+  home: 'Главная',
+  traitsBreadcrumb: 'Черты души',
+  ballGameLabel: 'Флаг в гольфе Сноудина:',
+  loreHeading: 'История Подземелья и судьба человека',
+  itemsHeading: 'Снаряжение и предметы',
+  itemsSub: 'Каждый упавший человек оставил после себя экипировку, отражающую его ведущую добродетель души.',
+  mechanicsHeading: 'Боевой режим и игровая механика',
+  personalityHeading: 'Психологический профиль и анализ характера',
+  motivationLabel: 'Ключевая мотивация',
+  strengthsLabel: 'Сильные стороны',
+  weaknessesLabel: 'Слепые зоны и тень',
+  realWorldLabel: 'Поведение в реальном мире:',
+  ctaTitle: 'Узнайте вашу истинную черту души Undertale',
+  ctaDesc: 'Какая у вас душа — чистая добродетель или гармоничный баланс нескольких качеств? Пройдите тест из 66 вопросов.',
+  ctaBtn: 'НАЧАТЬ ТЕСТ ДУШИ (66 ВОПРОСОВ)',
+  exploreOther: 'Исследовать другие черты души Undertale',
+  itemLocation: 'Где найти:',
+};
+
+export const RU_SOUL_DETAILS: Record<string, SoulDetail> = {
+  determination: {
+    ...SOUL_DETAILS.determination,
+    name: 'РЕШИМОСТЬ',
+    colorName: 'Красная',
+    ballGameFlag: 'Красный флаг',
+    ballGameQuote: "«Игра в мяч» состоит из того, что ты остаёшься самим собой, как бы часто ни падал.",
+    tagQuote: 'Сколько бы раз я ни падал, я всегда поднимался снова.',
+    seoTitle: 'Красная Душа Решимости Undertale - Лор, предметы и значение',
+    seoDescription: 'Полный гид по Красной Душе Решимости в Undertale. Кинжал, медальон, механика бессмертия и сохранения.',
+    gameLore: 'Красная душа — воплощение безграничной воли и способности отказываться от поражения.',
+    battleMechanicsTitle: 'Свободное движение Красной Души (Классический режим)',
+    battleMechanicsDesc: 'Стандартный режим свободного уклонения от атак во всех четырёх направлениях.',
+    labels: ruLabels,
+  },
+  bravery: {
+    ...SOUL_DETAILS.bravery,
+    name: 'ХРАБРОСТЬ',
+    colorName: 'Оранжевая',
+    ballGameFlag: 'Оранжевый флаг',
+    ballGameQuote: "Ты бросаешься вперёд с отвагой и без сомнений.",
+    tagQuote: 'Даже когда дрожали колени, я отказывался отступать.',
+    seoTitle: 'Оранжевая Душа Храбрости Undertale - Лор, предметы и значение',
+    seoDescription: 'Характеристики Оранжевой Души Храбрости в Undertale. Перчатка, бандана и оранжевые атаки.',
+    gameLore: 'Упавший человек с оранжевой душой преодолевал опасности через прямое действие.',
+    battleMechanicsTitle: 'Оранжевая фаза атак (Движение сквозь урон)',
+    battleMechanicsDesc: 'Оранжевые снаряды не наносят урона, если вы непрерывно двигаетесь сквозь них.',
+    labels: ruLabels,
+  },
+  justice: {
+    ...SOUL_DETAILS.justice,
+    name: 'СПРАВЕДЛИВОСТЬ',
+    colorName: 'Жёлтая',
+    ballGameFlag: 'Жёлтый флаг',
+    ballGameQuote: "Твоя меткая стрельба положила конец бесчинствам.",
+    tagQuote: 'Несмотря на жестокость вокруг, я не позволил себе ожесточиться.',
+    seoTitle: 'Жёлтая Душа Справедливости Undertale - Лор, предметы и значение',
+    seoDescription: 'Обзор Жёлтой Души Справедливости в Undertale. Пустой пистолет, ковбойская шляпа и жёлтый режим стрельбы.',
+    gameLore: 'Человек с жёлтой душой пришёл в Подземелье с чувством долга и стремлением защитить невиновных.',
+    battleMechanicsTitle: 'Жёлтый режим стрельбы (Шутер)',
+    battleMechanicsDesc: 'Душа переворачивается остриём вверх и может стрелять энергетическими пулями.',
+    labels: ruLabels,
+  },
+  kindness: {
+    ...SOUL_DETAILS.kindness,
+    name: 'ДОБРОТА',
+    colorName: 'Зелёная',
+    ballGameFlag: 'Зелёный флаг',
+    ballGameQuote: "Твоя забота и тепло согрели каждого на твоём пути.",
+    tagQuote: 'Сколько бы боли мне ни причиняли, я не стал бессердечным.',
+    seoTitle: 'Зелёная Душа Доброты Undertale - Лор, предметы и значение',
+    seoDescription: 'Свойства Зелёной Души Доброты в Undertale. Сковорода, фартук, зелёный щит и исцеляющие снаряды.',
+    gameLore: 'Человек с зелёной душой стремился помочь каждому монстру и готовил еду для страждущих.',
+    battleMechanicsTitle: 'Зелёный режим щита (Блокирование)',
+    battleMechanicsDesc: 'Душа зафиксирована на месте, парируя летящие с четырёх сторон копья щитом.',
+    labels: ruLabels,
+  },
+  patience: {
+    ...SOUL_DETAILS.patience,
+    name: 'ТЕРПЕНИЕ',
+    colorName: 'Голубая',
+    ballGameFlag: 'Голубой флаг',
+    ballGameQuote: "«Игра в мяч» состоит из моментов, когда ты ждёшь идеальной возможности.",
+    tagQuote: 'Даже когда всё торопило, я ждал верного момента.',
+    seoTitle: 'Голубая Душа Терпения Undertale - Лор, предметы и значение',
+    seoDescription: 'Исследуйте Голубую Душу Терпения в Undertale. Игрушечный нож, выцветшая лента и голубые атаки.',
+    gameLore: 'Человек с голубой душой долго выживал в Руинах, терпеливо наблюдая и ожидая своего шанса.',
+    battleMechanicsTitle: 'Голубая фаза атак (Неподвижность)',
+    battleMechanicsDesc: 'Оставайтесь абсолютно неподвижным, чтобы голубые атаки прошли сквозь вас без урона.',
+    labels: ruLabels,
+  },
+  integrity: {
+    ...SOUL_DETAILS.integrity,
+    name: 'ПОРЯДОЧНОСТЬ',
+    colorName: 'Синяя',
+    ballGameFlag: 'Синий флаг',
+    ballGameQuote: "Прыжками и пируэтами твой неповторимый стиль привёл тебя к победе.",
+    tagQuote: 'Что бы ни делали другие, я верен своим принципам.',
+    seoTitle: 'Синяя Душа Порядочности Undertale - Лор, предметы и значение',
+    seoDescription: 'Гид по Синей Душе Порядочности в Undertale. Пуанты, старая пачка и гравитационный режим прыжков.',
+    gameLore: 'Человек с синей душой был танцором, чья строгая самодисциплина помогала держать равновесие.',
+    battleMechanicsTitle: 'Синий режим гравитации (Платформер)',
+    battleMechanicsDesc: 'Синяя магия наделяет душу гравитацией, заставляя прыгать по платформам.',
+    labels: ruLabels,
+  },
+  perseverance: {
+    ...SOUL_DETAILS.perseverance,
+    name: 'НАСТОЙЧИВОСТЬ',
+    colorName: 'Фиолетовая',
+    ballGameFlag: 'Фиолетовый флаг',
+    ballGameQuote: "Даже когда всё казалось безнадёжным, ты продолжал записывать и добился успеха.",
+    tagQuote: 'Когда угасало вдохновение, дисциплина вела меня до конца.',
+    seoTitle: 'Фиолетовая Душа Настойчивости Undertale - Лор, предметы и значение',
+    seoDescription: 'Анализ Фиолетовой Души Настойчивости в Undertale. Порванная тетрадь, мутные очки и паутина.',
+    gameLore: 'Человек с фиолетовой душой методично конспектировал поведение врагов и секреты Подземелья.',
+    battleMechanicsTitle: 'Фиолетовый режим паутины (Смена линий)',
+    battleMechanicsDesc: 'Маффет перемещает душу по 3 горизонтальным нитям паутины для уклонения от ловушек.',
+    labels: ruLabels,
+  }
+};
+
+export function getLocalizedSoulDetails(lang: 'en' | 'ja' | 'es' | 'pt' | 'ru'): Record<string, SoulDetail> {
   if (lang === 'ja') return JA_SOUL_DETAILS;
   if (lang === 'es') return ES_SOUL_DETAILS;
   if (lang === 'pt') return PT_SOUL_DETAILS;
+  if (lang === 'ru') return RU_SOUL_DETAILS;
   return SOUL_DETAILS;
 }

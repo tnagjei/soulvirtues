@@ -7,8 +7,9 @@ import { enTranslations } from './en';
 import { jaTranslations } from './ja';
 import { esTranslations } from './es';
 import { ptTranslations } from './pt';
+import { ruTranslations } from './ru';
 
-export const locales = ['en', 'ja', 'es', 'pt'] as const;
+export const locales = ['en', 'ja', 'es', 'pt', 'ru'] as const;
 export type { Locale };
 export const defaultLocale: Locale = 'en';
 
@@ -17,6 +18,7 @@ export const localeNames: Record<Locale, { name: string; flag: string }> = {
   ja: { name: '日本語', flag: 'JA' },
   es: { name: 'Español', flag: 'ES' },
   pt: { name: 'Português', flag: 'PT' },
+  ru: { name: 'Русский', flag: 'RU' },
 };
 
 export const translationsMap: Record<Locale, Translations> = {
@@ -24,6 +26,7 @@ export const translationsMap: Record<Locale, Translations> = {
   ja: jaTranslations,
   es: esTranslations,
   pt: ptTranslations,
+  ru: ruTranslations,
 };
 
 export function getTranslations(locale?: string): Translations {
@@ -34,7 +37,7 @@ export function getTranslations(locale?: string): Translations {
 }
 
 export function getLocalePath(path: string, targetLocale: Locale): string {
-  const cleanPath = path.replace(/^\/(ja|es|pt)(\/|$)/, '/');
+  const cleanPath = path.replace(/^\/(ja|es|pt|ru)(\/|$)/, '/');
   if (targetLocale === 'en') {
     return cleanPath === '' ? '/' : cleanPath;
   }
@@ -42,4 +45,3 @@ export function getLocalePath(path: string, targetLocale: Locale): string {
 }
 
 export * from './types';
-

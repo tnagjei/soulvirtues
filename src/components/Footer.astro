@@ -1,6 +1,6 @@
 ---
-// input: lang ('en' | 'ja' | 'es' | 'pt')
-// output: Comprehensive pixel-styled footer with localized navigation, official domain email, fan disclaimer, 4-language switcher, and external friend links
+// input: lang ('en' | 'ja' | 'es' | 'pt' | 'ru')
+// output: Comprehensive pixel-styled footer with localized navigation, official domain email, fan disclaimer, 5-language switcher, and external friend links
 // pos: src/components/Footer.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import { getTranslations, type Locale } from '../i18n';
@@ -18,7 +18,7 @@ const virtuesLink = lang === 'en' ? '/#virtues' : `/${lang}/#virtues`;
 const scoringLink = lang === 'en' ? '/#scoring' : `/${lang}/#scoring`;
 const faqLink = lang === 'en' ? '/#faq' : `/${lang}/#faq`;
 const soulsPrefix = lang === 'en' ? '/souls' : `/${lang}/souls`;
-const rawCurrentPath = Astro.url.pathname.replace(/^\/(ja|es|pt)(?=\/|$)/, '') || '/';
+const rawCurrentPath = Astro.url.pathname.replace(/^\/(ja|es|pt|ru)(?=\/|$)/, '') || '/';
 const currentPath = rawCurrentPath.replace(/\/?$/, '/');
 const UNLOCALIZED_ROUTES = new Set(['/about/', '/contact/', '/privacy/', '/terms/']);
 const isUnlocalized = UNLOCALIZED_ROUTES.has(currentPath);
@@ -27,6 +27,7 @@ const englishPath = currentPath;
 const japanesePath = isUnlocalized ? '/ja/' : `/ja${currentPath === '/' ? '/' : currentPath}`;
 const spanishPath = isUnlocalized ? '/es/' : `/es${currentPath === '/' ? '/' : currentPath}`;
 const portuguesePath = isUnlocalized ? '/pt/' : `/pt${currentPath === '/' ? '/' : currentPath}`;
+const russianPath = isUnlocalized ? '/ru/' : `/ru${currentPath === '/' ? '/' : currentPath}`;
 ---
 
 <footer class="bg-black border-t-2 border-white text-gray-400 text-sm mt-20">
@@ -75,6 +76,12 @@ const portuguesePath = isUnlocalized ? '/pt/' : `/pt${currentPath === '/' ? '/' 
             class={`px-2 py-0.5 border ${lang === 'pt' ? 'border-yellow-400 text-yellow-400 bg-gray-900 font-bold' : 'border-gray-700 text-gray-400 hover:text-white hover:border-white'}`}
           >
             Português
+          </a>
+          <a
+            href={russianPath}
+            class={`px-2 py-0.5 border ${lang === 'ru' ? 'border-yellow-400 text-yellow-400 bg-gray-900 font-bold' : 'border-gray-700 text-gray-400 hover:text-white hover:border-white'}`}
+          >
+            Русский
           </a>
         </div>
       </div>

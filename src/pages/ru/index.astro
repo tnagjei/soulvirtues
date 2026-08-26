@@ -1,0 +1,243 @@
+---
+// input: None (primary Russian landing page)
+// output: Full SSR/SSG page with factually grounded Why, What, Traits, Colors, Scoring, Features, and FAQ in Russian
+// pos: src/pages/ru/index.astro (更新规则：文件变更需同步本注释与所属目录 README)
+
+import Layout from '../../layouts/Layout.astro';
+import Quiz from '../../components/Quiz.astro';
+import SoulCard from '../../components/SoulCard.astro';
+import FAQ from '../../components/FAQ.astro';
+import { SOUL_CODES } from '../../data/souls';
+import { getTranslations } from '../../i18n';
+
+const lang = 'ru';
+const t = getTranslations(lang);
+
+// Schema.org JSON-LD
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://soulvirtues.org/ru/#website",
+      "url": "https://soulvirtues.org/ru/",
+      "name": "Soul Virtues Extractor (Русский)",
+      "description": t.pageDescription
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://soulvirtues.org/ru/#app",
+      "name": "Soul Virtues Extractor & Тест души Undertale",
+      "applicationCategory": "EntertainmentApplication",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://soulvirtues.org/ru/#faq",
+      "mainEntity": t.faq.items.map(f => ({
+        "@type": "Question",
+        "name": f.q,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": f.a
+        }
+      }))
+    }
+  ]
+};
+---
+
+<Layout
+  title={t.pageTitle}
+  description={t.pageDescription}
+  canonicalUrl="https://soulvirtues.org/ru/"
+  structuredData={structuredData}
+  lang={lang}
+>
+ <!-- Hero Section -->
+ <section class="relative pt-12 pb-8 px-4 sm:px-6 text-center max-w-5xl mx-auto overflow-hidden">
+    <a
+      href="#test"
+      class="inline-flex items-center gap-2 px-3.5 py-1.5 min-h-[44px] bg-black border-2 border-red-500 hover:bg-red-500/10 active:translate-x-[1px] active:translate-y-[1px] shadow-[3px_3px_0px_rgba(239,68,68,0.35)] text-red-400 text-xs font-mono font-semibold tracking-wider uppercase mb-6 cursor-pointer transition-colors"
+      aria-label={t.heroBadge}
+    >
+      <span class="w-2 h-2 rounded-full bg-red-500 animate-ping pointer-events-none"></span>
+      <span>{t.heroBadge}</span>
+    </a>
+
+    <h1 class="text-3xl sm:text-6xl font-black text-white font-mono tracking-tight leading-tight mb-2">
+      {t.heroTitle} <span class="text-red-500">{t.heroTitleHighlight}</span>
+    </h1>
+
+    <div class="text-xs sm:text-sm font-bold tracking-widest text-gray-400 font-mono uppercase mb-4">
+      Тест души Undertale (Undertale Soul Test)
+    </div>
+
+    <p class="text-base sm:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-6 font-sans" set:html={t.heroSubtitle}>
+    </p>
+
+    <p class="text-xs sm:text-sm text-gray-400 max-w-2xl mx-auto mb-2 leading-normal font-sans">
+      {t.heroNote}
+    </p>
+  </section>
+
+  <!-- Interactive Quiz Component -->
+  <section id="test" class="px-4 sm:px-6 scroll-mt-20">
+    <Quiz lang={lang} />
+  </section>
+
+  <!-- Section 1: What Is the Soul Virtues Extractor? -->
+  <section class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80 font-sans">
+    <div class="prose prose-invert max-w-none">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-wide mb-6 flex items-center gap-3">
+        {t.what.title}
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-gray-300 text-sm sm:text-base leading-relaxed">
+        <div>
+          <p class="mb-4" set:html={t.what.p1}></p>
+          <p class="mb-4" set:html={t.what.p2}></p>
+        </div>
+        <div>
+          <p class="mb-4" set:html={t.what.p3}></p>
+          <p set:html={t.what.p4}></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Why Take the Soul Virtues Extractor? -->
+  <section class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80 font-sans">
+    <div class="prose prose-invert max-w-none">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-wide mb-6 flex items-center gap-3">
+        {t.why.title}
+      </h2>
+
+      <p class="text-sm sm:text-base text-gray-300 leading-relaxed mb-8">
+        {t.why.intro}
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        {t.why.points.map((pt, idx) => (
+          <div class="pixel-card-sub p-6">
+            <h3 class={`text-base font-bold text-white font-mono mb-2 ${idx === 0 ? 'text-red-400' : idx === 1 ? 'text-amber-400' : idx === 2 ? 'text-emerald-400' : 'text-cyan-400'}`}>
+              {pt.title}
+            </h3>
+            <p class="text-xs sm:text-sm text-gray-400 leading-relaxed font-sans">
+              {pt.desc}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: What Are the Seven Undertale Soul Traits? -->
+  <section id="virtues" class="py-16 px-4 sm:px-6 max-w-6xl mx-auto border-t border-gray-800/80 scroll-mt-20 font-sans">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <h2 class="text-2xl sm:text-4xl font-extrabold text-white font-mono tracking-wide mb-3">
+        {t.traits.title}
+      </h2>
+      <p class="text-xs sm:text-sm text-gray-400 font-sans">
+        {t.traits.subtitle}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {SOUL_CODES.map((code) => (
+        <SoulCard soul={t.souls[code]} lang={lang} />
+      ))}
+    </div>
+  </section>
+
+  <!-- Section 4: What Is Your Undertale Soul Color? -->
+  <section class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80 font-sans">
+    <div class="pixel-card p-6 sm:p-10">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-wide mb-4 flex items-center gap-3">
+        {t.colors.title}
+      </h2>
+      <p class="text-sm sm:text-base text-gray-300 leading-relaxed mb-6 font-sans">
+        {t.colors.desc}
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm text-gray-300">
+        {t.colors.items.map(item => (
+          <div class={`p-4 bg-black border border-gray-800 ${item.colSpan2 ? 'sm:col-span-2' : ''}`}>
+            <span class="font-bold text-white font-mono">{item.title}</span>
+            <p class="text-gray-400 text-xs mt-1 font-sans">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <p class="text-[11px] text-gray-500 mt-4 italic font-sans">
+        {t.colors.note}
+      </p>
+    </div>
+  </section>
+
+  <!-- Section 5: How the Scoring Algorithm Works -->
+  <section id="scoring" class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80 scroll-mt-20 font-sans">
+    <div class="pixel-card p-6 sm:p-10">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-wide mb-6 flex items-center gap-3">
+        {t.scoring.title}
+      </h2>
+
+      <div class="space-y-6 text-sm text-gray-300 leading-relaxed font-sans">
+        <p set:html={t.scoring.intro}></p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 my-6">
+          {t.scoring.cards.map((c, idx) => (
+            <div class="bg-black border border-gray-800 p-4">
+              <h3 class={`text-xs font-mono font-bold uppercase mb-1 ${idx === 0 ? 'text-red-400' : idx === 1 ? 'text-cyan-400' : 'text-purple-400'}`}>{c.title}</h3>
+              <p class="text-xs text-gray-400 font-sans">{c.desc}</p>
+            </div>
+          ))}
+        </div>
+
+        <p>{t.scoring.note}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 6: Key Features & Highlights -->
+  <section class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80 font-sans">
+    <div class="text-center max-w-3xl mx-auto mb-10">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-wide mb-3">
+        {t.features.title}
+      </h2>
+      <p class="text-xs sm:text-sm text-gray-400 font-sans">
+        {t.features.subtitle}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
+      {t.features.items.map((feat, idx) => (
+        <div class="pixel-card-sub p-5">
+          <div class={`text-2xl mb-2 font-mono ${idx === 0 ? 'text-red-400' : idx === 1 ? 'text-yellow-400' : idx === 2 ? 'text-green-400' : 'text-cyan-400'}`}>{feat.num}</div>
+          <h3 class="text-sm font-bold text-white mb-1 font-sans">{feat.title}</h3>
+          <p class="text-xs text-gray-400 font-sans">{feat.desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Section 7: FAQ -->
+  <section id="faq" class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80 scroll-mt-20 font-sans">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <h2 class="text-2xl sm:text-4xl font-extrabold text-white font-mono tracking-wide mb-3">
+        {t.faq.title}
+      </h2>
+      <p class="text-xs sm:text-sm text-gray-400 font-sans">
+        {t.faq.subtitle}
+      </p>
+    </div>
+
+    <FAQ faqs={t.faq.items} />
+  </section>
+</Layout>
+

@@ -1,6 +1,6 @@
 ---
-// input: lang ('en' | 'ja' | 'es' | 'pt')
-// output: Sticky pixel-styled top navigation bar with responsive mobile menu and 4-language switcher
+// input: lang ('en' | 'ja' | 'es' | 'pt' | 'ru')
+// output: Sticky pixel-styled top navigation bar with responsive mobile menu and 5-language switcher
 // pos: src/components/Header.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import { getTranslations, locales, localeNames, type Locale } from '../i18n';
@@ -17,7 +17,7 @@ const testLink = lang === 'en' ? '/#test' : `/${lang}/#test`;
 const virtuesLink = lang === 'en' ? '/#virtues' : `/${lang}/#virtues`;
 const scoringLink = lang === 'en' ? '/#scoring' : `/${lang}/#scoring`;
 const faqLink = lang === 'en' ? '/#faq' : `/${lang}/#faq`;
-const rawCurrentPath = Astro.url.pathname.replace(/^\/(ja|es|pt)(?=\/|$)/, '') || '/';
+const rawCurrentPath = Astro.url.pathname.replace(/^\/(ja|es|pt|ru)(?=\/|$)/, '') || '/';
 const currentPath = rawCurrentPath.replace(/\/?$/, '/');
 const UNLOCALIZED_ROUTES = new Set(['/about/', '/contact/', '/privacy/', '/terms/']);
 const isUnlocalized = UNLOCALIZED_ROUTES.has(currentPath);
@@ -26,6 +26,7 @@ const englishPath = currentPath;
 const japanesePath = isUnlocalized ? '/ja/' : `/ja${currentPath === '/' ? '/' : currentPath}`;
 const spanishPath = isUnlocalized ? '/es/' : `/es${currentPath === '/' ? '/' : currentPath}`;
 const portuguesePath = isUnlocalized ? '/pt/' : `/pt${currentPath === '/' ? '/' : currentPath}`;
+const russianPath = isUnlocalized ? '/ru/' : `/ru${currentPath === '/' ? '/' : currentPath}`;
 ---
 
 <header class="sticky top-0 z-40 bg-black/95 backdrop-blur-md border-b-2 border-white">
@@ -92,6 +93,12 @@ const portuguesePath = isUnlocalized ? '/pt/' : `/pt${currentPath === '/' ? '/' 
             >
               * Português
             </a>
+            <a
+              href={russianPath}
+              class={`block px-3 py-1.5 hover:bg-white hover:text-black transition-colors ${lang === 'ru' ? 'text-yellow-400 font-bold bg-gray-900/60' : 'text-gray-300'}`}
+            >
+              * Русский
+            </a>
           </div>
         </div>
       </div>
@@ -131,9 +138,9 @@ const portuguesePath = isUnlocalized ? '/pt/' : `/pt${currentPath === '/' ? '/' 
     <!-- Mobile Language Switcher (2x2 Grid) -->
     <div class="pt-2">
       <div class="text-xs text-gray-400 uppercase tracking-widest mb-2 flex items-center gap-1.5">
-        <span>🌐</span> Language / Idioma / 言語
+        <span>🌐</span> Language / Idioma / 言語 / Язык
       </div>
-      <div class="grid grid-cols-2 gap-2 text-xs">
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">
         <a
           href={englishPath}
           class={`px-3 py-2 text-center border-2 transition-colors ${lang === 'en' ? 'border-yellow-400 text-yellow-400 bg-gray-900 font-bold' : 'border-gray-700 text-gray-400 hover:border-white hover:text-white'}`}
@@ -157,6 +164,12 @@ const portuguesePath = isUnlocalized ? '/pt/' : `/pt${currentPath === '/' ? '/' 
           class={`px-3 py-2 text-center border-2 transition-colors ${lang === 'pt' ? 'border-yellow-400 text-yellow-400 bg-gray-900 font-bold' : 'border-gray-700 text-gray-400 hover:border-white hover:text-white'}`}
         >
           Português
+        </a>
+        <a
+          href={russianPath}
+          class={`px-3 py-2 text-center border-2 transition-colors ${lang === 'ru' ? 'border-yellow-400 text-yellow-400 bg-gray-900 font-bold' : 'border-gray-700 text-gray-400 hover:border-white hover:text-white'}`}
+        >
+          Русский
         </a>
       </div>
     </div>

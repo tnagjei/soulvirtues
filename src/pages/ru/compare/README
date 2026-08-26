@@ -1,0 +1,9 @@
+# compare
+- 用途：俄语双灵魂特质对比页面路由
+- 关键入口：[pair].astro
+- 边界/依赖：依赖 SoulComparisonPage.astro 与 soulComparisons.ts
+> 一旦本目录内容变化，请更新本文件
+
+## Files
+- [pair].astro：批量生成6组俄语对比页面
+
