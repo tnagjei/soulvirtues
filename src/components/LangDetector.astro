@@ -1,6 +1,6 @@
 ---
 // input: lang ('en' | 'ja' | 'es' | 'pt' | 'ru')
-// output: Bottom-right floating pixel-styled language recommendation prompt based on browser language detection
+// output: Mobile-safe bottom language recommendation prompt with 44px controls based on browser language detection
 // pos: src/components/LangDetector.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import type { Locale } from '../i18n';
@@ -14,16 +14,17 @@ const { lang = 'en' } = Astro.props;
 
 <div
   id="pixel-lang-prompt"
-  class="hidden fixed bottom-4 right-4 z-50 max-w-sm w-[calc(100vw-2rem)] sm:w-96 bg-black border-4 border-white p-4 shadow-[6px_6px_0px_rgba(255,255,255,0.4)] font-mono text-white select-none transition-all duration-300"
+  class="hidden fixed left-4 right-4 bottom-[calc(1rem+env(safe-area-inset-bottom))] z-50 mx-auto max-w-sm max-h-[30dvh] overflow-y-auto overscroll-contain bg-black border-4 border-white p-4 shadow-[6px_6px_0px_rgba(255,255,255,0.4)] font-mono text-white select-none transition-[opacity,transform] duration-300"
   data-current-lang={lang}
   role="dialog"
   aria-label="Language Suggestion"
+  aria-live="polite"
 >
   <!-- Header Bar with Undertale Heart -->
   <div class="flex items-center justify-between border-b-2 border-gray-700 pb-2 mb-3">
     <div class="flex items-center gap-2">
       <div class="w-4 h-4 text-red-500 animate-pulse flex-shrink-0">
-        <svg viewBox="0 0 16 16" fill="currentColor" class="w-full h-full" shape-rendering="crispEdges">
+        <svg viewBox="0 0 16 16" fill="currentColor" class="w-full h-full" shape-rendering="crispEdges" aria-hidden="true">
           <path d="M2 0h4v1H2zm8 0h4v1h-4zM1 1h6v1H1zm8 0h6v1H9zM0 2h7v1H0zm9 2h7v1H9zM0 3h7v1H0zm9 3h7v1H9zM0 4h16v6H0zm2 6h12v2H2zm2 2h8v2H4zm2 2h4v2H6z"/>
         </svg>
       </div>
@@ -34,7 +35,7 @@ const { lang = 'en' } = Astro.props;
     <button
       id="btn-dismiss-lang"
       type="button"
-      class="text-xs text-gray-400 hover:text-white border border-gray-600 hover:border-white px-2 py-0.5 cursor-pointer active:scale-95 transition-all"
+      class="inline-flex min-w-11 min-h-11 items-center justify-center text-xs text-gray-400 hover:text-white border border-gray-600 hover:border-white p-0 cursor-pointer touch-manipulation active:scale-95 transition-[color,border-color,transform] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
       aria-label="Close"
     >
       ✕
@@ -47,18 +48,18 @@ const { lang = 'en' } = Astro.props;
   </p>
 
   <!-- Action Buttons -->
-  <div class="flex items-center justify-end gap-2 text-xs">
+  <div class="flex items-stretch justify-end gap-2 text-xs">
     <button
       id="btn-stay-lang"
       type="button"
-      class="px-3 py-1.5 bg-black border-2 border-gray-600 hover:border-white text-gray-300 hover:text-white uppercase tracking-wider cursor-pointer active:scale-95 transition-all font-mono"
+      class="min-h-11 px-3 py-2 bg-black border-2 border-gray-600 hover:border-white text-gray-300 hover:text-white uppercase tracking-wider cursor-pointer touch-manipulation active:scale-95 transition-[color,border-color,transform] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black font-mono"
     >
       <span id="label-stay-btn">Dismiss</span>
     </button>
     <a
       id="link-switch-lang"
       href="/"
-      class="inline-flex items-center justify-center px-4 py-1.5 bg-white hover:bg-gray-200 text-black font-bold uppercase tracking-wider cursor-pointer active:scale-95 transition-all shadow-[2px_2px_0px_rgba(255,255,255,0.4)] font-mono"
+      class="inline-flex min-h-11 items-center justify-center px-4 py-2 bg-white hover:bg-gray-200 text-black font-bold uppercase tracking-wider cursor-pointer touch-manipulation active:scale-95 transition-[background-color,transform] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black shadow-[2px_2px_0px_rgba(255,255,255,0.4)] font-mono"
     >
       <span id="label-switch-btn">* Switch</span>
     </a>

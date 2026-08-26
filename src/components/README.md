@@ -12,4 +12,4 @@
 - SoulDetailPage.astro：七大单特质响应式 SEO 落地页组件，含面包屑、专属装备、战斗机制与测验回流 CTA
 - SoulComparisonPage.astro：6组双特质共用页面组件，分离游戏事实与站点解释并提供测试回流
 - FAQ.astro：可折叠常见问题解答组件
-- LangDetector.astro：右下角悬浮智能语言推荐提示组件，依据浏览器语言无侵入式提示切换并支持 30 天免打扰
+- LangDetector.astro：手机安全区域内的语言推荐提示组件，依据浏览器语言提示切换，提供 44px 触控按钮并支持 30 天免打扰
