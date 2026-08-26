@@ -228,13 +228,13 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
         * {t.quizUI.tapAnswerHint}
       </p>
 
-      <!-- Extremes labels -->
-      <div class="flex justify-between items-baseline text-[10px] sm:text-sm text-gray-400 tracking-wider mb-4 sm:mb-6">
-        <span id="label-extreme-left" class="uppercase">{t.quizUI.extremeLeft}</span>
-        <span id="label-extreme-right" class="uppercase">{t.quizUI.extremeRight}</span>
-      </div>
+     <!-- Extremes labels -->
+      <div class="flex justify-between items-baseline gap-2 text-[9px] sm:text-xs text-gray-400 tracking-wider mb-3 sm:mb-6">
+        <span id="label-extreme-left" class="uppercase whitespace-nowrap overflow-hidden text-ellipsis">{t.quizUI.extremeLeft}</span>
+        <span id="label-extreme-right" class="uppercase whitespace-nowrap overflow-hidden text-ellipsis text-right">{t.quizUI.extremeRight}</span>
+     </div>
 
-      <!-- 5-Point Scale Row -->
+     <!-- 5-Point Scale Row -->
       <div id="scale-row" class="flex items-stretch justify-between gap-1 sm:gap-2 relative py-2 sm:py-4 sm:px-8">
         <!-- Scale points generated via JS -->
       </div>
@@ -750,13 +750,13 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       q.labels.forEach((label, optIdx) => {
         const btn = document.createElement("button");
         btn.type = "button";
-        const isSelected = currentSelection === optIdx;
-        btn.className = `flex-1 min-w-0 min-h-16 flex flex-col items-center justify-center gap-1 py-2 border-2 cursor-pointer group outline-none transition-colors active:scale-95 focus-visible:border-white ${
-          isSelected
-            ? "border-red-500 bg-red-950/30"
-            : "border-gray-700 bg-black hover:border-white"
-        }`;
-        btn.setAttribute("aria-label", label);
+       const isSelected = currentSelection === optIdx;
+        btn.className = `flex-1 min-w-0 min-h-16 flex flex-col items-center justify-center gap-1 py-2 border-2 cursor-pointer group outline-none transition-all active:scale-90 focus-visible:border-white ${
+         isSelected
+            ? "border-red-500 bg-red-950/30 shadow-[0_0_10px_rgba(239,68,68,0.4)]"
+           : "border-gray-700 bg-black hover:border-white"
+       }`;
+       btn.setAttribute("aria-label", label);
         btn.setAttribute("aria-describedby", "tap-answer-hint");
 
         btn.innerHTML = `
@@ -777,15 +777,22 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       });
 
       updateSelectedLabel(q);
-    }
+   }
 
-    function selectAndAdvance(optIdx) {
-      if (optIdx < 0 || optIdx > 4) return;
-      currentSelection = optIdx;
-      confirmAndAdvance();
-    }
+    let isAdvancing = false;
 
-    function setSelection(optIdx) {
+   function selectAndAdvance(optIdx) {
+      if (isAdvancing) return;
+     if (optIdx < 0 || optIdx > 4) return;
+      isAdvancing = true;
+     currentSelection = optIdx;
+     confirmAndAdvance();
+      setTimeout(() => {
+        isAdvancing = false;
+      }, 180);
+   }
+
+   function setSelection(optIdx) {
       if (optIdx < 0 || optIdx > 4) return;
       if (currentSelection !== optIdx) {
         playSound("move");
