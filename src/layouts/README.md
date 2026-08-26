@@ -5,4 +5,4 @@
 > 一旦本目录内容变化，请更新本文件
 
 ## Files
-- Layout.astro：基础页面骨架，注入 hreflang 多语言关联标签、Yandex 验证标签、Open Graph、Canonical、JSON-LD 与延迟加载广告脚本
+- Layout.astro：基础页面骨架，注入 hreflang 多语言关联标签、Yandex 验证标签、Open Graph、Canonical、JSON-LD
