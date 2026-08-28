@@ -47,7 +47,8 @@ const russianPath = isUnlocalized ? '/ru/' : `/ru${currentPath === '/' ? '/' : c
           {t.footer.desc}
         </p>
         <p class="text-gray-500 text-xs mt-3 font-mono">
-          {t.footer.contact} <a href="mailto:contact@soulvirtues.org" class="text-gray-400 hover:text-white underline font-mono">contact@soulvirtues.org</a>
+          {t.footer.contact}
+          <!--email_off--><a href="mailto:contact@soulvirtues.org" class="text-gray-400 hover:text-white underline font-mono">contact@soulvirtues.org</a><!--/email_off-->
         </p>
 
         <!-- Footer Language Quick Selector -->
@@ -127,13 +128,13 @@ const russianPath = isUnlocalized ? '/ru/' : `/ru${currentPath === '/' ? '/' : c
           </div>
           <div class="friend-marquee__group" aria-hidden="true">
             <a href="https://frogdr.com/soulvirtues.org?utm_source=soulvirtues.org" target="_blank" rel="noopener noreferrer" tabindex="-1">
-              <img src="https://frogdr.com/soulvirtues.org/badge-white.svg" alt="" width="125" height="27" />
+              <img src="https://frogdr.com/soulvirtues.org/badge-white.svg" alt="" aria-hidden="true" width="125" height="27" />
             </a>
             <a href="https://toolrain.com/item/soul-virtues-extractor" target="_blank" rel="noopener noreferrer" tabindex="-1">
-              <img src="https://toolrain.com/badges/badge-listed-light.svg" alt="" width="92" height="27" />
+              <img src="https://toolrain.com/badges/badge-listed-light.svg" alt="" aria-hidden="true" width="92" height="27" />
             </a>
             <a href="https://aiblog.tools" target="_blank" rel="noopener noreferrer" tabindex="-1">
-              <img src="https://aiblog.tools/badges/badge.svg" alt="" width="96" height="27" />
+              <img src="https://aiblog.tools/badges/badge.svg" alt="" aria-hidden="true" width="96" height="27" />
             </a>
           </div>
         </div>

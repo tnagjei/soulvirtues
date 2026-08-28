@@ -1,0 +1,39 @@
+---
+// input: A request for a route that does not exist in the static build
+// output: Search-safe 404 document with noindex and a clear route back home
+// pos: src/pages/404.astro (更新规则：404 行为变化需同步本注释与 src/pages/README)
+
+import '../styles/global.css';
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="robots" content="noindex,follow" />
+    <title>Page Not Found - Soul Virtues Extractor</title>
+    <meta name="description" content="This Soul Virtues Extractor page does not exist. Return home or start the free 66-question Undertale soul test." />
+    <link rel="icon" type="image/png" sizes="512x512" href="/logo.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body class="bg-black text-gray-100 min-h-screen font-sans selection:bg-red-500 selection:text-white">
+    <main class="min-h-screen flex items-center justify-center px-4 py-12">
+      <section class="w-full max-w-xl border-2 border-red-500 bg-black/90 p-6 sm:p-10 text-center shadow-[8px_8px_0_#7f1d1d]">
+        <p class="font-mono text-red-400 text-sm tracking-[0.3em] mb-4">ERROR 404</p>
+        <h1 class="font-mono text-3xl sm:text-4xl font-bold text-white mb-4">PAGE NOT FOUND</h1>
+        <p class="text-gray-300 leading-relaxed mb-8">
+          This route does not contain a Soul Virtues test or guide. Return to the homepage to continue.
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center gap-3">
+          <a href="/" class="min-h-11 inline-flex items-center justify-center border-2 border-white px-5 py-2 font-mono font-bold text-white hover:bg-white hover:text-black focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
+            RETURN HOME
+          </a>
+          <a href="/#test" class="min-h-11 inline-flex items-center justify-center border-2 border-red-500 px-5 py-2 font-mono font-bold text-red-400 hover:bg-red-500 hover:text-black focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-red-400">
+            START THE TEST
+          </a>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

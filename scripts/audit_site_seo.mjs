@@ -1,5 +1,5 @@
 // input: dist/ static build files, public/ static assets
-// output: Comprehensive site-wide SEO audit report across all 60 pages
+// output: Comprehensive SEO audit for 74 indexable pages, the static 404, and sitemap parity
 // pos: scripts/audit_site_seo.mjs (更新规则：脚本变更需同步本注释与 scripts/README.md)
 
 import fs from 'node:fs';
@@ -10,6 +10,7 @@ const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const distDir = path.join(rootDir, 'dist');
 const publicDir = path.join(rootDir, 'public');
 const siteUrl = 'https://soulvirtues.org';
+const expectedIndexablePageCount = 74;
 
 function getFiles(dir) {
   let results = [];
@@ -27,7 +28,8 @@ function getFiles(dir) {
   return results;
 }
 
-const htmlFiles = getFiles(distDir);
+const notFoundPath = path.join(distDir, '404.html');
+const htmlFiles = getFiles(distDir).filter(file => file !== notFoundPath);
 if (htmlFiles.length === 0) {
   console.error('Error: No HTML files found in dist/. Please run npm run build first.');
   process.exit(1);
@@ -63,6 +65,53 @@ const headingIssues = [];
 const linkIssues = [];
 const schemaIssues = [];
 const imageIssues = [];
+
+if (htmlFiles.length !== expectedIndexablePageCount) {
+  metaIssues.push({
+    page: '[build]',
+    issue: `Expected ${expectedIndexablePageCount} indexable HTML pages, found ${htmlFiles.length}`,
+  });
+}
+
+if (!fs.existsSync(notFoundPath)) {
+  metaIssues.push({ page: '/404.html', issue: 'Missing static 404 page' });
+} else {
+  const notFoundContent = fs.readFileSync(notFoundPath, 'utf8');
+  if (!/<meta\s+name=["']robots["']\s+content=["']noindex,\s*follow["']/i.test(notFoundContent)) {
+    metaIssues.push({ page: '/404.html', issue: '404 page must use noindex,follow' });
+  }
+  if (!/<a\s+[^>]*href=["']\/["']/i.test(notFoundContent)) {
+    linkIssues.push({ page: '/404.html', issue: '404 page must link to the homepage' });
+  }
+}
+
+const sitemapPath = path.join(distDir, 'sitemap.xml');
+if (!fs.existsSync(sitemapPath)) {
+  metaIssues.push({ page: '/sitemap.xml', issue: 'Missing built sitemap.xml' });
+} else {
+  const sitemap = fs.readFileSync(sitemapPath, 'utf8');
+  const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => match[1].trim());
+  const sitemapUrlSet = new Set(sitemapUrls);
+  const expectedSitemapUrls = new Set([...validRoutes].map(route => `${siteUrl}${route}`));
+  const missingSitemapUrls = [...expectedSitemapUrls].filter(url => !sitemapUrlSet.has(url));
+  const extraSitemapUrls = [...sitemapUrlSet].filter(url => !expectedSitemapUrls.has(url));
+
+  if (sitemapUrls.length !== sitemapUrlSet.size) {
+    metaIssues.push({ page: '/sitemap.xml', issue: 'Duplicate <loc> entries found' });
+  }
+  if (sitemapUrls.length !== expectedIndexablePageCount) {
+    metaIssues.push({
+      page: '/sitemap.xml',
+      issue: `Expected ${expectedIndexablePageCount} <loc> entries, found ${sitemapUrls.length}`,
+    });
+  }
+  for (const url of missingSitemapUrls) {
+    metaIssues.push({ page: '/sitemap.xml', issue: `Missing built route: ${url}` });
+  }
+  for (const url of extraSitemapUrls) {
+    metaIssues.push({ page: '/sitemap.xml', issue: `Unknown sitemap route: ${url}` });
+  }
+}
 
 for (const filePath of htmlFiles) {
   const content = fs.readFileSync(filePath, 'utf8');
@@ -115,9 +164,11 @@ for (const filePath of htmlFiles) {
     const tagContent = imgMatch[1];
     const srcMatch = tagContent.match(/src=["'](.*?)["']/i);
     const altMatch = tagContent.match(/alt=["'](.*?)["']/i);
+    const ariaHiddenMatch = tagContent.match(/aria-hidden=["']true["']/i);
     images.push({
       src: srcMatch ? srcMatch[1] : '',
       alt: altMatch ? altMatch[1] : null,
+      ariaHidden: Boolean(ariaHiddenMatch),
     });
   }
 
@@ -169,7 +220,7 @@ for (const filePath of htmlFiles) {
   for (const img of images) {
     if (img.alt === null) {
       imageIssues.push({ page: relPath, issue: `Image missing alt attribute: ${img.src}` });
-    } else if (img.alt === '') {
+    } else if (img.alt === '' && !img.ariaHidden) {
       imageIssues.push({ page: relPath, issue: `Image has empty alt attribute: ${img.src}` });
     }
   }
@@ -196,6 +247,5 @@ if (allIssuesCount > 0) {
   if (imageIssues.length) console.log('Image Issues:', imageIssues);
   process.exit(1);
 } else {
-  console.log('\n✓ All 60 pages passed SEO technical audit with zero errors.');
+  console.log(`\n✓ All ${pages.length} indexable pages, the static 404, and sitemap parity passed with zero errors.`);
 }
-

@@ -11,5 +11,5 @@
 - es.ts：对齐 Undertale 西语官方/社区译名的西文全量字典实现
 - pt.ts：对齐 Undertale 巴西葡语社区译名的葡文全量字典实现
 - ru.ts：对齐 Undertale 俄语社区译名的俄文全量字典实现
-- index.ts：4语种列表、字典检索与路径转换辅助入口
+- index.ts：5语种列表、字典检索与路径转换辅助入口
 - README.md：目录说明文档

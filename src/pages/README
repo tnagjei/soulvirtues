@@ -12,7 +12,8 @@
 - es/：西语版页面路由子目录（含首页、单特质页与对比样板页）
 - pt/：葡语版页面路由子目录（含首页、单特质页与对比样板页）
 - ru/：俄语版页面路由子目录（含首页、单特质页与对比样板页）
-- about.astro：关于我们与同人致敬说明页面
-- privacy.astro：零收集与本地存储隐私协议页面
-- terms.astro：服务条款与免责声明页面
-- contact.astro：联系方式与反馈渠道页面
+- 404.astro：Cloudflare Pages 使用的真实 404 页面，禁止索引并提供首页与测验返回入口
+- about.astro：关于我们、同人致敬说明与受 Cloudflare 改写保护的官方邮箱
+- privacy.astro：零收集、本地存储隐私协议与受 Cloudflare 改写保护的官方邮箱
+- terms.astro：服务条款、免责声明与受 Cloudflare 改写保护的官方邮箱
+- contact.astro：联系方式、反馈渠道与受 Cloudflare 改写保护的官方邮箱

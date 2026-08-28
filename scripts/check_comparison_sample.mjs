@@ -1,5 +1,5 @@
 // input: Built Astro output in dist/ for the six approved comparison pairs
-// output: Exit 0 only when all localized routes, SEO tags, evidence boundary, and internal links are present
+// output: Exit 0 only when all 30 localized routes, SEO tags, evidence boundary, and internal links are present
 // pos: scripts/check_comparison_sample.mjs (更新规则：对比页验收变化需同步本注释与 scripts/README.md)
 
 import assert from 'node:assert/strict';
@@ -18,8 +18,9 @@ const locales = [
   { lang: 'ja', prefix: '/ja' },
   { lang: 'es', prefix: '/es' },
   { lang: 'pt', prefix: '/pt' },
+  { lang: 'ru', prefix: '/ru' },
 ];
-const languagePrefixes = ['', '/ja', '/es', '/pt'];
+const languagePrefixes = ['', '/ja', '/es', '/pt', '/ru'];
 
 async function load(path) {
   return readFile(new URL(`../${path}`, import.meta.url), 'utf8');
@@ -73,6 +74,6 @@ for (const pair of pairs) {
     assert.match(sitemap, new RegExp(`<loc>https://soulvirtues.org${locale.prefix}/compare/${pair.slug}/</loc>`));
   }
 }
-assert.equal((sitemap.match(/<loc>https:\/\/soulvirtues\.org\/(?:ja\/|es\/|pt\/)?compare\//g) || []).length, 24);
+assert.equal((sitemap.match(/<loc>https:\/\/soulvirtues\.org\/(?:ja\/|es\/|pt\/|ru\/)?compare\//g) || []).length, 30);
 
-console.log('PASS: 24 comparison routes, SEO tags, evidence boundary, and internal links verified.');
+console.log('PASS: 30 comparison routes, SEO tags, evidence boundary, and internal links verified.');
