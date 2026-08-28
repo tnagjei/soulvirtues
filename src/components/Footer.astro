@@ -106,25 +106,36 @@ const russianPath = isUnlocalized ? '/ru/' : `/ru${currentPath === '/' ? '/' : c
           <li><a href="/terms/" class="hover:text-white transition-colors">{t.footer.termsLink}</a></li>
           <li><a href="/contact/" class="hover:text-white transition-colors">{t.footer.contactLink}</a></li>
           <li><a href="https://soulvirtues.makethisbetter.dev" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">{t.footer.feedbackLink}</a></li>
-          <li><a href="https://aiblog.tools" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Find us on AIBlog.tools</a></li>
-          <li>
-            <a href="https://toolrain.com/item/soul-virtues-extractor" target="_blank" rel="noopener noreferrer" aria-label="Listed on ToolRain">
-              <img src="https://toolrain.com/badges/badge-listed-light.svg" alt="Listed on ToolRain" style="height: 60px; width: auto;" />
-            </a>
-          </li>
         </ul>
       </div>
     </div>
 
-    <div class="border-t border-gray-800/80 py-4 overflow-hidden" aria-label="FrogDR domain rating monitor">
-      <div class="frogdr-marquee">
-        <div class="frogdr-marquee__track">
-          <a href="https://frogdr.com/soulvirtues.org?utm_source=soulvirtues.org" target="_blank" rel="noopener noreferrer" aria-label="Monitor your Domain Rating with FrogDR">
-            <img src="https://frogdr.com/soulvirtues.org/badge-white.svg" alt="Monitor your Domain Rating with FrogDR" width="125" height="27" />
-          </a>
-          <a href="https://frogdr.com/soulvirtues.org?utm_source=soulvirtues.org" target="_blank" rel="noopener noreferrer" aria-hidden="true" tabindex="-1">
-            <img src="https://frogdr.com/soulvirtues.org/badge-white.svg" alt="Monitor your Domain Rating with FrogDR" width="125" height="27" />
-          </a>
+    <!-- Friend Links Marquee -->
+    <div class="border-t border-gray-800/80 py-4 overflow-hidden" aria-label="Friend links marquee">
+      <div class="friend-marquee">
+        <div class="friend-marquee__track">
+          <div class="friend-marquee__group">
+            <a href="https://frogdr.com/soulvirtues.org?utm_source=soulvirtues.org" target="_blank" rel="noopener noreferrer" aria-label="Monitor your Domain Rating with FrogDR">
+              <img src="https://frogdr.com/soulvirtues.org/badge-white.svg" alt="Monitor your Domain Rating with FrogDR" width="125" height="27" />
+            </a>
+            <a href="https://toolrain.com/item/soul-virtues-extractor" target="_blank" rel="noopener noreferrer" aria-label="Listed on ToolRain">
+              <img src="https://toolrain.com/badges/badge-listed-light.svg" alt="Listed on ToolRain" width="92" height="27" />
+            </a>
+            <a href="https://aiblog.tools" target="_blank" rel="noopener noreferrer" aria-label="Featured on AIBlog.Tools">
+              <img src="https://aiblog.tools/badges/badge.svg" alt="Featured on AIBlog.Tools" width="96" height="27" />
+            </a>
+          </div>
+          <div class="friend-marquee__group" aria-hidden="true">
+            <a href="https://frogdr.com/soulvirtues.org?utm_source=soulvirtues.org" target="_blank" rel="noopener noreferrer" tabindex="-1">
+              <img src="https://frogdr.com/soulvirtues.org/badge-white.svg" alt="" width="125" height="27" />
+            </a>
+            <a href="https://toolrain.com/item/soul-virtues-extractor" target="_blank" rel="noopener noreferrer" tabindex="-1">
+              <img src="https://toolrain.com/badges/badge-listed-light.svg" alt="" width="92" height="27" />
+            </a>
+            <a href="https://aiblog.tools" target="_blank" rel="noopener noreferrer" tabindex="-1">
+              <img src="https://aiblog.tools/badges/badge.svg" alt="" width="96" height="27" />
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -171,35 +182,43 @@ const russianPath = isUnlocalized ? '/ru/' : `/ru${currentPath === '/' ? '/' : c
 </footer>
 
 <style>
-  .frogdr-marquee {
-    width: min(100%, 250px);
+  .friend-marquee {
+    width: min(100%, 540px);
     margin: 0 auto;
     overflow: hidden;
   }
 
-  .frogdr-marquee__track {
+  .friend-marquee__track {
     display: flex;
     width: max-content;
     gap: 2rem;
-    animation: frogdr-marquee 14s linear infinite;
   }
 
-  .frogdr-marquee__track a {
+  .friend-marquee__group {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-shrink: 0;
+    animation: friend-marquee 18s linear infinite;
+  }
+
+  .friend-marquee__group a {
     display: block;
     flex: 0 0 auto;
   }
 
-  .frogdr-marquee__track img {
+  .friend-marquee__group img {
     display: block;
-    width: 125px;
     height: 27px;
+    width: auto;
+    object-fit: contain;
   }
 
-  @keyframes frogdr-marquee {
-    to { transform: translateX(calc(-125px - 2rem)); }
+  @keyframes friend-marquee {
+    to { transform: translateX(calc(-100% - 2rem)); }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .frogdr-marquee__track { animation: none; }
+    .friend-marquee__group { animation: none; }
   }
 </style>
