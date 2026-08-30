@@ -12,3 +12,6 @@
 - submit_indexnow.mjs：自动扫描站点全部路由并向 Bing/IndexNow 提交即时收录通知
 - fetch_clarity_data.mjs：读取环境变量或 macOS 钥匙串中的 Clarity API 密钥，拉取最近 1-3 天的整体、页面、页面×设备与页面×来源数据
 - audit_site_seo.mjs：验证 74 个可索引页面、独立 404、sitemap 路由一致性及综合 SEO 技术指标
+- seo_day15_review.mjs：上线第 15 天拉取 GSC 定稿数据、运行 crawl 与 index-coverage，并执行连续 3 天展示门禁；额度耗尽时保留 7 天重试
+- seo_day30_review.mjs：上线第 30 天运行 quick-wins 与 second-page，生成 Title、Meta、H2 人工复核建议；额度耗尽时保留 7 天重试
+- seo_weekly_watch.mjs：上线第 60 天后每周运行 technical-watch 与 decaying-pages，生成周报

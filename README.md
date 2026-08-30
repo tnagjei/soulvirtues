@@ -20,6 +20,9 @@
 - 本地开发：`npm run dev`
 - 生产构建：`npm run build`
 - 本地预览：`npm run preview`
+- SEO Day 15 门禁：`node scripts/seo_day15_review.mjs`（由 LaunchAgent 于 2026-09-01 09:00 运行；额度耗尽时保留 7 天重试窗口）
+- SEO Day 30 机会报告：`node scripts/seo_day30_review.mjs`（由 LaunchAgent 于 2026-09-16 09:00 运行；额度耗尽时保留 7 天重试窗口）
+- SEO 每周巡检：`node scripts/seo_weekly_watch.mjs`（上线第 60 天后每周一 09:00 运行）
 
 ## 部署说明 (Cloudflare Pages)
 - 构建命令 (Build Command)：`npm run build`
