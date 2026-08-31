@@ -1,6 +1,6 @@
 ---
 // input: lang ('en' | 'ja' | 'es' | 'pt' | 'ru'), static scoring data, localized dictionaries, and six approved comparison pairs
-// output: Five-language 66-question quiz with mobile answer feedback, separate native share/direct download/copy-link actions, vertical result card, review, gallery, and comparisons
+// output: Five-language 66-question quiz with answer feedback, native share analytics, direct download/copy-link actions, vertical result card, review, gallery, and comparisons
 // pos: src/components/Quiz.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import { getTranslations, type Locale } from '../i18n';
@@ -930,6 +930,8 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       if (currentIndex < QUESTIONS.length - 1) {
         renderQuestion(currentIndex + 1);
       } else {
+        const { ranked } = computeScores();
+        trackEvent("quiz_complete", { language: LANG, dominant_trait: ranked[0] });
         showResults();
       }
     }
@@ -1085,9 +1087,15 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       }
     }
 
+    function trackEvent(eventName, params = {}) {
+      if (typeof window.gtag === "function") {
+        window.gtag("event", eventName, params);
+      }
+    }
+
     function getShareUrl() {
       const localePath = LANG === "en" ? "/" : `/${LANG}/`;
-      return `https://soulvirtues.org${localePath}?ref=result_share`;
+      return `https://soulvirtues.org${localePath}?utm_source=share_sheet&utm_medium=share&utm_campaign=result_card`;
     }
 
     function buildResultCard() {
@@ -1235,6 +1243,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
     async function downloadResultCard() {
       playSound("select");
       const { dataUrl, filename } = buildResultCard();
+      trackEvent("result_card_download", { language: LANG });
 
       // iOS browsers may ignore the download attribute, so show a saveable image.
       const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
@@ -1255,6 +1264,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       playSound("select");
       const { dataUrl, dominant, filename } = buildResultCard();
       const shareUrl = getShareUrl();
+      trackEvent("share_open", { method: "native", content_type: "result_card" });
       const shareData = {
         title: "Soul Virtues Extractor",
         text: `${dominant.name} · ${QUIZ_UI.shareCardQuestion} ${shareUrl}`,
@@ -1272,6 +1282,11 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
           } else {
             await navigator.share(shareData);
           }
+          trackEvent("share", {
+            method: "native",
+            content_type: "result_card",
+            item_id: dominant.name,
+          });
           return;
         } catch (err) {
           if (err && err.name === "AbortError") {
@@ -1291,6 +1306,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       try {
         if (!navigator.clipboard?.writeText) throw new Error("Clipboard unavailable");
         await navigator.clipboard.writeText(shareUrl);
+        trackEvent("share_link_copy", { language: LANG });
         const btn = button;
         if (btn) {
           const orig = btn.innerHTML;

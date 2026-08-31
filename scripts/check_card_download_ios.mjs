@@ -1,6 +1,6 @@
 // input: src/components/Quiz.astro and src/i18n locale dictionaries
-// output: Fails unless vertical card export, native sharing, direct download, copy-link fallback, and i18n labels stay separated
-// pos: scripts/check_card_download_ios.mjs（更新规则：分享卡尺寸、按钮与移动端导出逻辑变化时同步本脚本与 scripts/README.md）
+// output: Fails unless vertical card export, native sharing, referral tagging, GA4 events, direct download, and copy-link fallback stay separated
+// pos: scripts/check_card_download_ios.mjs（更新规则：分享卡尺寸、统计事件与移动端导出逻辑变化时同步本脚本与 scripts/README.md）
 
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -40,6 +40,11 @@ for (const lang of ['en', 'es', 'ja', 'pt', 'ru']) {
   ]) {
     assert(langSource.includes(`${key}:`), `${lang}.ts must provide a ${key} translation`);
   }
+  assert(
+    langSource.includes('shareResultChannels: "X · INSTAGRAM · MESSAGES · MORE"'),
+    `${lang}.ts must use the approved international share-channel label`,
+  );
+  assert(!/wechat/i.test(langSource), `${lang}.ts must not advertise WeChat`);
 }
 
 // 2. Check action controls and iOS modal in Quiz.astro
@@ -53,8 +58,24 @@ assert(quizSource.includes('id="btn-close-card-modal"'), 'Quiz.astro must contai
 // 3. Check vertical card dimensions
 assert(quizSource.includes('canvas.width = 1080'), 'Result card must be 1080px wide');
 assert(quizSource.includes('canvas.height = 1350'), 'Result card must be 1350px tall');
+assert(
+  quizSource.includes('utm_source=share_sheet&utm_medium=share&utm_campaign=result_card'),
+  'Shared URLs must identify native-share referral traffic',
+);
 
-// 4. Check that sharing and downloading are separate paths
+// 4. Check minimal GA4 measurement points
+assert(quizSource.includes('function trackEvent('), 'Quiz.astro must define a guarded GA4 event helper');
+for (const eventName of [
+  'share_open',
+  'share',
+  'result_card_download',
+  'share_link_copy',
+  'quiz_complete',
+]) {
+  assert(quizSource.includes(`trackEvent("${eventName}"`), `Quiz.astro must track ${eventName}`);
+}
+
+// 5. Check that sharing and downloading are separate paths
 const downloadStart = quizSource.indexOf('async function downloadResultCard()');
 const shareStart = quizSource.indexOf('async function shareResultCard()');
 const copyStart = quizSource.indexOf('async function copyShareLink(');
