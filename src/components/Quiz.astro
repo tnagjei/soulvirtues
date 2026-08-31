@@ -1,6 +1,6 @@
 ---
 // input: lang ('en' | 'ja' | 'es' | 'pt' | 'ru'), static scoring data, localized dictionaries, and six approved comparison pairs
-// output: Five-language 66-question quiz with visible mobile answer confirmation, iOS-compatible card export modal, localized results, comparison links, review, gallery, and share card
+// output: Five-language 66-question quiz with mobile answer feedback, separate native share/direct download/copy-link actions, vertical result card, review, gallery, and comparisons
 // pos: src/components/Quiz.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import { getTranslations, type Locale } from '../i18n';
@@ -392,42 +392,81 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       </div>
     </div>
 
-    <!-- Action Buttons -->
-    <div class="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 pt-6 border-t-2 border-gray-800">
+    <!-- Share and Download Actions -->
+    <div class="max-w-2xl mx-auto pt-6 border-t-2 border-gray-800">
       <button
-        id="btn-download-card"
-        class="w-full sm:w-auto px-5 py-3 bg-black border-3 border-green-500 hover:bg-green-500 hover:text-black text-green-400 font-bold text-xs uppercase tracking-widest active:scale-95 transition-all cursor-pointer shadow-[3px_3px_0px_rgba(34,197,94,0.4)]"
+        id="btn-share-card"
+        type="button"
+        class="w-full min-h-16 grid grid-cols-[2.25rem_minmax(0,1fr)_1.5rem] items-center gap-3 px-4 py-3 bg-[#00c91a] border-3 border-green-400 hover:bg-green-400 text-black font-bold text-left active:scale-[0.98] transition-[background-color,transform] cursor-pointer shadow-[5px_5px_0px_#005b0c]"
       >
-        💾 {t.quizUI.downloadCardBtn}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" class="w-8 h-8" aria-hidden="true">
+          <circle cx="18" cy="5" r="3"></circle>
+          <circle cx="6" cy="12" r="3"></circle>
+          <circle cx="18" cy="19" r="3"></circle>
+          <path d="m8.6 10.5 6.8-4M8.6 13.5l6.8 4"></path>
+        </svg>
+        <span class="min-w-0">
+          <span class="block text-xs sm:text-sm leading-tight uppercase tracking-wider">{t.quizUI.shareResultBtn}</span>
+          <span class="block mt-1 text-[9px] sm:text-[10px] leading-tight uppercase tracking-normal">{t.quizUI.shareResultChannels}</span>
+        </span>
+        <span class="text-xl text-right" aria-hidden="true">→</span>
       </button>
 
-      <button
-        id="btn-copy-result"
-        class="w-full sm:w-auto px-5 py-3 bg-black border-3 border-yellow-400 hover:bg-yellow-400 hover:text-black text-yellow-400 font-bold text-xs uppercase tracking-widest active:scale-95 transition-all cursor-pointer shadow-[3px_3px_0px_rgba(250,204,21,0.4)]"
-      >
-        📋 {t.quizUI.copyResultBtn}
-      </button>
+      <div class="grid grid-cols-2 gap-3 mt-4">
+        <button
+          id="btn-download-card"
+          type="button"
+          class="min-h-16 flex items-center justify-center gap-2 px-3 py-3 bg-[#111412] border-2 border-gray-500 hover:border-white text-gray-100 font-bold text-[10px] sm:text-xs uppercase tracking-wider active:scale-[0.98] transition-[border-color,transform] cursor-pointer"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5 flex-none" aria-hidden="true">
+            <path d="M12 3v12m0 0 4-4m-4 4-4-4"></path>
+            <path d="M5 19h14"></path>
+          </svg>
+          <span>{t.quizUI.downloadCardBtn}</span>
+        </button>
 
-      <button
-        id="btn-review-answers"
-        class="w-full sm:w-auto px-5 py-3 bg-black border-3 border-cyan-400 hover:bg-cyan-400 hover:text-black text-cyan-400 font-bold text-xs uppercase tracking-widest active:scale-95 transition-all cursor-pointer shadow-[3px_3px_0px_rgba(6,182,212,0.4)]"
-      >
-        📝 {t.quizUI.reviewAnswersBtn}
-      </button>
+        <button
+          id="btn-copy-link"
+          type="button"
+          class="min-h-16 flex items-center justify-center gap-2 px-3 py-3 bg-[#111412] border-2 border-gray-500 hover:border-white text-gray-100 font-bold text-[10px] sm:text-xs uppercase tracking-wider active:scale-[0.98] transition-[border-color,transform] cursor-pointer"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5 flex-none" aria-hidden="true">
+            <path d="M10 13a5 5 0 0 0 7.5.5l2-2a5 5 0 0 0-7-7l-1.2 1.2"></path>
+            <path d="M14 11a5 5 0 0 0-7.5-.5l-2 2a5 5 0 0 0 7 7l1.2-1.2"></path>
+          </svg>
+          <span>{t.quizUI.copyLinkBtn}</span>
+        </button>
+      </div>
 
-      <button
-        id="btn-browse-souls"
-        class="w-full sm:w-auto px-5 py-3 bg-black border-3 border-purple-400 hover:bg-purple-400 hover:text-black text-purple-400 font-bold text-xs uppercase tracking-widest active:scale-95 transition-all cursor-pointer shadow-[3px_3px_0px_rgba(192,132,252,0.4)]"
-      >
-        📖 {t.quizUI.browseSoulsBtn}
-      </button>
+      <p class="mt-4 px-3 py-2.5 bg-yellow-950/20 border border-yellow-700/60 text-yellow-300 text-[11px] sm:text-xs leading-relaxed font-sans">
+        {t.quizUI.shareHint}
+      </p>
 
-      <button
-        id="btn-retake"
-        class="w-full sm:w-auto px-5 py-3 bg-black border-3 border-white hover:bg-white hover:text-black text-white font-bold text-xs uppercase tracking-widest active:scale-95 transition-all cursor-pointer shadow-[3px_3px_0px_rgba(255,255,255,0.4)]"
-      >
-        ↺ {t.quizUI.retakeBtn}
-      </button>
+      <div class="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 mt-8">
+        <button
+          id="btn-review-answers"
+          type="button"
+          class="w-full sm:w-auto px-5 py-3 bg-black border-3 border-cyan-400 hover:bg-cyan-400 hover:text-black text-cyan-400 font-bold text-xs uppercase tracking-widest active:scale-95 transition-[background-color,color,transform] cursor-pointer shadow-[3px_3px_0px_rgba(6,182,212,0.4)]"
+        >
+          📝 {t.quizUI.reviewAnswersBtn}
+        </button>
+
+        <button
+          id="btn-browse-souls"
+          type="button"
+          class="w-full sm:w-auto px-5 py-3 bg-black border-3 border-purple-400 hover:bg-purple-400 hover:text-black text-purple-400 font-bold text-xs uppercase tracking-widest active:scale-95 transition-[background-color,color,transform] cursor-pointer shadow-[3px_3px_0px_rgba(192,132,252,0.4)]"
+        >
+          📖 {t.quizUI.browseSoulsBtn}
+        </button>
+
+        <button
+          id="btn-retake"
+          type="button"
+          class="w-full sm:w-auto px-5 py-3 bg-black border-3 border-white hover:bg-white hover:text-black text-white font-bold text-xs uppercase tracking-widest active:scale-95 transition-[background-color,color,transform] cursor-pointer shadow-[3px_3px_0px_rgba(255,255,255,0.4)]"
+        >
+          ↺ {t.quizUI.retakeBtn}
+        </button>
+      </div>
     </div>
   </div>
 
@@ -1046,120 +1085,164 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       }
     }
 
-    async function drawResultCard() {
-      playSound("select");
+    function getShareUrl() {
+      const localePath = LANG === "en" ? "/" : `/${LANG}/`;
+      return `https://soulvirtues.org${localePath}?ref=result_share`;
+    }
+
+    function buildResultCard() {
       const { pct, ranked } = computeScores();
       const dominant = SOULS[ranked[0]];
 
       const canvas = document.createElement("canvas");
-      canvas.width = 1200;
-      canvas.height = 630;
+      canvas.width = 1080;
+      canvas.height = 1350;
       const ctx = canvas.getContext("2d");
+      if (!ctx) throw new Error("Canvas 2D context unavailable");
 
-      // Black Void Background
-      ctx.fillStyle = "#050505";
-      ctx.fillRect(0, 0, 1200, 630);
+      // Off-black background keeps the card legible without flattening every layer.
+      ctx.fillStyle = "#080909";
+      ctx.fillRect(0, 0, 1080, 1350);
 
-      // Pixel border frame
-      ctx.strokeStyle = "#ffffff";
-      ctx.lineWidth = 8;
-      ctx.strokeRect(16, 16, 1168, 598);
+      ctx.strokeStyle = "#f4f4ef";
+      ctx.lineWidth = 12;
+      ctx.strokeRect(18, 18, 1044, 1314);
 
       ctx.strokeStyle = dominant.hex;
-      ctx.lineWidth = 2;
-      ctx.strokeRect(28, 28, 1144, 574);
+      ctx.lineWidth = 3;
+      ctx.strokeRect(34, 34, 1012, 1282);
 
-      // Header Brand
-      ctx.fillStyle = "#ffffff";
-      ctx.font = "bold 24px monospace";
-      ctx.fillText("SOUL VIRTUES EXTRACTOR", 60, 75);
+      ctx.fillStyle = "#f4f4ef";
+      ctx.font = "bold 28px monospace";
+      ctx.textAlign = "left";
+      ctx.fillText("SOUL VIRTUES EXTRACTOR", 70, 82);
 
-      ctx.fillStyle = "#888888";
-      ctx.font = "16px monospace";
-      ctx.fillText("soulvirtues.org · 66-Question Test", 60, 105);
+      ctx.fillStyle = "#9da19e";
+      ctx.font = "18px monospace";
+      ctx.fillText("soulvirtues.org", 70, 118);
 
-      // Dominant Trait Callout
+      ctx.fillStyle = "#c9ccc9";
+      ctx.font = "bold 17px monospace";
+      ctx.textAlign = "right";
+      ctx.fillText(QUIZ_UI.shareCardMeta, 1010, 82, 410);
+
+      ctx.strokeStyle = "#343936";
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(70, 165);
+      ctx.lineTo(1010, 165);
+      ctx.stroke();
+
+      // Pixel heart
       ctx.fillStyle = dominant.hex;
-      ctx.font = "bold 64px monospace";
-      ctx.fillText(dominant.name, 60, 200);
+      const heart = new Path2D("M2 0h4v1H2zm8 0h4v1h-4zM1 1h6v1H1zm8 0h6v1H9zM0 2h7v1H0zm9 0h7v1H9zM0 3h7v1H0zm9 0h7v1H9zM0 4h16v6H0zm2 6h12v2H2zm2 2h8v2H4zm2 2h4v2H6z");
+      ctx.save();
+      ctx.translate(75, 220);
+      ctx.scale(11, 11);
+      ctx.fill(heart);
+      ctx.restore();
 
-      ctx.fillStyle = "#aaaaaa";
-      ctx.font = "bold 20px monospace";
-      ctx.fillText(`${dominant.label} SOUL · ${dominant.hex.toUpperCase()}`, 60, 240);
+      // Dominant trait
+      ctx.textAlign = "left";
+      ctx.fillStyle = "#9da19e";
+      ctx.font = "bold 17px monospace";
+      ctx.fillText(QUIZ_UI.primaryVirtue, 315, 225, 695);
 
-      // Tagline
-      ctx.fillStyle = "#e0e0e0";
-      ctx.font = "italic 22px serif";
-      ctx.fillText(`"${dominant.tag}"`, 60, 300);
+      ctx.fillStyle = dominant.hex;
+      ctx.font = "bold 68px monospace";
+      ctx.fillText(dominant.name, 315, 305, 695);
 
-      // 7 Virtues Bars on the Right Column
-      ctx.fillStyle = "#ffffff";
-      ctx.font = "bold 18px monospace";
-      ctx.fillText(QUIZ_UI.breakdownTitle, 680, 80);
+      ctx.fillStyle = "#d7dad7";
+      ctx.font = "bold 22px monospace";
+      ctx.fillText(`${dominant.label} · ${dominant.hex.toUpperCase()}`, 315, 350, 695);
 
-      const startY = 120;
+      ctx.fillStyle = "#f4f4ef";
+      ctx.font = "bold 42px monospace";
+      ctx.fillText(`${pct[ranked[0]].toFixed(1)}%`, 315, 420);
+
+      // Keep the localized tagline on one bounded line so it cannot overlap the bars.
+      ctx.fillStyle = "#101211";
+      ctx.fillRect(70, 465, 940, 80);
+      ctx.strokeStyle = "#39403b";
+      ctx.lineWidth = 2;
+      ctx.strokeRect(70, 465, 940, 80);
+      ctx.fillStyle = "#e3e5e2";
+      ctx.font = "bold 22px monospace";
+      ctx.fillText(dominant.tag, 94, 515, 892);
+
+      // 7 virtues
+      ctx.fillStyle = "#f4f4ef";
+      ctx.font = "bold 21px monospace";
+      ctx.fillText(QUIZ_UI.breakdownTitle, 70, 595, 940);
+
+      const startY = 650;
       ranked.forEach((code, idx) => {
         const s = SOULS[code];
         const val = pct[code];
-        const y = startY + idx * 60;
+        const y = startY + idx * 68;
 
         ctx.fillStyle = s.hex;
-        ctx.font = "bold 16px monospace";
-        ctx.fillText(s.name, 680, y);
+        ctx.font = "bold 17px monospace";
+        ctx.textAlign = "left";
+        ctx.fillText(s.name, 70, y, 740);
 
-        ctx.fillStyle = "#ffffff";
-        ctx.font = "bold 16px monospace";
-        ctx.fillText(`${val.toFixed(1)}%`, 1080, y);
+        ctx.fillStyle = "#f4f4ef";
+        ctx.textAlign = "right";
+        ctx.fillText(`${val.toFixed(1)}%`, 1010, y);
 
-        // Track
-        ctx.fillStyle = "#1a1a1a";
-        ctx.fillRect(680, y + 10, 440, 16);
-        ctx.strokeStyle = "#333333";
+        ctx.fillStyle = "#1c1f1d";
+        ctx.fillRect(70, y + 14, 940, 16);
+        ctx.strokeStyle = "#454945";
         ctx.lineWidth = 1;
-        ctx.strokeRect(680, y + 10, 440, 16);
+        ctx.strokeRect(70, y + 14, 940, 16);
 
-        // Fill
         ctx.fillStyle = s.hex;
-        ctx.fillRect(682, y + 12, (436 * val) / 100, 12);
+        ctx.fillRect(72, y + 16, (936 * val) / 100, 12);
       });
 
-      // Footer disclaimer
-      ctx.fillStyle = "#666666";
-      ctx.font = "14px monospace";
-      ctx.fillText("Undertale-inspired Fan Analytical Assessment · 100% Client-Side", 60, 560);
+      // Clear call to action keeps the typed domain visible even when a share target drops text.
+      ctx.fillStyle = "#061d09";
+      ctx.fillRect(70, 1135, 940, 135);
+      ctx.strokeStyle = dominant.hex;
+      ctx.lineWidth = 3;
+      ctx.strokeRect(70, 1135, 940, 135);
 
-      const filename = `soul-virtues-${dominant.name.toLowerCase()}-${LANG}.png`;
+      ctx.textAlign = "left";
+      ctx.fillStyle = "#f4f4ef";
+      ctx.font = "bold 25px monospace";
+      ctx.fillText(QUIZ_UI.shareCardQuestion, 95, 1182, 800);
+
+      ctx.fillStyle = dominant.hex;
+      ctx.font = "bold 20px monospace";
+      ctx.fillText(`${QUIZ_UI.shareCardCta} · soulvirtues.org`, 95, 1225, 800);
+
+      ctx.textAlign = "right";
+      ctx.font = "bold 44px monospace";
+      ctx.fillText("→", 970, 1215);
+
+      ctx.fillStyle = "#676b68";
+      ctx.font = "13px monospace";
+      ctx.textAlign = "left";
+      ctx.fillText("SOUL VIRTUES EXTRACTOR", 70, 1305);
+      ctx.textAlign = "right";
+      ctx.fillText("PRIVATE · CLIENT-SIDE", 1010, 1305);
+
+      const filename = `soul-virtues-${ranked[0].toLowerCase()}-${LANG}.png`;
       const dataUrl = canvas.toDataURL("image/png");
+      return { dataUrl, dominant, filename };
+    }
 
-      // 1. Try Native Web Share API (Primary mobile/iOS path)
-      if (typeof navigator !== "undefined" && typeof navigator.share === "function" && typeof File !== "undefined") {
-        try {
-          const res = await fetch(dataUrl);
-          const blob = await res.blob();
-          const file = new File([blob], filename, { type: "image/png" });
-          if (navigator.canShare && navigator.canShare({ files: [file] })) {
-            await navigator.share({
-              files: [file],
-              title: "Soul Virtues Extractor",
-              text: `My Dominant Soul Virtue is ${dominant.name}! Take the test at https://soulvirtues.org/`,
-            });
-            return;
-          }
-        } catch (err) {
-          if (err && err.name === "AbortError") {
-            return;
-          }
-        }
-      }
+    async function downloadResultCard() {
+      playSound("select");
+      const { dataUrl, filename } = buildResultCard();
 
-      // 2. iOS fallback (Safari / Chrome for iOS) where download attribute is ignored
+      // iOS browsers may ignore the download attribute, so show a saveable image.
       const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
       if (isIOS) {
         showCardModal(dataUrl);
         return;
       }
 
-      // 3. Desktop and Android direct download
       const link = document.createElement("a");
       link.download = filename;
       link.href = dataUrl;
@@ -1168,28 +1251,55 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       document.body.removeChild(link);
     }
 
-    function copySummaryText() {
-      const { pct, ranked } = computeScores();
-      const dominant = SOULS[ranked[0]];
-      const text = [
-        "✨ My Undertale Soul Virtues Result:",
-        `Dominant Soul: ${dominant.name} (${dominant.label} SOUL)`,
-        `Tagline: "${dominant.tag}"`,
-        "",
-        `📊 ${QUIZ_UI.breakdownTitle}:`,
-        ranked.map(t => `${SOULS[t].name}: ${pct[t].toFixed(1)}%`).join("\n"),
-        "",
-        `Take the free 66-question test at: https://soulvirtues.org${LANG === 'ja' ? '/ja/' : '/'}`
-      ].join("\n");
+    async function shareResultCard() {
+      playSound("select");
+      const { dataUrl, dominant, filename } = buildResultCard();
+      const shareUrl = getShareUrl();
+      const shareData = {
+        title: "Soul Virtues Extractor",
+        text: `${dominant.name} · ${QUIZ_UI.shareCardQuestion} ${shareUrl}`,
+        url: shareUrl,
+      };
 
-      navigator.clipboard.writeText(text).then(() => {
-        const btn = document.getElementById("btn-copy-result");
+      if (typeof navigator !== "undefined" && typeof navigator.share === "function" && typeof File !== "undefined") {
+        try {
+          const res = await fetch(dataUrl);
+          const blob = await res.blob();
+          const file = new File([blob], filename, { type: "image/png" });
+          const fileShareData = { ...shareData, files: [file] };
+          if (navigator.canShare && navigator.canShare(fileShareData)) {
+            await navigator.share(fileShareData);
+          } else {
+            await navigator.share(shareData);
+          }
+          return;
+        } catch (err) {
+          if (err && err.name === "AbortError") {
+            return;
+          }
+        }
+      }
+
+      await copyShareLink(document.getElementById("btn-share-card"));
+    }
+
+    async function copyShareLink(eventOrButton) {
+      if (eventOrButton?.currentTarget) playSound("select");
+      const button = eventOrButton?.currentTarget || eventOrButton || document.getElementById("btn-copy-link");
+      const shareUrl = getShareUrl();
+
+      try {
+        if (!navigator.clipboard?.writeText) throw new Error("Clipboard unavailable");
+        await navigator.clipboard.writeText(shareUrl);
+        const btn = button;
         if (btn) {
           const orig = btn.innerHTML;
-          btn.innerHTML = `✓ ${QUIZ_UI.copiedNotice}`;
+          btn.textContent = `✓ ${QUIZ_UI.linkCopiedNotice}`;
           setTimeout(() => { btn.innerHTML = orig; }, 2000);
         }
-      });
+      } catch (error) {
+        window.prompt(QUIZ_UI.copyLinkBtn, shareUrl);
+      }
     }
 
     // Answers Review List
@@ -1356,8 +1466,9 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
     document.getElementById("btn-prev")?.addEventListener("click", goBack);
     document.getElementById("btn-next")?.addEventListener("click", confirmAndAdvance);
 
-    document.getElementById("btn-download-card")?.addEventListener("click", drawResultCard);
-    document.getElementById("btn-copy-result")?.addEventListener("click", copySummaryText);
+    document.getElementById("btn-share-card")?.addEventListener("click", shareResultCard);
+    document.getElementById("btn-download-card")?.addEventListener("click", downloadResultCard);
+    document.getElementById("btn-copy-link")?.addEventListener("click", copyShareLink);
     document.getElementById("btn-retake")?.addEventListener("click", () => {
       showScreen("start");
     });

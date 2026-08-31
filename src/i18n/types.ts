@@ -113,10 +113,16 @@ export interface QuizUITranslations {
   primaryVirtue: string;
   secondaryVirtue: string;
   breakdownTitle: string;
+  shareResultBtn: string;
+  shareResultChannels: string;
+  shareHint: string;
+  shareCardMeta: string;
+  shareCardQuestion: string;
+  shareCardCta: string;
   downloadCardBtn: string;
   saveCardHint: string;
-  copyResultBtn: string;
-  copiedNotice: string;
+  copyLinkBtn: string;
+  linkCopiedNotice: string;
   reviewAnswersBtn: string;
   browseSoulsBtn: string;
   retakeBtn: string;
