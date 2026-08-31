@@ -114,6 +114,7 @@ export interface QuizUITranslations {
   secondaryVirtue: string;
   breakdownTitle: string;
   downloadCardBtn: string;
+  saveCardHint: string;
   copyResultBtn: string;
   copiedNotice: string;
   reviewAnswersBtn: string;

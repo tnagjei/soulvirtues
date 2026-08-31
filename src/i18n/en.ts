@@ -160,6 +160,7 @@ export const enTranslations: Translations = {
     secondaryVirtue: "SECONDARY VIRTUE / SHADOW TRAIT",
     breakdownTitle: "7 SOUL VIRTUES BREAKDOWN",
     downloadCardBtn: "DOWNLOAD CARD (PNG)",
+    saveCardHint: "Press and hold image to save to Photos / right click to save.",
     copyResultBtn: "COPY RESULTS",
     copiedNotice: "Results copied to clipboard!",
     reviewAnswersBtn: "REVIEW ANSWERS",

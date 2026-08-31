@@ -1,6 +1,6 @@
 ---
 // input: lang ('en' | 'ja' | 'es' | 'pt' | 'ru'), static scoring data, localized dictionaries, and six approved comparison pairs
-// output: Five-language 66-question quiz with visible mobile answer confirmation, localized results, comparison links, review, gallery, and share card
+// output: Five-language 66-question quiz with visible mobile answer confirmation, iOS-compatible card export modal, localized results, comparison links, review, gallery, and share card
 // pos: src/components/Quiz.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import { getTranslations, type Locale } from '../i18n';
@@ -427,6 +427,35 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
         class="w-full sm:w-auto px-5 py-3 bg-black border-3 border-white hover:bg-white hover:text-black text-white font-bold text-xs uppercase tracking-widest active:scale-95 transition-all cursor-pointer shadow-[3px_3px_0px_rgba(255,255,255,0.4)]"
       >
         ↺ {t.quizUI.retakeBtn}
+      </button>
+    </div>
+  </div>
+
+  <!-- 3.1 Card Preview Modal for iOS and fallback devices -->
+  <div
+    id="card-preview-modal"
+    class="hidden fixed inset-0 z-50 bg-black/90 flex flex-col items-center justify-center p-4"
+    role="dialog"
+    aria-label="Result Card Preview"
+  >
+    <div class="pixel-box max-w-xl w-full p-4 sm:p-6 bg-black border-4 border-white text-center font-mono my-auto">
+      <div class="flex justify-between items-center mb-3 border-b-2 border-gray-700 pb-2">
+        <span class="text-xs text-green-400 font-bold uppercase tracking-wider font-mono">💾 SOUL CARD PREVIEW</span>
+        <button
+          id="btn-close-card-modal"
+          type="button"
+          class="text-xs text-gray-400 hover:text-white px-2.5 py-1 border border-gray-600 font-mono cursor-pointer"
+          aria-label="Close"
+        >
+          ✕
+        </button>
+      </div>
+      <img id="card-preview-img" src="" alt="Soul Virtues Result Card" class="w-full h-auto border-2 border-gray-600 mb-3 shadow-[0_0_15px_rgba(255,255,255,0.2)]" />
+      <p class="text-xs text-yellow-400 font-mono mb-4 leading-relaxed">
+        * {t.quizUI.saveCardHint}
+      </p>
+      <button id="btn-done-card-modal" type="button" class="px-6 py-2.5 bg-white text-black font-bold font-mono text-xs uppercase tracking-wider hover:bg-gray-200 cursor-pointer active:scale-95 transition-all">
+        [OK]
       </button>
     </div>
   </div>
@@ -1008,7 +1037,16 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
     }
 
     // Share Card Canvas Generator
-    function drawResultCard() {
+    function showCardModal(dataUrl) {
+      const modal = document.getElementById("card-preview-modal");
+      const img = document.getElementById("card-preview-img");
+      if (modal && img) {
+        img.src = dataUrl;
+        modal.classList.remove("hidden");
+      }
+    }
+
+    async function drawResultCard() {
       playSound("select");
       const { pct, ranked } = computeScores();
       const dominant = SOULS[ranked[0]];
@@ -1090,10 +1128,44 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       ctx.font = "14px monospace";
       ctx.fillText("Undertale-inspired Fan Analytical Assessment · 100% Client-Side", 60, 560);
 
+      const filename = `soul-virtues-${dominant.name.toLowerCase()}-${LANG}.png`;
+      const dataUrl = canvas.toDataURL("image/png");
+
+      // 1. Try Native Web Share API (Primary mobile/iOS path)
+      if (typeof navigator !== "undefined" && typeof navigator.share === "function" && typeof File !== "undefined") {
+        try {
+          const res = await fetch(dataUrl);
+          const blob = await res.blob();
+          const file = new File([blob], filename, { type: "image/png" });
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            await navigator.share({
+              files: [file],
+              title: "Soul Virtues Extractor",
+              text: `My Dominant Soul Virtue is ${dominant.name}! Take the test at https://soulvirtues.org/`,
+            });
+            return;
+          }
+        } catch (err) {
+          if (err && err.name === "AbortError") {
+            return;
+          }
+        }
+      }
+
+      // 2. iOS fallback (Safari / Chrome for iOS) where download attribute is ignored
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+      if (isIOS) {
+        showCardModal(dataUrl);
+        return;
+      }
+
+      // 3. Desktop and Android direct download
       const link = document.createElement("a");
-      link.download = `soul-virtues-${dominant.name.toLowerCase()}-${LANG}.png`;
-      link.href = canvas.toDataURL("image/png");
+      link.download = filename;
+      link.href = dataUrl;
+      document.body.appendChild(link);
       link.click();
+      document.body.removeChild(link);
     }
 
     function copySummaryText() {
@@ -1288,6 +1360,12 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
     document.getElementById("btn-copy-result")?.addEventListener("click", copySummaryText);
     document.getElementById("btn-retake")?.addEventListener("click", () => {
       showScreen("start");
+    });
+    document.getElementById("btn-close-card-modal")?.addEventListener("click", () => {
+      document.getElementById("card-preview-modal")?.classList.add("hidden");
+    });
+    document.getElementById("btn-done-card-modal")?.addEventListener("click", () => {
+      document.getElementById("card-preview-modal")?.classList.add("hidden");
     });
 
     // Keyboard navigation

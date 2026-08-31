@@ -342,6 +342,7 @@ export const jaTranslations: Translations = {
     secondaryVirtue: "第2の美徳 / シャドウ特性",
     breakdownTitle: "7つの魂の美徳 詳細割合",
     downloadCardBtn: "結果カードを保存 (PNG)",
+    saveCardHint: "画像を長押し（または右クリック）して保存してください。",
     copyResultBtn: "結果をコピー",
     copiedNotice: "クリップボードに結果をコピーしました！",
     reviewAnswersBtn: "回答を振り返る",
@@ -356,4 +357,3 @@ export const jaTranslations: Translations = {
   souls: JA_SOULS,
   questions: JA_QUESTIONS,
 };
-

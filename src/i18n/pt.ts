@@ -342,6 +342,7 @@ export const ptTranslations: Translations = {
     secondaryVirtue: "VIRTUDE SECUNDÁRIA / TRAÇO SOMBRA",
     breakdownTitle: "DETALHAMENTO DAS 7 VIRTUDES",
     downloadCardBtn: "BAIXAR CARD (PNG)",
+    saveCardHint: "Pressione e segure a imagem para salvar no seu dispositivo.",
     copyResultBtn: "COPIAR RESULTADOS",
     copiedNotice: "Resultados copiados para a área de transferência!",
     reviewAnswersBtn: "REVISAR RESPOSTAS",

@@ -344,6 +344,7 @@ export const ruTranslations: Translations = {
     secondaryVirtue: "ВТОРОСТЕПЕННАЯ ЧЕРТА / ТЕНЬ",
     breakdownTitle: "РАСПРЕДЕЛЕНИЕ 7 ДОБРОДЕТЕЛЕЙ ДУШИ",
     downloadCardBtn: "СКАЧАТЬ КАРТОЧКУ (PNG)",
+    saveCardHint: "Удерживайте изображение (или нажмите правой кнопкой), чтобы сохранить.",
     copyResultBtn: "СКОПИРОВАТЬ РЕЗУЛЬТАТ",
     copiedNotice: "Результат скопирован в буфер обмена!",
     reviewAnswersBtn: "ОБЗОР ОТВЕТОВ",

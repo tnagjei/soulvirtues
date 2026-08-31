@@ -342,6 +342,7 @@ export const esTranslations: Translations = {
     secondaryVirtue: "VIRTUD SECUNDARIA / RASGO SOMBRA",
     breakdownTitle: "DESGLOSE DE LAS 7 VIRTUDES",
     downloadCardBtn: "DESCARGAR TARJETA (PNG)",
+    saveCardHint: "Mantén presionada la imagen para guardarla en Fotos o descargas.",
     copyResultBtn: "COPIAR RESULTADOS",
     copiedNotice: "¡Resultados copiados al portapapeles!",
     reviewAnswersBtn: "REVISAR RESPUESTAS",
