@@ -14,6 +14,6 @@
 - ru/：俄语版页面路由子目录（含首页、单特质页与对比样板页）
 - 404.astro：Cloudflare Pages 使用的真实 404 页面，禁止索引并提供首页与测验返回入口
 - about.astro：关于我们、同人致敬说明与受 Cloudflare 改写保护的官方邮箱
-- privacy.astro：零收集、本地存储隐私协议与受 Cloudflare 改写保护的官方邮箱
+- privacy.astro：包含本地存储、Google Analytics、Microsoft Clarity、AdSense Cookie 合规与官方邮箱的隐私政策
 - terms.astro：服务条款、免责声明与受 Cloudflare 改写保护的官方邮箱
 - contact.astro：联系方式、反馈渠道与受 Cloudflare 改写保护的官方邮箱

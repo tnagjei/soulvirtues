@@ -1,5 +1,5 @@
 ---
-// input: None (static Privacy Policy page)
+// input: None (static Privacy Policy page with Google AdSense and analytics compliance)
 // output: Comprehensive Privacy Policy meeting modern compliance and SEO standards
 // pos: src/pages/privacy.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
@@ -31,7 +31,7 @@ const structuredData = {
   <div class="max-w-4xl mx-auto px-4 sm:px-6 py-16">
     <div class="mb-10 text-center">
       <h1 class="text-3xl sm:text-5xl font-black text-white font-mono mb-4">Privacy Policy</h1>
-      <p class="text-gray-400 text-xs font-mono">Last Updated: August 18, 2026</p>
+      <p class="text-gray-400 text-xs font-mono">Last Updated: August 31, 2026</p>
     </div>
 
     <div class="pixel-card p-6 sm:p-10 space-y-6 text-gray-300 text-sm leading-relaxed">
@@ -57,21 +57,49 @@ const structuredData = {
       </div>
 
       <div>
-        <h2 class="text-lg font-bold text-white mb-2">4. Technical Logs</h2>
+        <h2 class="text-lg font-bold text-white mb-2">4. Analytics and Performance Tools</h2>
         <p>
-          We use static hosting services (such as Cloudflare Pages) which process standard technical logs (such as IP address, browser user agent, and request timestamps) to maintain network security and DDoS mitigation.
+          To understand traffic patterns and optimize user experience, we utilize third-party analytics services:
+        </p>
+        <ul class="list-disc list-inside space-y-1.5 mt-2 pl-2 text-gray-400">
+          <li><strong class="text-gray-200">Google Analytics:</strong> Collects aggregated, non-personally identifiable telemetry such as browser type, referring pages, session duration, and approximate geographic region.</li>
+          <li><strong class="text-gray-200">Microsoft Clarity:</strong> Captures anonymous user behavioral metrics and heatmaps to improve navigation and interface clarity.</li>
+          <li><strong class="text-gray-200">Cloudflare Pages & Security Logs:</strong> Processes standard request metadata (including IP address and request timestamps) strictly for DDoS mitigation and global edge performance.</li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-bold text-white mb-2">5. Cookies and Third-Party Advertising (Google AdSense)</h2>
+        <p>
+          We may serve advertisements through Google AdSense and affiliated certified ad networks on our website.
+        </p>
+        <ul class="list-disc list-inside space-y-1.5 mt-2 pl-2 text-gray-400">
+          <li>Third-party vendors, including Google, use cookies, web beacons, and unique identifiers to serve ads based on a user's prior visits to this website or other websites on the Internet.</li>
+          <li>Google's use of advertising cookies enables it and its partners to serve targeted ads based on your visits to our site and/or other sites across the Internet.</li>
+          <li>Users may opt out of personalized advertising at any time by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer" class="text-red-400 underline font-mono">Google Ads Settings</a> or by visiting <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer" class="text-red-400 underline font-mono">www.aboutads.info</a>.</li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-bold text-white mb-2">6. User Rights and Global Privacy Regulations</h2>
+        <p>
+          Depending on your location, you may have specific privacy rights under applicable regulations (such as GDPR for European Economic Area / UK residents, or CCPA/CPRA for California residents):
+        </p>
+        <ul class="list-disc list-inside space-y-1.5 mt-2 pl-2 text-gray-400">
+          <li><strong class="text-gray-200">EEA / UK Users (GDPR):</strong> You have the right to access, rectify, or erase your personal data, and to manage or withdraw your consent for non-essential cookies through our certified Consent Management Platform (CMP) message prompt.</li>
+          <li><strong class="text-gray-200">California Residents (CCPA/CPRA):</strong> We do not sell or share personal information for monetary consideration.</li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-bold text-white mb-2">7. Children's Privacy</h2>
+        <p>
+          Our website is designed for general audiences and does not knowingly collect or solicit personal information from children under the age of 13.
         </p>
       </div>
 
       <div>
-        <h2 class="text-lg font-bold text-white mb-2">5. Children's Privacy</h2>
-        <p>
-          Our website does not knowingly collect or solicit personal information from children under the age of 13.
-        </p>
-      </div>
-
-      <div>
-        <h2 class="text-lg font-bold text-white mb-2">6. Contact Us</h2>
+        <h2 class="text-lg font-bold text-white mb-2">8. Contact Us</h2>
         <p>
           If you have any questions or comments about this Privacy Policy, please reach out via email at:
           <!--email_off--><a href="mailto:contact@soulvirtues.org" class="text-red-400 underline font-mono">contact@soulvirtues.org</a><!--/email_off-->.

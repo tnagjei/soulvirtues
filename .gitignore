@@ -29,3 +29,6 @@ scripts/verify_*.mjs
 seo-input/gsc-api/
 seo-input/clarity-api/
 spd-v2-quality-*.md
+reports/gsc/launchd/*.log
+reports/gsc/launchd/*.err
+reports/gsc/day15-review.md
