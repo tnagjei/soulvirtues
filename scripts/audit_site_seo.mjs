@@ -29,7 +29,7 @@ function getFiles(dir) {
 }
 
 const notFoundPath = path.join(distDir, '404.html');
-const htmlFiles = getFiles(distDir).filter(file => file !== notFoundPath);
+const htmlFiles = getFiles(distDir).filter(file => file !== notFoundPath && !path.basename(file).startsWith('naver'));
 if (htmlFiles.length === 0) {
   console.error('Error: No HTML files found in dist/. Please run npm run build first.');
   process.exit(1);

@@ -80,7 +80,7 @@ const defaultEnLabels: SoulDetailLabels = {
   realWorldLabel: 'Real-World Behavioral Expression:',
   ctaTitle: 'Discover Your True Undertale Soul Trait',
   ctaDesc: 'Do you possess pure virtues or a blend of multiple traits? Take the free 66-question Soul Virtues Extractor test to calculate your percentage breakdown.',
-  ctaBtn: 'START THE 66-QUESTION SOUL TEST',
+  ctaBtn: 'TAKE THE 66-QUESTION UNDERTALE SOUL TEST',
   exploreOther: 'Explore Other Undertale Soul Traits',
   itemLocation: 'Found at:',
 };

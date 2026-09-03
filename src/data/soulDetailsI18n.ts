@@ -22,7 +22,7 @@ const jaLabels: SoulDetailLabels = {
   realWorldLabel: '現実世界での行動パターン:',
   ctaTitle: 'あなたの真の Undertale 魂の特質を診断する',
   ctaDesc: 'あなたは純粋な1つの美徳の持ち主か、それとも複数の美徳のハイブリッドか？無料の66問テストで正確な割合を診断しましょう。',
-  ctaBtn: '66問の魂診断テストを開始する',
+  ctaBtn: '66問のUndertaleソウル診断テストを開始する',
   exploreOther: '他の6つの魂の特徴を見る',
   itemLocation: '入手場所:',
 };
@@ -43,7 +43,7 @@ const esLabels: SoulDetailLabels = {
   realWorldLabel: 'Expresión Conductual en el Mundo Real:',
   ctaTitle: 'Descubre tu Verdadero Rasgo de Alma de Undertale',
   ctaDesc: '¿Posees una virtud pura o una mezcla de múltiples rasgos? Realiza el test gratuito de 66 preguntas para descubrir tu desglose porcentual.',
-  ctaBtn: 'INICIAR EL TEST DE ALMA DE 66 PREGUNTAS',
+  ctaBtn: 'HACER EL TEST DE ALMAS DE UNDERTALE (66 PREGUNTAS)',
   exploreOther: 'Explorar Otros Rasgos de Alma de Undertale',
   itemLocation: 'Ubicación:',
 };
@@ -64,7 +64,7 @@ const ptLabels: SoulDetailLabels = {
   realWorldLabel: 'Expressão Comportamental no Mundo Real:',
   ctaTitle: 'Descubra seu Verdadeiro Traço de Alma de Undertale',
   ctaDesc: 'Você possui uma virtude pura ou uma mistura de vários traços? Faça o teste gratuito de 66 perguntas para descobrir suas porcentagens.',
-  ctaBtn: 'INICIAR O TESTE DE ALMA DE 66 PERGUNTAS',
+  ctaBtn: 'FAZER O TESTE DAS ALMAS DE UNDERTALE (66 PERGUNTAS)',
   exploreOther: 'Explorar Outros Traços de Alma de Undertale',
   itemLocation: 'Localização:',
 };
@@ -409,7 +409,7 @@ const ruLabels: SoulDetailLabels = {
   realWorldLabel: 'Поведение в реальном мире:',
   ctaTitle: 'Узнайте вашу истинную черту души Undertale',
   ctaDesc: 'Какая у вас душа — чистая добродетель или гармоничный баланс нескольких качеств? Пройдите тест из 66 вопросов.',
-  ctaBtn: 'НАЧАТЬ ТЕСТ ДУШИ (66 ВОПРОСОВ)',
+  ctaBtn: 'ПРОЙТИ ТЕСТ ДУШИ UNDERTALE (66 ВОПРОСОВ)',
   exploreOther: 'Исследовать другие черты души Undertale',
   itemLocation: 'Где найти:',
 };
