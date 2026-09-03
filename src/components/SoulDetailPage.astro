@@ -1,6 +1,6 @@
 ---
 // input: soulDetail object with localized copy, lang ('en' | 'ja' | 'es' | 'pt' | 'ru')
-// output: Complete responsive single-trait SEO landing page template with schema, equipment, mechanics, and CTA
+// output: Responsive localized trait page with schema, interpretation labels, equipment, mechanics, and CTA
 // pos: src/components/SoulDetailPage.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import Layout from '../layouts/Layout.astro';
@@ -17,6 +17,7 @@ interface Props {
 
 const { soulDetail, lang = 'en' } = Astro.props;
 const siteUrl = "https://soulvirtues.org";
+const soulWord = { en: 'SOUL', ja: 'タマシイ', es: 'Alma', pt: 'Alma', ru: 'Душа' }[lang];
 const langPrefix = lang === 'en' ? '' : `/${lang}`;
 const pagePath = `${langPrefix}/souls/${soulDetail.slug}/`;
 const pageUrl = `${siteUrl}${pagePath}`;
@@ -53,7 +54,7 @@ const structuredData = {
         {
           "@type": "ListItem",
           "position": 3,
-          "name": `${soulDetail.name} (${soulDetail.colorName} SOUL)`,
+          "name": `${soulDetail.name} (${soulDetail.colorName} ${soulWord})`,
           "item": pageUrl
         }
       ]
@@ -106,7 +107,7 @@ const structuredData = {
 
        <div class="text-center sm:text-left flex-1">
           <a href={virtuesAnchor} class="inline-flex items-center gap-2 px-3 py-1 bg-black border hover:brightness-125 transition-all text-xs font-mono font-bold tracking-wider uppercase mb-3 cursor-pointer" style={`border-color: ${soulDetail.hex}; color: ${soulDetail.hex}`} title={soulDetail.labels.traitsBreadcrumb}>
-           {soulDetail.colorName} SOUL · {soulDetail.hex}
+           {soulDetail.colorName} {soulWord} · {soulDetail.hex}
           </a>
 
          <h1 class="text-3xl sm:text-5xl font-black text-white font-mono tracking-tight mb-2">
@@ -114,7 +115,7 @@ const structuredData = {
           </h1>
 
           <p class="text-xs sm:text-sm text-gray-300 font-mono italic mb-4 border-l-2 pl-3 py-1 border-gray-700">
-            "{soulDetail.tagQuote}"
+            <span class="text-yellow-400 not-italic font-bold">{soulDetail.labels.interpretationLabel}</span> {soulDetail.tagQuote}
           </p>
 
           <div class="p-3 bg-black/60 border border-gray-800 text-xs text-gray-300 font-mono">
@@ -289,7 +290,7 @@ const structuredData = {
                 {other.name}
               </div>
               <div class="text-[10px] text-gray-500 font-mono">
-                {other.colorName} SOUL
+                {other.colorName} {soulWord}
               </div>
             </a>
           ))}

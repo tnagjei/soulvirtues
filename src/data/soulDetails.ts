@@ -1,5 +1,5 @@
 // input: None (static detailed metadata and lore for 7 Undertale soul traits in English)
-// output: Exported SOUL_DETAILS dictionary with weapon, armor, battle mechanics, flags, and SEO copy
+// output: Exported SOUL_DETAILS dictionary with evidence-bounded lore, equipment, mechanics, flags, and SEO copy
 // pos: src/data/soulDetails.ts (更新规则：文件变更需同步本注释与所属目录 README)
 
 import type { SoulCode } from './souls';
@@ -15,6 +15,7 @@ export interface SoulItem {
 export interface SoulDetailLabels {
   home: string;
   traitsBreadcrumb: string;
+  interpretationLabel: string;
   ballGameLabel: string;
   loreHeading: string;
   itemsHeading: string;
@@ -66,10 +67,11 @@ export interface SoulDetail {
 const defaultEnLabels: SoulDetailLabels = {
   home: 'Home',
   traitsBreadcrumb: 'Soul Traits',
-  ballGameLabel: 'Snowdin Ball Game Flag:',
+  interpretationLabel: 'Fan interpretation:',
+  ballGameLabel: 'Snowdin Ball Game theme:',
   loreHeading: 'Underground Lore & Human Identity',
   itemsHeading: 'Signature Weapons & Armor Equipment',
-  itemsSub: 'Every fallen human left behind identifiable equipment reflecting their dominant soul virtue.',
+  itemsSub: 'Undertale associates each item pair with a human SOUL color. Any personality connection discussed here is a fan interpretation, not a confirmed biography.',
   mechanicsHeading: 'Battle Mode & Combat Mechanics',
   personalityHeading: 'Personality Profile & Psychological Analysis',
   motivationLabel: 'Core Motivation',
@@ -95,7 +97,7 @@ export const SOUL_DETAILS: Record<string, SoulDetail> = {
     tagQuote: 'Despite how many times I fell, I always got back up.',
     seoTitle: 'Determination Soul Undertale (Red SOUL) - Lore, Items & Meaning',
     seoDescription: 'Complete guide to the Red Determination SOUL in Undertale. Learn its game lore, weapons and armor (Stick, Real Knife), battle mechanics, and personality traits.',
-    gameLore: 'In the Underground, Determination is the substance that allows human souls to persist after death and warp the timeline through SAVE points and resets. Frisk and the First Fallen Human embody this unstoppable power.',
+    gameLore: "Undertale establishes Determination as a power connected with human SOUL persistence and SAVE. The game does not explicitly name Determination as the Red SOUL trait; that label is a familiar fan interpretation.",
     battleMechanicsTitle: 'Standard Red SOUL (Free 360-Degree Movement)',
     battleMechanicsDesc: 'The Red SOUL allows completely unhindered 360-degree free movement within the bullet box. It represents baseline human autonomy and the refusal to succumb to fatal blows.',
     items: [
@@ -137,7 +139,7 @@ export const SOUL_DETAILS: Record<string, SoulDetail> = {
     tagQuote: 'Even with trembling in my legs, I refused to back down.',
     seoTitle: 'Bravery Soul Undertale (Orange SOUL) - Lore, Items & Meaning',
     seoDescription: 'Explore the Orange Bravery SOUL in Undertale. Discover its game lore, weapons (Tough Glove, Manly Bandanna), orange attack movement mechanics, and traits.',
-    gameLore: 'The Orange SOUL child journeyed through Snowdin boldly. Their proactive spirit drove them forward into dangerous battles rather than retreating into safety.',
+    gameLore: "Snowdin’s Ball Game presents Bravery in orange, while the Tough Glove and Manly Bandanna are associated with the orange human through game evidence. Undertale does not provide that human’s personality or journey.",
     battleMechanicsTitle: 'Orange Attack Phase (Continuous Movement)',
     battleMechanicsDesc: 'To avoid taking damage from Orange attacks, the player must keep moving continuously through the hazard. Pausing or standing still triggers immediate damage.',
     items: [
@@ -179,7 +181,7 @@ export const SOUL_DETAILS: Record<string, SoulDetail> = {
     tagQuote: 'Despite the cruelty I endured, I never let myself be corrupted.',
     seoTitle: 'Justice Soul Undertale (Yellow SOUL) - Lore, Items & Meaning',
     seoDescription: 'Complete guide to the Yellow Justice SOUL in Undertale. Learn about the Empty Gun and Cowboy Hat, the inverted shooting SOUL mechanic, and personality profile.',
-    gameLore: 'The Yellow SOUL child was a righteous shooter who carried out moral judgments through the Underground, venturing far into Hotland before their journey ended.',
+    gameLore: "Snowdin’s Ball Game presents Justice in yellow, while the Empty Gun and Cowboy Hat are associated with the yellow human through game evidence. Undertale does not provide that human’s personality or moral history.",
     battleMechanicsTitle: 'Yellow SOUL Shooter Mode (Inverted Shooting)',
     battleMechanicsDesc: 'Alphys upgrades the phone to flip the Yellow SOUL upside down, allowing it to fire offensive yellow energy bullets to destroy oncoming projectiles and robotic targets in the Mettaton EX battle.',
     items: [
@@ -221,7 +223,7 @@ export const SOUL_DETAILS: Record<string, SoulDetail> = {
     tagQuote: 'No matter how many times I got hurt, I never let that make me cruel.',
     seoTitle: 'Kindness Soul Undertale (Green SOUL) - Lore, Items & Meaning',
     seoDescription: 'Discover the Green Kindness SOUL in Undertale. Explore lore, items (Burnt Pan, Stained Apron), green shield battle mechanics, and personality analysis.',
-    gameLore: 'The Green SOUL child was a nurturing figure who carried kitchenware and shared nourishment with creatures in Hotland, maintaining warm compassion despite Underground hostility.',
+    gameLore: "Snowdin’s Ball Game presents Kindness in green, while the Burnt Pan and Stained Apron are associated with the green human through game evidence. Undertale does not say that this human cooked for or cared for monsters.",
     battleMechanicsTitle: 'Green SOUL Shield Mode & Healing Hazards (Deflection & Recovery)',
     battleMechanicsDesc: 'Undyne turns the SOUL green, rooting it in place while granting a magic spear shield to deflect projectile spears from 4 directions. In standard fights, Green projectiles restore HP when touched.',
     items: [
@@ -263,7 +265,7 @@ export const SOUL_DETAILS: Record<string, SoulDetail> = {
     tagQuote: 'Even when everything urged haste, I chose to wait for the right moment.',
     seoTitle: 'Patience Soul Undertale (Cyan SOUL) - Lore, Items & Meaning',
     seoDescription: 'Master the Cyan Patience SOUL in Undertale. Learn about the Toy Knife, Faded Ribbon, cyan still-stand mechanics, and the psychology of the Patient SOUL.',
-    gameLore: 'The Cyan SOUL child stayed in the safe confines of the Ruins with Toriel for a long period, waiting patiently and observing carefully before stepping into danger.',
+    gameLore: "Snowdin’s Ball Game presents Patience in light blue, while the Toy Knife and Faded Ribbon are associated with the light-blue human through game evidence. Undertale does not describe how long that human stayed in the Ruins.",
     battleMechanicsTitle: 'Cyan Attack Phase (Stationary Stillness)',
     battleMechanicsDesc: 'To safely pass through Cyan or Light Blue attacks (such as Doggo swords, Gyftrot ornaments, or Papyrus blue bones), the SOUL must remain completely stationary. Any movement triggers damage.',
     items: [
@@ -305,7 +307,7 @@ export const SOUL_DETAILS: Record<string, SoulDetail> = {
     tagQuote: 'Regardless of what others do, I hold true to my inner code.',
     seoTitle: 'Integrity Soul Undertale (Blue SOUL) - Lore, Items & Meaning',
     seoDescription: 'Detailed analysis of the Blue Integrity SOUL in Undertale. Discover Ballet Shoes, Old Tutu, blue gravity physics battle mode, and core character traits.',
-    gameLore: 'The Blue SOUL child was an expressive dancer who leapt through Waterfall, maintaining rigid personal discipline, artistic authenticity, and adherence to inner values.',
+    gameLore: "Snowdin’s Ball Game presents Integrity in blue, while the Ballet Shoes and Old Tutu are associated with the blue human through game evidence. Undertale does not confirm that this human was a dancer.",
     battleMechanicsTitle: 'Blue SOUL Gravity Mode (Platformer Jump Physics)',
     battleMechanicsDesc: 'Papyrus and Sans cast blue magic to pull the SOUL downward with gravity. The player must jump over floor bones and land on platforms, transforming the battle into a platformer.',
     items: [
@@ -347,7 +349,7 @@ export const SOUL_DETAILS: Record<string, SoulDetail> = {
     tagQuote: 'When motivation faded, discipline carried me through to the end.',
     seoTitle: 'Perseverance Soul Undertale (Purple SOUL) - Lore, Items & Meaning',
     seoDescription: 'Complete guide to the Purple Perseverance SOUL in Undertale. Learn about the Torn Notebook, Cloudy Glasses, purple line-trap battle mode, and traits.',
-    gameLore: 'The Purple SOUL child was an analytical scholar who studied the Underground methodically, recording monster patterns and buying scholarly supplies from Gerson in Waterfall.',
+    gameLore: "Snowdin’s Ball Game presents Perseverance in purple, while the Torn Notebook and Cloudy Glasses are associated with the purple human through game evidence. Undertale does not provide that human’s occupation or study history.",
     battleMechanicsTitle: 'Purple SOUL Web Line Switching (Three-String Traversal)',
     battleMechanicsDesc: 'Muffet pours purple cider to trap the SOUL on 3 horizontal string lines. Movement is restricted to moving left/right and hopping up and down between strings to dodge spider pets.',
     items: [

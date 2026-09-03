@@ -1,9 +1,10 @@
 ---
 // input: lang ('en' | 'ja' | 'es' | 'pt' | 'ru')
-// output: Comprehensive pixel-styled footer with localized navigation, official domain email, fan disclaimer, 5-language switcher, and external friend links
+// output: Pixel-styled footer with localized trait navigation, official email, disclaimer, language switcher, and friend links
 // pos: src/components/Footer.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import { getTranslations, type Locale } from '../i18n';
+import { getLocalizedSoulDetails } from '../data/soulDetailsI18n';
 
 interface Props {
   lang?: Locale;
@@ -11,6 +12,14 @@ interface Props {
 
 const { lang = 'en' } = Astro.props;
 const t = getTranslations(lang);
+const localizedSouls = getLocalizedSoulDetails(lang);
+const footerCopy = {
+  en: { language: 'Language:', traits: 'The 7 Undertale SOUL Traits:', details: 'Detailed lore, items & battle mechanics' },
+  ja: { language: '言語:', traits: 'Undertale の7つのタマシイ:', details: '設定、アイテム、バトルギミック' },
+  es: { language: 'Idioma:', traits: 'Los 7 rasgos de Alma de Undertale:', details: 'Historia, objetos y mecánicas de combate' },
+  pt: { language: 'Idioma:', traits: 'Os 7 traços de Alma de Undertale:', details: 'História, itens e mecânicas de combate' },
+  ru: { language: 'Язык:', traits: '7 черт Души Undertale:', details: 'История, предметы и боевая механика' },
+}[lang];
 
 const homeLink = lang === 'en' ? '/' : `/${lang}/`;
 const testLink = lang === 'en' ? '/#test' : `/${lang}/#test`;
@@ -53,7 +62,7 @@ const russianPath = isUnlocalized ? '/ru/' : `/ru${currentPath === '/' ? '/' : c
 
         <!-- Footer Language Quick Selector -->
         <div class="mt-4 flex flex-wrap items-center gap-2 text-xs font-mono">
-          <span class="text-gray-500">🌐 Language:</span>
+          <span class="text-gray-500">🌐 {footerCopy.language}</span>
           <a
             href={englishPath}
             class={`px-2 py-0.5 border ${lang === 'en' ? 'border-yellow-400 text-yellow-400 bg-gray-900 font-bold' : 'border-gray-700 text-gray-400 hover:text-white hover:border-white'}`}
@@ -144,30 +153,30 @@ const russianPath = isUnlocalized ? '/ru/' : `/ru${currentPath === '/' ? '/' : c
     <!-- 7 Undertale Soul Traits Internal Link Hub -->
     <div class="border-t border-gray-800/80 pt-6 pb-6">
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-3">
-        <span class="text-xs font-mono font-bold text-white uppercase tracking-wider">The 7 Undertale SOUL Traits:</span>
-        <span class="text-[11px] text-gray-500 font-mono">Detailed lore, items & battle mechanics</span>
+        <span class="text-xs font-mono font-bold text-white uppercase tracking-wider">{footerCopy.traits}</span>
+        <span class="text-[11px] text-gray-500 font-mono">{footerCopy.details}</span>
       </div>
       <div class="flex flex-wrap gap-2 text-xs font-mono">
         <a href={`${soulsPrefix}/determination/`} class="px-2.5 py-1 bg-black border border-red-900/60 text-red-400 hover:border-red-500 hover:text-white transition-colors">
-          ❤️ Determination (Red)
+          ❤️ {localizedSouls.determination.name} ({localizedSouls.determination.colorName})
         </a>
         <a href={`${soulsPrefix}/bravery/`} class="px-2.5 py-1 bg-black border border-amber-900/60 text-amber-400 hover:border-amber-500 hover:text-white transition-colors">
-          🧡 Bravery (Orange)
+          🧡 {localizedSouls.bravery.name} ({localizedSouls.bravery.colorName})
         </a>
         <a href={`${soulsPrefix}/justice/`} class="px-2.5 py-1 bg-black border border-yellow-900/60 text-yellow-400 hover:border-yellow-500 hover:text-white transition-colors">
-          💛 Justice (Yellow)
+          💛 {localizedSouls.justice.name} ({localizedSouls.justice.colorName})
         </a>
         <a href={`${soulsPrefix}/kindness/`} class="px-2.5 py-1 bg-black border border-emerald-900/60 text-emerald-400 hover:border-emerald-500 hover:text-white transition-colors">
-          💚 Kindness (Green)
+          💚 {localizedSouls.kindness.name} ({localizedSouls.kindness.colorName})
         </a>
         <a href={`${soulsPrefix}/patience/`} class="px-2.5 py-1 bg-black border border-cyan-900/60 text-cyan-400 hover:border-cyan-500 hover:text-white transition-colors">
-          🩵 Patience (Cyan)
+          🩵 {localizedSouls.patience.name} ({localizedSouls.patience.colorName})
         </a>
         <a href={`${soulsPrefix}/integrity/`} class="px-2.5 py-1 bg-black border border-blue-900/60 text-blue-400 hover:border-blue-500 hover:text-white transition-colors">
-          💙 Integrity (Blue)
+          💙 {localizedSouls.integrity.name} ({localizedSouls.integrity.colorName})
         </a>
         <a href={`${soulsPrefix}/perseverance/`} class="px-2.5 py-1 bg-black border border-purple-900/60 text-purple-400 hover:border-purple-500 hover:text-white transition-colors">
-          💜 Perseverance (Purple)
+          💜 {localizedSouls.perseverance.name} ({localizedSouls.perseverance.colorName})
         </a>
       </div>
     </div>
