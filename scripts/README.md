@@ -10,6 +10,7 @@
 - check_lang_prompt_mobile.mjs：验证语言提示窗的手机安全区域、触控尺寸、焦点状态与最大占屏高度
 - check_quiz_answer_feedback.mjs：验证手机点击答案后先显示选中反馈，再进入下一题
 - check_card_download_ios.mjs：验证 1080×1350 分享卡、系统分享来源标记、GA4 事件、独立下载、复制链接、iOS 保存弹窗与五语言文案
+- check_bgm_audio_control.mjs：验证背景音乐静音/取消静音与音量控制在各端的准确调用
 - submit_indexnow.mjs：自动扫描站点全部路由并向 Bing/IndexNow 提交即时收录通知
 - fetch_clarity_data.mjs：读取环境变量或 macOS 钥匙串中的 Clarity API 密钥，拉取最近 1-3 天的整体、页面、页面×设备与页面×来源数据
 - audit_site_seo.mjs：验证 74 个可索引页面、独立 404、sitemap 路由一致性及综合 SEO 技术指标

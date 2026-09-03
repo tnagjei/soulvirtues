@@ -621,11 +621,8 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
 
     function updateAudioVolumes() {
       if (audioBgm) {
-        if (audioSettings.musicMuted || audioSettings.volMusic === 0) {
-          audioBgm.volume = 0;
-        } else {
-          audioBgm.volume = audioSettings.volMusic / 100;
-        }
+        audioBgm.muted = audioSettings.musicMuted;
+        audioBgm.volume = audioSettings.volMusic / 100;
       }
 
       const labelMusic = document.getElementById("label-vol-music");
@@ -676,6 +673,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
 
     let bgmStarted = false;
     function startBgm() {
+      if (audioSettings.musicMuted) return;
       if (bgmStarted && audioBgm && !audioBgm.paused) return;
       if (audioBgm) {
         updateAudioVolumes();
