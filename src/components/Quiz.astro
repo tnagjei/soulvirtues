@@ -26,7 +26,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
     const key = [SOUL_DETAILS[comparison.leftSlug].code, SOUL_DETAILS[comparison.rightSlug].code].sort().join('-');
     const prefix = lang === 'en' ? '' : `/${lang}`;
     return [key, {
-      path: `${prefix}/compare/${comparison.slug}`,
+      path: `${prefix}/compare/${comparison.slug}/`,
       label: `${comparison.copy[lang].heading} →`,
     }];
   }),

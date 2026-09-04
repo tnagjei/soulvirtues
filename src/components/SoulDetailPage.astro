@@ -133,9 +133,7 @@ const structuredData = {
           <span class="text-lg" style={`color: ${soulDetail.hex}`}>✦</span>
           {soulDetail.labels.loreHeading}
         </h2>
-        <p class="text-sm text-gray-300 leading-relaxed">
-          {soulDetail.gameLore}
-        </p>
+        <p class="text-sm text-gray-300 leading-relaxed" set:html={soulDetail.gameLore} />
       </section>
 
       <!-- Section 2: Associated Items & Equipment -->

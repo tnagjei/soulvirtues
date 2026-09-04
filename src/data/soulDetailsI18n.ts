@@ -248,7 +248,7 @@ export const ES_SOUL_DETAILS: Record<string, SoulDetail> = {
     tagQuote: 'Incluso cuando todo me apuraba, elegí esperar el momento adecuado.',
     seoTitle: 'Alma Cian Paciencia Undertale - Lore, Objetos y Significado',
     seoDescription: 'Domina el Alma Cian de Paciencia en Undertale. Cuchillo de Juguete, Lazo Descolorido y la mecánica de permanecer quieto.',
-    gameLore: "El Juego de Pelota de Snowdin presenta la Paciencia en celeste. El Cuchillo de Juguete y el Lazo Descolorido se asocian con el humano celeste mediante pistas del juego, pero Undertale no indica cuánto tiempo permaneció en las Ruinas.",
+    gameLore: "El rasgo de la Paciencia en Undertale se presenta en celeste en el Juego de Pelota de Snowdin. El Cuchillo de Juguete y el Lazo Descolorido se asocian con el humano celeste mediante pistas del juego, pero Undertale no indica cuánto tiempo permaneció en las Ruinas.",
     battleMechanicsTitle: 'Fase de Ataque Cian (Inmunidad al Estar Inmóvil)',
     battleMechanicsDesc: 'Debes quedarte completamente quieto para atravesar ataques cian sin sufrir daño.',
     labels: esLabels,

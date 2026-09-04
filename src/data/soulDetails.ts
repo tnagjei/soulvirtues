@@ -97,7 +97,7 @@ export const SOUL_DETAILS: Record<string, SoulDetail> = {
     tagQuote: 'Despite how many times I fell, I always got back up.',
     seoTitle: 'Determination Soul Undertale (Red SOUL) - Lore, Items & Meaning',
     seoDescription: 'Complete guide to the Red Determination SOUL in Undertale. Learn its game lore, weapons and armor (Stick, Real Knife), battle mechanics, and personality traits.',
-    gameLore: "Undertale establishes Determination as a power connected with human SOUL persistence and SAVE. The game does not explicitly name Determination as the Red SOUL trait; that label is a familiar fan interpretation.",
+    gameLore: 'Undertale establishes Determination as a power connected with human SOUL persistence and SAVE. The game does not explicitly name Determination as the Red SOUL trait; that label is a familiar fan interpretation. For a direct breakdown of raw willpower versus disciplined routine, compare <a href="/compare/determination-vs-perseverance/" class="text-red-400 hover:text-white underline font-semibold">Determination vs Perseverance</a>.',
     battleMechanicsTitle: 'Standard Red SOUL (Free 360-Degree Movement)',
     battleMechanicsDesc: 'The Red SOUL allows completely unhindered 360-degree free movement within the bullet box. It represents baseline human autonomy and the refusal to succumb to fatal blows.',
     items: [
@@ -349,7 +349,7 @@ export const SOUL_DETAILS: Record<string, SoulDetail> = {
     tagQuote: 'When motivation faded, discipline carried me through to the end.',
     seoTitle: 'Perseverance Soul Undertale (Purple SOUL) - Lore, Items & Meaning',
     seoDescription: 'Complete guide to the Purple Perseverance SOUL in Undertale. Learn about the Torn Notebook, Cloudy Glasses, purple line-trap battle mode, and traits.',
-    gameLore: "Snowdin’s Ball Game presents Perseverance in purple, while the Torn Notebook and Cloudy Glasses are associated with the purple human through game evidence. Undertale does not provide that human’s occupation or study history.",
+    gameLore: 'Snowdin’s Ball Game presents Perseverance in purple, while the Torn Notebook and Cloudy Glasses are associated with the purple human through game evidence. Undertale does not provide that human’s occupation or study history. To examine how quiet discipline contrasts with outcome-driven resolve, see our analysis of <a href="/compare/determination-vs-perseverance/" class="text-purple-400 hover:text-white underline font-semibold">Determination vs Perseverance</a>.',
     battleMechanicsTitle: 'Purple SOUL Web Line Switching (Three-String Traversal)',
     battleMechanicsDesc: 'Muffet pours purple cider to trap the SOUL on 3 horizontal string lines. Movement is restricted to moving left/right and hopping up and down between strings to dodge spider pets.',
     items: [
