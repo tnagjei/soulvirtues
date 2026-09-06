@@ -1,6 +1,6 @@
 ---
 // input: lang ('en' | 'ja' | 'es' | 'pt' | 'ru'), static scoring data, localized dictionaries, and six approved comparison pairs
-// output: Five-language 66-question quiz with answer feedback, native share analytics, direct download/copy-link actions, vertical result card, review, gallery, and comparisons
+// output: Five-language 66-question quiz with answer feedback, native share analytics, direct download/WebView card fallback, vertical result card, review, gallery, and comparisons
 // pos: src/components/Quiz.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import { getTranslations, type Locale } from '../i18n';
@@ -473,7 +473,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
   <!-- 3.1 Card Preview Modal for iOS and fallback devices -->
   <div
     id="card-preview-modal"
-    class="hidden fixed inset-0 z-50 bg-black/90 flex flex-col items-center justify-center p-4"
+    class="hidden fixed inset-0 z-50 bg-black/90 overflow-y-auto overscroll-contain flex flex-col items-center justify-start sm:justify-center p-4"
     role="dialog"
     aria-label="Result Card Preview"
   >
@@ -483,14 +483,14 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
         <button
           id="btn-close-card-modal"
           type="button"
-          class="text-xs text-gray-400 hover:text-white px-2.5 py-1 border border-gray-600 font-mono cursor-pointer"
+          class="min-w-11 min-h-11 inline-flex items-center justify-center text-xs text-gray-400 hover:text-white border border-gray-600 font-mono cursor-pointer touch-manipulation active:scale-95"
           aria-label="Close"
         >
           ✕
         </button>
       </div>
-      <img id="card-preview-img" src="" alt="Soul Virtues Result Card" class="w-full h-auto border-2 border-gray-600 mb-3 shadow-[0_0_15px_rgba(255,255,255,0.2)]" />
-      <p class="text-xs text-yellow-400 font-mono mb-4 leading-relaxed">
+      <img id="card-preview-img" src="" alt="Soul Virtues Result Card" class="max-h-[50vh] sm:max-h-[60vh] w-auto mx-auto object-contain select-auto pointer-events-auto border-2 border-gray-600 mb-3 shadow-[0_0_15px_rgba(255,255,255,0.2)]" />
+      <p class="text-xs text-yellow-400 font-mono mb-4 leading-relaxed select-none">
         * {t.quizUI.saveCardHint}
       </p>
       <button id="btn-done-card-modal" type="button" class="px-6 py-2.5 bg-white text-black font-bold font-mono text-xs uppercase tracking-wider hover:bg-gray-200 cursor-pointer active:scale-95 transition-all">
@@ -1243,9 +1243,11 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       const { dataUrl, filename } = buildResultCard();
       trackEvent("result_card_download", { language: LANG });
 
-      // iOS browsers may ignore the download attribute, so show a saveable image.
-      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-      if (isIOS) {
+      // iOS browsers and in-app WebViews (e.g. Instagram, Facebook, TikTok, Line, Android wv) ignore or block <a download>.
+      const ua = navigator.userAgent || "";
+      const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+      const isWebView = /;\s*wv\b|Android.*Version\/|Instagram|FBAN|FBAV|Twitter|Line|MicroMessenger|Weibo|TikTok|BytedanceWebview/i.test(ua);
+      if (isIOS || isWebView) {
         showCardModal(dataUrl);
         return;
       }
@@ -1491,6 +1493,11 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
     });
     document.getElementById("btn-done-card-modal")?.addEventListener("click", () => {
       document.getElementById("card-preview-modal")?.classList.add("hidden");
+    });
+    document.getElementById("card-preview-modal")?.addEventListener("click", (e) => {
+      if (e.target === document.getElementById("card-preview-modal")) {
+        document.getElementById("card-preview-modal")?.classList.add("hidden");
+      }
     });
 
     // Keyboard navigation

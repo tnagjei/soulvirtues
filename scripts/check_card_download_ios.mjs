@@ -90,6 +90,41 @@ assert(shareSection.includes('navigator.share'), 'Share action must invoke navig
 assert(shareSection.includes('navigator.canShare'), 'Share action must check navigator.canShare for files');
 assert(/iPad|iPhone|iPod/.test(quizSource), 'Quiz.astro must detect iOS devices for modal preview fallback');
 assert(
+  /Instagram|FBAN|wv/i.test(downloadSection),
+  'Quiz.astro downloadResultCard must detect in-app WebViews (Instagram, Android wv, Facebook, etc.) for modal preview fallback',
+);
+
+// 6. Test actual User-Agent regex behavior with real-world samples
+const webViewRegexMatch = downloadSection.match(/const isWebView = (\/.*?\/[a-z]*)\.test/);
+assert(webViewRegexMatch, 'Could not extract isWebView regex from downloadResultCard');
+const webViewRegex = eval(webViewRegexMatch[1]);
+
+const iosRegexMatch = downloadSection.match(/const isIOS = (\/.*?\/[a-z]*)\.test/);
+assert(iosRegexMatch, 'Could not extract isIOS regex from downloadResultCard');
+const iosRegex = eval(iosRegexMatch[1]);
+
+// Real reporter UA (Android 15 Instagram WebView)
+const reporterUA = "Mozilla/5.0 (Linux; Android 15; 23100RN82L Build/AP3A.240905.015.A2; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/152.0.7977.69 Mobile Safari/537.36 Instagram 445.0.0.45.83 Android (35/15; 320dpi; 720x1600; Xiaomi/Redmi; 23100RN82L; gale; mt6768; es_US; 1055488607; IABMV/1)";
+assert(webViewRegex.test(reporterUA), 'Reporter Instagram Android WebView UA must trigger isWebView');
+
+// Facebook Android WebView
+const fbUA = "Mozilla/5.0 (Linux; Android 14; SM-S908B Build/UP1A.231005.007; wv) AppleWebKit/537.36 [FBAN/EMA;FBAV/410.0.0.12.115;]";
+assert(webViewRegex.test(fbUA), 'Facebook Android WebView UA must trigger isWebView');
+
+// Standard Android System WebView
+const standardAndroidWV = "Mozilla/5.0 (Linux; U; Android 13; zh-CN; MI 11 Build/TKQ1.220829.002; wv) AppleWebKit/537.36 Version/4.0 Chrome/116.0.0.0 Mobile Safari/537.36";
+assert(webViewRegex.test(standardAndroidWV), 'Standard Android System WebView UA must trigger isWebView');
+
+// iPhone Safari
+const iphoneUA = "Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1";
+assert(iosRegex.test(iphoneUA), 'iPhone Safari UA must trigger isIOS');
+
+// Desktop Chrome (must NOT trigger either fallback)
+const desktopUA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36";
+assert(!webViewRegex.test(desktopUA), 'Desktop Chrome UA must NOT trigger isWebView');
+assert(!iosRegex.test(desktopUA), 'Desktop Chrome UA must NOT trigger isIOS');
+
+assert(
   quizSource.includes('document.getElementById("btn-share-card")?.addEventListener("click", shareResultCard)'),
   'Share button must call shareResultCard',
 );
