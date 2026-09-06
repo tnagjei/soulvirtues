@@ -821,6 +821,11 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
     }
 
     function renderQuestion(index) {
+      if (advanceTimer) {
+        clearTimeout(advanceTimer);
+        advanceTimer = null;
+      }
+      isAdvancing = false;
       currentIndex = index;
       const q = QUESTIONS[index];
       if (!q) return;
@@ -856,10 +861,10 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       scaleRow.innerHTML = "";
 
       q.labels.forEach((label, optIdx) => {
-        const btn = document.createElement("button");
-        btn.type = "button";
+       const btn = document.createElement("button");
+       btn.type = "button";
        const isSelected = currentSelection === optIdx;
-        btn.className = `flex-1 min-w-0 min-h-16 flex flex-col items-center justify-center gap-1 py-2 border-2 cursor-pointer group outline-none transition-all active:scale-90 focus-visible:border-white ${
+        btn.className = `flex-1 min-w-0 min-h-16 flex flex-col items-center justify-center gap-1 py-2 border-2 cursor-pointer group outline-none transition-all active:scale-95 focus-visible:border-white ${
          isSelected
             ? "border-red-500 bg-red-950/30 shadow-[0_0_10px_rgba(239,68,68,0.4)]"
            : "border-gray-700 bg-black hover:border-white"
@@ -868,8 +873,8 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
         btn.setAttribute("aria-describedby", "tap-answer-hint");
 
         btn.innerHTML = `
-          <span class="text-[10px] font-bold text-gray-400" aria-hidden="true">${optIdx + 1}</span>
-          <div class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center">
+          <span class="text-[10px] font-bold text-gray-400 pointer-events-none" aria-hidden="true">${optIdx + 1}</span>
+          <div class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center pointer-events-none">
             ${isSelected
               ? '<div class="w-8 h-8 sm:w-9 sm:h-9 text-red-600 drop-shadow-[0_0_12px_rgba(255,0,0,0.9)] animate-pulse transition-transform scale-110"><svg viewBox="0 0 16 16" fill="currentColor" class="w-full h-full" shape-rendering="crispEdges"><path d="M2 0h4v1H2zm8 0h4v1h-4zM1 1h6v1H1zm8 0h6v1H9zM0 2h7v1H0zm9 2h7v1H9zM0 3h7v1H0zm9 3h7v1H9zM0 4h16v6H0zm2 6h12v2H2zm2 2h8v2H4zm2 2h4v2H6z"/></svg></div>'
               : '<div class="w-5 h-5 sm:w-6 sm:h-6 bg-black border-3 sm:border-4 border-gray-600 group-hover:border-white transition-colors"></div>'
@@ -888,16 +893,28 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
    }
 
     let isAdvancing = false;
+    let advanceTimer = null;
+    let advanceStartTime = 0;
 
    function selectAndAdvance(optIdx) {
-      if (isAdvancing) return;
+      const now = Date.now();
+      if (isAdvancing && now - advanceStartTime < 500) return;
      if (optIdx < 0 || optIdx > 4) return;
+      if (advanceTimer) {
+        clearTimeout(advanceTimer);
+        advanceTimer = null;
+      }
       isAdvancing = true;
+      advanceStartTime = now;
      currentSelection = optIdx;
      buildScalePoints(QUESTIONS[currentIndex]);
-      setTimeout(() => {
-        confirmAndAdvance();
-        isAdvancing = false;
+      advanceTimer = setTimeout(() => {
+        try {
+          confirmAndAdvance();
+        } finally {
+          isAdvancing = false;
+          advanceTimer = null;
+        }
       }, 300);
    }
 
@@ -935,6 +952,11 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
     }
 
     function goBack() {
+      if (advanceTimer) {
+        clearTimeout(advanceTimer);
+        advanceTimer = null;
+      }
+      isAdvancing = false;
       if (currentIndex > 0) {
         playSound("move");
         renderQuestion(currentIndex - 1);

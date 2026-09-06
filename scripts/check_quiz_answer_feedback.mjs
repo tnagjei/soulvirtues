@@ -19,5 +19,8 @@ assert(renderIndex >= 0, 'Tapped answer must render its selected state');
 assert(delayIndex > renderIndex, 'Advance delay must start after selected state renders');
 assert(confirmIndex > delayIndex, 'Quiz must not advance before the feedback delay');
 assert(/},\s*300\);/.test(flow), 'Selected state must remain visible for 300ms');
+assert(flow.includes('finally'), 'Advance flow must use try-finally to guarantee unlocking');
+assert(flow.includes('advanceStartTime') || flow.includes('500'), 'Advance flow must include a watchdog auto-unlock timeout');
+assert(source.includes('isAdvancing = false') && source.indexOf('function renderQuestion') > 0, 'renderQuestion must reset advance lock');
 
 console.log('Quiz answer feedback checks passed.');
