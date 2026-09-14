@@ -1615,7 +1615,10 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
 
     document.getElementById("btn-start-fresh")?.addEventListener("click", () => {
       userAnswers = new Array(QUESTIONS.length).fill(null);
-      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(userAnswers)); } catch (e) {}
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(userAnswers));
+        localStorage.removeItem("soulvirtues_roadmap_vote_v1");
+      } catch (e) {}
       startBgm();
       playSound("select");
       showScreen("active");
@@ -1679,7 +1682,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
 
     // Community Feedback Roadmap Vote Handler
     function initFeedbackVote() {
-      const voteKey = "soulvirtues_roadmap_vote";
+      const voteKey = "soulvirtues_roadmap_vote_v1";
       const formEl = document.getElementById("feedback-vote-form");
       const successEl = document.getElementById("feedback-vote-success");
       const otherContainer = document.getElementById("vote-other-container");
