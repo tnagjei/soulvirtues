@@ -1,6 +1,6 @@
 ---
 // input: lang ('en' | 'ja' | 'es' | 'pt' | 'ru')
-// output: Sticky pixel-styled top navigation bar with responsive mobile menu and 5-language switcher
+// output: Sticky pixel-styled top navigation bar with in-page smooth anchor routing, test starter, responsive mobile menu, and 5-language switcher
 // pos: src/components/Header.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import { getTranslations, locales, localeNames, type Locale } from '../i18n';
@@ -177,10 +177,11 @@ const russianPath = isUnlocalized ? '/ru/' : `/ru${currentPath === '/' ? '/' : c
 </header>
 
 <script is:inline>
-  document.addEventListener('DOMContentLoaded', () => {
+  function initHeaderNav() {
     const btn = document.getElementById('btn-mobile-menu');
     const panel = document.getElementById('mobile-menu-panel');
-    if (btn && panel) {
+    if (btn && panel && !btn.dataset.bound) {
+      btn.dataset.bound = 'true';
       btn.addEventListener('click', () => {
         panel.classList.toggle('hidden');
       });
@@ -190,5 +191,49 @@ const russianPath = isUnlocalized ? '/ru/' : `/ru${currentPath === '/' ? '/' : c
         });
       });
     }
-  });
+
+    if (!document.documentElement.dataset.anchorBound) {
+      document.documentElement.dataset.anchorBound = 'true';
+      document.addEventListener('click', (e) => {
+        const link = e.target.closest('a');
+        if (!link) return;
+        const href = link.getAttribute('href');
+        if (!href || href.startsWith('http://') || href.startsWith('https://')) return;
+
+        const hashIndex = href.indexOf('#');
+        if (hashIndex === -1) return;
+
+        const targetHash = href.slice(hashIndex);
+        const targetPath = href.slice(0, hashIndex);
+        const currentPath = window.location.pathname;
+
+        const isCurrentPage = targetPath === '' ||
+                              targetPath === currentPath ||
+                              (targetPath === '/' && (currentPath === '' || currentPath === '/'));
+
+        if (isCurrentPage) {
+          const targetId = targetHash.slice(1);
+          const targetEl = document.getElementById(targetId);
+          if (targetEl) {
+            e.preventDefault();
+            if (window.location.hash !== targetHash) {
+              history.pushState(null, '', targetHash);
+            }
+            targetEl.scrollIntoView({ behavior: 'smooth' });
+
+            if (targetId === 'test' && typeof window.startSoulQuiz === 'function') {
+              window.startSoulQuiz();
+            }
+          }
+        }
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHeaderNav);
+  } else {
+    initHeaderNav();
+  }
+  document.addEventListener('astro:page-load', initHeaderNav);
 </script>

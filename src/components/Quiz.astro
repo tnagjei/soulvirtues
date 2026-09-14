@@ -1,6 +1,6 @@
 ---
 // input: lang ('en' | 'ja' | 'es' | 'pt' | 'ru'), static scoring data, localized dictionaries, and six approved comparison pairs
-// output: Five-language 66-question quiz with answer feedback, native share analytics, direct download/WebView card fallback, vertical result card, review, gallery, and comparisons
+// output: Five-language 66-question quiz with answer feedback, native share analytics, direct download/WebView card fallback, vertical result card, review, gallery, comparisons, and roadmap feedback voting
 // pos: src/components/Quiz.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import { getTranslations, type Locale } from '../i18n';
@@ -442,6 +442,137 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
         {t.quizUI.shareHint}
       </p>
 
+      <!-- Community Roadmap Vote Section (Post-Quiz Feedback) -->
+      <div
+        id="feedback-vote-card"
+        class="mt-8 p-5 sm:p-6 bg-black/80 border-2 border-yellow-500/70 shadow-[0_0_20px_rgba(234,179,8,0.15)] text-left relative overflow-hidden"
+      >
+        <div id="feedback-vote-form">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-yellow-400 text-sm sm:text-base animate-pulse">✦</span>
+            <h4 class="text-xs sm:text-sm font-mono font-bold tracking-wider text-yellow-400 uppercase">
+              {t.quizUI.feedbackVote.title}
+            </h4>
+          </div>
+          <p class="text-[11px] sm:text-xs text-gray-300 mb-4 leading-relaxed font-sans">
+            {t.quizUI.feedbackVote.subtitle}
+          </p>
+
+          <div class="space-y-2.5" role="radiogroup" aria-label={t.quizUI.feedbackVote.title}>
+            <button
+              type="button"
+              class="feedback-vote-opt w-full text-left p-3 bg-[#111412] hover:bg-[#1a221d] border border-gray-700 hover:border-yellow-400/80 transition-colors flex items-start gap-3 cursor-pointer group"
+              data-vote="fusion"
+            >
+              <span class="w-3.5 h-3.5 mt-0.5 rounded-full border border-gray-500 group-hover:border-yellow-400 flex-none flex items-center justify-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-transparent group-hover:bg-yellow-400"></span>
+              </span>
+              <span class="text-xs text-gray-200 group-hover:text-white leading-snug font-sans">
+                {t.quizUI.feedbackVote.optFusion}
+              </span>
+            </button>
+
+            <button
+              type="button"
+              class="feedback-vote-opt w-full text-left p-3 bg-[#111412] hover:bg-[#1a221d] border border-gray-700 hover:border-yellow-400/80 transition-colors flex items-start gap-3 cursor-pointer group"
+              data-vote="cards"
+            >
+              <span class="w-3.5 h-3.5 mt-0.5 rounded-full border border-gray-500 group-hover:border-yellow-400 flex-none flex items-center justify-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-transparent group-hover:bg-yellow-400"></span>
+              </span>
+              <span class="text-xs text-gray-200 group-hover:text-white leading-snug font-sans">
+                {t.quizUI.feedbackVote.optCards}
+              </span>
+            </button>
+
+            <button
+              type="button"
+              class="feedback-vote-opt w-full text-left p-3 bg-[#111412] hover:bg-[#1a221d] border border-gray-700 hover:border-yellow-400/80 transition-colors flex items-start gap-3 cursor-pointer group"
+              data-vote="real_life"
+            >
+              <span class="w-3.5 h-3.5 mt-0.5 rounded-full border border-gray-500 group-hover:border-yellow-400 flex-none flex items-center justify-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-transparent group-hover:bg-yellow-400"></span>
+              </span>
+              <span class="text-xs text-gray-200 group-hover:text-white leading-snug font-sans">
+                {t.quizUI.feedbackVote.optRealLife}
+              </span>
+            </button>
+
+            <button
+              type="button"
+              class="feedback-vote-opt w-full text-left p-3 bg-[#111412] hover:bg-[#1a221d] border border-gray-700 hover:border-yellow-400/80 transition-colors flex items-start gap-3 cursor-pointer group"
+              data-vote="deltarune"
+            >
+              <span class="w-3.5 h-3.5 mt-0.5 rounded-full border border-gray-500 group-hover:border-yellow-400 flex-none flex items-center justify-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-transparent group-hover:bg-yellow-400"></span>
+              </span>
+              <span class="text-xs text-gray-200 group-hover:text-white leading-snug font-sans">
+                {t.quizUI.feedbackVote.optDeltarune}
+              </span>
+            </button>
+
+            <button
+              type="button"
+              class="feedback-vote-opt w-full text-left p-3 bg-[#111412] hover:bg-[#1a221d] border border-gray-700 hover:border-yellow-400/80 transition-colors flex items-start gap-3 cursor-pointer group"
+              data-vote="enough"
+            >
+              <span class="w-3.5 h-3.5 mt-0.5 rounded-full border border-gray-500 group-hover:border-yellow-400 flex-none flex items-center justify-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-transparent group-hover:bg-yellow-400"></span>
+              </span>
+              <span class="text-xs text-gray-200 group-hover:text-white leading-snug font-sans">
+                {t.quizUI.feedbackVote.optEnough}
+              </span>
+            </button>
+
+            <button
+              id="btn-vote-opt-other"
+              type="button"
+              class="w-full text-left p-3 bg-[#111412] hover:bg-[#1a221d] border border-gray-700 hover:border-yellow-400/80 transition-colors flex items-start gap-3 cursor-pointer group"
+              data-vote="other"
+            >
+              <span class="w-3.5 h-3.5 mt-0.5 rounded-full border border-gray-500 group-hover:border-yellow-400 flex-none flex items-center justify-center">
+                <span class="w-1.5 h-1.5 rounded-full bg-transparent group-hover:bg-yellow-400"></span>
+              </span>
+              <span class="text-xs text-gray-200 group-hover:text-white leading-snug font-sans">
+                {t.quizUI.feedbackVote.optOther}
+              </span>
+            </button>
+          </div>
+
+          <!-- Other text input area (toggled on clicking Other) -->
+          <div id="vote-other-container" class="hidden mt-3 pt-3 border-t border-gray-800">
+            <textarea
+              id="vote-other-text"
+              rows="2"
+              class="w-full p-2.5 bg-black border border-gray-700 focus:border-yellow-400 text-xs text-gray-100 placeholder-gray-500 outline-none resize-none font-sans"
+              placeholder={t.quizUI.feedbackVote.otherPlaceholder}
+            ></textarea>
+            <button
+              id="btn-submit-other-vote"
+              type="button"
+              class="mt-2 px-4 py-2 bg-yellow-400 hover:bg-yellow-300 text-black font-bold text-xs uppercase tracking-wider font-mono cursor-pointer transition-colors"
+            >
+              {t.quizUI.feedbackVote.submitBtn}
+            </button>
+          </div>
+        </div>
+
+        <!-- Success/Thank you message (grand co-builder vibe) -->
+        <div id="feedback-vote-success" class="hidden py-4 text-center">
+          <div class="w-8 h-8 mx-auto mb-3 text-yellow-400 animate-pulse">
+            <svg viewBox="0 0 16 16" fill="currentColor" class="w-full h-full" shape-rendering="crispEdges">
+              <path d="M2 0h4v1H2zm8 0h4v1h-4zM1 1h6v1H1zm8 0h6v1H9zM0 2h7v1H0zm9 2h7v1H9zM0 3h7v1H0zm9 3h7v1H9zM0 4h16v6H0zm2 6h12v2H2zm2 2h8v2H4zm2 2h4v2H6z"/>
+            </svg>
+          </div>
+          <h4 class="text-sm sm:text-base font-bold text-yellow-400 font-mono tracking-wide mb-2 uppercase">
+            {t.quizUI.feedbackVote.thankYouTitle}
+          </h4>
+          <p class="text-xs sm:text-sm text-gray-300 leading-relaxed max-w-xl mx-auto font-sans">
+            {t.quizUI.feedbackVote.thankYouMessage}
+          </p>
+        </div>
+      </div>
+
       <div class="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 mt-8">
         <button
           id="btn-review-answers"
@@ -799,14 +930,49 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
           }
         }
       });
-      window.scrollTo({ top: document.getElementById("quiz-root").offsetTop - 80, behavior: "smooth" });
+      const testSection = document.getElementById("test") || document.getElementById("quiz-root");
+      if (testSection) {
+        testSection.scrollIntoView({ behavior: "smooth" });
+      }
     }
 
+    window.startSoulQuiz = function() {
+      const activeScreen = document.getElementById("quiz-active");
+      const resultScreen = document.getElementById("quiz-result");
+      const testSection = document.getElementById("test") || document.getElementById("quiz-root");
+
+      if (testSection) {
+        testSection.scrollIntoView({ behavior: "smooth" });
+      }
+
+      if (resultScreen && !resultScreen.classList.contains("hidden")) {
+        return;
+      }
+
+      if (activeScreen && !activeScreen.classList.contains("hidden")) {
+        return;
+      }
+
+      startBgm();
+      playSound("select");
+      const firstUnanswered = userAnswers.findIndex(a => a === null);
+      showScreen("active");
+      renderQuestion(firstUnanswered !== -1 ? firstUnanswered : 0);
+    };
+
     // Initial Screen Decision
+    const isDebugResult = window.location.search.includes("debug=result") || window.location.hash === "#debug-result";
+    if (isDebugResult && userAnswers.filter(a => a !== null).length < QUESTIONS.length) {
+      userAnswers = new Array(QUESTIONS.length).fill(1);
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(userAnswers)); } catch (e) {}
+    }
+
     const answeredCount = userAnswers.filter(a => a !== null).length;
     if (answeredCount === QUESTIONS.length) {
       showScreen("result");
       showResults();
+    } else if (window.location.hash === "#test") {
+      window.startSoulQuiz();
     } else {
       showScreen("intro");
       runIntroScene(0);
@@ -1510,6 +1676,61 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
     document.getElementById("btn-retake")?.addEventListener("click", () => {
       showScreen("start");
     });
+
+    // Community Feedback Roadmap Vote Handler
+    function initFeedbackVote() {
+      const voteKey = "soulvirtues_roadmap_vote";
+      const formEl = document.getElementById("feedback-vote-form");
+      const successEl = document.getElementById("feedback-vote-success");
+      const otherContainer = document.getElementById("vote-other-container");
+      const otherText = document.getElementById("vote-other-text");
+      const submitOtherBtn = document.getElementById("btn-submit-other-vote");
+      const otherOptBtn = document.getElementById("btn-vote-opt-other");
+
+      if (!formEl || !successEl) return;
+
+      const savedVote = localStorage.getItem(voteKey);
+      if (savedVote && !window.location.search.includes("debug=result")) {
+        formEl.classList.add("hidden");
+        successEl.classList.remove("hidden");
+        return;
+      }
+
+      function submitVote(choice, customText = "") {
+        playSound("click");
+        trackEvent("feedback_roadmap_vote", {
+          choice,
+          custom_text: customText.slice(0, 200),
+          language: LANG,
+        });
+        try {
+          localStorage.setItem(voteKey, choice + (customText ? ":" + customText : ""));
+        } catch (e) {}
+
+        formEl.classList.add("hidden");
+        successEl.classList.remove("hidden");
+        successEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+
+      document.querySelectorAll(".feedback-vote-opt").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const vote = btn.getAttribute("data-vote");
+          if (vote) submitVote(vote);
+        });
+      });
+
+      otherOptBtn?.addEventListener("click", () => {
+        otherContainer?.classList.toggle("hidden");
+        otherText?.focus();
+      });
+
+      submitOtherBtn?.addEventListener("click", () => {
+        const textVal = (otherText?.value || "").trim();
+        submitVote("other", textVal);
+      });
+    }
+    initFeedbackVote();
+
     document.getElementById("btn-close-card-modal")?.addEventListener("click", () => {
       document.getElementById("card-preview-modal")?.classList.add("hidden");
     });

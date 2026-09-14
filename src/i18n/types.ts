@@ -83,6 +83,21 @@ export interface SectionFAQ {
   items: FAQItem[];
 }
 
+export interface FeedbackVoteTranslations {
+  title: string;
+  subtitle: string;
+  optFusion: string;
+  optCards: string;
+  optRealLife: string;
+  optDeltarune: string;
+  optEnough: string;
+  optOther: string;
+  otherPlaceholder: string;
+  submitBtn: string;
+  thankYouTitle: string;
+  thankYouMessage: string;
+}
+
 export interface QuizUITranslations {
   title: string;
   settingsBtn: string;
@@ -131,6 +146,7 @@ export interface QuizUITranslations {
   soulsGalleryTitle: string;
   soulsBackBtn: string;
   soulSelectHint: string;
+  feedbackVote: FeedbackVoteTranslations;
 }
 
 export type Locale = 'en' | 'ja' | 'es' | 'pt' | 'ru';
