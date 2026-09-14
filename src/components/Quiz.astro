@@ -1,6 +1,6 @@
 ---
 // input: lang ('en' | 'ja' | 'es' | 'pt' | 'ru'), static scoring data, localized dictionaries, and six approved comparison pairs
-// output: Five-language 66-question quiz with answer feedback, native share analytics, direct download/WebView card fallback, vertical result card, review, gallery, comparisons, and roadmap feedback voting
+// output: Five-language 66-question quiz with instant question loading, answer feedback, native share analytics, direct download/WebView card fallback, vertical result card, review, gallery, comparisons, and roadmap feedback voting
 // pos: src/components/Quiz.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import { getTranslations, type Locale } from '../i18n';
@@ -523,37 +523,28 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
                 {t.quizUI.feedbackVote.optEnough}
               </span>
             </button>
-
-            <button
-              id="btn-vote-opt-other"
-              type="button"
-              class="w-full text-left p-3 bg-[#111412] hover:bg-[#1a221d] border border-gray-700 hover:border-yellow-400/80 transition-colors flex items-start gap-3 cursor-pointer group"
-              data-vote="other"
-            >
-              <span class="w-3.5 h-3.5 mt-0.5 rounded-full border border-gray-500 group-hover:border-yellow-400 flex-none flex items-center justify-center">
-                <span class="w-1.5 h-1.5 rounded-full bg-transparent group-hover:bg-yellow-400"></span>
-              </span>
-              <span class="text-xs text-gray-200 group-hover:text-white leading-snug font-sans">
-                {t.quizUI.feedbackVote.optOther}
-              </span>
-            </button>
           </div>
 
-          <!-- Other text input area (toggled on clicking Other) -->
-          <div id="vote-other-container" class="hidden mt-3 pt-3 border-t border-gray-800">
-            <textarea
-              id="vote-other-text"
-              rows="2"
-              class="w-full p-2.5 bg-black border border-gray-700 focus:border-yellow-400 text-xs text-gray-100 placeholder-gray-500 outline-none resize-none font-sans"
-              placeholder={t.quizUI.feedbackVote.otherPlaceholder}
-            ></textarea>
-            <button
-              id="btn-submit-other-vote"
-              type="button"
-              class="mt-2 px-4 py-2 bg-yellow-400 hover:bg-yellow-300 text-black font-bold text-xs uppercase tracking-wider font-mono cursor-pointer transition-colors"
-            >
-              {t.quizUI.feedbackVote.submitBtn}
-            </button>
+          <!-- Direct Open Suggestion Input -->
+          <div class="mt-4 pt-3 border-t border-gray-800">
+            <label for="vote-other-text" class="block text-[11px] sm:text-xs text-yellow-400/90 font-mono uppercase mb-2">
+              ✦ {t.quizUI.feedbackVote.optOther}
+            </label>
+            <div class="flex flex-col sm:flex-row gap-2">
+              <input
+                id="vote-other-text"
+                type="text"
+                class="flex-1 p-2.5 bg-black border border-gray-700 focus:border-yellow-400 text-xs text-gray-100 placeholder-gray-500 outline-none font-sans"
+                placeholder={t.quizUI.feedbackVote.otherPlaceholder}
+              />
+              <button
+                id="btn-submit-other-vote"
+                type="button"
+                class="px-5 py-2.5 bg-yellow-400 hover:bg-yellow-300 text-black font-bold text-xs uppercase tracking-wider font-mono cursor-pointer transition-colors"
+              >
+                {t.quizUI.feedbackVote.submitBtn}
+              </button>
+            </div>
           </div>
         </div>
 
@@ -570,6 +561,13 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
           <p class="text-xs sm:text-sm text-gray-300 leading-relaxed max-w-xl mx-auto font-sans">
             {t.quizUI.feedbackVote.thankYouMessage}
           </p>
+          <button
+            id="btn-change-vote"
+            type="button"
+            class="mt-4 text-[11px] text-gray-400 hover:text-yellow-400 underline font-mono cursor-pointer transition-colors inline-block"
+          >
+            ✎ Change your vote / Submit another idea
+          </button>
         </div>
       </div>
 
@@ -818,15 +816,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
     // Typewriter System
     // -------------------------------------------------------------
     function setTypedContent(el, fullText, count) {
-      let onSpan = el.querySelector(".typewriter-on");
-      let offSpan = el.querySelector(".typewriter-off");
-      if (!onSpan || !offSpan) {
-        el.innerHTML = '<span class="typewriter-on"></span><span class="typewriter-off" style="visibility:hidden"></span>';
-        onSpan = el.querySelector(".typewriter-on");
-        offSpan = el.querySelector(".typewriter-off");
-      }
-      onSpan.textContent = fullText.slice(0, count);
-      offSpan.textContent = fullText.slice(count);
+      el.textContent = fullText.slice(0, count);
     }
 
     let typeInterval = null;
@@ -858,14 +848,15 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
     }
 
     function skipTyping() {
-      if (isTyping && typeInterval) {
+      if (typeInterval) {
         clearInterval(typeInterval);
         typeInterval = null;
-        isTyping = false;
-        const target = document.getElementById("questions-type");
-        if (target) {
-          setTypedContent(target, currentFullText, currentFullText.length);
-        }
+      }
+      isTyping = false;
+      const target = document.getElementById("questions-type");
+      const currentQ = QUESTIONS[currentIndex];
+      if (target && currentQ) {
+        target.textContent = currentQ.q;
       }
     }
 
@@ -895,7 +886,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
         typeInterval = null;
         isTyping = false;
         const typeEl = document.getElementById("intro-type");
-        if (typeEl) setTypedContent(typeEl, currentFullText, currentFullText.length);
+        if (typeEl) typeEl.textContent = currentFullText;
       } else {
         introStep++;
         runIntroScene(introStep);
@@ -1017,7 +1008,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
 
       const target = document.getElementById("questions-type");
       if (target) {
-        typeOut(target, q.q, 20);
+        target.textContent = q.q;
       }
     }
 
@@ -1258,6 +1249,19 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
           `;
           barsContainer.appendChild(row);
         });
+      }
+
+      // Refresh Feedback Roadmap Card View
+      const voteKey = "soulvirtues_roadmap_vote_v1";
+      const formEl = document.getElementById("feedback-vote-form");
+      const successEl = document.getElementById("feedback-vote-success");
+      const savedVote = localStorage.getItem(voteKey);
+      if (savedVote && !window.location.search.includes("debug=result")) {
+        formEl?.classList.add("hidden");
+        successEl?.classList.remove("hidden");
+      } else {
+        formEl?.classList.remove("hidden");
+        successEl?.classList.add("hidden");
       }
 
       showScreen("result");
@@ -1677,6 +1681,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
     document.getElementById("btn-download-card")?.addEventListener("click", downloadResultCard);
     document.getElementById("btn-copy-link")?.addEventListener("click", copyShareLink);
     document.getElementById("btn-retake")?.addEventListener("click", () => {
+      try { localStorage.removeItem("soulvirtues_roadmap_vote_v1"); } catch (e) {}
       showScreen("start");
     });
 
@@ -1685,19 +1690,29 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       const voteKey = "soulvirtues_roadmap_vote_v1";
       const formEl = document.getElementById("feedback-vote-form");
       const successEl = document.getElementById("feedback-vote-success");
-      const otherContainer = document.getElementById("vote-other-container");
       const otherText = document.getElementById("vote-other-text");
       const submitOtherBtn = document.getElementById("btn-submit-other-vote");
-      const otherOptBtn = document.getElementById("btn-vote-opt-other");
+      const changeVoteBtn = document.getElementById("btn-change-vote");
 
       if (!formEl || !successEl) return;
 
-      const savedVote = localStorage.getItem(voteKey);
-      if (savedVote && !window.location.search.includes("debug=result")) {
-        formEl.classList.add("hidden");
-        successEl.classList.remove("hidden");
-        return;
+      function refreshVoteState() {
+        const savedVote = localStorage.getItem(voteKey);
+        if (savedVote && !window.location.search.includes("debug=result")) {
+          formEl.classList.add("hidden");
+          successEl.classList.remove("hidden");
+        } else {
+          formEl.classList.remove("hidden");
+          successEl.classList.add("hidden");
+        }
       }
+      refreshVoteState();
+
+      changeVoteBtn?.addEventListener("click", () => {
+        formEl.classList.remove("hidden");
+        successEl.classList.add("hidden");
+        otherText?.focus();
+      });
 
       function submitVote(choice, customText = "") {
         playSound("click");
@@ -1722,14 +1737,13 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
         });
       });
 
-      otherOptBtn?.addEventListener("click", () => {
-        otherContainer?.classList.toggle("hidden");
-        otherText?.focus();
-      });
-
       submitOtherBtn?.addEventListener("click", () => {
         const textVal = (otherText?.value || "").trim();
-        submitVote("other", textVal);
+        if (textVal) {
+          submitVote("other", textVal);
+        } else {
+          otherText?.focus();
+        }
       });
     }
     initFeedbackVote();
