@@ -1,6 +1,6 @@
 ---
 // input: lang ('en' | 'ja' | 'es' | 'pt' | 'ru'), static scoring data, localized dictionaries, and six approved comparison pairs
-// output: Five-language 66-question quiz with instant question loading, answer feedback, native share analytics, direct download/WebView card fallback, vertical result card, review, gallery, comparisons, and roadmap feedback voting
+// output: Five-language 66-question quiz with instant question loading, answer feedback, touch-friendly answer labels, native share analytics, direct download/WebView card fallback, vertical result card, review, gallery, comparisons, and roadmap feedback voting
 // pos: src/components/Quiz.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import { getTranslations, type Locale } from '../i18n';
@@ -272,8 +272,20 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
 
      <!-- Extremes labels -->
       <div class="flex justify-between items-baseline gap-2 text-[9px] sm:text-xs text-gray-400 tracking-wider mb-3 sm:mb-6">
-        <span id="label-extreme-left" class="uppercase whitespace-nowrap overflow-hidden text-ellipsis">{t.quizUI.extremeLeft}</span>
-        <span id="label-extreme-right" class="uppercase whitespace-nowrap overflow-hidden text-ellipsis text-right">{t.quizUI.extremeRight}</span>
+        <button
+          type="button"
+          id="label-extreme-left"
+          class="uppercase whitespace-nowrap overflow-hidden text-ellipsis text-left cursor-pointer touch-manipulation hover:text-white transition-colors active:scale-95 py-1"
+        >
+          {t.quizUI.extremeLeft}
+        </button>
+        <button
+          type="button"
+          id="label-extreme-right"
+          class="uppercase whitespace-nowrap overflow-hidden text-ellipsis text-right cursor-pointer touch-manipulation hover:text-white transition-colors active:scale-95 py-1"
+        >
+          {t.quizUI.extremeRight}
+        </button>
      </div>
 
      <!-- 5-Point Scale Row -->
@@ -283,9 +295,13 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
 
       <!-- Centered Selected Option Label -->
       <div class="text-center mt-6 min-h-[2em] flex items-center justify-center">
-        <span id="selected-label-text" class="text-xl sm:text-3xl font-bold text-white tracking-widest uppercase">
+        <button
+          type="button"
+          id="selected-label-text"
+          class="text-xl sm:text-3xl font-bold text-white tracking-widest uppercase cursor-pointer touch-manipulation hover:text-red-400 transition-colors active:scale-95 py-1 px-3"
+        >
           {t.quizUI.likertLabels[2]}
-        </span>
+        </button>
       </div>
     </div>
 
@@ -1038,7 +1054,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
        const btn = document.createElement("button");
        btn.type = "button";
        const isSelected = currentSelection === optIdx;
-        btn.className = `flex-1 min-w-0 min-h-16 flex flex-col items-center justify-center gap-1 py-2 border-2 cursor-pointer group outline-none transition-all active:scale-95 focus-visible:border-white ${
+        btn.className = `flex-1 min-w-0 min-h-16 flex flex-col items-center justify-center gap-1 py-2 border-2 cursor-pointer group outline-none transition-all active:scale-95 focus-visible:border-white touch-manipulation ${
          isSelected
             ? "border-red-500 bg-red-950/30 shadow-[0_0_10px_rgba(239,68,68,0.4)]"
            : "border-gray-700 bg-black hover:border-white"
@@ -1693,6 +1709,16 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
 
     document.getElementById("btn-prev")?.addEventListener("click", goBack);
     document.getElementById("btn-next")?.addEventListener("click", confirmAndAdvance);
+
+    document.getElementById("label-extreme-left")?.addEventListener("click", () => {
+      selectAndAdvance(0);
+    });
+    document.getElementById("label-extreme-right")?.addEventListener("click", () => {
+      selectAndAdvance(4);
+    });
+    document.getElementById("selected-label-text")?.addEventListener("click", () => {
+      selectAndAdvance(currentSelection);
+    });
 
     document.getElementById("btn-share-card")?.addEventListener("click", shareResultCard);
     document.getElementById("btn-download-card")?.addEventListener("click", downloadResultCard);

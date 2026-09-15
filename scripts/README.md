@@ -9,6 +9,7 @@
 - check_comparison_sample.mjs：验证6组共30个五语言对比页、SEO 标签、证据边界、站点地图与内链
 - check_lang_prompt_mobile.mjs：验证语言提示窗的手机安全区域、触控尺寸、焦点状态与最大占屏高度
 - check_quiz_answer_feedback.mjs：验证手机点击答案后先显示选中反馈，再进入下一题
+- check_answer_touch_labels.mjs：验证极值与当前选项文本标签具备移动端触控交互并在点击时触发答题推进
 - check_card_download_ios.mjs：验证 1080×1350 分享卡、系统分享来源标记、GA4 事件、独立下载、复制链接、iOS 保存弹窗与五语言文案
 - check_bgm_audio_control.mjs：验证背景音乐静音/取消静音与音量控制在各端的准确调用
 - check_start_test_navigation.mjs：验证顶部导航 Start Test 与所有测验锚点点击时平滑滚动并直接激活答题界面
