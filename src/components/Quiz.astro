@@ -260,7 +260,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
     >
       <div id="questions-text" class="text-xl sm:text-3xl font-normal leading-relaxed text-white tracking-wide break-words">
         <span class="text-white mr-3 font-bold select-none">*</span>
-        <span id="questions-type" class="inline"></span>
+        <span id="questions-type" class="inline">{t.questions[0].q}</span>
       </div>
     </div>
 
@@ -771,6 +771,16 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       if (soundIndicator) soundIndicator.textContent = (audioSettings.musicMuted && audioSettings.sfxMuted) ? "🔇" : "🔊";
     }
 
+    function safePlay(audioEl) {
+      if (!audioEl) return;
+      try {
+        const p = audioEl.play();
+        if (p && typeof p.then === "function") {
+          p.catch(() => {});
+        }
+      } catch (e) {}
+    }
+
     function playSound(type) {
       if (audioSettings.sfxMuted || audioSettings.volSfx === 0) return;
       const sfxVol = audioSettings.volSfx / 100;
@@ -781,21 +791,21 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
           typePoolIndex = (typePoolIndex + 1) % TYPE_POOL_SIZE;
           audio.volume = Math.min(1, sfxVol * 0.7);
           audio.currentTime = 0;
-          audio.play().catch(() => {});
+          safePlay(audio);
         } else if (type === "move") {
           const audio = moveAudioPool[movePoolIndex];
           movePoolIndex = (movePoolIndex + 1) % MOVE_POOL_SIZE;
           audio.volume = sfxVol;
           audio.currentTime = 0;
-          audio.play().catch(() => {});
+          safePlay(audio);
         } else if (type === "select" && audioSelect) {
           audioSelect.volume = sfxVol;
           audioSelect.currentTime = 0;
-          audioSelect.play().catch(() => {});
+          safePlay(audioSelect);
         } else if (type === "appear" && audioAppear) {
           audioAppear.volume = sfxVol;
           audioAppear.currentTime = 0;
-          audioAppear.play().catch(() => {});
+          safePlay(audioAppear);
         }
       } catch (e) {}
     }
@@ -806,9 +816,16 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       if (bgmStarted && audioBgm && !audioBgm.paused) return;
       if (audioBgm) {
         updateAudioVolumes();
-        audioBgm.play().then(() => {
-          bgmStarted = true;
-        }).catch(() => {});
+        try {
+          const p = audioBgm.play();
+          if (p && typeof p.then === "function") {
+            p.then(() => {
+              bgmStarted = true;
+            }).catch(() => {});
+          } else {
+            bgmStarted = true;
+          }
+        } catch (e) {}
       }
     }
 
@@ -944,11 +961,11 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
         return;
       }
 
-      startBgm();
-      playSound("select");
       const firstUnanswered = userAnswers.findIndex(a => a === null);
       showScreen("active");
       renderQuestion(firstUnanswered !== -1 ? firstUnanswered : 0);
+      startBgm();
+      playSound("select");
     };
 
     // Initial Screen Decision
@@ -1623,10 +1640,10 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
         localStorage.setItem(STORAGE_KEY, JSON.stringify(userAnswers));
         localStorage.removeItem("soulvirtues_roadmap_vote_v1");
       } catch (e) {}
-      startBgm();
-      playSound("select");
       showScreen("active");
       renderQuestion(0);
+      startBgm();
+      playSound("select");
     });
 
     document.getElementById("quiz-intro")?.addEventListener("click", advanceIntro);
@@ -1657,11 +1674,11 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
     });
 
     document.getElementById("btn-resume-quiz")?.addEventListener("click", () => {
-      startBgm();
-      playSound("select");
       const firstUnanswered = userAnswers.findIndex(a => a === null);
       showScreen("active");
       renderQuestion(firstUnanswered !== -1 ? firstUnanswered : 0);
+      startBgm();
+      playSound("select");
     });
 
     document.getElementById("dialogue-box")?.addEventListener("click", skipTyping);

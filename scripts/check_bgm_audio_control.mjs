@@ -16,4 +16,8 @@ assert(quizSource.includes('if (!audioSettings.musicMuted) startBgm();'), 'Unmut
 // 3. Check muting pauses or silences BGM properly
 assert(quizSource.includes('audioBgm.volume = audioSettings.volMusic / 100;'), 'updateAudioVolumes must set volume proportionally');
 
+// 4. Verify safePlay prevents play() promise/undefined crashes on older mobile browsers
+assert(quizSource.includes('function safePlay('), 'Quiz.astro must define safePlay helper to guard play() return values');
+assert(quizSource.includes('typeof p.then === "function"'), 'startBgm and safePlay must verify play() returns a thenable before chaining');
+
 console.log('BGM audio control checks passed.');
