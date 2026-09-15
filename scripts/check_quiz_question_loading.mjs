@@ -27,5 +27,9 @@ for (const pagePath of pages) {
   });
 }
 
-console.log('Quiz question loading checks passed.');
+// 4. Verify Spanish page specifically has accurate Question 1
+const esHtml = readFileSync(new URL('../dist/es/index.html', import.meta.url), 'utf8');
+assert(esHtml.includes('A menudo sientes que no puedes ser'), 'Spanish page must have valid Question 1 text');
+assert(esHtml.includes('target.textContent = q.q') || esHtml.includes('target.textContent=q.q'), 'Spanish page must render questions without typewriter freeze');
 
+console.log('Quiz question loading checks passed.');
