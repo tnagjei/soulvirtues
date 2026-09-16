@@ -245,7 +245,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       </div>
       <button
         id="btn-quiz-reset"
-        class="px-2.5 py-1 text-xs text-gray-400 hover:text-white border-2 border-gray-700 hover:border-white bg-black uppercase tracking-wider cursor-pointer"
+        class="invisible px-2.5 py-1 text-xs text-gray-400 hover:text-white border-2 border-gray-700 hover:border-white bg-black uppercase tracking-wider cursor-pointer"
         title="Reset all progress"
       >
         {t.quizUI.hudResetBtn}
@@ -266,7 +266,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
 
     <!-- Answers Box (5-point Scale with Animated Red Heart Selector) -->
     <div id="answers-box" class="pixel-box p-6 sm:p-8 mb-6">
-      <p id="tap-answer-hint" class="sm:hidden mb-4 text-center text-xs font-bold uppercase tracking-widest text-yellow-400">
+      <p id="tap-answer-hint" class="mb-4 text-center text-xs font-bold uppercase tracking-widest text-yellow-400">
         * {t.quizUI.tapAnswerHint}
       </p>
 
@@ -316,7 +316,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
         </button>
         <button
           id="btn-next"
-          class="hidden sm:inline-flex px-7 py-2.5 bg-black border-2 border-red-500 hover:bg-red-500 hover:text-white text-red-400 font-bold uppercase tracking-wider cursor-pointer active:scale-95 transition-all"
+          class="flex-1 sm:flex-none px-6 sm:px-7 py-2.5 bg-black border-2 border-red-500 hover:bg-red-500 hover:text-white text-red-400 font-bold uppercase tracking-wider cursor-pointer active:scale-95 transition-all text-center"
         >
           [Z] {t.quizUI.confirmBtn}
         </button>
@@ -1030,6 +1030,9 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
 
       const prevBtn = document.getElementById("btn-prev");
       if (prevBtn) prevBtn.disabled = index === 0;
+
+      const resetBtn = document.getElementById("btn-quiz-reset");
+      if (resetBtn) resetBtn.classList.toggle("invisible", index === 0);
 
       // Extremes labels
       const extremeLeft = document.getElementById("label-extreme-left");

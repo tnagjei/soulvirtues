@@ -35,4 +35,9 @@ assert(/document\.getElementById\("label-extreme-right"\)\?\.addEventListener\("
 assert(source.includes('document.getElementById("selected-label-text")?.addEventListener("click"'), 'selected-label-text must have click listener');
 assert(/document\.getElementById\("selected-label-text"\)\?\.addEventListener\("click",\s*\(\)\s*=>\s*\{\s*selectAndAdvance\(currentSelection\);?\s*\}\);/.test(source), 'selected-label-text must advance with currentSelection');
 
+// 4. Check mobile controls visibility and reset behavior
+assert(!source.includes('id="btn-next"\n          class="hidden sm:inline-flex'), 'btn-next must not be hidden on mobile');
+assert(source.includes('resetBtn.classList.toggle("invisible", index === 0)'), 'btn-quiz-reset must be invisible on question 1');
+assert(!source.includes('id="tap-answer-hint" class="sm:hidden'), 'tap-answer-hint must not be hidden on desktop');
+
 console.log('Answer touch labels checks passed.');
