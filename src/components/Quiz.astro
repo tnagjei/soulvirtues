@@ -275,14 +275,14 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
         <button
           type="button"
           id="label-extreme-left"
-          class="uppercase whitespace-nowrap overflow-hidden text-ellipsis text-left cursor-pointer touch-manipulation hover:text-white transition-colors active:scale-95 py-1"
+          class="uppercase whitespace-nowrap overflow-hidden text-ellipsis text-left cursor-pointer touch-manipulation hover:text-white hover:underline transition-colors active:scale-95 py-1"
         >
           {t.quizUI.extremeLeft}
         </button>
         <button
           type="button"
           id="label-extreme-right"
-          class="uppercase whitespace-nowrap overflow-hidden text-ellipsis text-right cursor-pointer touch-manipulation hover:text-white transition-colors active:scale-95 py-1"
+          class="uppercase whitespace-nowrap overflow-hidden text-ellipsis text-right cursor-pointer touch-manipulation hover:text-white hover:underline transition-colors active:scale-95 py-1"
         >
           {t.quizUI.extremeRight}
         </button>
@@ -298,7 +298,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
         <button
           type="button"
           id="selected-label-text"
-          class="text-xl sm:text-3xl font-bold text-white tracking-widest uppercase cursor-pointer touch-manipulation hover:text-red-400 transition-colors active:scale-95 py-1 px-3"
+          class="text-xl sm:text-3xl font-bold text-white tracking-widest uppercase cursor-pointer touch-manipulation hover:text-red-400 hover:underline transition-colors active:scale-95 py-1 px-3"
         >
           {t.quizUI.likertLabels[2]}
         </button>
@@ -1034,8 +1034,14 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       // Extremes labels
       const extremeLeft = document.getElementById("label-extreme-left");
       const extremeRight = document.getElementById("label-extreme-right");
-      if (extremeLeft && q.labels) extremeLeft.textContent = q.labels[0];
-      if (extremeRight && q.labels) extremeRight.textContent = q.labels[q.labels.length - 1];
+      if (extremeLeft && q.labels) {
+        extremeLeft.textContent = q.labels[0];
+        extremeLeft.title = q.labels[0];
+      }
+      if (extremeRight && q.labels) {
+        extremeRight.textContent = q.labels[q.labels.length - 1];
+        extremeRight.title = q.labels[q.labels.length - 1];
+      }
 
       buildScalePoints(q);
 
@@ -1122,6 +1128,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       const labelEl = document.getElementById("selected-label-text");
       if (labelEl && q.labels && q.labels[currentSelection]) {
         labelEl.textContent = q.labels[currentSelection];
+        labelEl.title = q.labels[currentSelection];
       }
     }
 
