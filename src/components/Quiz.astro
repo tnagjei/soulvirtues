@@ -932,6 +932,9 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
     let currentIndex = 0;
     let userAnswers = new Array(QUESTIONS.length).fill(null);
     let currentSelection = 2; // Default Neutral
+    let isAdvancing = false;
+    let advanceTimer = null;
+    let advanceStartTime = 0;
 
     try {
       const savedAnswers = localStorage.getItem(STORAGE_KEY);
@@ -1090,10 +1093,6 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
 
       updateSelectedLabel(q);
    }
-
-    let isAdvancing = false;
-    let advanceTimer = null;
-    let advanceStartTime = 0;
 
    function selectAndAdvance(optIdx) {
       const now = Date.now();

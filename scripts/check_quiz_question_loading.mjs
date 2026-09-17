@@ -13,7 +13,13 @@ assert(quizSource.includes('target.textContent = q.q'), 'Quiz.astro renderQuesti
 // 2. Verify skipTyping safely guarantees full question text
 assert(quizSource.includes('target.textContent = currentQ.q') || quizSource.includes('target.textContent = q.q'), 'Quiz.astro skipTyping must ensure target.textContent has full text');
 
-// 3. Verify dist pages have all 66 questions for all 5 languages
+// 3. The #test hash auto-starts before the event bindings below; quiz state must
+// exist before startSoulQuiz() calls renderQuestion().
+const timerDeclaration = quizSource.indexOf('let advanceTimer = null;');
+const autoStartCall = quizSource.indexOf('window.startSoulQuiz();');
+assert(timerDeclaration >= 0 && autoStartCall > timerDeclaration, 'advanceTimer must be initialized before the #test auto-start call');
+
+// 4. Verify dist pages have all 66 questions for all 5 languages
 const pages = ['dist/index.html', 'dist/es/index.html', 'dist/ja/index.html', 'dist/pt/index.html', 'dist/ru/index.html'];
 for (const pagePath of pages) {
   const html = readFileSync(new URL('../' + pagePath, import.meta.url), 'utf8');
@@ -27,7 +33,7 @@ for (const pagePath of pages) {
   });
 }
 
-// 4. Verify Spanish page specifically has accurate Question 1
+// 5. Verify Spanish page specifically has accurate Question 1
 const esHtml = readFileSync(new URL('../dist/es/index.html', import.meta.url), 'utf8');
 assert(esHtml.includes('A menudo sientes que no puedes ser'), 'Spanish page must have valid Question 1 text');
 assert(esHtml.includes('target.textContent = q.q') || esHtml.includes('target.textContent=q.q'), 'Spanish page must render questions without typewriter freeze');
