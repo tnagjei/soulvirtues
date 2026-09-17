@@ -266,7 +266,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
 
     <!-- Answers Box (5-point Scale with Animated Red Heart Selector) -->
     <div id="answers-box" class="pixel-box p-6 sm:p-8 mb-6">
-      <p id="tap-answer-hint" class="mb-4 text-center text-xs font-bold uppercase tracking-widest text-yellow-400">
+      <p id="tap-answer-hint" class="mb-4 text-center text-xs font-bold uppercase tracking-widest text-yellow-400 cursor-pointer touch-manipulation hover:text-white transition-colors" title={t.quizUI.tapAnswerHint}>
         * {t.quizUI.tapAnswerHint}
       </p>
 
@@ -1055,6 +1055,11 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       if (target) {
         target.textContent = q.q;
       }
+      const dialogue = document.getElementById("dialogue-box");
+      if (dialogue) {
+        dialogue.classList.add("border-yellow-400");
+        setTimeout(() => dialogue.classList.remove("border-yellow-400"), 200);
+      }
     }
 
     function buildScalePoints(q) {
@@ -1082,13 +1087,26 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
               : '<div class="w-5 h-5 sm:w-6 sm:h-6 bg-black border-3 sm:border-4 border-gray-600 group-hover:border-white transition-colors"></div>'
             }
           </div>
+          <span class="hidden sm:block text-[9px] sm:text-[11px] text-gray-300 font-sans text-center px-1 leading-tight pointer-events-none line-clamp-2">${label}</span>
         `;
+
+        btn.addEventListener("mouseenter", () => {
+          const labelEl = document.getElementById("selected-label-text");
+          if (labelEl) {
+            labelEl.textContent = label;
+            labelEl.title = label;
+          }
+        });
 
         btn.addEventListener("click", () => {
           selectAndAdvance(optIdx);
         });
 
         scaleRow.appendChild(btn);
+      });
+
+      scaleRow.addEventListener("mouseleave", () => {
+        updateSelectedLabel(q);
       });
 
       updateSelectedLabel(q);
@@ -1727,6 +1745,34 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
     });
     document.getElementById("selected-label-text")?.addEventListener("click", () => {
       selectAndAdvance(currentSelection);
+    });
+    document.getElementById("tap-answer-hint")?.addEventListener("click", () => {
+      selectAndAdvance(currentSelection);
+    });
+
+    document.getElementById("label-extreme-left")?.addEventListener("mouseenter", () => {
+      const labelEl = document.getElementById("selected-label-text");
+      const q = QUESTIONS[currentIndex];
+      if (labelEl && q && q.labels) {
+        labelEl.textContent = q.labels[0];
+        labelEl.title = q.labels[0];
+      }
+    });
+    document.getElementById("label-extreme-left")?.addEventListener("mouseleave", () => {
+      const q = QUESTIONS[currentIndex];
+      if (q) updateSelectedLabel(q);
+    });
+    document.getElementById("label-extreme-right")?.addEventListener("mouseenter", () => {
+      const labelEl = document.getElementById("selected-label-text");
+      const q = QUESTIONS[currentIndex];
+      if (labelEl && q && q.labels) {
+        labelEl.textContent = q.labels[q.labels.length - 1];
+        labelEl.title = q.labels[q.labels.length - 1];
+      }
+    });
+    document.getElementById("label-extreme-right")?.addEventListener("mouseleave", () => {
+      const q = QUESTIONS[currentIndex];
+      if (q) updateSelectedLabel(q);
     });
 
     document.getElementById("btn-share-card")?.addEventListener("click", shareResultCard);

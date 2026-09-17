@@ -39,5 +39,8 @@ assert(/document\.getElementById\("selected-label-text"\)\?\.addEventListener\("
 assert(!source.includes('id="btn-next"\n          class="hidden sm:inline-flex'), 'btn-next must not be hidden on mobile');
 assert(source.includes('resetBtn.classList.toggle("invisible", index === 0)'), 'btn-quiz-reset must be invisible on question 1');
 assert(!source.includes('id="tap-answer-hint" class="sm:hidden'), 'tap-answer-hint must not be hidden on desktop');
+assert(source.includes('document.getElementById("tap-answer-hint")?.addEventListener("click"'), 'tap-answer-hint must have click listener');
+assert(source.includes('line-clamp-2">${label}</span>'), 'scale buttons must render localized label text on desktop');
+assert(source.includes('btn.addEventListener("mouseenter"'), 'scale buttons must have mouseenter hover preview');
 
 console.log('Answer touch labels checks passed.');
