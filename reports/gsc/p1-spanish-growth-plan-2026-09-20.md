@@ -378,4 +378,74 @@ Fandom 讲的是**对战机制**（绿色 = 盾牌模式，紫色 = 陷阱模式
 
 ---
 
+## 7. 统一上线记录（2026-09-20）
+
+### 7.1 上线前全量验证：61 项通过，0 项失败
+
+| 验证组 | 覆盖项 | 结果 |
+|---|---|---|
+| 动作 1 汇总页 | 5 语种 × 8 项（页面存在、canonical、hreflang 五语种齐全无 404、结构化数据、7 条详情页内链、前缀正确） | ✅ 40/40 |
+| 动作 3 主页 | 5 语种 × 4 项（H2 含目标短语、7 项颜色内链、汇总页入口、Title 未变） | ✅ 20/20 |
+| 动作 2 详情页 | H1 含颜色词 5/5；35 页首个 H2 即直接答案 | ✅ |
+| 动作 4 | 对比页未被改动且仍可访问 | ✅ |
+| sitemap / robots / llms | 5 个新条目、无重复、79 条、robots Allow、llms 收录 | ✅ |
+| 构建产物内链完整性 | 35 个详情页全部站内链接指向真实文件 | ✅ 0 断链 |
+
+项目自带 `scripts/audit_site_seo.mjs`：**79 页 0 错误**。
+移动端 375px / 430px：**0 横向溢出**。
+
+### 7.2 提交与部署
+
+| 步骤 | 内容 | 结果 |
+|---|---|---|
+| commit 1 | `docs(seo): 归档第30天 GSC 月度复盘、P0 品牌词结案、P1 西语计划与 /souls/ 404 调查报告` | `d79e668` |
+| commit 2 | `feat(seo): 新增五语种灵魂汇总页，并为详情页补充「代表什么」直接答案区块`（30 files changed, +977 / −67） | `4dda2a0` |
+| push | `fca671a..4dda2a0 main -> main` | ✅ |
+| 部署 | Cloudflare Pages 自动构建，约 20 秒后生效 | ✅ |
+
+### 7.3 线上核验（部署后实测）
+
+| 项 | 结果 |
+|---|---|
+| `/souls/` `/es/souls/` `/pt/souls/` `/ja/souls/` `/ru/souls/` | **全部 HTTP 200** |
+| 线上 `/souls/` Title / Canonical / H1 | `The 7 Undertale Souls: Colors, Traits and Meanings` / 正确 / 一致 |
+| 线上 `/souls/` hreflang | en, ja, es, pt, ru, x-default 六条齐全 |
+| 线上 `/souls/` 结构化数据 | BreadcrumbList + CollectionPage + ItemList + FAQPage |
+| 线上 `/es/souls/kindness/` | H1 = `Alma Verde de Undertale: AMABILIDAD`；首 H2 = `✦ ¿Qué significa el Alma Verde en Undertale?` |
+| 线上 `/souls/kindness/` | H1 = `The Green Undertale SOUL: KINDNESS`；首 H2 = `✦ What Does the Green Soul Mean in Undertale?` |
+| 线上 sitemap | 79 条 |
+| 线上西语主页 | 已含 `Las 7 Almas de Undertale` 短语 |
+
+### 7.4 索引提交
+
+`node scripts/submit_indexnow.mjs` → 提交 79 条 URL：
+
+| 端点 | 结果 |
+|---|---|
+| `yandex.com` | ✅ **202 Accepted** |
+| `api.indexnow.org` | ❌ 403 `UserForbiddedToAccessSite` |
+| `www.bing.com` | ❌ 403 `UserForbiddedToAccessSite` |
+
+**根因（新发现，属既有问题，非本次改动引入）**
+
+排查确认：
+- IndexNow 密钥文件 `https://soulvirtues.org/e74f83b2d1c94a5ea6e0b7f8c9d1a2e3.txt` 在线、HTTP 200、内容与脚本密钥一致 ✅
+- 站点已有 Yandex 验证（`meta yandex-verification`）、Naver 验证文件 ✅
+- **但没有 Bing 的所有权验证文件**：`https://soulvirtues.org/BingSiteAuth.xml` → **404**
+
+Bing 的 IndexNow 端点要求站点已在 Bing 站长后台完成所有权验证，否则返回 `UserForbiddedToAccessSite`。
+
+**待你处理（需要你的 Bing 账号，我无法代做）**：在 Bing Webmaster Tools 添加并验证 `soulvirtues.org`，之后 IndexNow 对 Bing 即可正常提交。在此之前，Bing 侧的收录仍依赖常规抓取与 sitemap。
+
+**影响评估**：不阻塞本次上线。Google 走 sitemap + 常规抓取，不受影响；Yandex 已接受。仅 Bing 的即时提交缺失。
+
+### 7.5 遗留（本次未做，非计划内）
+
+| 项 | 说明 |
+|---|---|
+| `SoulCard.astro` 里「Explore {name} Lore & Items →」是硬编码英文 | 在 es/pt/ja/ru 主页上会显示英文链接文案。既有 i18n 缺口，需在 5 个 i18n 文件加标签键。本次为控制改动面未处理 |
+| 动作 2 未做字数扩张 | 已在 6 节说明理由（字数是结果不是手段，页面内容已覆盖原计划想补的四块） |
+| 部署后效果复测 | 计划 6.3 节定义的 30 天验收指标，建议 2026-10-19 由 Day60 自动化任务一并复核 |
+
+
 
