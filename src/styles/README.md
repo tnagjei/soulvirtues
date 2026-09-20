@@ -5,5 +5,5 @@
 > 一旦本目录内容变化，请更新本文件
 
 ## Files
-- global.css：Tailwind 导入、七灵魂色与像素字体主题变量（--font-mono 已覆盖为像素字体）、.pixel-box/.pixel-card/.pixel-card-sub 像素边框体系、打字机与像素滑杆样式、#bg-video 背景视频
+- global.css：Tailwind 导入、七灵魂色与像素字体主题变量（--font-mono 已覆盖为像素字体）、.pixel-box/.pixel-card/.pixel-card-sub 像素边框体系、打字机与像素滑杆样式、.bg-fx 纯 CSS 动效背景（已替代旧背景视频）
 - fonts.css：3 款内嵌 base64 像素字体（Determination Mono / Determination Sans / Skeleton Sans），由 global.css 引入

@@ -45,10 +45,10 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
   data-comparison-pairs={comparisonPairsJson}
 >
   <!-- Background Audio Elements -->
-  <audio id="audio-bgm" loop preload="auto" src="/audio/AUDIO_ANOTHERHIM.ogg"></audio>
-  <audio id="audio-move" preload="auto" src="/audio/snd_menumove.wav"></audio>
-  <audio id="audio-select" preload="auto" src="/audio/snd_select.wav"></audio>
-  <audio id="audio-appear" preload="auto" src="/audio/AUDIO_APPEARANCE.wav"></audio>
+  <audio id="audio-bgm" loop preload="auto" src="/audio/bgm_ambient.m4a"></audio>
+  <audio id="audio-move" preload="auto" src="/audio/sfx_move.wav"></audio>
+  <audio id="audio-select" preload="auto" src="/audio/sfx_select.wav"></audio>
+  <audio id="audio-appear" preload="auto" src="/audio/sfx_appear.wav"></audio>
 
   <!-- Top Bar: Title & Pixel Settings Button -->
   <div class="flex items-center justify-between mb-4 px-2 text-xs text-gray-300">
@@ -742,7 +742,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
     const TYPE_POOL_SIZE = 6;
     const typeAudioPool = [];
     for (let i = 0; i < TYPE_POOL_SIZE; i++) {
-      const a = new Audio("/audio/snd_text.wav");
+      const a = new Audio("/audio/sfx_text.wav");
       a.preload = "auto";
       typeAudioPool.push(a);
     }
@@ -751,7 +751,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
     const MOVE_POOL_SIZE = 4;
     const moveAudioPool = [];
     for (let i = 0; i < MOVE_POOL_SIZE; i++) {
-      const a = new Audio("/audio/snd_menumove.wav");
+      const a = new Audio("/audio/sfx_move.wav");
       a.preload = "auto";
       moveAudioPool.push(a);
     }

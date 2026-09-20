@@ -1,6 +1,6 @@
 ---
 // input: Title, description, canonicalUrl, ogImage, structuredData schema, lang ('en' | 'ja' | 'es' | 'pt' | 'ru')
-// output: Full HTML page shell with multilingual hreflang meta tags, fonts, styles, header, footer, bottom-right language suggestion toast, ambient background video, Google Analytics, Clarity analytics, and MakeThisBetter widget
+// output: Full HTML page shell with multilingual hreflang meta tags, fonts, styles, header, footer, bottom-right language suggestion toast, CSS ambient background effect, Google Analytics, Clarity analytics, and MakeThisBetter widget
 // pos: src/layouts/Layout.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import Header from '../components/Header.astro';
@@ -120,18 +120,8 @@ const hrefDefault = `${siteUrl}${baseRel}`;
     </script>
   </head>
   <body class="bg-black text-gray-100 min-h-screen flex flex-col font-sans selection:bg-red-500 selection:text-white relative">
-    <!-- Ambient Void Video Background -->
-    <video
-      id="bg-video"
-      autoplay
-      loop
-      muted
-      playsinline
-      disablepictureinpicture
-      aria-hidden="true"
-    >
-      <source src="/background.mp4" type="video/mp4" />
-    </video>
+    <!-- Ambient Void CSS Background Effect -->
+    <div class="bg-fx" aria-hidden="true"></div>
 
     <Header lang={lang} />
     <main class="flex-grow relative z-10">
