@@ -12,5 +12,6 @@
 - p0-brand-query-investigation-2026-09-20.md：P0 结案报告。用 GoAnyAPI 实时 SERP 定位英文「品牌词」异常根因，附竞争者地图与策略修正
 - p1-spanish-growth-plan-2026-09-20.md：西语增长详细计划（4 个动作 + 执行顺序 + 30 天验收指标），含 `/es/souls/` 汇总页缺失这一结构性发现
 - souls-path-404-investigation-2026-09-20.md：`/souls/` 404 成因调查。结论：从未被故意设置成 404，也从未创建过该页面；线上 404 仅因未部署
+- bing-sitemap-warning-investigation-2026-09-20.md：Bing「网站地图中缺少重要页面」报错排查。结论：**Bing 侧误报，已由 Bing 后台 URL 检查「已成功编制索引」实测确认结案**；附带修正 sitemap 中 40 条失真的 lastmod；含 IndexNow 到 Bing 仍 403 的续查结论与用户侧操作清单
 - weekly/：上线第 60 天后的每周巡检报告
 - launchd/：LaunchAgent 标准输出与错误日志
