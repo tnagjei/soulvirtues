@@ -222,8 +222,8 @@ export const jaTranslations: Translations = {
     ],
   },
   traits: {
-    title: "Undertale の7つの魂の特質とは？",
-    subtitle: "『UNDERTALE』の世界では、人間の魂は7つの固有の色に分類され、それぞれが中核となる道徳的美徳と行動の原動力を象徴しています。",
+    title: "Undertale の7つの魂と、それぞれが表す特質",
+    subtitle: "Undertale に登場する7つの魂をまとめました。それぞれに固有の色と、それを定義する特質があります。自分の中でどれが優勢かを知る前に、7つすべてをここで確認できます。",
   },
   colors: {
     title: "あなたの魂の色は何色？",

@@ -1,5 +1,5 @@
 // input: dist/ static build files, public/ static assets
-// output: Comprehensive SEO audit for 74 indexable pages, the static 404, and sitemap parity
+// output: Comprehensive SEO audit for 79 indexable pages, the static 404, and sitemap parity
 // pos: scripts/audit_site_seo.mjs (更新规则：脚本变更需同步本注释与 scripts/README.md)
 
 import fs from 'node:fs';
@@ -10,7 +10,7 @@ const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const distDir = path.join(rootDir, 'dist');
 const publicDir = path.join(rootDir, 'public');
 const siteUrl = 'https://soulvirtues.org';
-const expectedIndexablePageCount = 74;
+const expectedIndexablePageCount = 79;
 
 function getFiles(dir) {
   let results = [];

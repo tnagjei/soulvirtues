@@ -222,8 +222,8 @@ export const ptTranslations: Translations = {
     ],
   },
   traits: {
-    title: "Quais são os 7 Traços de Alma de Undertale?",
-    subtitle: "No universo de Undertale, as almas humanas são divididas em sete cores marcantes, cada uma representando uma virtude moral e uma motivação comportamental.",
+    title: "As 7 Almas de Undertale e os Traços que Elas Representam",
+    subtitle: "Estas são as sete almas de Undertale: cada uma tem sua própria cor e um traço que a define. Aqui estão todas juntas, com o significado de cada uma, antes de descobrir qual domina em você.",
   },
   colors: {
     title: "Qual é a cor da sua alma em Undertale?",

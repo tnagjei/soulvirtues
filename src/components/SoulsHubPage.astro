@@ -1,0 +1,247 @@
+---
+// input: lang ('en' | 'ja' | 'es' | 'pt' | 'ru') plus SOULS_HUB_COPY and getLocalizedSoulDetails
+// output: Localized /souls/ hub page with 7-soul comparison table, trait cards, FAQ, and schema
+// pos: src/components/SoulsHubPage.astro（更新规则：文件变更需同步本注释与所属目录 README）
+
+import Layout from '../layouts/Layout.astro';
+import FAQ from './FAQ.astro';
+import { SOUL_SLUGS } from '../data/soulDetails';
+import { getLocalizedSoulDetails } from '../data/soulDetailsI18n';
+import { SOULS_HUB_COPY } from '../data/soulsHub';
+import type { Locale } from '../i18n';
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = 'en' } = Astro.props;
+const copy = SOULS_HUB_COPY[lang];
+const siteUrl = 'https://soulvirtues.org';
+const langPrefix = lang === 'en' ? '' : `/${lang}`;
+const pageUrl = `${siteUrl}${langPrefix}/souls/`;
+const homeUrl = `${siteUrl}${langPrefix}/`;
+const testAnchor = `${langPrefix}/#test`;
+
+const localized = getLocalizedSoulDetails(lang);
+const souls = SOUL_SLUGS.map(slug => localized[slug]).filter(Boolean);
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: copy.breadcrumbHome, item: homeUrl },
+        { '@type': 'ListItem', position: 2, name: copy.h1, item: pageUrl },
+      ],
+    },
+    {
+      '@type': 'CollectionPage',
+      '@id': `${pageUrl}#collection`,
+      name: copy.metaTitle,
+      description: copy.metaDescription,
+      url: pageUrl,
+      inLanguage: lang,
+      mainEntity: {
+        '@type': 'ItemList',
+        numberOfItems: souls.length,
+        itemListElement: souls.map((soul, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: `${soul.colorName} — ${soul.name}`,
+          url: `${siteUrl}${langPrefix}/souls/${soul.slug}/`,
+        })),
+      },
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': `${pageUrl}#faq`,
+      mainEntity: copy.faq.map(item => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a },
+      })),
+    },
+  ],
+};
+---
+
+<Layout
+  title={copy.metaTitle}
+  description={copy.metaDescription}
+  canonicalUrl={pageUrl}
+  structuredData={structuredData}
+  lang={lang}
+>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-10">
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-xs font-mono text-gray-400 mb-8" aria-label="Breadcrumb">
+      <a href={homeUrl} class="hover:text-white transition-colors">{copy.breadcrumbHome}</a>
+      <span>/</span>
+      <span class="text-white font-bold">{copy.h1}</span>
+    </nav>
+
+    <!-- Hero -->
+    <header class="mb-12">
+      <h1 class="text-3xl sm:text-5xl font-black text-white font-mono tracking-tight leading-tight mb-5">
+        {copy.h1}
+      </h1>
+      {copy.lede.map(paragraph => (
+        <p class="text-sm sm:text-base text-gray-300 leading-relaxed mb-3 max-w-3xl" set:html={paragraph} />
+      ))}
+    </header>
+
+    <!-- Comparison table -->
+    <section class="mb-14">
+      <h2 class="text-xl sm:text-2xl font-bold text-white font-mono mb-2 flex items-center gap-2">
+        <span class="text-red-500">✦</span> {copy.sectionListTitle}
+      </h2>
+      <p class="text-xs sm:text-sm text-gray-400 mb-6">{copy.sectionListSub}</p>
+
+      <div class="overflow-x-auto border border-gray-800">
+        <table class="w-full text-left text-xs sm:text-sm min-w-[560px]">
+          <thead class="bg-black/70 text-gray-400 font-mono uppercase text-[11px] tracking-wider">
+            <tr>
+              <th class="px-3 sm:px-4 py-3">{copy.tableHeaders.color}</th>
+              <th class="px-3 sm:px-4 py-3">{copy.tableHeaders.trait}</th>
+              <th class="px-3 sm:px-4 py-3">{copy.tableHeaders.meaning}</th>
+              <th class="px-3 sm:px-4 py-3">{copy.tableHeaders.detail}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {souls.map(soul => (
+              <tr class="border-t border-gray-800 hover:bg-white/[0.03] transition-colors align-top">
+                <td class="px-3 sm:px-4 py-4 whitespace-nowrap">
+                  <span class="inline-flex items-center gap-2">
+                    <span
+                      class="inline-block w-3.5 h-3.5 border border-white/20 flex-shrink-0"
+                      style={`background: ${soul.hex}`}
+                      aria-hidden="true"
+                    />
+                    <span class="font-mono font-bold text-white">{soul.colorName}</span>
+                  </span>
+                </td>
+                <td class="px-3 sm:px-4 py-4">
+                  <a
+                    href={`${langPrefix}/souls/${soul.slug}/`}
+                    class="font-mono font-bold hover:underline transition-colors"
+                    style={`color: ${soul.hex}`}
+                  >
+                    {soul.name}
+                  </a>
+                </td>
+                <td class="px-3 sm:px-4 py-4 text-gray-300 leading-relaxed">
+                  {soul.personalityAnalysis.coreMotivation}
+                </td>
+                <td class="px-3 sm:px-4 py-4 whitespace-nowrap">
+                  <a
+                    href={`${langPrefix}/souls/${soul.slug}/`}
+                    class="font-mono text-xs text-gray-400 hover:text-white transition-colors"
+                  >
+                    {copy.detailLinkLabel} →
+                  </a>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- What are the 7 souls -->
+    <section class="mb-14">
+      <h2 class="text-xl sm:text-2xl font-bold text-white font-mono mb-4 flex items-center gap-2">
+        <span class="text-red-500">✦</span> {copy.sectionWhatTitle}
+      </h2>
+      {copy.sectionWhatBody.map(paragraph => (
+        <p class="text-sm text-gray-300 leading-relaxed mb-4 max-w-3xl" set:html={paragraph} />
+      ))}
+    </section>
+
+    <!-- Trait cards -->
+    <section class="mb-14">
+      <div class="space-y-4">
+        {souls.map(soul => (
+          <article class="pixel-card-sub p-5 sm:p-6" style={`--soul-theme-color: ${soul.hex}`}>
+            <div class="flex flex-col sm:flex-row sm:items-start gap-4">
+              <div class="w-10 h-10 flex-shrink-0" style={`color: ${soul.hex}`}>
+                <svg viewBox="0 0 16 16" fill="currentColor" class="w-full h-full" shape-rendering="crispEdges" aria-hidden="true">
+                  <path d="M2 0h4v1H2zm8 0h4v1h-4zM1 1h6v1H1zm8 0h6v1H9zM0 2h7v1H0zm9 2h7v1H9zM0 3h7v1H0zm9 3h7v1H9zM0 4h16v6H0zm2 6h12v2H2zm2 2h8v2H4zm2 2h4v2H6z"/>
+                </svg>
+              </div>
+              <div class="flex-1">
+                <h3 class="text-base sm:text-lg font-black font-mono text-white mb-1">
+                  <a href={`${langPrefix}/souls/${soul.slug}/`} class="hover:underline">
+                    <span style={`color: ${soul.hex}`}>{soul.colorName}</span> — {soul.name}
+                  </a>
+                </h3>
+                <p class="text-xs sm:text-sm text-gray-300 leading-relaxed mb-2">
+                  {soul.personalityAnalysis.coreMotivation}
+                </p>
+                <p class="text-xs text-gray-500 font-mono italic mb-3">
+                  {soul.tagQuote}
+                </p>
+                <a
+                  href={`${langPrefix}/souls/${soul.slug}/`}
+                  class="inline-flex items-center gap-1 text-xs font-mono font-bold text-gray-400 hover:text-white transition-colors"
+                >
+                  {copy.detailLinkLabel} →
+                </a>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- Human souls vs battle modes -->
+    <section class="mb-14">
+      <h2 class="text-xl sm:text-2xl font-bold text-white font-mono mb-4 flex items-center gap-2">
+        <span class="text-red-500">✦</span> {copy.sectionHumanTitle}
+      </h2>
+      {copy.sectionHumanBody.map(paragraph => (
+        <p class="text-sm text-gray-300 leading-relaxed mb-4 max-w-3xl" set:html={paragraph} />
+      ))}
+    </section>
+
+    <!-- Strongest soul -->
+    <section class="mb-14">
+      <h2 class="text-xl sm:text-2xl font-bold text-white font-mono mb-4 flex items-center gap-2">
+        <span class="text-red-500">✦</span> {copy.sectionStrongestTitle}
+      </h2>
+      {copy.sectionStrongestBody.map(paragraph => (
+        <p class="text-sm text-gray-300 leading-relaxed mb-4 max-w-3xl" set:html={paragraph} />
+      ))}
+    </section>
+
+    <!-- CTA -->
+    <section class="pixel-card p-8 text-center relative overflow-hidden bg-gradient-to-b from-gray-900 to-black border-2 border-red-500 shadow-[0_0_24px_rgba(239,68,68,0.25)] mb-14">
+      <h2 class="text-2xl sm:text-3xl font-black text-white font-mono mb-3">
+        {copy.sectionTestTitle}
+      </h2>
+      <p class="text-xs sm:text-sm text-gray-300 max-w-2xl mx-auto mb-6">
+        {copy.sectionTestBody}
+      </p>
+      <a
+        href={testAnchor}
+        class="inline-block px-8 py-4 bg-red-600 hover:bg-red-500 text-white font-bold font-mono text-xs sm:text-sm tracking-wider uppercase border-2 border-white shadow-[4px_4px_0px_#000] hover:shadow-[2px_2px_0px_#000] active:translate-x-[2px] active:translate-y-[2px] transition-all"
+      >
+        {copy.ctaButton}
+      </a>
+    </section>
+
+    <!-- FAQ -->
+    <section class="mb-12">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-wide mb-3">
+        {copy.faqTitle}
+      </h2>
+      <p class="text-xs sm:text-sm text-gray-400 mb-8">{copy.faqSub}</p>
+      <FAQ faqs={copy.faq} />
+    </section>
+
+    <!-- Evidence boundary note -->
+    <p class="text-[11px] text-gray-500 italic leading-relaxed border-t border-gray-800 pt-6">
+      {copy.evidenceNote}
+    </p>
+  </div>
+</Layout>

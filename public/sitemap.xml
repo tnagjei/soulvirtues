@@ -362,6 +362,66 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://soulvirtues.org/souls/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/souls/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/souls/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/souls/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/souls/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://soulvirtues.org/ru/souls/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/souls/" />
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/ja/souls/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/souls/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/souls/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/souls/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/souls/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://soulvirtues.org/ru/souls/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/souls/" />
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/es/souls/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/souls/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/souls/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/souls/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/souls/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://soulvirtues.org/ru/souls/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/souls/" />
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/pt/souls/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/souls/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/souls/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/souls/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/souls/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://soulvirtues.org/ru/souls/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/souls/" />
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/ru/souls/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/souls/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/souls/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/souls/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/souls/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://soulvirtues.org/ru/souls/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/souls/" />
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://soulvirtues.org/souls/determination/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/souls/determination/" />
     <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/souls/determination/" />

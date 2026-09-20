@@ -1,7 +1,7 @@
 # Soul Virtues Extractor (soulvirtues.org)
 
 - 用途：围绕“Soul Virtues Extractor”核心词及 Undertale/Deltarune 灵魂测验搜索需求构建的高性能 5 语种多语言静态工具站
-- 关键入口：src/pages/index.astro, src/pages/ja/index.astro, src/pages/es/index.astro, src/pages/pt/index.astro, src/pages/ru/index.astro, src/components/Quiz.astro, src/i18n/index.ts
+- 关键入口：src/pages/index.astro, src/pages/ja/index.astro, src/pages/es/index.astro, src/pages/pt/index.astro, src/pages/ru/index.astro, src/pages/es/souls/index.astro, src/components/Quiz.astro, src/components/SoulsHubPage.astro, src/data/soulsHub.ts, src/i18n/index.ts
 - 边界/依赖：Node.js, Astro 5, Tailwind CSS 4, Cloudflare Pages 部署
 
 ## 项目简介
@@ -14,7 +14,8 @@
 - 葡文（Undertale 巴西社区术语对齐）：`/pt/ (https://soulvirtues.org/pt/)`
 - 俄文（Undertale 俄语社区术语对齐）：`/ru/ (https://soulvirtues.org/ru/)`
 - 对比页：6组已审核双特质组合，共30个五语言页面。
-- SEO 关联：5 个语种版本具备自动 `hreflang` 互相指向与 `x-default`，共 74 个可索引页面，另有独立 404 页面。
+- 七灵魂汇总页：`/souls/`、`/ja/souls/`、`/es/souls/`、`/pt/souls/`、`/ru/souls/`，共5个五语言页面，含七色清单对比表与证据边界说明。
+- SEO 关联：5 个语种版本具备自动 `hreflang` 互相指向与 `x-default`，共 79 个可索引页面，另有独立 404 页面。
 
 ## 运行与构建命令
 - 本地开发：`npm run dev`

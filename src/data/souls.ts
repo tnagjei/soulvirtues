@@ -82,3 +82,14 @@ export const SOULS: Record<SoulCode, SoulDefinition> = {
 
 export const SOUL_CODES: SoulCode[] = ['DET', 'BRV', 'JUS', 'KND', 'PAT', 'INT', 'PER'];
 
+// 灵魂代码到详情页 slug 的唯一映射源，供 SoulCard 与各语言首页颜色清单共用
+export const SOUL_SLUGS_BY_CODE: Record<SoulCode, string> = {
+  DET: 'determination',
+  BRV: 'bravery',
+  JUS: 'justice',
+  KND: 'kindness',
+  PAT: 'patience',
+  INT: 'integrity',
+  PER: 'perseverance',
+};
+

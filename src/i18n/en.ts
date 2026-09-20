@@ -73,8 +73,8 @@ export const enTranslations: Translations = {
     ],
   },
   traits: {
-    title: "What Are the Seven Undertale Soul Traits?",
-    subtitle: "In the world of Undertale, human souls are categorized into seven distinctive colors, each representing a core moral virtue and behavioral drive.",
+    title: "The 7 Undertale Souls and the Traits They Represent",
+    subtitle: "These are the seven souls of Undertale: each has its own color and a trait that defines it. Here they are all together, with what each one means — before you find out which one is dominant in you.",
   },
   colors: {
     title: "What Is Your Undertale Soul Color?",

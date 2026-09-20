@@ -7,11 +7,15 @@ import Layout from '../../layouts/Layout.astro';
 import Quiz from '../../components/Quiz.astro';
 import SoulCard from '../../components/SoulCard.astro';
 import FAQ from '../../components/FAQ.astro';
-import { SOUL_CODES } from '../../data/souls';
+import { SOUL_CODES, SOUL_SLUGS_BY_CODE } from '../../data/souls';
+import { SOULS_HUB_COPY } from '../../data/soulsHub';
 import { getTranslations } from '../../i18n';
 
 const lang = 'ru';
 const t = getTranslations(lang);
+const soulsHub = SOULS_HUB_COPY[lang];
+const soulsHubPath = lang === 'en' ? '/souls/' : `/${lang}/souls/`;
+const soulsPrefix = lang === 'en' ? '' : `/${lang}`;
 
 // Schema.org JSON-LD
 const structuredData = {
@@ -153,6 +157,14 @@ const structuredData = {
         <SoulCard soul={t.souls[code]} lang={lang} />
       ))}
     </div>
+    <div class="text-center mt-10">
+      <a
+        href={soulsHubPath}
+        class="inline-flex items-center gap-2 px-5 py-3 min-h-[44px] bg-black border-2 border-gray-700 hover:border-white text-xs sm:text-sm font-mono font-bold text-gray-300 hover:text-white transition-colors"
+      >
+        {soulsHub.navLabel} →
+      </a>
+    </div>
   </section>
 
   <!-- Section 4: What Is Your Undertale Soul Color? -->
@@ -166,11 +178,14 @@ const structuredData = {
       </p>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm text-gray-300">
-        {t.colors.items.map(item => (
-          <div class={`p-4 bg-black border border-gray-800 ${item.colSpan2 ? 'sm:col-span-2' : ''}`}>
-            <span class="font-bold text-white font-mono">{item.title}</span>
+        {t.colors.items.map((item, idx) => (
+          <a
+            href={`${soulsPrefix}/souls/${SOUL_SLUGS_BY_CODE[SOUL_CODES[idx]]}/`}
+            class={`group/color block p-4 bg-black border border-gray-800 hover:border-white transition-colors ${item.colSpan2 ? 'sm:col-span-2' : ''}`}
+          >
+            <span class="font-bold text-white font-mono group-hover/color:underline">{item.title}</span>
             <p class="text-gray-400 text-xs mt-1 font-sans">{item.desc}</p>
-          </div>
+          </a>
         ))}
       </div>
 

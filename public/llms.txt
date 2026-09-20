@@ -9,6 +9,7 @@ Soul Virtues Extractor provides an interactive, client-side personality quiz bas
 - [Scoring System](https://soulvirtues.org/#scoring): Multi-dimensional weighting and non-linear power curve algorithm
 
 ## Seven Undertale Soul Trait Guides
+- [All 7 Souls Overview](https://soulvirtues.org/souls/): Color, trait and meaning for all seven Undertale souls in one comparison table
 - [Determination Soul (Red)](https://soulvirtues.org/souls/determination/): Willpower, resilience, lore, items, and battle mechanics
 - [Bravery Soul (Orange)](https://soulvirtues.org/souls/bravery/): Courage, initiative, lore, items, and combat mechanics
 - [Justice Soul (Yellow)](https://soulvirtues.org/souls/justice/): Fairness, accountability, lore, items, and shooter mechanics
