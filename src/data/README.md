@@ -8,9 +8,9 @@
 - questions.ts：66 道完整李克特量表题目与各维度原始权重
 - souls.ts：七种灵魂特质名称、颜色、十六进制色值、代表金句与深度说明
 - scoring.ts：非线性幂律计分算法、最大理论值归一化与百分比计算
-- soulDetails.ts：七大灵魂特质英文原作证据边界、专属装备、战斗机制与 SEO 描述
+- soulDetails.ts：七大灵魂特质英文原作证据边界、专属装备、战斗机制、SEO 描述与 deepDive 深读正文
 - soulDetailsI18n.ts：日、西、葡、俄多语言灵魂特质设定、证据边界与标签
-- soulDetailsLocalizedContent.ts：四种非英语语言的 28 组物品与性格分析完整正文
+- soulDetailsLocalizedContent.ts：四种非英语语言的 28 组物品与性格分析完整正文，含各特质 deepDive 深读正文
 - soulComparisonSample.ts：决心 vs 毅力样板页五语言对比文案、证据等级与复合特质解释
 - soulComparisons.ts：6组已审核双特质组合与新增5组五语言对比文案
 - soulsHub.ts：/souls/ 汇总页的五语言页面级文案（TDH、导语、小节正文、FAQ、证据边界说明与导航锚文本）

@@ -1,6 +1,6 @@
 ---
 // input: soulDetail object with localized copy, lang ('en' | 'ja' | 'es' | 'pt' | 'ru')
-// output: Responsive localized trait page with schema, interpretation labels, equipment, mechanics, and CTA
+// output: Responsive localized trait page with schema, interpretation labels, equipment, mechanics, deepDive section, and CTA
 // pos: src/components/SoulDetailPage.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import Layout from '../layouts/Layout.astro';
@@ -251,6 +251,19 @@ const structuredData = {
         <p class="text-xs sm:text-sm text-gray-300 leading-relaxed p-4 bg-black/40 border-l-2 border-gray-700">
           <strong class="text-white font-mono">{soulDetail.labels.realWorldLabel}</strong> {soulDetail.personalityAnalysis.realWorldTraits}
         </p>
+      </section>
+
+      <!-- Section 4.5: Deep Dive (AdSense content depth) -->
+      <section class="pixel-card-sub p-6 sm:p-8">
+        <h2 class="text-xl sm:text-2xl font-bold text-white font-mono mb-4 flex items-center gap-2">
+          <span class="text-lg" style={`color: ${soulDetail.hex}`}>✦</span>
+          {soulDetail.labels.deepDiveHeading}
+        </h2>
+        <div class="space-y-4">
+          {soulDetail.deepDive.map((p) => (
+            <p class="text-sm text-gray-300 leading-relaxed">{p}</p>
+          ))}
+        </div>
       </section>
 
       <!-- Section 5: Take the Test Call to Action -->
