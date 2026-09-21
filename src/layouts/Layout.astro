@@ -1,6 +1,6 @@
 ---
 // input: Title, description, canonicalUrl, ogImage, structuredData schema, lang ('en' | 'ja' | 'es' | 'pt' | 'ru')
-// output: Full HTML page shell with multilingual hreflang meta tags, fonts, styles, header, footer, bottom-right language suggestion toast, CSS ambient background effect, Google Analytics, Clarity analytics, and MakeThisBetter widget
+// output: Full HTML page shell with multilingual hreflang meta tags, fonts, styles, header, footer, bottom-right language suggestion toast, CSS ambient background effect, Google Analytics, Clarity analytics, Google AdSense loader, and MakeThisBetter widget
 // pos: src/layouts/Layout.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import Header from '../components/Header.astro';
@@ -118,6 +118,7 @@ const hrefDefault = `${siteUrl}${baseRel}`;
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
       })(window, document, "clarity", "script", "y44qd28h2p");
     </script>
+    <script is:inline async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3083296102953963" crossorigin="anonymous"></script>
   </head>
   <body class="bg-black text-gray-100 min-h-screen flex flex-col font-sans selection:bg-red-500 selection:text-white relative">
     <!-- Ambient Void CSS Background Effect -->
