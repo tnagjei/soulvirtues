@@ -58,6 +58,15 @@ const hrefDefault = `${siteUrl}${baseRel}`;
     <meta name="yandex-verification" content="46fdce885b6ef94a" />
     <link rel="canonical" href={fullCanonical} />
 
+    <!-- Google Analytics (GA4) -->
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-8FYG42X74J"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8FYG42X74J');
+    </script>
+
     <!-- Multilingual Hreflang SEO Tags -->
     {isUnlocalized ? (
       <>
