@@ -925,4 +925,65 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
+  <url>
+    <loc>https://soulvirtues.org/compare/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/compare/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/compare/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/compare/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/compare/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://soulvirtues.org/ru/compare/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/compare/" />
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/ja/compare/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/compare/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/compare/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/compare/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/compare/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://soulvirtues.org/ru/compare/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/compare/" />
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/es/compare/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/compare/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/compare/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/compare/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/compare/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://soulvirtues.org/ru/compare/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/compare/" />
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/pt/compare/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/compare/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/compare/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/compare/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/compare/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://soulvirtues.org/ru/compare/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/compare/" />
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://soulvirtues.org/ru/compare/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soulvirtues.org/compare/" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soulvirtues.org/ja/compare/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://soulvirtues.org/es/compare/" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://soulvirtues.org/pt/compare/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://soulvirtues.org/ru/compare/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soulvirtues.org/compare/" />
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
+

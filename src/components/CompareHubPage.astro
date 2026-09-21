@@ -1,0 +1,130 @@
+---
+// input: lang ('en' | 'ja' | 'es' | 'pt' | 'ru') plus COMPARE_HUB_COPY and SOUL_COMPARISONS
+// output: Localized /compare/ hub page listing all six trait comparison guides with schema
+// pos: src/components/CompareHubPage.astro（更新规则：文件变更需同步本注释与所属目录 README）
+
+import Layout from '../layouts/Layout.astro';
+import { COMPARE_HUB_COPY } from '../data/compareHub';
+import { SOUL_COMPARISONS } from '../data/soulComparisons';
+import type { Locale } from '../i18n';
+
+interface Props {
+  lang?: Locale;
+}
+
+const { lang = 'en' } = Astro.props;
+const copy = COMPARE_HUB_COPY[lang];
+const siteUrl = 'https://soulvirtues.org';
+const langPrefix = lang === 'en' ? '' : `/${lang}`;
+const pageUrl = `${siteUrl}${langPrefix}/compare/`;
+const homeUrl = `${siteUrl}${langPrefix}/`;
+const testUrl = `${langPrefix}/#test`;
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: copy.breadcrumbHome, item: homeUrl },
+        { '@type': 'ListItem', position: 2, name: copy.h1, item: pageUrl },
+      ],
+    },
+    {
+      '@type': 'CollectionPage',
+      '@id': `${pageUrl}#collection`,
+      name: copy.metaTitle,
+      description: copy.metaDescription,
+      url: pageUrl,
+      inLanguage: lang,
+      mainEntity: {
+        '@type': 'ItemList',
+        numberOfItems: SOUL_COMPARISONS.length,
+        itemListElement: SOUL_COMPARISONS.map((comparison, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: comparison.copy[lang].heading,
+          url: `${siteUrl}${langPrefix}/compare/${comparison.slug}/`,
+        })),
+      },
+    },
+  ],
+};
+---
+
+<Layout
+  title={copy.metaTitle}
+  description={copy.metaDescription}
+  canonicalUrl={pageUrl}
+  structuredData={structuredData}
+  lang={lang}
+>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-10">
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-xs font-mono text-gray-400 mb-8" aria-label="Breadcrumb">
+      <a href={homeUrl} class="hover:text-white transition-colors">{copy.breadcrumbHome}</a>
+      <span>/</span>
+      <span class="text-white font-bold">{copy.h1}</span>
+    </nav>
+
+    <!-- Hero -->
+    <header class="mb-12">
+      <h1 class="text-3xl sm:text-5xl font-black text-white font-mono tracking-tight leading-tight mb-5">
+        {copy.h1}
+      </h1>
+      {copy.lede.map(paragraph => (
+        <p class="text-sm sm:text-base text-gray-300 leading-relaxed mb-3 max-w-3xl">{paragraph}</p>
+      ))}
+    </header>
+
+    <!-- Comparison cards -->
+    <section class="mb-14">
+      <h2 class="text-xl sm:text-2xl font-bold text-white font-mono mb-2 flex items-center gap-2">
+        <span class="text-red-500">&#10022;</span> {copy.listTitle}
+      </h2>
+      <p class="text-xs sm:text-sm text-gray-400 mb-6">{copy.listSub}</p>
+
+      <div class="grid gap-4 sm:grid-cols-2">
+        {SOUL_COMPARISONS.map(comparison => {
+          const card = comparison.copy[lang];
+          return (
+            <a
+              href={`${langPrefix}/compare/${comparison.slug}/`}
+              class="group border border-gray-800 bg-black/40 p-5 hover:border-gray-500 transition-colors flex flex-col"
+            >
+              <h3 class="text-base sm:text-lg font-bold text-white font-mono mb-2 group-hover:text-red-400 transition-colors">
+                {card.heading}
+              </h3>
+              <p class="text-xs sm:text-sm text-gray-300 leading-relaxed mb-4 flex-1">{card.quickAnswer}</p>
+              <span class="text-xs font-mono uppercase tracking-wider text-gray-500 group-hover:text-white transition-colors">
+                {copy.readMore} &rarr;
+              </span>
+            </a>
+          );
+        })}
+      </div>
+    </section>
+
+    <!-- How to use -->
+    <section class="mb-12">
+      <h2 class="text-xl sm:text-2xl font-bold text-white font-mono mb-4 flex items-center gap-2">
+        <span class="text-red-500">&#10022;</span> {copy.howTitle}
+      </h2>
+      <ul class="space-y-2 max-w-3xl">
+        {copy.howSteps.map(step => (
+          <li class="text-sm text-gray-300 leading-relaxed flex gap-2">
+            <span class="text-red-500" aria-hidden="true">&rtrif;</span>
+            <span>{step}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- CTA -->
+    <p class="text-sm text-gray-300 max-w-3xl">
+      {copy.ctaText}
+      {' '}
+      <a href={testUrl} class="text-red-400 underline hover:text-red-300 transition-colors">{copy.ctaLink}</a>
+    </p>
+  </div>
+</Layout>

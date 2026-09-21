@@ -19,6 +19,7 @@ Soul Virtues Extractor provides an interactive, client-side personality quiz bas
 - [Perseverance Soul (Purple)](https://soulvirtues.org/souls/perseverance/): Discipline, study, lore, items, and web movement mechanics
 
 ## Soul Comparison Matrix
+- [All Trait Comparisons](https://soulvirtues.org/compare/): Hub listing all six comparison guides with quick answers
 - [Bravery vs Determination](https://soulvirtues.org/compare/bravery-vs-determination/): Action in fear versus refusal to accept defeat
 - [Determination vs Perseverance](https://soulvirtues.org/compare/determination-vs-perseverance/): Rejecting endings versus disciplined routine
 - [Integrity vs Justice](https://soulvirtues.org/compare/integrity-vs-justice/): Inner moral alignment versus outward fairness

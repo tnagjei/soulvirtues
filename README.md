@@ -14,8 +14,9 @@
 - 葡文（Undertale 巴西社区术语对齐）：`/pt/ (https://soulvirtues.org/pt/)`
 - 俄文（Undertale 俄语社区术语对齐）：`/ru/ (https://soulvirtues.org/ru/)`
 - 对比页：6组已审核双特质组合，共30个五语言页面。
+- 对比汇总页：/compare/、/ja/compare/、/es/compare/、/pt/compare/、/ru/compare/，共5个页面，列出全部6组对比并附使用说明。
 - 七灵魂汇总页：`/souls/`、`/ja/souls/`、`/es/souls/`、`/pt/souls/`、`/ru/souls/`，共5个五语言页面，含七色清单对比表与证据边界说明。
-- SEO 关联：5 个语种版本具备自动 `hreflang` 互相指向与 `x-default`，共 79 个可索引页面，另有独立 404 页面。
+- SEO 关联：5 个语种版本具备自动 `hreflang` 互相指向与 `x-default`，共 84 个可索引页面，另有独立 404 页面。
 
 ## 运行与构建命令
 - 本地开发：`npm run dev`

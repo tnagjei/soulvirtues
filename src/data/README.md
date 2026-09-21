@@ -1,6 +1,6 @@
 # data
 - 用途：测验题库、灵魂维度属性与多维度计分算法
-- 关键入口：questions.ts, souls.ts, scoring.ts, soulDetails.ts, soulDetailsI18n.ts, soulDetailsLocalizedContent.ts, soulComparisonSample.ts, soulComparisons.ts, soulsHub.ts, indexnow.ts
+- 关键入口：questions.ts, souls.ts, scoring.ts, soulDetails.ts, soulDetailsI18n.ts, soulDetailsLocalizedContent.ts, soulComparisonSample.ts, soulComparisons.ts, soulsHub.ts, compareHub.ts, indexnow.ts
 - 边界/依赖：纯 TypeScript 原生实现，无外部依赖
 > 一旦本目录内容变化，请更新本文件
 
@@ -14,4 +14,5 @@
 - soulComparisonSample.ts：决心 vs 毅力样板页五语言对比文案、证据等级与复合特质解释
 - soulComparisons.ts：6组已审核双特质组合与新增5组五语言对比文案
 - soulsHub.ts：/souls/ 汇总页的五语言页面级文案（TDH、导语、小节正文、FAQ、证据边界说明与导航锚文本）
+- compareHub.ts：/compare/ 汇总页的五语言页面级文案（TDH、导语、使用说明与 CTA）
 - indexnow.ts：IndexNow 搜索引擎自动索引公钥与 API 端点配置
