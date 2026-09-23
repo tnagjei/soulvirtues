@@ -1,6 +1,6 @@
 ---
 // input: lang ('en' | 'ja' | 'es' | 'pt' | 'ru')
-// output: Pixel-styled footer with localized trait navigation, official email, disclaimer, language switcher, and friend links
+// output: Pixel-styled footer with localized trait and comparison-hub navigation, official email, disclaimer, language switcher, and friend links
 // pos: src/components/Footer.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import { getTranslations, type Locale } from '../i18n';
@@ -14,16 +14,17 @@ const { lang = 'en' } = Astro.props;
 const t = getTranslations(lang);
 const localizedSouls = getLocalizedSoulDetails(lang);
 const footerCopy = {
-  en: { language: 'Language:', traits: 'The 7 Undertale SOUL Traits:', details: 'Detailed lore, items & battle mechanics' },
-  ja: { language: '言語:', traits: 'Undertale の7つのタマシイ:', details: '設定、アイテム、バトルギミック' },
-  es: { language: 'Idioma:', traits: 'Los 7 rasgos de Alma de Undertale:', details: 'Historia, objetos y mecánicas de combate' },
-  pt: { language: 'Idioma:', traits: 'Os 7 traços de Alma de Undertale:', details: 'História, itens e mecânicas de combate' },
-  ru: { language: 'Язык:', traits: '7 черт Души Undertale:', details: 'История, предметы и боевая механика' },
+  en: { language: 'Language:', traits: 'The 7 Undertale SOUL Traits:', details: 'Detailed lore, items & battle mechanics', comparisons: 'Comparisons' },
+  ja: { language: '言語:', traits: 'Undertale の7つのタマシイ:', details: '設定、アイテム、バトルギミック', comparisons: '比較' },
+  es: { language: 'Idioma:', traits: 'Los 7 rasgos de Alma de Undertale:', details: 'Historia, objetos y mecánicas de combate', comparisons: 'Comparaciones' },
+  pt: { language: 'Idioma:', traits: 'Os 7 traços de Alma de Undertale:', details: 'História, itens e mecânicas de combate', comparisons: 'Comparações' },
+  ru: { language: 'Язык:', traits: '7 черт Души Undertale:', details: 'История, предметы и боевая механика', comparisons: 'Сравнения' },
 }[lang];
 
 const homeLink = lang === 'en' ? '/' : `/${lang}/`;
 const testLink = lang === 'en' ? '/#test' : `/${lang}/#test`;
 const virtuesLink = lang === 'en' ? '/#virtues' : `/${lang}/#virtues`;
+const comparisonHubLink = lang === 'en' ? '/compare/' : `/${lang}/compare/`;
 const scoringLink = lang === 'en' ? '/#scoring' : `/${lang}/#scoring`;
 const faqLink = lang === 'en' ? '/#faq' : `/${lang}/#faq`;
 const soulsPrefix = lang === 'en' ? '/souls' : `/${lang}/souls`;
@@ -102,6 +103,7 @@ const russianPath = isUnlocalized ? '/ru/' : `/ru${currentPath === '/' ? '/' : c
         <ul class="space-y-2 text-xs">
           <li><a href={testLink} class="hover:text-white transition-colors">{t.footer.testLink}</a></li>
           <li><a href={virtuesLink} class="hover:text-white transition-colors">{t.footer.traitsLink}</a></li>
+          <li><a href={comparisonHubLink} class="hover:text-white transition-colors">{footerCopy.comparisons}</a></li>
           <li><a href={scoringLink} class="hover:text-white transition-colors">{t.footer.scoringLink}</a></li>
           <li><a href={faqLink} class="hover:text-white transition-colors">{t.footer.faqLink}</a></li>
         </ul>

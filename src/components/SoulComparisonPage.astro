@@ -1,6 +1,6 @@
 ---
 // input: Approved comparison sample, locale, and localized soul detail records
-// output: Responsive SEO comparison page with evidence labels, dual-trait interpretation, and internal links
+// output: Responsive SEO comparison page with evidence labels, dual-trait interpretation, and localized links to the compare hub, traits, and test
 // pos: src/components/SoulComparisonPage.astro (更新规则：页面结构变化需同步本注释与 src/components/README.md)
 
 import Layout from '../layouts/Layout.astro';
@@ -23,6 +23,7 @@ const langPrefix = lang === 'en' ? '' : `/${lang}`;
 const pagePath = `${langPrefix}/compare/${comparison.slug}/`;
 const pageUrl = `${siteUrl}${pagePath}`;
 const homePath = `${langPrefix}/`;
+const comparisonHubPath = `${langPrefix}/compare/`;
 const homeUrl = `${siteUrl}${homePath}`;
 const testPath = `${langPrefix}/#test`;
 const leftPath = `${langPrefix}/souls/${left.slug}/`;
@@ -76,7 +77,7 @@ const structuredData = {
     <nav class="flex flex-wrap items-center gap-2 text-xs font-mono text-gray-400 mb-8" aria-label="Breadcrumb">
       <a href={homePath} class="hover:text-white transition-colors">{left.labels.home}</a>
       <span aria-hidden="true">/</span>
-      <span>{copy.breadcrumbCompare}</span>
+      <a href={comparisonHubPath} class="hover:text-white transition-colors">{copy.breadcrumbCompare}</a>
       <span aria-hidden="true">/</span>
       <span class="text-white">{copy.heading}</span>
     </nav>
