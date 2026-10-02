@@ -99,6 +99,23 @@ export interface FeedbackVoteTranslations {
 }
 
 export interface QuizUITranslations {
+  resultReading: {
+    cardScaleNote: string;
+    summaryBadge: string;
+    noPreferenceTitle: string;
+    noPreferenceBody: string;
+    incompleteTitle: string;
+    incompleteBody: string;
+    tieTitle: string;
+    tieBody: string;
+    closeBody: string;
+    scoreScaleNote: string;
+    evidenceTitle: string;
+    evidenceRaised: string;
+    evidenceLowered: string;
+    feedbackLink: string;
+    allSoulsLink: string;
+  };
   title: string;
   settingsBtn: string;
   audioSettingsTitle: string;

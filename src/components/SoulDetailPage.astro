@@ -1,6 +1,6 @@
 ---
 // input: soulDetail object with localized copy, lang ('en' | 'ja' | 'es' | 'pt' | 'ru')
-// output: Responsive localized trait page with schema, interpretation labels, equipment, mechanics, deepDive section, and CTA
+// output: Responsive localized trait page with schema, interpretation labels, equipment, mechanics, deepDive section, independent reflection prompts, verifiable references, and CTA
 // pos: src/components/SoulDetailPage.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import Layout from '../layouts/Layout.astro';
@@ -10,6 +10,7 @@ import { getLocalizedSoulDetails } from '../data/soulDetailsI18n';
 import { getComparisonsForSoul } from '../data/soulComparisons';
 import { SOULS_HUB_COPY } from '../data/soulsHub';
 import { SOUL_MEANING } from '../data/soulMeaning';
+import { CONTENT_READING_COPY, SOUL_REFLECTION_PROMPTS, getContentReferences } from '../data/contentEvidence';
 import type { Locale } from '../i18n';
 
 interface Props {
@@ -33,6 +34,9 @@ const withColor = (template: string) => template.replace('{color}', soulDetail.c
 const meaningH1Phrase = withColor(meaningCopy.h1ColorPhrase);
 const meaningHeading = withColor(meaningCopy.sectionHeading);
 const meaningBody = meaningCopy.bySlug[soulDetail.slug] ?? '';
+const evidenceCopy = CONTENT_READING_COPY[lang];
+const reflection = SOUL_REFLECTION_PROMPTS[lang][soulDetail.slug];
+const references = getContentReferences([soulDetail.slug]);
 const testAnchor = `${langPrefix}/#test`;
 const virtuesAnchor = `${langPrefix}/#virtues`;
 
@@ -265,6 +269,18 @@ const structuredData = {
           ))}
         </div>
       </section>
+
+      <aside id="trait-reflection" class="border-2 border-purple-800 bg-black p-5 sm:p-7">
+        <h2 class="text-lg font-bold text-purple-300 font-mono mb-3">{evidenceCopy.exampleTitle}</h2>
+        <p class="text-sm text-gray-300 leading-relaxed">{reflection}</p>
+      </aside>
+      <aside id="content-sources" class="border-2 border-cyan-800 bg-black p-5 sm:p-7">
+        <h2 class="text-lg font-bold text-cyan-300 font-mono mb-3">{evidenceCopy.sourcesTitle}</h2>
+        <p class="text-sm text-gray-300 leading-relaxed mb-4">{evidenceCopy.sourcesNote}</p>
+        <ul class="space-y-3 text-sm">
+          {references.map(source => <li><a href={source.url} target="_blank" rel="noopener noreferrer" class="text-cyan-300 underline break-words">{source.title}</a></li>)}
+        </ul>
+      </aside>
 
       <!-- Section 5: Take the Test Call to Action -->
       <section class="pixel-card p-8 text-center relative overflow-hidden bg-gradient-to-b from-gray-900 to-black border-2 border-red-500 shadow-[0_0_24px_rgba(239,68,68,0.25)]">

@@ -1,11 +1,10 @@
 ---
 // input: lang ('en' | 'ja' | 'es' | 'pt' | 'ru'), static scoring data, localized dictionaries, and six approved comparison pairs
-// output: Five-language 66-question quiz with instant question loading, answer feedback, touch-friendly answer labels, native share analytics, direct download/WebView card fallback, vertical result card, review, gallery, comparisons, and roadmap feedback voting
+// output: Five-language quiz with shared scoring, neutral/tied result explanations, private answer evidence, matching cards, minimal analytics, and a voluntary feedback channel
 // pos: src/components/Quiz.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import { getTranslations, type Locale } from '../i18n';
 import { SOUL_CODES } from '../data/souls';
-import { MAXP } from '../data/scoring';
 import { SOUL_DETAILS } from '../data/soulDetails';
 import { SOUL_COMPARISONS } from '../data/soulComparisons';
 
@@ -19,7 +18,6 @@ const t = getTranslations(lang);
 const questionsJson = JSON.stringify(t.questions);
 const soulsJson = JSON.stringify(t.souls);
 const soulCodesJson = JSON.stringify(SOUL_CODES);
-const maxpJson = JSON.stringify(MAXP);
 const quizUIJson = JSON.stringify(t.quizUI);
 const comparisonPairsJson = JSON.stringify(Object.fromEntries(
   SOUL_COMPARISONS.map((comparison) => {
@@ -40,7 +38,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
   data-questions={questionsJson}
   data-souls={soulsJson}
   data-soul-codes={soulCodesJson}
-  data-maxp={maxpJson}
+  data-clarity-mask="true"
   data-quiz-ui={quizUIJson}
   data-comparison-pairs={comparisonPairsJson}
 >
@@ -342,7 +340,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
         {t.quizUI.primaryVirtue}
       </div>
 
-      <h3 id="result-trait-name" class="text-3xl sm:text-5xl font-black tracking-widest text-white mb-2 uppercase">
+      <h3 id="result-trait-name" class="text-2xl sm:text-4xl font-black tracking-wide text-white mb-2 uppercase break-words">
         DETERMINATION
       </h3>
 
@@ -387,6 +385,17 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
           <p id="secondary-desc" class="text-xs text-gray-300 leading-relaxed font-sans">
             <!-- Injected via JS -->
           </p>
+
+        </div>
+      </div>
+    </div>
+
+    <section class="mb-8 border-2 border-gray-700 bg-black p-4 sm:p-6 text-xs sm:text-sm leading-relaxed font-sans" aria-live="polite">
+      <p id="result-score-note" class="text-gray-300">{t.quizUI.resultReading.scoreScaleNote}</p>
+      <div id="result-evidence" class="mt-5 hidden">
+        <h4 class="font-mono font-bold text-cyan-300 mb-3">{t.quizUI.resultReading.evidenceTitle}</h4>
+        <ol id="result-answer-evidence" class="space-y-4"></ol>
+      </div>
           <a
             id="btn-compare-top-souls"
             href={lang === 'en' ? '/compare/bravery-vs-determination/' : `/${lang}/compare/bravery-vs-determination/`}
@@ -394,9 +403,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
           >
             Compare top two traits →
           </a>
-        </div>
-      </div>
-    </div>
+    </section>
 
     <!-- 7 Virtues Breakdown Progress Bars -->
     <div class="mb-10">
@@ -541,26 +548,12 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
             </button>
           </div>
 
-          <!-- Direct Open Suggestion Input -->
           <div class="mt-4 pt-3 border-t border-gray-800">
-            <label for="vote-other-text" class="block text-[11px] sm:text-xs text-yellow-400/90 font-mono uppercase mb-2">
-              ✦ {t.quizUI.feedbackVote.optOther}
-            </label>
-            <div class="flex flex-col sm:flex-row gap-2">
-              <input
-                id="vote-other-text"
-                type="text"
-                class="flex-1 p-2.5 bg-black border border-gray-700 focus:border-yellow-400 text-xs text-gray-100 placeholder-gray-500 outline-none font-sans"
-                placeholder={t.quizUI.feedbackVote.otherPlaceholder}
-              />
-              <button
-                id="btn-submit-other-vote"
-                type="button"
-                class="px-5 py-2.5 bg-yellow-400 hover:bg-yellow-300 text-black font-bold text-xs uppercase tracking-wider font-mono cursor-pointer transition-colors"
-              >
-                {t.quizUI.feedbackVote.submitBtn}
-              </button>
-            </div>
+            <p class="text-xs text-gray-300 mb-3">{t.quizUI.feedbackVote.optOther}</p>
+            <a id="btn-submit-other-vote" href="https://soulvirtues.makethisbetter.dev" target="_blank" rel="noopener noreferrer"
+              class="inline-block border border-yellow-400 px-4 py-3 text-xs text-yellow-300 font-mono hover:bg-yellow-400 hover:text-black">
+              {t.quizUI.resultReading.feedbackLink}
+            </a>
           </div>
         </div>
 
@@ -699,7 +692,8 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
   </div>
 </div>
 
-<script is:inline>
+<script>
+  import { computeScores as scoreAnswers } from "../data/scoring";
   function initQuiz() {
     const root = document.getElementById("quiz-root");
     if (!root) return;
@@ -710,7 +704,6 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
     const QUESTIONS = JSON.parse(root.getAttribute("data-questions") || "[]");
     const SOULS = JSON.parse(root.getAttribute("data-souls") || "{}");
     const SOUL_CODES = JSON.parse(root.getAttribute("data-soul-codes") || "[]");
-    const MAXP = JSON.parse(root.getAttribute("data-maxp") || "{}");
     const QUIZ_UI = JSON.parse(root.getAttribute("data-quiz-ui") || "{}");
     const COMPARISON_PAIRS = JSON.parse(root.getAttribute("data-comparison-pairs") || "{}");
 
@@ -1162,8 +1155,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       if (currentIndex < QUESTIONS.length - 1) {
         renderQuestion(currentIndex + 1);
       } else {
-        const { ranked } = computeScores();
-        trackEvent("quiz_complete", { language: LANG, dominant_trait: ranked[0] });
+        trackEvent("quiz_complete", { language: LANG });
         showResults();
       }
     }
@@ -1184,35 +1176,29 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
     // Mathematical Scoring Engine
     // -------------------------------------------------------------
     function computeScores() {
-      const scores = { DET: 0, BRV: 0, JUS: 0, KND: 0, PAT: 0, INT: 0, PER: 0 };
-      const CHOICE_FACTORS = [-1.0, -0.5, 0.0, 0.5, 1.0];
+      return scoreAnswers(userAnswers, QUESTIONS);
+    }
 
-      userAnswers.forEach((ans, qIdx) => {
-        if (ans === null || ans === undefined) return;
-        const factor = CHOICE_FACTORS[ans];
-        const q = QUESTIONS[qIdx];
-        if (!q || !q.load) return;
-
-        Object.entries(q.load).forEach(([trait, weight]) => {
-          if (scores[trait] !== undefined) {
-            scores[trait] += factor * weight;
-          }
-        });
-      });
-
-      const pct = {};
-      SOUL_CODES.forEach(code => {
-        const raw = scores[code];
-        const max = MAXP[code] || 1;
-        const normalized = Math.max(-1, Math.min(1, raw / max));
-        const sign = normalized >= 0 ? 1 : -1;
-        const curved = sign * Math.pow(Math.abs(normalized), 0.6);
-        const finalPct = 50 + curved * 50;
-        pct[code] = Math.max(0, Math.min(100, finalPct));
-      });
-
-      const ranked = [...SOUL_CODES].sort((a, b) => pct[b] - pct[a]);
-      return { pct, ranked };
+    function getResultDisplay(score) {
+      const copy = QUIZ_UI.resultReading;
+      if (score.kind === "balanced" || score.kind === "incomplete") {
+        return {
+          name: score.kind === "incomplete" ? copy.incompleteTitle : copy.noPreferenceTitle,
+          label: copy.summaryBadge, hex: "#94a3b8",
+          tag: copy.cardScaleNote,
+          description: score.kind === "incomplete" ? copy.incompleteBody : copy.noPreferenceBody,
+        };
+      }
+      const leading = SOULS[score.ranked[0]];
+      if (score.kind === "tied") {
+        return { ...leading, name: copy.tieTitle, tag: score.leaders.map(code => SOULS[code].name).join(" / "),
+          label: copy.summaryBadge, description: copy.tieBody };
+      }
+      if (score.kind === "close") {
+        return { ...leading, name: score.leaders.map(code => SOULS[code].name).join(" / "),
+          label: copy.summaryBadge, tag: copy.closeBody, description: copy.closeBody };
+      }
+      return leading;
     }
 
     // -------------------------------------------------------------
@@ -1220,9 +1206,10 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
     // -------------------------------------------------------------
     function showResults() {
       playSound("appear");
-      const { pct, ranked } = computeScores();
+      const score = computeScores();
+      const { pct, ranked } = score;
       const dominantCode = ranked[0];
-      const dominantSoul = SOULS[dominantCode];
+      const dominantSoul = getResultDisplay(score);
 
       const heartEl = document.getElementById("result-heart");
       const badgeEl = document.getElementById("result-badge");
@@ -1236,13 +1223,38 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
         heartEl.style.setProperty("--res-color", dominantSoul.hex);
       }
       if (badgeEl) {
+        badgeEl.textContent = score.kind === "dominant" ? QUIZ_UI.primaryVirtue : QUIZ_UI.resultReading.summaryBadge;
         badgeEl.style.color = dominantSoul.hex;
         badgeEl.style.borderColor = dominantSoul.hex;
       }
       if (nameEl) nameEl.textContent = dominantSoul.name;
       if (colorLabelEl) colorLabelEl.textContent = `${dominantSoul.label} · ${dominantSoul.hex.toUpperCase()}`;
+      colorLabelEl?.classList.toggle("hidden", score.kind !== "dominant");
+      taglineEl?.classList.toggle("hidden", score.kind !== "dominant" && score.kind !== "tied");
       if (taglineEl) taglineEl.textContent = `"${dominantSoul.tag}"`;
       if (descEl) descEl.textContent = dominantSoul.description;
+      root.dataset.resultKind = score.kind;
+      document.getElementById("result-score-note").textContent = QUIZ_UI.resultReading.scoreScaleNote;
+      document.getElementById("secondary-callout").classList.toggle("hidden", score.kind !== "dominant");
+      for (const id of ["btn-share-card", "btn-download-card"]) {
+        document.getElementById(id).disabled = score.kind === "incomplete";
+      }
+      const evidenceList = document.getElementById("result-answer-evidence");
+      evidenceList.replaceChildren();
+      const evidence = score.contributions.filter(item => item.trait === dominantCode)
+        .sort((a, b) => Math.abs(b.points) - Math.abs(a.points)).slice(0, 3);
+      document.getElementById("result-evidence").classList.toggle("hidden", !evidence.length || score.kind === "incomplete");
+      for (const item of evidence) {
+        const q = QUESTIONS[item.questionIndex];
+        const row = document.createElement("li");
+        const question = document.createElement("p");
+        const effect = document.createElement("p");
+        question.textContent = `${item.questionIndex + 1}. ${q.q}`;
+        effect.className = "mt-1 text-gray-400";
+        effect.textContent = `${q.labels[item.answerIndex]} — ${SOULS[item.trait].name}: ${item.points > 0 ? QUIZ_UI.resultReading.evidenceRaised : QUIZ_UI.resultReading.evidenceLowered} (${item.points > 0 ? "+" : ""}${item.points})`;
+        row.append(question, effect);
+        evidenceList.appendChild(row);
+      }
 
       // Secondary Virtue / Shadow Trait
       const secondaryCode = ranked[1];
@@ -1258,7 +1270,8 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       if (secDesc) secDesc.textContent = secondarySoul.description;
 
       const compareBtn = document.getElementById("btn-compare-top-souls");
-      const comparison = COMPARISON_PAIRS[[dominantCode, secondaryCode].sort().join("-")];
+      const comparison = score.kind === "balanced" || score.kind === "incomplete" || (score.kind === "tied" && score.leaders.length > 2)
+        ? null : COMPARISON_PAIRS[[dominantCode, secondaryCode].sort().join("-")];
       if (compareBtn) {
         compareBtn.classList.toggle("hidden", !comparison);
         compareBtn.classList.toggle("inline-flex", Boolean(comparison));
@@ -1283,10 +1296,10 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
         };
         const slug = soulSlugMap[dominantCode] || 'determination';
         const langPrefix = LANG === 'en' ? '' : `/${LANG}`;
-        exploreBtn.href = `${langPrefix}/souls/${slug}/`;
+        exploreBtn.href = score.kind === "dominant" ? `${langPrefix}/souls/${slug}/` : `${langPrefix}/souls/`;
         exploreBtn.style.borderColor = dominantSoul.hex;
         exploreBtn.style.color = dominantSoul.hex;
-        exploreText.textContent = `Explore ${dominantSoul.name} Lore, Items & Combat Secrets →`;
+        exploreText.textContent = score.kind === "dominant" ? `${dominantSoul.name} →` : QUIZ_UI.resultReading.allSoulsLink;
       }
 
       // 7 Trait Bars
@@ -1339,7 +1352,10 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
 
     function trackEvent(eventName, params = {}) {
       if (typeof window.gtag === "function") {
-        window.gtag("event", eventName, params);
+        // 只允许固定统计维度，避免结果、题目或自由输入进入 Analytics。
+        const allowed = ["language", "method", "content_type", "choice"];
+        const safeParams = Object.fromEntries(Object.entries(params).filter(([key]) => allowed.includes(key)));
+        window.gtag("event", eventName, safeParams);
       }
     }
 
@@ -1349,8 +1365,9 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
     }
 
     function buildResultCard() {
-      const { pct, ranked } = computeScores();
-      const dominant = SOULS[ranked[0]];
+      const score = computeScores();
+      const { pct, ranked } = score;
+      const dominant = getResultDisplay(score);
 
       const canvas = document.createElement("canvas");
       canvas.width = 1080;
@@ -1404,7 +1421,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       ctx.textAlign = "left";
       ctx.fillStyle = "#9da19e";
       ctx.font = "bold 17px monospace";
-      ctx.fillText(QUIZ_UI.primaryVirtue, 315, 225, 695);
+      ctx.fillText(score.kind === "dominant" ? QUIZ_UI.primaryVirtue : QUIZ_UI.resultReading.summaryBadge, 315, 225, 695);
 
       ctx.fillStyle = dominant.hex;
       ctx.font = "bold 68px monospace";
@@ -1412,7 +1429,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
 
       ctx.fillStyle = "#d7dad7";
       ctx.font = "bold 22px monospace";
-      ctx.fillText(`${dominant.label} · ${dominant.hex.toUpperCase()}`, 315, 350, 695);
+      if (score.kind === "dominant") ctx.fillText(`${dominant.label} · ${dominant.hex.toUpperCase()}`, 315, 350, 695);
 
       ctx.fillStyle = "#f4f4ef";
       ctx.font = "bold 42px monospace";
@@ -1485,7 +1502,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       ctx.textAlign = "right";
       ctx.fillText("PRIVATE · CLIENT-SIDE", 1010, 1305);
 
-      const filename = `soul-virtues-${ranked[0].toLowerCase()}-${LANG}.png`;
+      const filename = `soul-virtues-${score.kind === "dominant" ? ranked[0].toLowerCase() : score.kind}-${LANG}.png`;
       const dataUrl = canvas.toDataURL("image/png");
       return { dataUrl, dominant, filename };
     }
@@ -1788,8 +1805,6 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       const voteKey = "soulvirtues_roadmap_vote_v1";
       const formEl = document.getElementById("feedback-vote-form");
       const successEl = document.getElementById("feedback-vote-success");
-      const otherText = document.getElementById("vote-other-text");
-      const submitOtherBtn = document.getElementById("btn-submit-other-vote");
       const changeVoteBtn = document.getElementById("btn-change-vote");
 
       if (!formEl || !successEl) return;
@@ -1809,18 +1824,17 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       changeVoteBtn?.addEventListener("click", () => {
         formEl.classList.remove("hidden");
         successEl.classList.add("hidden");
-        otherText?.focus();
+        document.getElementById("btn-submit-other-vote")?.focus();
       });
 
-      function submitVote(choice, customText = "") {
+      function submitVote(choice) {
         playSound("click");
         trackEvent("feedback_roadmap_vote", {
           choice,
-          custom_text: customText.slice(0, 200),
           language: LANG,
         });
         try {
-          localStorage.setItem(voteKey, choice + (customText ? ":" + customText : ""));
+          localStorage.setItem(voteKey, choice);
         } catch (e) {}
 
         formEl.classList.add("hidden");
@@ -1835,14 +1849,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
         });
       });
 
-      submitOtherBtn?.addEventListener("click", () => {
-        const textVal = (otherText?.value || "").trim();
-        if (textVal) {
-          submitVote("other", textVal);
-        } else {
-          otherText?.focus();
-        }
-      });
+
     }
     initFeedbackVote();
 

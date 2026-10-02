@@ -5,4 +5,4 @@
 > 一旦本目录内容变化，请更新本文件
 
 ## Files
-- Layout.astro：基础页面骨架，注入 hreflang 多语言关联标签、Yandex 验证标签、Open Graph、Canonical、JSON-LD
+- Layout.astro：五个测验首页不加载Clarity，其余静态页保留统计；基础页面骨架，注入 hreflang 多语言关联标签、Yandex 验证标签、Open Graph、Canonical、JSON-LD

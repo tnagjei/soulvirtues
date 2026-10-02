@@ -5,9 +5,10 @@
 > 一旦本目录内容变化，请更新本文件
 
 ## Files
+- contentEvidence.ts：已核验的社区资料链接、事实/解释边界与五语言35条独立反思示例
 - questions.ts：66 道完整李克特量表题目与各维度原始权重
 - souls.ts：七种灵魂特质名称、颜色、十六进制色值、代表金句与深度说明
-- scoring.ts：非线性幂律计分算法、最大理论值归一化与百分比计算
+- scoring.ts：网页与验证共用的现有线性选项权重/0.6幂曲线、有效答案校验、中立/缺失/并列/接近结果和本地回答贡献
 - soulDetails.ts：七大灵魂特质英文原作证据边界、专属装备、战斗机制、SEO 描述与 deepDive 深读正文
 - soulDetailsI18n.ts：日、西、葡、俄多语言灵魂特质设定、证据边界与标签
 - soulDetailsLocalizedContent.ts：四种非英语语言的 28 组物品与性格分析完整正文，含各特质 deepDive 深读正文

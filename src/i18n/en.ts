@@ -116,6 +116,23 @@ export const enTranslations: Translations = {
     items: FAQS,
   },
   quizUI: {
+    resultReading: {
+      "cardScaleNote": "50% = NEUTRAL · INDEPENDENT QUIZ SCORES",
+      "summaryBadge": "PROFILE SUMMARY",
+      "noPreferenceTitle": "NO CLEAR PREFERENCE",
+      "noPreferenceBody": "These answers show no trait above the neutral midpoint. Review your answers rather than treating the first bar as a dominant personality.",
+      "incompleteTitle": "FINISH THE TEST",
+      "incompleteBody": "Some answers are missing or invalid. Complete all 66 statements before interpreting this profile.",
+      "tieTitle": "TIED LEADING TRAITS",
+      "tieBody": "Several traits share the highest displayed score. Their order does not choose a winner.",
+      "closeBody": "The two leading scores are within 3 points. We display them together as a reading aid, not as a test of statistical significance.",
+      "scoreScaleNote": "Each bar is an independent quiz score: 50% is neutral. The bars do not add to 100% and are not population percentiles or a psychological diagnosis.",
+      "evidenceTitle": "HOW YOUR ANSWERS AFFECTED THE SCORE",
+      "evidenceRaised": "Raised this trait",
+      "evidenceLowered": "Lowered this trait",
+      "feedbackLink": "SEND A SUGGESTION",
+      "allSoulsLink": "EXPLORE ALL SEVEN TRAITS"
+    },
     title: "UNDERTALE SOUL EXTRACTOR",
     settingsBtn: "SETTINGS",
     audioSettingsTitle: "AUDIO SETTINGS",

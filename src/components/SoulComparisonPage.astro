@@ -1,9 +1,10 @@
 ---
 // input: Approved comparison sample, locale, and localized soul detail records
-// output: Responsive SEO comparison page with evidence labels, dual-trait interpretation, and localized links to the compare hub, traits, and test
+// output: Responsive SEO comparison page with evidence labels, references, independent reflection prompts, dual-trait interpretation, and localized links to the compare hub, traits, and test
 // pos: src/components/SoulComparisonPage.astro (更新规则：页面结构变化需同步本注释与 src/components/README.md)
 
 import Layout from '../layouts/Layout.astro';
+import { CONTENT_READING_COPY, SOUL_REFLECTION_PROMPTS, getContentReferences } from '../data/contentEvidence';
 import type { Locale } from '../i18n';
 import type { ComparisonSample } from '../data/soulComparisonSample';
 import { getLocalizedSoulDetails } from '../data/soulDetailsI18n';
@@ -15,6 +16,9 @@ interface Props {
 
 const { comparison, lang = 'en' } = Astro.props;
 const copy = comparison.copy[lang];
+const evidenceCopy = CONTENT_READING_COPY[lang];
+const reflection = SOUL_REFLECTION_PROMPTS[lang];
+const references = getContentReferences([comparison.leftSlug, comparison.rightSlug]);
 const souls = getLocalizedSoulDetails(lang);
 const left = souls[comparison.leftSlug];
 const right = souls[comparison.rightSlug];
@@ -220,7 +224,20 @@ const structuredData = {
       <aside class="border-2 border-cyan-700 bg-cyan-950/20 p-5 sm:p-7">
         <h2 class="text-lg sm:text-xl font-black font-mono text-cyan-300 mb-3">{copy.evidenceTitle}</h2>
         <p class="text-sm text-gray-300 leading-relaxed">{copy.evidenceBody}</p>
+        <h3 class="font-bold text-cyan-300 mt-5 mb-3">{evidenceCopy.sourcesTitle}</h3>
+        <p class="text-sm text-gray-400 leading-relaxed mb-4">{evidenceCopy.sourcesNote}</p>
+        <ul id="content-sources" class="space-y-3 text-sm">
+          {references.map(source => <li><a href={source.url} target="_blank" rel="noopener noreferrer" class="text-cyan-300 underline break-words">{source.title}</a></li>)}
+        </ul>
       </aside>
+
+      <section id="comparison-reflection" class="pixel-card-sub p-5 sm:p-8">
+        <h2 class="text-xl font-black font-mono text-white mb-4">{evidenceCopy.comparisonTitle}</h2>
+        <div class="grid sm:grid-cols-2 gap-5 text-sm text-gray-300 leading-relaxed">
+          <p class="border-l-2 border-gray-600 pl-4"><strong style={`color:${left.hex}`}>{copy.leftLabel}: </strong>{reflection[comparison.leftSlug]}</p>
+          <p class="border-l-2 border-gray-600 pl-4"><strong style={`color:${right.hex}`}>{copy.rightLabel}: </strong>{reflection[comparison.rightSlug]}</p>
+        </div>
+      </section>
 
       <section class="pixel-card p-6 sm:p-9 text-center">
         <h2 class="text-xl sm:text-3xl font-black font-mono text-white mb-3">{copy.testTitle}</h2>

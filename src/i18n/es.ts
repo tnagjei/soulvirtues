@@ -298,6 +298,23 @@ export const esTranslations: Translations = {
     ],
   },
   quizUI: {
+    resultReading: {
+      "cardScaleNote": "50% = NEUTRAL · PUNTUACIONES INDEPENDIENTES",
+      "summaryBadge": "RESUMEN DEL PERFIL",
+      "noPreferenceTitle": "SIN PREFERENCIA CLARA",
+      "noPreferenceBody": "Estas respuestas no muestran ningún rasgo por encima del punto medio neutral. Revisa tus respuestas en vez de interpretar la primera barra como una personalidad dominante.",
+      "incompleteTitle": "COMPLETA EL TEST",
+      "incompleteBody": "Faltan respuestas o algunas no son válidas. Completa las 66 afirmaciones antes de interpretar el perfil.",
+      "tieTitle": "RASGOS PRINCIPALES EMPATADOS",
+      "tieBody": "Varios rasgos comparten la puntuación mostrada más alta. Su orden no decide un ganador.",
+      "closeBody": "Las dos puntuaciones principales están a 3 puntos o menos. Las mostramos juntas para facilitar la lectura, no como prueba de significación estadística.",
+      "scoreScaleNote": "Cada barra es una puntuación independiente: 50% es neutral. No suman 100% y no son percentiles de población ni un diagnóstico psicológico.",
+      "evidenceTitle": "CÓMO TUS RESPUESTAS AFECTARON LA PUNTUACIÓN",
+      "evidenceRaised": "Aumentó este rasgo",
+      "evidenceLowered": "Redujo este rasgo",
+      "feedbackLink": "ENVIAR UNA SUGERENCIA",
+      "allSoulsLink": "EXPLORAR LOS SIETE RASGOS"
+    },
     title: "UNDERTALE SOUL EXTRACTOR",
     settingsBtn: "AJUSTES",
     audioSettingsTitle: "AJUSTES DE AUDIO",

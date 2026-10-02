@@ -5,7 +5,7 @@
 > 一旦本目录内容变化，请更新本文件
 
 ## Files
-- verify_scoring.cjs：验证非线性计分算法与归一化正确性
+- verify_scoring.cjs：通过现有esbuild导入真实共享模块，验证原分数、中立/缺失/并列/接近、卡片和统计隐私边界
 - check_comparison_sample.mjs：验证6组对比页与5个汇总页共35个五语言路由、SEO 标签、证据边界、站点地图与内链
 - check_lang_prompt_mobile.mjs：验证语言提示窗的手机安全区域、触控尺寸、焦点状态与最大占屏高度
 - check_quiz_answer_feedback.mjs：验证手机点击答案后先显示选中反馈，再进入下一题

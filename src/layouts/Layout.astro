@@ -1,6 +1,6 @@
 ---
 // input: Title, description, canonicalUrl, ogImage, structuredData schema, lang ('en' | 'ja' | 'es' | 'pt' | 'ru')
-// output: Full HTML page shell with multilingual hreflang meta tags, fonts, styles, header, footer, bottom-right language suggestion toast, CSS ambient background effect, Google Analytics, Clarity analytics, Google AdSense loader, and MakeThisBetter widget
+// output: Full HTML page shell with multilingual hreflang meta tags, fonts, styles, header, footer, bottom-right language suggestion toast, CSS ambient background effect, Google Analytics, Clarity on static information pages only, Google AdSense loader, and MakeThisBetter widget
 // pos: src/layouts/Layout.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import Header from '../components/Header.astro';
@@ -45,6 +45,8 @@ const hrefEs = `${siteUrl}/es${baseRel === '/' ? '/' : baseRel}`;
 const hrefPt = `${siteUrl}/pt${baseRel === '/' ? '/' : baseRel}`;
 const hrefRu = `${siteUrl}/ru${baseRel === '/' ? '/' : baseRel}`;
 const hrefDefault = `${siteUrl}${baseRel}`;
+// 答题操作和动态结果不进入会话录屏；其余静态内容页保留现有统计。
+const isQuizPage = baseRel === "/";
 ---
 
 <!doctype html>
@@ -119,6 +121,7 @@ const hrefDefault = `${siteUrl}${baseRel}`;
       gtag('config', 'G-LV21SKRL9V');
     </script>
 
+    {!isQuizPage && (
     <!-- Microsoft Clarity Analytics -->
     <script is:inline type="text/javascript">
       (function(c,l,a,r,i,t,y){
@@ -127,6 +130,7 @@ const hrefDefault = `${siteUrl}${baseRel}`;
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
       })(window, document, "clarity", "script", "y44qd28h2p");
     </script>
+    )}
     <script is:inline async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3083296102953963" crossorigin="anonymous"></script>
   </head>
   <body class="bg-black text-gray-100 min-h-screen flex flex-col font-sans selection:bg-red-500 selection:text-white relative">

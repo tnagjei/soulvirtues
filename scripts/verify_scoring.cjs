@@ -1,63 +1,44 @@
+// input: Actual shared scoring module and quiz privacy wiring
+// output: Regression failures for neutral/incomplete/tied results or private analytics
+// pos: scripts/verify_scoring.cjs (更新规则：评分或统计边界变化需同步本脚本与所属目录 README)
 
-const fs = require('fs');
+const assert = require('node:assert/strict');
+const { readFileSync } = require('node:fs');
+const { build } = require('esbuild');
 
-// Read questions from src/data/questions.ts
-const tsContent = fs.readFileSync('src/data/questions.ts', 'utf8');
-const jsonMatch = tsContent.match(/export const QUESTIONS: QuestionItem\[\] = ([\s\S]*?);\n/);
-if (!jsonMatch) {
-  console.error("Could not parse QUESTIONS from src/data/questions.ts");
-  process.exit(1);
-}
-const questions = JSON.parse(jsonMatch[1]);
+(async () => {
+  const bundle = await build({ entryPoints: ['src/data/scoring.ts'], bundle: true, platform: 'node', format: 'esm', write: false });
+  const scoring = await import('data:text/javascript;base64,' + Buffer.from(bundle.outputFiles[0].text).toString('base64'));
+  const neutral = scoring.computeScores(Array(66).fill(2));
+  assert.equal(neutral.kind, 'balanced');
+  assert.equal(neutral.primarySoul, null);
+  assert.deepEqual(Object.values(neutral.pct), Array(7).fill(50));
+  assert.equal(scoring.computeScores([]).kind, 'incomplete');
+  assert.equal(scoring.computeScores(Array(66).fill('4')).answeredCount, 0);
+  assert.equal(scoring.computeScores(Array(66).fill(99)).answeredCount, 0);
 
-const CODES = ["DET","BRV","JUS","KND","PAT","INT","PER"];
-const PAYOUT = [-1.2, -0.72, 0, 0.6, 1];
-const CURVE = 0.6;
+  const sample = Array(66).fill(2);
+  sample[0] = 0;
+  const result = scoring.computeScores(sample);
+  assert.equal(result.raw.INT, 3);
+  assert.equal(result.primarySoul, 'INT');
+  assert.equal(result.contributions[0].points, 3);
+  assert.equal(scoring.normPct('INT', scoring.MAXP.INT), 100);
+  assert.equal(scoring.normPct('INT', -scoring.MAXP.INT), 0);
 
-let MAXP = {};
-CODES.forEach(trait => {
-  MAXP[trait] = 0;
-  questions.forEach(q => {
-    MAXP[trait] += Math.abs(q.load[trait] || 0);
-  });
-});
+  const scores = { DET: 80, BRV: 80, JUS: 50, KND: 50, PAT: 50, INT: 50, PER: 50 };
+  assert.equal(scoring.classifyProfile(scores, 66, 66).kind, 'tied');
+  assert.deepEqual(scoring.classifyProfile(scores, 66, 66).leaders, ['DET', 'BRV']);
+  assert.equal(scoring.classifyProfile({ ...scores, BRV: 78 }, 66, 66).kind, 'close');
+  assert.equal(scoring.classifyProfile({ ...scores, BRV: 76 }, 66, 66).kind, 'dominant');
 
-function normPct(trait, raw) {
-  if (!MAXP[trait]) return 50;
-  let n = Math.max(-1, Math.min(1, raw / MAXP[trait]));
-  n = n < 0 ? -Math.pow(-n, CURVE) : Math.pow(n, CURVE);
-  return Math.max(0, Math.min(100, ((n + 1) / 2) * 100));
-}
-
-function computeScores(answers) {
-  const raw = {};
-  CODES.forEach(trait => raw[trait] = 0);
-  answers.forEach((answerIndex, qi) => {
-    const q = questions[qi];
-    if (answerIndex === null || answerIndex === undefined || !q) return;
-    const lean = answerIndex - 2;
-    CODES.forEach(trait => {
-      const weight = q.load[trait] || 0;
-      if (weight) {
-        raw[trait] += Math.abs(weight) * PAYOUT[lean * (weight < 0 ? -1 : 1) + 2];
-      }
-    });
-  });
-  const pct = {};
-  CODES.forEach(trait => pct[trait] = normPct(trait, raw[trait]));
-  const ranked = CODES.slice().sort((a, b) => pct[b] - pct[a]);
-  return { raw, pct, ranked };
-}
-
-// Test with all neutral
-const neutral = computeScores(new Array(66).fill(2));
-console.log("All neutral results (expect 50% for all):", JSON.stringify(neutral.pct));
-
-// Test with all agree
-const allAgree = computeScores(new Array(66).fill(4));
-console.log("All agree ranked:", JSON.stringify(allAgree.ranked));
-console.log("All agree results:", JSON.stringify(allAgree.pct));
-
-console.log("MAXP values:", JSON.stringify(MAXP));
-console.log("✓ Scoring verification passed with " + questions.length + " questions!");
-
+  const quiz = readFileSync('src/components/Quiz.astro', 'utf8');
+  assert.match(quiz, /computeScores as scoreAnswers/);
+  assert.ok(!quiz.includes('const CHOICE_FACTORS'), 'The browser must not own a second scoring algorithm');
+  assert.ok(!quiz.includes('dominant_trait'));
+  assert.ok(!quiz.includes('custom_text'));
+  assert.match(quiz, /data-clarity-mask="true"/);
+  assert.match(quiz, /const dominant = getResultDisplay\(score\)/, 'Export cards must use the same profile interpretation');
+  assert.match(quiz, /https:\/\/soulvirtues\.makethisbetter\.dev/, 'Private suggestions retain a real submission channel');
+  console.log('Scoring, interpretation, card and privacy regressions passed.');
+})().catch(error => { console.error(error); process.exitCode = 1; });

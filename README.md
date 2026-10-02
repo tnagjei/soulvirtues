@@ -7,6 +7,13 @@
 ## 项目简介
 本项目基于 66 题李克特量表测评体系，计算用户在七种灵魂美德（Determination 决心、Bravery 勇气、Justice 正义、Kindness 善良、Patience 耐心、Integrity 正直、Perseverance 毅力）上的连续百分比分布，支持英语、日语、西班牙语、葡萄牙语、俄语 5 种语言版本，并提供纯前端 Canvas 高清分享海报生成功能。
 
+## 评分与结果解释
+- 网页与验证共用 src/data/scoring.ts；保留现有选项权重及0.6幂曲线。
+- 结果区分无明显偏向、缺失、并列与接近，百分比不是人群百分位；回答贡献只在浏览器显示。
+- Analytics不发送题目、答案、分数、特质结果或建议正文；五个测验首页不加载Clarity，自定义建议走独立反馈入口。
+- 单特质和比较页使用可查证社区来源及明确标注的站点反思示例。
+- 回归检查：node scripts/verify_scoring.cjs。
+
 ## 多语言支持
 - 英文（默认）：`/ (https://soulvirtues.org/)`
 - 日文（Undertale 官方术语对齐）：`/ja/ (https://soulvirtues.org/ja/)`

@@ -298,6 +298,23 @@ export const jaTranslations: Translations = {
     ],
   },
   quizUI: {
+    resultReading: {
+      "cardScaleNote": "50%は中立・各スコアは独立",
+      "summaryBadge": "プロフィールのまとめ",
+      "noPreferenceTitle": "明確な傾向はありません",
+      "noPreferenceBody": "今回の回答では、中立の基準を超える特質がありません。最初の項目を主な性格と決めつけず、回答を見直してください。",
+      "incompleteTitle": "すべての質問に回答してください",
+      "incompleteBody": "未回答または無効な回答があります。66問すべてに回答してから結果を解釈してください。",
+      "tieTitle": "同点の上位特質",
+      "tieBody": "表示上の最高点が同じ特質が複数あります。表示順は優劣を決めるものではありません。",
+      "closeBody": "上位2項目の差は3ポイント以内です。読みやすさのために並べて表示しています。統計的な有意差の判定ではありません。",
+      "scoreScaleNote": "各項目は独立したテスト用スコアで、50%が中立です。合計は100%にはなりません。人口集団内の順位や心理学的な診断を示すものではありません。",
+      "evidenceTitle": "回答がスコアに与えた影響",
+      "evidenceRaised": "この特質の点数を上げた回答",
+      "evidenceLowered": "この特質の点数を下げた回答",
+      "feedbackLink": "提案を送る",
+      "allSoulsLink": "7つの特質をすべて見る"
+    },
     title: "UNDERTALE SOUL EXTRACTOR",
     settingsBtn: "設定",
     audioSettingsTitle: "オーディオ設定",

@@ -31,7 +31,7 @@ const structuredData = {
   <div class="max-w-4xl mx-auto px-4 sm:px-6 py-16">
     <div class="mb-10 text-center">
       <h1 class="text-3xl sm:text-5xl font-black text-white font-mono mb-4">Privacy Policy</h1>
-      <p class="text-gray-400 text-xs font-mono">Last Updated: August 31, 2026</p>
+      <p class="text-gray-400 text-xs font-mono">Last Updated: October 2, 2026</p>
     </div>
 
     <div class="pixel-card p-6 sm:p-10 space-y-6 text-gray-300 text-sm leading-relaxed">
@@ -45,7 +45,7 @@ const structuredData = {
       <div>
         <h2 class="text-lg font-bold text-white mb-2">2. Client-Side Processing</h2>
         <p>
-          Our 66-question test and score calculation operate locally on your device using client-side JavaScript. We do not store, collect, or transmit your individual quiz answers, personality results, or scores to any backend servers or databases.
+          Our 66-question test, scores, answer explanations, and image cards are calculated locally in your browser. Our Analytics events exclude individual answers, scores, and trait results. Microsoft Clarity is not loaded on the five homepages that host the quiz. Usage statistics, advertising, and voluntarily submitted feedback are described separately below.
         </p>
       </div>
 
@@ -62,8 +62,8 @@ const structuredData = {
           To understand traffic patterns and optimize user experience, we utilize third-party analytics services:
         </p>
         <ul class="list-disc list-inside space-y-1.5 mt-2 pl-2 text-gray-400">
-          <li><strong class="text-gray-200">Google Analytics:</strong> Collects aggregated, non-personally identifiable telemetry such as browser type, referring pages, session duration, and approximate geographic region.</li>
-          <li><strong class="text-gray-200">Microsoft Clarity:</strong> Captures anonymous user behavioral metrics and heatmaps to improve navigation and interface clarity.</li>
+          <li><strong class="text-gray-200">Google Analytics:</strong> Processes usage events such as test completion, card downloads, and a selected feature-vote category, as well as standard request metadata. These events exclude quiz answers, scores, trait results, and free-text suggestions.</li>
+          <li><strong class="text-gray-200">Microsoft Clarity:</strong> Runs on static information pages to provide usage recordings and heatmaps. It is not loaded on the five quiz homepages, so it does not record the quiz interaction or its dynamic result. Standard metadata may still be processed on pages where Clarity runs.</li>
           <li><strong class="text-gray-200">Cloudflare Pages & Security Logs:</strong> Processes standard request metadata (including IP address and request timestamps) strictly for DDoS mitigation and global edge performance.</li>
         </ul>
       </div>
@@ -99,7 +99,12 @@ const structuredData = {
       </div>
 
       <div>
-        <h2 class="text-lg font-bold text-white mb-2">8. Contact Us</h2>
+        <h2 class="text-lg font-bold text-white mb-2">8. Voluntary Feedback</h2>
+        <p>Preset feature votes may send the selected category and page language to Analytics. Free-text suggestions are not sent to Analytics. If you use our MakeThisBetter feedback link or widget, the feedback service receives the information you choose to submit. Please do not include sensitive personal information. Feedback is optional and does not affect your test result.</p>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-bold text-white mb-2">9. Contact Us</h2>
         <p>
           If you have any questions or comments about this Privacy Policy, please reach out via email at:
           <!--email_off--><a href="mailto:contact@soulvirtues.org" class="text-red-400 underline font-mono">contact@soulvirtues.org</a><!--/email_off-->.
