@@ -64,7 +64,7 @@ export const DETERMINATION_VS_PERSEVERANCE: ComparisonSample = {
   copy: {
     en: {
       seoTitle: 'Determination vs Perseverance: Undertale Soul Traits',
-      seoDescription: "Compare Determination and Perseverance: choosing and revising a goal versus useful effort during execution. Read examples and the V2 scoring method.",
+      seoDescription: "Compare Determination and Perseverance in Undertale: desired outcomes vs steady routines, game evidence, real-life examples, and a dual-trait profile.",
       eyebrow: 'SOUL TRAIT COMPARISON',
       heading: 'Determination vs Perseverance',
       intro: "Determination concerns the goal you choose and reconsider; Perseverance concerns useful effort while carrying out the work.",
@@ -129,7 +129,7 @@ export const DETERMINATION_VS_PERSEVERANCE: ComparisonSample = {
     },
     ja: {
       seoTitle: 'Undertale ケツイとふくつの違い',
-      seoDescription: "ケツイは選び直す目標、こんきは仕事を進める中での有用な努力に目を向けます。",
+      seoDescription: "Undertaleのケツイとふくつを比較。望む結末を諦めない力と、習慣や方法を続ける力の違い、ゲーム内根拠、複合タイプを解説。",
       eyebrow: 'ソウル特質比較',
       heading: 'ケツイ vs ふくつ',
       intro: "ケツイは選び直す目標、こんきは仕事を進める中での有用な努力に目を向けます。",
@@ -194,7 +194,7 @@ export const DETERMINATION_VS_PERSEVERANCE: ComparisonSample = {
     },
     es: {
       seoTitle: 'Determinación vs Perseverancia en Undertale',
-      seoDescription: "La Determinación trata del objetivo que eliges y reconsideras; la Perseverancia, del esfuerzo útil al realizar el trabajo.",
+      seoDescription: "Compara Determinación y Perseverancia en Undertale: resultado deseado frente a rutina constante, evidencia del juego, ejemplos y perfil combinado.",
       eyebrow: 'COMPARACIÓN DE RASGOS DEL ALMA',
       heading: 'Determinación vs Perseverancia',
       intro: "La Determinación trata del objetivo que eliges y reconsideras; la Perseverancia, del esfuerzo útil al realizar el trabajo.",
@@ -259,7 +259,7 @@ export const DETERMINATION_VS_PERSEVERANCE: ComparisonSample = {
     },
     pt: {
       seoTitle: 'Determinação vs Perseverança em Undertale',
-      seoDescription: "A Determinação trata do objetivo que você escolhe e reconsidera; a Perseverança, do esforço útil para realizar o trabalho.",
+      seoDescription: "Compare Determinação e Perseverança em Undertale: resultado desejado versus rotina constante, evidências do jogo, exemplos e perfil combinado.",
       eyebrow: 'COMPARAÇÃO DE TRAÇOS DA ALMA',
       heading: 'Determinação vs Perseverança',
       intro: "A Determinação trata do objetivo que você escolhe e reconsidera; a Perseverança, do esforço útil para realizar o trabalho.",
@@ -324,7 +324,7 @@ export const DETERMINATION_VS_PERSEVERANCE: ComparisonSample = {
     },
     ru: {
       seoTitle: 'Решимость против Настойчивости в Undertale - Сравнение душ',
-      seoDescription: "Решимость относится к выбору и пересмотру цели; Настойчивость — к полезным усилиям при выполнении работы.",
+      seoDescription: "Сравнение Решимости и Настойчивости в Undertale: отказ от поражения против дисциплины и привычки, игровые факты и комбинированный профиль.",
       eyebrow: 'СРАВНЕНИЕ ЧЕРТ ДУШИ',
       heading: 'Решимость против Настойчивости',
       intro: "Решимость относится к выбору и пересмотру цели; Настойчивость — к полезным усилиям при выполнении работы.",

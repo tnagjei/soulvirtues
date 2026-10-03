@@ -125,7 +125,7 @@ export const BRAVERY_VS_DETERMINATION: ComparisonSample = {
   copy: {
     en: withShared('en', {
       seoTitle: 'Bravery vs Determination: Undertale Soul Traits Compared',
-      seoDescription: "Compare Bravery and Determination: acting despite fear versus choosing a meaningful goal. See everyday examples, close scores and the V2 quiz method.",
+      seoDescription: "Compare Bravery and Determination in Undertale: starting despite fear versus refusing to accept defeat, with game evidence and real-life examples.",
       heading: 'Bravery vs Determination',
       intro: "Bravery concerns action despite fear; Determination concerns choosing and reconsidering the direction of a meaningful goal.",
       quickAnswer: "Bravery concerns action despite fear; Determination concerns choosing and reconsidering the direction of a meaningful goal.",
@@ -175,7 +175,7 @@ export const BRAVERY_VS_DETERMINATION: ComparisonSample = {
     }),
     ja: withShared('ja', {
       seoTitle: 'Undertale ゆうきとケツイの違い',
-      seoDescription: "ゆうきは怖さがあっても行動すること、ケツイは大切な目標への方向を選び直すことです。",
+      seoDescription: "Undertaleのゆうきとケツイを比較。怖くても始める力と、失敗を受け入れず再挑戦する力の違いをゲーム内根拠と例で解説。",
       heading: 'ゆうき vs ケツイ',
       intro: "ゆうきは怖さがあっても行動すること、ケツイは大切な目標への方向を選び直すことです。",
       quickAnswer: "ゆうきは怖さがあっても行動すること、ケツイは大切な目標への方向を選び直すことです。",
@@ -225,7 +225,7 @@ export const BRAVERY_VS_DETERMINATION: ComparisonSample = {
     }),
     es: withShared('es', {
       seoTitle: 'Valentía vs Determinación en Undertale',
-      seoDescription: "La Valentía trata de actuar pese al miedo; la Determinación, de elegir y revisar el rumbo de un objetivo importante.",
+      seoDescription: "Compara Valentía y Determinación en Undertale: empezar pese al miedo frente a rechazar la derrota, con evidencia del juego y ejemplos.",
       heading: 'Valentía vs Determinación',
       intro: "La Valentía trata de actuar pese al miedo; la Determinación, de elegir y revisar el rumbo de un objetivo importante.",
       quickAnswer: "La Valentía trata de actuar pese al miedo; la Determinación, de elegir y revisar el rumbo de un objetivo importante.",
@@ -275,7 +275,7 @@ export const BRAVERY_VS_DETERMINATION: ComparisonSample = {
     }),
     pt: withShared('pt', {
       seoTitle: 'Bravura vs Determinação em Undertale',
-      seoDescription: "A Bravura trata de agir apesar do medo; a Determinação, de escolher e rever o rumo de um objetivo importante.",
+      seoDescription: "Compare Bravura e Determinação em Undertale: começar apesar do medo versus recusar a derrota, com evidências do jogo e exemplos.",
       heading: 'Bravura vs Determinação',
       intro: "A Bravura trata de agir apesar do medo; a Determinação, de escolher e rever o rumo de um objetivo importante.",
       quickAnswer: "A Bravura trata de agir apesar do medo; a Determinação, de escolher e rever o rumo de um objetivo importante.",
@@ -325,7 +325,7 @@ export const BRAVERY_VS_DETERMINATION: ComparisonSample = {
     }),
     ru: withShared('ru', {
       seoTitle: 'Храбрость против Решимости в Undertale - Сравнение черт души',
-      seoDescription: "Храбрость относится к действию несмотря на страх; Решимость — к выбору и пересмотру направления важной цели.",
+      seoDescription: "Сравнение Храбрости и Решимости в Undertale: первый шаг наперекор страху против отказа сдаваться, факты из игры и примеры.",
       heading: 'Храбрость против Решимости',
       intro: "Храбрость относится к действию несмотря на страх; Решимость — к выбору и пересмотру направления важной цели.",
       quickAnswer: "Храбрость относится к действию несмотря на страх; Решимость — к выбору и пересмотру направления важной цели.",
@@ -383,7 +383,7 @@ export const INTEGRITY_VS_JUSTICE: ComparisonSample = {
   copy: {
     en: withShared('en', {
       seoTitle: 'Integrity vs Justice: Undertale Soul Traits Compared',
-      seoDescription: "Compare Integrity and Justice: truthful commitments versus fair standards across people. See practical examples, score limits and the V2 quiz method.",
+      seoDescription: "Compare Integrity and Justice in Undertale: holding yourself to a standard versus defending fairness, with game evidence and practical examples.",
       heading: 'Integrity vs Justice',
       intro: "Integrity concerns truthful, reliable conduct; Justice concerns fair standards across different people.",
       quickAnswer: "Integrity concerns truthful, reliable conduct; Justice concerns fair standards across different people.",
@@ -433,7 +433,7 @@ export const INTEGRITY_VS_JUSTICE: ComparisonSample = {
     }),
     ja: withShared('ja', {
       seoTitle: 'Undertale せいじつとせいぎの違い',
-      seoDescription: "せいじつは正直で信頼できる行動、せいぎは相手によらない公平な基準に目を向けます。",
+      seoDescription: "Undertaleのせいじつとせいぎを比較。自分を原則で律する力と、公平を守り不正を正す力の違いを解説。",
       heading: 'せいじつ vs せいぎ',
       intro: "せいじつは正直で信頼できる行動、せいぎは相手によらない公平な基準に目を向けます。",
       quickAnswer: "せいじつは正直で信頼できる行動、せいぎは相手によらない公平な基準に目を向けます。",
@@ -483,7 +483,7 @@ export const INTEGRITY_VS_JUSTICE: ComparisonSample = {
     }),
     es: withShared('es', {
       seoTitle: 'Integridad vs Justicia en Undertale',
-      seoDescription: "La Integridad trata de una conducta honesta y fiable; la Justicia, de criterios justos para personas diferentes.",
+      seoDescription: "Compara Integridad y Justicia en Undertale: exigirte coherencia frente a defender la equidad, con evidencia del juego y ejemplos.",
       heading: 'Integridad vs Justicia',
       intro: "La Integridad trata de una conducta honesta y fiable; la Justicia, de criterios justos para personas diferentes.",
       quickAnswer: "La Integridad trata de una conducta honesta y fiable; la Justicia, de criterios justos para personas diferentes.",
@@ -533,7 +533,7 @@ export const INTEGRITY_VS_JUSTICE: ComparisonSample = {
     }),
     pt: withShared('pt', {
       seoTitle: 'Integridade vs Justiça em Undertale',
-      seoDescription: "A Integridade trata de uma conduta honesta e confiável; a Justiça, de critérios justos para pessoas diferentes.",
+      seoDescription: "Compare Integridade e Justiça em Undertale: cobrar coerência de si versus defender a equidade, com evidências e exemplos.",
       heading: 'Integridade vs Justiça',
       intro: "A Integridade trata de uma conduta honesta e confiável; a Justiça, de critérios justos para pessoas diferentes.",
       quickAnswer: "A Integridade trata de uma conduta honesta e confiável; a Justiça, de critérios justos para pessoas diferentes.",
@@ -583,7 +583,7 @@ export const INTEGRITY_VS_JUSTICE: ComparisonSample = {
     }),
     ru: withShared('ru', {
       seoTitle: 'Порядочность против Справедливости в Undertale - Сравнение черт души',
-      seoDescription: "Порядочность относится к честному и надёжному поведению; Справедливость — к справедливым критериям для разных людей.",
+      seoDescription: "Сравнение Порядочности и Справедливости в Undertale: внутренняя верность себе против защиты прав других и восстановления баланса.",
       heading: 'Порядочность против Справедливости',
       intro: "Порядочность относится к честному и надёжному поведению; Справедливость — к справедливым критериям для разных людей.",
       quickAnswer: "Порядочность относится к честному и надёжному поведению; Справедливость — к справедливым критериям для разных людей.",
@@ -641,7 +641,7 @@ export const KINDNESS_VS_PATIENCE: ComparisonSample = {
   copy: {
     en: withShared('en', {
       seoTitle: 'Kindness vs Patience: Undertale Soul Traits Compared',
-      seoDescription: "Compare Kindness and Patience: offering useful care versus handling waiting and frustration. Read practical examples and the V2 quiz scoring guide.",
+      seoDescription: "Compare Kindness and Patience in Undertale: caring for others versus regulating urgency, with game evidence, examples, strengths, and risks.",
       heading: 'Kindness vs Patience',
       intro: "Kindness concerns useful care for another person; Patience concerns your response to waiting, irritation or repeated difficulty.",
       quickAnswer: "Kindness concerns useful care for another person; Patience concerns your response to waiting, irritation or repeated difficulty.",
@@ -691,7 +691,7 @@ export const KINDNESS_VS_PATIENCE: ComparisonSample = {
     }),
     ja: withShared('ja', {
       seoTitle: 'Undertale しんせつとにんたいの違い',
-      seoDescription: "やさしさは相手に役立つ気遣い、にんたいは待ち時間やいらだちへの自分の対応です。",
+      seoDescription: "Undertaleのしんせつとにんたいを比較。他人を気づかう力と、自分の焦りを抑え適切な時機を待つ力の違いを解説。",
       heading: 'しんせつ vs にんたい',
       intro: "やさしさは相手に役立つ気遣い、にんたいは待ち時間やいらだちへの自分の対応です。",
       quickAnswer: "やさしさは相手に役立つ気遣い、にんたいは待ち時間やいらだちへの自分の対応です。",
@@ -741,7 +741,7 @@ export const KINDNESS_VS_PATIENCE: ComparisonSample = {
     }),
     es: withShared('es', {
       seoTitle: 'Bondad vs Paciencia en Undertale',
-      seoDescription: "La Bondad trata del cuidado útil de otra persona; la Paciencia, de tu reacción a la espera, la irritación o las dificultades repetidas.",
+      seoDescription: "Compara Bondad y Paciencia en Undertale: cuidar a otros frente a regular la urgencia, con evidencia del juego, ejemplos y riesgos.",
       heading: 'Bondad vs Paciencia',
       intro: "La Bondad trata del cuidado útil de otra persona; la Paciencia, de tu reacción a la espera, la irritación o las dificultades repetidas.",
       quickAnswer: "La Bondad trata del cuidado útil de otra persona; la Paciencia, de tu reacción a la espera, la irritación o las dificultades repetidas.",
@@ -791,7 +791,7 @@ export const KINDNESS_VS_PATIENCE: ComparisonSample = {
     }),
     pt: withShared('pt', {
       seoTitle: 'Bondade vs Paciência em Undertale',
-      seoDescription: "A Bondade trata do cuidado útil com outra pessoa; a Paciência, da sua reação à espera, à irritação ou às dificuldades repetidas.",
+      seoDescription: "Compare Bondade e Paciência em Undertale: cuidar dos outros versus regular a urgência, com evidências, exemplos e riscos.",
       heading: 'Bondade vs Paciência',
       intro: "A Bondade trata do cuidado útil com outra pessoa; a Paciência, da sua reação à espera, à irritação ou às dificuldades repetidas.",
       quickAnswer: "A Bondade trata do cuidado útil com outra pessoa; a Paciência, da sua reação à espera, à irritação ou às dificuldades repetidas.",
@@ -841,7 +841,7 @@ export const KINDNESS_VS_PATIENCE: ComparisonSample = {
     }),
     ru: withShared('ru', {
       seoTitle: 'Доброта против Терпения в Undertale - Сравнение черт души',
-      seoDescription: "Доброта относится к полезной заботе о другом; Терпение — к вашей реакции на ожидание, раздражение или повторяющиеся трудности.",
+      seoDescription: "Сравнение Доброты и Терпения в Undertale: деятельная забота против мудрого выжидания и душевного спокойствия.",
       heading: 'Доброта против Терпения',
       intro: "Доброта относится к полезной заботе о другом; Терпение — к вашей реакции на ожидание, раздражение или повторяющиеся трудности.",
       quickAnswer: "Доброта относится к полезной заботе о другом; Терпение — к вашей реакции на ожидание, раздражение или повторяющиеся трудности.",
@@ -899,7 +899,7 @@ export const BRAVERY_VS_PATIENCE: ComparisonSample = {
   copy: {
     en: withShared('en', {
       seoTitle: 'Bravery vs Patience: Undertale Soul Traits Compared',
-      seoDescription: "Compare Bravery and Patience: acting safely despite fear versus pausing through frustration. See everyday examples and how to read the V2 quiz scores.",
+      seoDescription: "Compare Bravery and Patience in Undertale: acting despite fear versus waiting for the right moment, with game evidence, examples, strengths, and risks.",
       heading: 'Bravery vs Patience',
       intro: "Bravery concerns a safe action despite fear; Patience concerns pausing and managing frustration when timing matters.",
       quickAnswer: "Bravery concerns a safe action despite fear; Patience concerns pausing and managing frustration when timing matters.",
@@ -949,7 +949,7 @@ export const BRAVERY_VS_PATIENCE: ComparisonSample = {
     }),
     ja: withShared('ja', {
       seoTitle: 'Undertale ゆうきとにんたいの違い',
-      seoDescription: "ゆうきは怖さがあっても安全に行動すること、にんたいは一呼吸置き、いらだちとタイミングを扱うことです。",
+      seoDescription: "Undertaleのゆうきとにんたいを比較。怖くても行動する力と、適切な時機まで待つ力の違いをゲーム内根拠と例で解説。",
       heading: 'ゆうき vs にんたい',
       intro: "ゆうきは怖さがあっても安全に行動すること、にんたいは一呼吸置き、いらだちとタイミングを扱うことです。",
       quickAnswer: "ゆうきは怖さがあっても安全に行動すること、にんたいは一呼吸置き、いらだちとタイミングを扱うことです。",
@@ -999,7 +999,7 @@ export const BRAVERY_VS_PATIENCE: ComparisonSample = {
     }),
     es: withShared('es', {
       seoTitle: 'Valentía vs Paciencia en Undertale',
-      seoDescription: "La Valentía trata de actuar con seguridad pese al miedo; la Paciencia, de pausar y gestionar la frustración cuando importa el momento.",
+      seoDescription: "Compara Valentía y Paciencia en Undertale: actuar pese al miedo frente a esperar el momento adecuado, con evidencia y ejemplos.",
       heading: 'Valentía vs Paciencia',
       intro: "La Valentía trata de actuar con seguridad pese al miedo; la Paciencia, de pausar y gestionar la frustración cuando importa el momento.",
       quickAnswer: "La Valentía trata de actuar con seguridad pese al miedo; la Paciencia, de pausar y gestionar la frustración cuando importa el momento.",
@@ -1049,7 +1049,7 @@ export const BRAVERY_VS_PATIENCE: ComparisonSample = {
     }),
     pt: withShared('pt', {
       seoTitle: 'Bravura vs Paciência em Undertale',
-      seoDescription: "A Bravura trata de uma ação segura apesar do medo; a Paciência, de pausar e lidar com a frustração quando o momento importa.",
+      seoDescription: "Compare Bravura e Paciência em Undertale: agir apesar do medo versus esperar o momento certo, com evidências e exemplos.",
       heading: 'Bravura vs Paciência',
       intro: "A Bravura trata de uma ação segura apesar do medo; a Paciência, de pausar e lidar com a frustração quando o momento importa.",
       quickAnswer: "A Bravura trata de uma ação segura apesar do medo; a Paciência, de pausar e lidar com a frustração quando o momento importa.",
@@ -1099,7 +1099,7 @@ export const BRAVERY_VS_PATIENCE: ComparisonSample = {
     }),
     ru: withShared('ru', {
       seoTitle: 'Храбрость против Терпения в Undertale - Сравнение черт души',
-      seoDescription: "Храбрость относится к безопасному действию несмотря на страх; Терпение — к паузе и управлению раздражением с учётом времени.",
+      seoDescription: "Сравнение Храбрости и Терпения в Undertale: стремительное действие против выжидания и наблюдения, игровая механика и реальные примеры.",
       heading: 'Храбрость против Терпения',
       intro: "Храбрость относится к безопасному действию несмотря на страх; Терпение — к паузе и управлению раздражением с учётом времени.",
       quickAnswer: "Храбрость относится к безопасному действию несмотря на страх; Терпение — к паузе и управлению раздражением с учётом времени.",
@@ -1158,7 +1158,7 @@ export const JUSTICE_VS_KINDNESS: ComparisonSample = {
   copy: {
     en: withShared('en', {
       seoTitle: 'Justice vs Kindness: Undertale Soul Traits Compared',
-      seoDescription: "Compare Justice and Kindness: fair treatment and consistent standards versus care that meets a need. Read examples and the limits of the V2 quiz scores.",
+      seoDescription: "Compare Justice and Kindness in Undertale: defending fairness versus reducing harm, with game evidence, difficult scenarios, strengths, and risks.",
       heading: 'Justice vs Kindness',
       intro: "Justice concerns fair treatment and consistent standards; Kindness concerns care that answers someone's actual need.",
       quickAnswer: "Justice concerns fair treatment and consistent standards; Kindness concerns care that answers someone's actual need.",
@@ -1208,7 +1208,7 @@ export const JUSTICE_VS_KINDNESS: ComparisonSample = {
     }),
     ja: withShared('ja', {
       seoTitle: 'Undertale せいぎとしんせつの違い',
-      seoDescription: "せいぎは公平な対応と一貫した基準、やさしさは相手の本当の必要に合う気遣いです。",
+      seoDescription: "Undertaleのせいぎとしんせつを比較。公平を守り責任を求める力と、不要な害を減らし人を気づかう力の違いを解説。",
       heading: 'せいぎ vs しんせつ',
       intro: "せいぎは公平な対応と一貫した基準、やさしさは相手の本当の必要に合う気遣いです。",
       quickAnswer: "せいぎは公平な対応と一貫した基準、やさしさは相手の本当の必要に合う気遣いです。",
@@ -1258,7 +1258,7 @@ export const JUSTICE_VS_KINDNESS: ComparisonSample = {
     }),
     es: withShared('es', {
       seoTitle: 'Justicia vs Bondad en Undertale',
-      seoDescription: "La Justicia trata del trato justo y los criterios coherentes; la Bondad, del cuidado que responde a una necesidad real.",
+      seoDescription: "Compara Justicia y Bondad en Undertale: defender la equidad frente a reducir el daño, con evidencia, escenarios, fortalezas y riesgos.",
       heading: 'Justicia vs Bondad',
       intro: "La Justicia trata del trato justo y los criterios coherentes; la Bondad, del cuidado que responde a una necesidad real.",
       quickAnswer: "La Justicia trata del trato justo y los criterios coherentes; la Bondad, del cuidado que responde a una necesidad real.",
@@ -1308,7 +1308,7 @@ export const JUSTICE_VS_KINDNESS: ComparisonSample = {
     }),
     pt: withShared('pt', {
       seoTitle: 'Justiça vs Bondade em Undertale',
-      seoDescription: "A Justiça trata de tratamento justo e critérios coerentes; a Bondade, do cuidado que responde a uma necessidade real.",
+      seoDescription: "Compare Justiça e Bondade em Undertale: defender equidade versus reduzir dano, com evidências, cenários, forças e riscos.",
       heading: 'Justiça vs Bondade',
       intro: "A Justiça trata de tratamento justo e critérios coerentes; a Bondade, do cuidado que responde a uma necessidade real.",
       quickAnswer: "A Justiça trata de tratamento justo e critérios coerentes; a Bondade, do cuidado que responde a uma necessidade real.",
@@ -1358,7 +1358,7 @@ export const JUSTICE_VS_KINDNESS: ComparisonSample = {
     }),
     ru: withShared('ru', {
       seoTitle: 'Справедливость против Доброты в Undertale - Сравнение черт души',
-      seoDescription: "Справедливость относится к справедливому отношению и последовательным критериям; Доброта — к заботе, отвечающей реальной потребности.",
+      seoDescription: "Сравнение Справедливости и Доброты в Undertale: беспристрастный закон против милосердия и прощения, лор и практические примеры.",
       heading: 'Справедливость против Доброты',
       intro: "Справедливость относится к справедливому отношению и последовательным критериям; Доброта — к заботе, отвечающей реальной потребности.",
       quickAnswer: "Справедливость относится к справедливому отношению и последовательным критериям; Доброта — к заботе, отвечающей реальной потребности.",

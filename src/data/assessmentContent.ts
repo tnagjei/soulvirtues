@@ -1,4 +1,4 @@
-// input: Five-language assessment definitions, practical examples, and transparent method copy
+// input: Five-language assessment definitions, method copy and GSC-supported FAQ scope clarifications
 // output: Source-based V2 reading content reused by the quiz, method and detail pages
 // pos: src/data/assessmentContent.ts (更新规则：定义或计分说明变化需同步题库、公开页面与所属目录 README)
 
@@ -268,6 +268,14 @@ export const ASSESSMENT_COPY = {
       {
         "q": "Is this an official Undertale test?",
         "a": "This is an independent fan project, not an official Undertale or Deltarune test. Red / Determination is community shorthand; the game does not explicitly name Determination as the Red SOUL’s official trait."
+      },
+      {
+        "q": "Is this Jaden's original Soul Virtues Extractor?",
+        "a": "No. This is an independent version with 56 adapted public-domain IPIP statements and 10 independently written Determination statements. It does not reproduce Jaden's original 66-question bank, and its scores should not be compared directly with that project's results."
+      },
+      {
+        "q": "Can I use this as a Deltarune Soul test?",
+        "a": "Deltarune fans can use it for self-reflection, but the quiz uses this site's Undertale-inspired seven-theme framework. It is not a separate Deltarune assessment and does not establish an official Deltarune SOUL type or battle mode."
       }
     ],
     "whyPoints": [
@@ -484,6 +492,14 @@ export const ASSESSMENT_COPY = {
       {
         "q": "¿Es un test oficial de Undertale?",
         "a": "Es un proyecto de fans independiente, no un test oficial de Undertale o Deltarune. Rojo / Determinación es una asociación comunitaria: el juego no nombra explícitamente la Determinación como rasgo oficial del Alma roja."
+      },
+      {
+        "q": "¿Es el Soul Virtues Extractor original de Jaden?",
+        "a": "No. Esta es una versión independiente con 56 afirmaciones adaptadas del IPIP de dominio público y 10 de Determinación escritas de forma independiente. No reproduce las 66 preguntas originales de Jaden, y sus puntuaciones no deben compararse directamente con las de ese proyecto."
+      },
+      {
+        "q": "¿Puedo usarlo como test de alma de Deltarune?",
+        "a": "Los fans de Deltarune pueden usarlo para reflexionar, pero el test utiliza el marco de siete temas de este sitio, inspirado en Undertale. No es una evaluación independiente de Deltarune ni determina un tipo de Alma o modo de combate oficial de ese juego."
       }
     ],
     "whyPoints": [

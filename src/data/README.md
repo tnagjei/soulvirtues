@@ -7,7 +7,7 @@
 ## Files
 - contentEvidence.ts：已核验的社区资料链接、事实/解释边界与五语言35条独立反思示例
 - quizSession.ts：题库版本、稳定题号保存/恢复与答案值校验；不把旧数组或无效记录算入新题
-- assessmentContent.ts：五语言V2定义、实际情境、反思问题、来源方法和FAQ；复用于结果、方法页与详情页
+- assessmentContent.ts：五语言V2定义、实际情境、反思问题、来源方法和FAQ；复用于结果、方法页与详情页；英西语FAQ说明Jaden原版和Deltarune访问边界
 - questions.ts：V2 66题五语言文字、56条IPIP官方来源与10条自拟题、稳定题号及每题单一维度
 - souls.ts：七种灵魂特质名称、颜色、十六进制色值、代表金句与深度说明
 - scoring.ts：网页与验证共用的V2正反向平均分、有效答案校验、中立/缺失/并列/接近结果和本地回答贡献
