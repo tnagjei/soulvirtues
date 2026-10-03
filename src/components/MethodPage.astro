@@ -1,0 +1,107 @@
+---
+// input: Locale, V2 item source ledger, and shared scoring explanation
+// output: Localized method page with traceable sources, formula, limits and version history
+// pos: src/components/MethodPage.astro (更新规则：题库或计分变化需同步本页与所属目录 README)
+
+import Layout from '../layouts/Layout.astro';
+import { getTranslations, type Locale } from '../i18n';
+import { ASSESSMENT_COPY, TRAIT_READING } from '../data/assessmentContent';
+import { QUESTION_BANK, BANK_VERSION, IPIP_PERMISSION_URL } from '../data/questions';
+
+interface Props { lang?: Locale; }
+const { lang = 'en' } = Astro.props;
+const copy = ASSESSMENT_COPY[lang];
+const t = getTranslations(lang);
+const prefix = lang === 'en' ? '' : '/' + lang;
+const url = 'https://soulvirtues.org' + prefix + '/method/';
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': url + '#webpage',
+  url, name: copy.seoTitle, description: copy.seoDescription, inLanguage: lang,
+  isPartOf: { '@type': 'WebSite', name: 'Soul Virtues Extractor', url: 'https://soulvirtues.org/' },
+};
+const ipipCount = QUESTION_BANK.filter(q => q.sourceId).length;
+const codes = Object.keys(t.souls) as (keyof typeof t.souls)[];
+---
+
+<Layout title={copy.seoTitle} description={copy.seoDescription} canonicalUrl={url} structuredData={structuredData} lang={lang}>
+  <article class="max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-16 space-y-8">
+    <header>
+      <a href={prefix + '/'} class="text-sm text-cyan-300 underline">{t.nav.takeQuiz} →</a>
+      <h1 class="text-3xl sm:text-5xl font-black font-mono text-white mt-5 mb-4">{copy.heading}</h1>
+      <p class="text-sm sm:text-base text-gray-300 leading-relaxed">{copy.intro}</p>
+      <p class="text-xs font-mono text-gray-400 mt-4">{copy.updatedLabel}: {BANK_VERSION} · {QUESTION_BANK.length} · {ipipCount} IPIP + {QUESTION_BANK.length - ipipCount}</p>
+    </header>
+
+    <section id="sources" class="scroll-mt-24 pixel-card-sub p-5 sm:p-8 space-y-4">
+      <h2 class="text-xl font-bold font-mono text-white">{copy.sourceTitle}</h2>
+      <p class="text-sm text-gray-300 leading-relaxed">{copy.sourceBody}</p>
+      <ul class="flex flex-wrap gap-x-5 gap-y-3 text-sm">
+        <li><a href={IPIP_PERMISSION_URL} class="text-cyan-300 underline" target="_blank" rel="noopener noreferrer">IPIP: Public-domain permission</a></li>
+        <li><a href="https://ipip.ori.org/AlphabeticalItemList.htm" class="text-cyan-300 underline" target="_blank" rel="noopener noreferrer">IPIP: Official item list</a></li>
+        <li><a href="https://ipip.ori.org/newScoringInstructions.htm" class="text-cyan-300 underline" target="_blank" rel="noopener noreferrer">IPIP: Scoring instructions</a></li>
+      </ul>
+    </section>
+
+    <section id="scoring" class="scroll-mt-24 pixel-card-sub p-5 sm:p-8 space-y-4">
+      <h2 class="text-xl font-bold font-mono text-white">{copy.formulaTitle}</h2>
+      <ol class="list-decimal pl-5 space-y-3 text-sm text-gray-300 leading-relaxed">
+        {copy.formulaSteps.map(step => <li>{step}</li>)}
+      </ol>
+    </section>
+
+    <section id="themes" class="scroll-mt-24 pixel-card-sub p-5 sm:p-8">
+      <h2 class="text-xl font-bold font-mono text-white mb-5">{copy.definitionTitle}</h2>
+      <dl class="space-y-5">
+        {codes.map(code => (
+          <div>
+            <dt class="text-sm font-mono font-bold mb-2" style={{ color: t.souls[code].hex }}>{t.souls[code].name} · {QUESTION_BANK.filter(q => q.trait === code).length}</dt>
+            <dd class="text-sm text-gray-300 leading-relaxed">{TRAIT_READING[lang][code].focus}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+
+    <section id="results" class="scroll-mt-24 pixel-card-sub p-5 sm:p-8 space-y-4">
+      <h2 class="text-xl font-bold font-mono text-white">{copy.readingTitle}</h2>
+      <p class="text-sm text-gray-300 leading-relaxed">{copy.readingBody}</p>
+      <p class="text-sm text-gray-300 leading-relaxed">{copy.freeBody}</p>
+    </section>
+
+    <section id="limits" class="scroll-mt-24 pixel-card-sub p-5 sm:p-8 space-y-4">
+      <h2 class="text-xl font-bold font-mono text-white">{copy.limitsTitle}</h2>
+      <p class="text-sm text-gray-300 leading-relaxed">{copy.limitsBody}</p>
+      <p class="text-sm text-gray-400 leading-relaxed">{copy.officialBody}</p>
+    </section>
+
+    <section id="versions" class="scroll-mt-24 pixel-card-sub p-5 sm:p-8 space-y-4">
+      <h2 class="text-xl font-bold font-mono text-white">{copy.storageTitle}</h2>
+      <p class="text-sm text-gray-300 leading-relaxed">{copy.storageBody}</p>
+    </section>
+
+    <section id="item-ledger" class="scroll-mt-24 pixel-card-sub p-5 sm:p-8">
+      <h2 class="text-xl font-bold font-mono text-white mb-3">{copy.ledgerTitle}</h2>
+      <p class="text-sm text-gray-300 leading-relaxed mb-5">{copy.ledgerIntro}</p>
+      <details class="group border border-gray-700 p-4">
+        <summary class="cursor-pointer text-cyan-300 font-mono text-sm py-2">{copy.ledgerToggle}</summary>
+        <ol class="space-y-4 mt-5">
+          {QUESTION_BANK.map(q => (
+            <li class="border border-gray-800 p-4 text-sm leading-relaxed break-words" data-item-id={q.id} data-source-kind={q.sourceId ? 'ipip' : 'independent'}>
+              <h3 class="font-mono text-white mb-2">{q.id} · {t.souls[q.trait].name}</h3>
+              <p class="text-gray-400 mb-2">{q.reverse ? copy.reverseLabel : copy.directLabel} · {q.sourceAliases || copy.siteLabel}</p>
+              {q.sourceOriginalEN && <p class="text-gray-400 mb-3"><strong>{copy.originalLabel}: </strong><span lang="en">{q.sourceOriginalEN}</span></p>}
+              <p class="text-gray-200"><strong>{copy.adaptedLabel}: </strong>{q.text[lang]}</p>
+            </li>
+          ))}
+        </ol>
+      </details>
+    </section>
+
+    <section id="review" class="scroll-mt-24 pixel-card-sub p-5 sm:p-8 space-y-4">
+      <h2 class="text-xl font-bold font-mono text-white">{copy.editorialTitle}</h2>
+      <p class="text-sm text-gray-300 leading-relaxed">{copy.editorialBody}</p>
+      <a href="/contact/" class="text-cyan-300 text-sm underline">{t.footer.contactLink}</a>
+    </section>
+  </article>
+</Layout>

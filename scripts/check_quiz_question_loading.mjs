@@ -33,9 +33,10 @@ for (const pagePath of pages) {
   });
 }
 
-// 5. Verify Spanish page specifically has accurate Question 1
+// 5. Verify the current Spanish first statement, stable ID and complete visible rendering
 const esHtml = readFileSync(new URL('../dist/es/index.html', import.meta.url), 'utf8');
-assert(esHtml.includes('A menudo sientes que no puedes ser'), 'Spanish page must have valid Question 1 text');
-assert(esHtml.includes('target.textContent = q.q') || esHtml.includes('target.textContent=q.q'), 'Spanish page must render questions without typewriter freeze');
+assert(esHtml.includes('Incluso cuando siento miedo'), 'Spanish page must contain the current V2 first statement');
+assert(esHtml.includes('V2-BRV-01'), 'Spanish page must include the same stable V2 item identity');
+assert(esHtml.includes('id="questions-type"'), 'Spanish page must have a real question text target; immediate rendering is verified against the shared source above');
 
 console.log('Quiz question loading checks passed.');

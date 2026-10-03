@@ -1,0 +1,12 @@
+---
+// input: The four non-English locales and shared method component
+// output: Static Japanese, Spanish, Portuguese and Russian method pages
+// pos: src/pages/[lang]/method.astro (更新规则：语言或方法变化需同步站点地图与所属目录 README)
+import MethodPage from '../../components/MethodPage.astro';
+import { locales } from '../../i18n';
+export function getStaticPaths() {
+  return locales.filter(lang => lang !== 'en').map(lang => ({ params: { lang }, props: { lang } }));
+}
+const { lang } = Astro.props;
+---
+<MethodPage lang={lang} />

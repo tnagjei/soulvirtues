@@ -5,6 +5,8 @@
 > 一旦本目录内容变化，请更新本文件
 
 ## Files
+- method.astro：英文V2题库来源与计分方法页
+- [lang]/：生成四个非英语方法页，使用相同版本与来源台账
 - index.astro：英文默认首页，包含 66 题测试、SEO 详解、七美德科普与 FAQ
 - souls/：七大单特质详解动态路由子目录（souls/[trait].astro）与汇总页（souls/index.astro）。汇总页列出七色清单对比表、特质卡片与 FAQ，是全站「清单意图」查询（las 7 almas de Undertale 等）的唯一承接页
 - compare/：6组已审核双特质英语动态路由

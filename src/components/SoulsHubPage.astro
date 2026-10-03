@@ -3,6 +3,8 @@
 // output: Localized /souls/ hub page with 7-soul comparison table, trait cards, FAQ, and schema
 // pos: src/components/SoulsHubPage.astro（更新规则：文件变更需同步本注释与所属目录 README）
 
+import { ASSESSMENT_COPY, TRAIT_READING } from '../data/assessmentContent';
+
 import Layout from '../layouts/Layout.astro';
 import FAQ from './FAQ.astro';
 import { SOUL_SLUGS } from '../data/soulDetails';
@@ -104,7 +106,7 @@ const structuredData = {
             <tr>
               <th class="px-3 sm:px-4 py-3">{copy.tableHeaders.color}</th>
               <th class="px-3 sm:px-4 py-3">{copy.tableHeaders.trait}</th>
-              <th class="px-3 sm:px-4 py-3">{copy.tableHeaders.meaning}</th>
+              <th class="px-3 sm:px-4 py-3">{ASSESSMENT_COPY[lang].definitionTitle}</th>
               <th class="px-3 sm:px-4 py-3">{copy.tableHeaders.detail}</th>
             </tr>
           </thead>
@@ -131,7 +133,7 @@ const structuredData = {
                   </a>
                 </td>
                 <td class="px-3 sm:px-4 py-4 text-gray-300 leading-relaxed">
-                  {soul.personalityAnalysis.coreMotivation}
+                  {TRAIT_READING[lang][soul.code].focus}
                 </td>
                 <td class="px-3 sm:px-4 py-4 whitespace-nowrap">
                   <a
@@ -176,7 +178,7 @@ const structuredData = {
                   </a>
                 </h3>
                 <p class="text-xs sm:text-sm text-gray-300 leading-relaxed mb-2">
-                  {soul.personalityAnalysis.coreMotivation}
+                  {TRAIT_READING[lang][soul.code].focus}
                 </p>
                 <p class="text-xs text-gray-500 font-mono italic mb-3">
                   {soul.tagQuote}

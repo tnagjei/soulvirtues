@@ -1,12 +1,12 @@
 # Soul Virtues Extractor
-> The free 66-question Undertale soul trait assessment and multi-dimensional virtue calculator. Discover your percentage distribution across Determination, Bravery, Justice, Kindness, Patience, Integrity, and Perseverance.
+> The free 66-question Undertale soul trait assessment and multi-dimensional virtue calculator. Discover your independent answer-scale scores across Determination, Bravery, Justice, Kindness, Patience, Integrity, and Perseverance.
 
-Soul Virtues Extractor provides an interactive, client-side personality quiz based on the seven human soul traits from Undertale. It features 66 weighted statements, instant 7-trait breakdown, and shareable soul result cards.
+Soul Virtues Extractor provides an interactive, client-side personality quiz based on the seven human soul traits from Undertale. It features 66 statements: 56 public-domain IPIP adaptations and 10 independent Determination prompts, instant 7-trait breakdown, and shareable soul result cards.
 
 ## Core Features
 - [Soul Virtues Test](https://soulvirtues.org/): Free 66-question online assessment and instant analysis
 - [Seven Soul Virtues](https://soulvirtues.org/#virtues): In-depth guide to Determination, Bravery, Justice, Kindness, Patience, Integrity, and Perseverance
-- [Scoring System](https://soulvirtues.org/#scoring): Multi-dimensional weighting and non-linear power curve algorithm
+- [Questions and Scoring Method](https://soulvirtues.org/method/): Official source ledger, one theme per statement, reverse responses, mean-based independent 0–100 scores and result limits
 
 ## Seven Undertale Soul Trait Guides
 - [All 7 Souls Overview](https://soulvirtues.org/souls/): Color, trait and meaning for all seven Undertale souls in one comparison table
@@ -20,8 +20,8 @@ Soul Virtues Extractor provides an interactive, client-side personality quiz bas
 
 ## Soul Comparison Matrix
 - [All Trait Comparisons](https://soulvirtues.org/compare/): Hub listing all six comparison guides with quick answers
-- [Bravery vs Determination](https://soulvirtues.org/compare/bravery-vs-determination/): Action in fear versus refusal to accept defeat
-- [Determination vs Perseverance](https://soulvirtues.org/compare/determination-vs-perseverance/): Rejecting endings versus disciplined routine
+- [Bravery vs Determination](https://soulvirtues.org/compare/bravery-vs-determination/): Safe action despite fear versus choosing a meaningful goal
+- [Determination vs Perseverance](https://soulvirtues.org/compare/determination-vs-perseverance/): Choosing and reviewing a goal versus useful effort during execution
 - [Integrity vs Justice](https://soulvirtues.org/compare/integrity-vs-justice/): Inner moral alignment versus outward fairness
 - [Kindness vs Patience](https://soulvirtues.org/compare/kindness-vs-patience/): Active empathy versus calm waiting
 - [Bravery vs Patience](https://soulvirtues.org/compare/bravery-vs-patience/): Immediate movement versus calculated pause

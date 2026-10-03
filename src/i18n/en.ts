@@ -3,9 +3,9 @@
 // pos: src/i18n/en.ts (更新规则：文件变更需同步本注释与所属目录 README)
 
 import type { Translations } from './types';
+import { ASSESSMENT_COPY } from '../data/assessmentContent';
 import { SOULS } from '../data/souls';
 import { QUESTIONS } from '../data/questions';
-import { FAQS } from '../components/FAQ.astro';
 
 export const enTranslations: Translations = {
   locale: 'en',
@@ -16,7 +16,7 @@ export const enTranslations: Translations = {
   heroTitle: "SOUL VIRTUES",
   heroTitleHighlight: "EXTRACTOR",
   heroSubtitle: 'Take the free 66-question <strong class="text-white">Soul Virtues Test</strong> to discover your Undertale SOUL profile across Determination, Bravery, Justice, Kindness, Patience, Integrity, and Perseverance.',
-  heroNote: "Which Undertale soul are you? Complete the assessment below to reveal your multi-dimensional trait breakdown and custom pixel-art soul card.",
+  heroNote: "The complete seven-score result, answer review and PNG card are free, with no account, payment or invitation required.",
   nav: {
     startTest: "Start Test",
     sevenVirtues: "7 Virtues",
@@ -45,32 +45,32 @@ export const enTranslations: Translations = {
   },
   what: {
     title: "What Is the Soul Virtues Extractor?",
-    p1: 'The <strong class="text-white">Soul Virtues Extractor</strong> is a 66-question Undertale-inspired soul test and personality quiz designed to measure seven human soul virtues.',
-    p2: 'Traditional online quizzes often force you into a single rigid box with questions like "What is your Undertale soul color?" In contrast, our <strong>Undertale Soul Test</strong> recognizes that personality is multi-faceted. Every person possesses a mix of all seven human soul traits in differing proportions.',
-    p3: 'By answering 66 statements, you receive a full <strong>7-Dimension Soul Virtues Profile</strong>. Each response can affect multiple traits simultaneously, showing how different virtues interact rather than treating every question as a single isolated category.',
-    p4: 'Whether you are searching for an <strong>Undertale Soul Quiz</strong>, exploring <strong>Deltarune Soul Test</strong> concepts, or looking for a detailed fan-made assessment, this tool provides transparent, nuanced, and shareable results.',
+    p1: "Soul Virtues Extractor is a free, independent fan quiz for self-reflection. Its 66 statements explore seven everyday themes using an Undertale-inspired presentation. It is not an official game test or a clinical assessment.",
+    p2: "50 marks the neutral midpoint of this answer scale. A higher score means your answers fit more of this site’s statements for that theme. It is not a population percentile or a moral grade. All-neutral answers have no leading theme. Ties are shown as ties; scores within 3 points are shown together as a reading aid, not a statistical finding.",
+    p3: "The current bank adapts 56 public-domain IPIP statements and adds 10 independently written Determination statements. We selected material from the larger item pool, not a fixed IPIP 56-question test. Our seven groupings and wording are our own design.",
+    p4: "The complete seven-score result, answer review and PNG card are free, with no account, payment or invitation required.",
   },
   why: {
     title: "Why Take the Soul Virtues Extractor?",
-    intro: "Why complete a full 66-question test instead of a quick multiple-choice quiz? Here is what makes the Soul Virtues assessment distinct:",
+    intro: "Soul Virtues Extractor is a free, independent fan quiz for self-reflection. Its 66 statements explore seven everyday themes using an Undertale-inspired presentation. It is not an official game test or a clinical assessment.",
     points: [
-      {
-        title: "1. Beyond Single-Label Stereotypes",
-        desc: "Instead of assigning only one label, the test shows your percentage scores across all seven traits, so you can see both your strongest and supporting virtues.",
-      },
-      {
-        title: "2. How Your Traits Interact",
-        desc: "Some answers can affect more than one trait. This allows the result to show how different virtues rise or fall together instead of treating every question as belonging to only one category.",
-      },
-      {
-        title: "3. See More Than Your Top Result",
-        desc: "After completing the test, you do not just get one dominant soul; you can review your complete breakdown across all seven virtue percentages.",
-      },
-      {
-        title: "4. Your Answers Stay in Your Browser",
-        desc: "Your quiz answers are calculated locally inside your web browser, and no account or sign-up is required to take the test.",
-      },
-    ],
+  {
+    "title": "Seven scores, one complete result",
+    "desc": "The complete seven-score result, answer review and PNG card are free, with no account, payment or invitation required."
+  },
+  {
+    "title": "Traceable question sources",
+    "desc": "The current bank adapts 56 public-domain IPIP statements and adds 10 independently written Determination statements. We selected material from the larger item pool, not a fixed IPIP 56-question test. Our seven groupings and wording are our own design."
+  },
+  {
+    "title": "Read your answers in context",
+    "desc": "50 marks the neutral midpoint of this answer scale. A higher score means your answers fit more of this site’s statements for that theme. It is not a population percentile or a moral grade. All-neutral answers have no leading theme. Ties are shown as ties; scores within 3 points are shown together as a reading aid, not a statistical finding."
+  },
+  {
+    "title": "Local progress without an account",
+    "desc": "Answers are calculated and saved in this browser by stable question ID and bank version. The same progress can be resumed in any of our five languages on this browser; switching devices does not transfer it. Earlier-bank answers are kept separate and cannot be silently scored against new statements. Audio settings are stored separately."
+  }
+],
   },
   traits: {
     title: "The 7 Undertale Souls and the Traits They Represent",
@@ -78,27 +78,36 @@ export const enTranslations: Translations = {
   },
   colors: {
     title: "What Is Your Undertale Soul Color?",
-    desc: "Your highest Soul Virtue determines your leading soul color, while the complete result shows all seven virtue percentages. Rather than assigning a simplistic single color, this assessment reveals how your dominant soul color interacts with supporting virtues:",
+    desc: "The result shows seven independent scores. A clear leading score may be shown as a Soul color; neutral or tied answers are displayed without forcing a single type.",
     note: "*Note: In Undertale lore, the Red SOUL is commonly associated with Determination by fans and community assessments, though the original game does not explicitly name its official trait.",
     items: [
-      { title: "RED SOUL · Determination*", desc: "Unyielding resolve to push forward when all odds are stacked against you." },
-      { title: "ORANGE SOUL · Bravery", desc: "Taking direct action and leading the charge despite palpable fear." },
-      { title: "YELLOW SOUL · Justice", desc: "Uncompromising stand for fairness, equality, and correcting wrongdoing." },
-      { title: "GREEN SOUL · Kindness", desc: "Active empathy, care, and choosing compassion over conflict." },
-      { title: "CYAN SOUL · Patience", desc: "Emotional serenity, calm endurance, and waiting for the right moment." },
-      { title: "BLUE SOUL · Integrity", desc: "Upholding moral honesty and staying true to your core principles." },
-      { title: "PURPLE SOUL · Perseverance", desc: "Quiet discipline, methodical study, and finishing what you started.", colSpan2: true },
+      { title: "RED SOUL · Determination*", desc: "Choosing a goal that matters to you, then deciding how to recommit after a setback. Changing direction after thoughtful review can fit this theme." },
+      { title: "ORANGE SOUL · Bravery", desc: "Expressing or acting despite fear or social pressure when doing so is reasonably safe. The score does not reward danger or require an outgoing personality." },
+      { title: "YELLOW SOUL · Justice", desc: "Applying fair standards to different people, with attention to rights, opportunity and shared outcomes. Fairness can require understanding different needs." },
+      { title: "GREEN SOUL · Kindness", desc: "Caring, listening and offering useful help within reasonable limits. Being kind does not require taking over another person's choices or neglecting your own needs." },
+      { title: "CYAN SOUL · Patience", desc: "How you respond to waiting, minor frustration and annoyance. This theme includes pausing and calming down; it does not ask you to tolerate harm or indefinite delay." },
+      { title: "BLUE SOUL · Integrity", desc: "Honesty, confidentiality and keeping commitments, including admitting mistakes. A score does not establish a person's moral worth or make their beliefs automatically right." },
+      { title: "PURPLE SOUL · Perseverance", desc: "Continuing useful effort during execution, managing distractions and trying to finish work. A productive routine also makes room for rest and changes based on feedback.", colSpan2: true },
     ],
   },
   scoring: {
     title: "How the Scoring Algorithm Works",
-    intro: 'Unlike simple quizzes that just add +1 to a single category, the <strong>Soul Virtues Extractor</strong> uses a continuous mathematical scoring matrix:',
+    intro: "How each score is calculated",
     cards: [
-      { title: "Multi-Trait Weighting", desc: "Each statement can contribute points to primary virtues while adjusting conflicting virtues where appropriate." },
-      { title: "50% Neutral Baseline", desc: "50% represents exact neutrality. Scores above 50% indicate alignment, while scores below 50% reflect lower preference." },
-      { title: "Non-Linear Power Curve", desc: "A mathematical power curve (factor 0.6) prevents clustering near the center, delivering distinct and expressive percentages." },
-    ],
-    note: "Neutral responses attribute 0 points, functioning as an effortless skip mechanism. Answering honestly about your personal tendencies helps provide a more representative result.",
+  {
+    "title": "Five choices and reverse statements",
+    "desc": "Choose one of five responses, from strongly disagree (1) to strongly agree (5). For a reverse statement, use 6 minus the response. Each statement belongs to one theme."
+  },
+  {
+    "title": "An average for each theme",
+    "desc": "Average the keyed responses within that theme, then calculate 100 × (average − 1) ÷ 4."
+  },
+  {
+    "title": "A transparent 0–100 scale",
+    "desc": "The seven scores are independent. They do not need to add up to 100, and different item counts do not increase a theme’s maximum."
+  }
+],
+    note: "Choose one of five responses, from strongly disagree (1) to strongly agree (5). For a reverse statement, use 6 minus the response. Each statement belongs to one theme. Average the keyed responses within that theme, then calculate 100 × (average − 1) ÷ 4. The seven scores are independent. They do not need to add up to 100, and different item counts do not increase a theme’s maximum.",
   },
   features: {
     title: "Key Features & Highlights",
@@ -113,7 +122,7 @@ export const enTranslations: Translations = {
   faq: {
     title: "Frequently Asked Questions",
     subtitle: "Everything you need to know about the Soul Virtues Extractor, Undertale soul traits, and test scoring.",
-    items: FAQS,
+    items: ASSESSMENT_COPY.en.faqItems,
   },
   quizUI: {
     resultReading: {
@@ -126,7 +135,7 @@ export const enTranslations: Translations = {
       "tieTitle": "TIED LEADING TRAITS",
       "tieBody": "Several traits share the highest displayed score. Their order does not choose a winner.",
       "closeBody": "The two leading scores are within 3 points. We display them together as a reading aid, not as a test of statistical significance.",
-      "scoreScaleNote": "Each bar is an independent quiz score: 50% is neutral. The bars do not add to 100% and are not population percentiles or a psychological diagnosis.",
+      "scoreScaleNote": "These are independent 0–100 scores for your answers to this quiz, not population percentiles or moral grades. They do not add up to 100.",
       "evidenceTitle": "HOW YOUR ANSWERS AFFECTED THE SCORE",
       "evidenceRaised": "Raised this trait",
       "evidenceLowered": "Lowered this trait",
@@ -139,12 +148,8 @@ export const enTranslations: Translations = {
     musicBgmLabel: "MUSIC (BGM):",
     soundSfxLabel: "SOUNDS (SFX):",
     muteBtn: "MUTE",
-    soundEngineNote: "Undertale Sound Engine · Settings auto-saved",
-    introScenes: [
-      "ARE WE CONNECTED?",
-      "VERY INTERESTING. A SOUL IN THE VOID...",
-      "LET US EXTRACT YOUR TRUE VIRTUE.",
-    ],
+    soundEngineNote: "Pixel audio · Settings saved",
+    introScenes: ["ARE WE CONNECTED?","A SOUL IN THE VOID...","LET US EXPLORE YOUR ANSWERS."],
     introContinueHint: "press Z or click to continue",
     skipBtn: "SKIP",
     startTitle: "SOUL VIRTUES EXTRACTOR",
@@ -162,13 +167,7 @@ export const enTranslations: Translations = {
     extremeLeft: "Strongly disagree",
     extremeRight: "Strongly agree",
     tapAnswerHint: "Tap one answer to continue",
-    likertLabels: [
-      "Strongly disagree",
-      "Disagree",
-      "Neutral",
-      "Agree",
-      "Strongly agree",
-    ],
+    likertLabels: ["Strongly disagree","Disagree","Neutral","Agree","Strongly agree"],
     backBtn: "BACK",
     confirmBtn: "CONFIRM",
     skipNeutralBtn: "SKIP (NEUTRAL)",

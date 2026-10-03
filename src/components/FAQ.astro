@@ -5,52 +5,8 @@
 
 import type { FAQItem } from '../i18n/types';
 
-export const FAQS: FAQItem[] = [
-  {
-    q: "What is the Soul Virtues Extractor?",
-    a: "The Soul Virtues Extractor is a 66-question Undertale-inspired soul test and personality quiz designed to measure seven human soul virtues: Determination (Red*), Bravery (Orange), Justice (Yellow), Kindness (Green), Patience (Cyan), Integrity (Blue), and Perseverance (Purple). Unlike single-result tests, it calculates your complete percentage distribution across all seven dimensions simultaneously."
-  },
-  {
-    q: "Which Undertale Soul are you?",
-    a: "To find out which Undertale soul are you, complete our 66-question assessment. Your leading Undertale Soul corresponds to the virtue with your highest calculated percentage score across the 7-dimension profile, revealing whether your core resonance aligns with Determination, Bravery, Justice, Kindness, Patience, Integrity, or Perseverance."
-  },
-  {
-    q: "What are the seven Undertale Soul Traits?",
-    a: "The seven human soul traits from Undertale lore are: Determination (Red - willpower and drive*), Bravery (Orange - confronting fear and taking initiative), Justice (Yellow - fairness and defending others), Kindness (Green - empathy and compassion), Patience (Cyan - calm observation and timing), Integrity (Blue - moral honesty and authentic living), and Perseverance (Purple - discipline, study, and endurance)."
-  },
-  {
-    q: "What is your Undertale Soul Color?",
-    a: "Your highest Soul Virtue determines your leading soul color (Red*, Orange, Yellow, Green, Cyan, Blue, or Purple), while your full test results showcase all seven virtue percentages (*Red is widely associated with Determination in community lore)."
-  },
-  {
-    q: "Is this an Undertale Soul Test or Deltarune Soul Test?",
-    a: "The seven soul traits and colors originate directly from Toby Fox's Undertale lore. However, the Deltarune and Undertale fan communities actively discuss both games under these shared soul concepts, making this assessment equally resonant for fans of both titles."
-  },
-  {
-    q: "How is this different from a normal Undertale Soul Quiz?",
-    a: "Normal quizzes force you into a single categorical answer with trivial questions. The Soul Virtues Extractor uses a weighted 66-statement scoring matrix and a non-linear power curve where every answer adjusts multiple virtue scores, yielding a continuous 7-dimension percentage profile."
-  },
-  {
-    q: "How many questions are in the Soul Virtues Test?",
-    a: "The assessment contains 66 statements covering choices and preferences. Each question features a 5-point Likert scale (or custom choices). Selecting Neutral awards 0 points, acting as an intentional skip."
-  },
-  {
-    q: "Can I get more than one Soul Virtue?",
-    a: "Yes. Your results display your percentage across all seven virtues. Many individuals score high in multiple traits, such as High Kindness alongside High Integrity."
-  },
-  {
-    q: "Is the Soul Virtues Extractor an official Undertale quiz?",
-    a: "No. Soul Virtues Extractor is an independent, fan-made project inspired by Undertale. It was not created, sponsored, or endorsed by Toby Fox."
-  },
-  {
-    q: "How accurate is the Soul Virtues Extractor?",
-    a: "The calculator is deterministic, so the same completed answers produce the same scores. However, this quiz has not been scientifically validated as a psychological assessment, and its results depend on your self-reported answers. Use it for fan discussion and self-reflection, not diagnosis or an official judgment of your personality."
-  },
-  {
-    q: "Is the Red SOUL officially named Determination in Undertale?",
-    a: "Not explicitly. Undertale establishes Determination as a power connected with human SOULs, persistence, and SAVE, but it does not name Determination as the Red SOUL's official trait. This site uses \"Red SOUL / Determination\" as familiar community shorthand and labels it as interpretation."
-  }
-];
+import { ASSESSMENT_COPY } from '../data/assessmentContent';
+const FAQS = ASSESSMENT_COPY.en.faqItems;
 
 interface Props {
   faqs?: FAQItem[];

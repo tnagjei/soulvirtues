@@ -1,7 +1,7 @@
 # i18n
 - 用途：管理全站多语言字典与国际化路由辅助函数
 - 关键入口：src/i18n/index.ts
-- 边界/依赖：依赖 src/data/souls.ts 与 src/data/questions.ts
+- 边界/依赖：依赖 souls/questions/assessmentContent；五语言通过同一题号获取当前题库，不回退至旧英语题
 > 一旦本目录内容变化，请更新本文件
 
 ## Files

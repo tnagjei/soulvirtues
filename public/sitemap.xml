@@ -985,5 +985,10 @@
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url><loc>https://soulvirtues.org/method/</loc></url>
+  <url><loc>https://soulvirtues.org/ja/method/</loc></url>
+  <url><loc>https://soulvirtues.org/es/method/</loc></url>
+  <url><loc>https://soulvirtues.org/pt/method/</loc></url>
+  <url><loc>https://soulvirtues.org/ru/method/</loc></url>
 </urlset>
 

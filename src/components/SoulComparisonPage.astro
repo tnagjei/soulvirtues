@@ -6,6 +6,7 @@
 import Layout from '../layouts/Layout.astro';
 import { CONTENT_READING_COPY, SOUL_REFLECTION_PROMPTS, getContentReferences } from '../data/contentEvidence';
 import type { Locale } from '../i18n';
+import { ASSESSMENT_COPY } from '../data/assessmentContent';
 import type { ComparisonSample } from '../data/soulComparisonSample';
 import { getLocalizedSoulDetails } from '../data/soulDetailsI18n';
 
@@ -16,6 +17,7 @@ interface Props {
 
 const { comparison, lang = 'en' } = Astro.props;
 const copy = comparison.copy[lang];
+const methodCopy = ASSESSMENT_COPY[lang];
 const evidenceCopy = CONTENT_READING_COPY[lang];
 const reflection = SOUL_REFLECTION_PROMPTS[lang];
 const references = getContentReferences([comparison.leftSlug, comparison.rightSlug]);
@@ -124,7 +126,7 @@ const structuredData = {
       </div>
     </header>
 
-    <main class="space-y-10">
+    <article class="space-y-10">
       <section class="border-2 border-yellow-400 bg-black p-5 sm:p-7 text-center">
         <h2 class="text-xs font-mono font-bold tracking-widest text-yellow-400 mb-2">{copy.quickAnswerLabel}</h2>
         <p class="text-lg sm:text-2xl text-white font-bold">{copy.quickAnswer}</p>
@@ -224,6 +226,7 @@ const structuredData = {
       <aside class="border-2 border-cyan-700 bg-cyan-950/20 p-5 sm:p-7">
         <h2 class="text-lg sm:text-xl font-black font-mono text-cyan-300 mb-3">{copy.evidenceTitle}</h2>
         <p class="text-sm text-gray-300 leading-relaxed">{copy.evidenceBody}</p>
+        <a href={langPrefix + '/method/'} class="inline-block text-sm text-cyan-300 underline mt-4">{methodCopy.methodLink}</a>
         <h3 class="font-bold text-cyan-300 mt-5 mb-3">{evidenceCopy.sourcesTitle}</h3>
         <p class="text-sm text-gray-400 leading-relaxed mb-4">{evidenceCopy.sourcesNote}</p>
         <ul id="content-sources" class="space-y-3 text-sm">
@@ -257,6 +260,6 @@ const structuredData = {
           <div class="font-mono font-black" style={`color:${right.hex}`}>{right.name} →</div>
         </a>
       </section>
-    </main>
+    </article>
   </div>
 </Layout>

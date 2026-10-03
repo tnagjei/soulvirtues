@@ -1,4 +1,4 @@
-// input: Six approved Undertale soul-trait comparison pairs
+// input: Six V2 Undertale soul-trait comparison pairs
 // output: Five new localized comparison records plus the approved pilot record
 // pos: src/data/soulComparisons.ts (更新规则：对比组合或文案变化需同步本注释与 src/data/README.md)
 
@@ -34,10 +34,10 @@ const SHARED_COPY: Record<Locale, Pick<ComparisonCopy, SharedKey>> = {
     gameEvidenceLabel: 'Game evidence',
     interpretationLabel: 'Interpretation',
     differenceTitle: 'Why These Traits Are Easy to Confuse',
-    scenariosTitle: 'Same Challenge, Different Response',
+    scenariosTitle: "A question for reflection",
     hybridTitle: 'If Both Scores Are High',
-    strengthsTitle: 'Likely strengths',
-    risksTitle: 'Possible risks',
+    strengthsTitle: "One everyday example",
+    risksTitle: "What this quiz can and cannot tell you",
     evidenceTitle: 'Canon and Community Interpretation',
     testTitle: 'Which Pattern Drives You?',
     testButton: 'TAKE THE UNDERTALE SOUL TEST (66 QUESTIONS)',
@@ -51,10 +51,10 @@ const SHARED_COPY: Record<Locale, Pick<ComparisonCopy, SharedKey>> = {
     gameEvidenceLabel: 'ゲーム内根拠',
     interpretationLabel: 'サイト独自の解釈',
     differenceTitle: 'なぜ混同しやすいのか',
-    scenariosTitle: '同じ問題への違う反応',
+    scenariosTitle: "振り返るための問い",
     hybridTitle: '両方のスコアが高い場合',
-    strengthsTitle: '考えられる強み',
-    risksTitle: '考えられるリスク',
+    strengthsTitle: "日常の例",
+    risksTitle: "このテストの限界",
     evidenceTitle: '公式設定とコミュニティ解釈',
     testTitle: 'あなたを動かすのはどちら？',
     testButton: 'Undertale ソウル診断テストを受ける (全66問)',
@@ -68,10 +68,10 @@ const SHARED_COPY: Record<Locale, Pick<ComparisonCopy, SharedKey>> = {
     gameEvidenceLabel: 'Evidencia del juego',
     interpretationLabel: 'Interpretación',
     differenceTitle: 'Por Qué Se Confunden',
-    scenariosTitle: 'Mismo Reto, Respuesta Distinta',
+    scenariosTitle: "Una pregunta para reflexionar",
     hybridTitle: 'Si Ambas Puntuaciones Son Altas',
-    strengthsTitle: 'Fortalezas probables',
-    risksTitle: 'Riesgos posibles',
+    strengthsTitle: "Un ejemplo cotidiano",
+    risksTitle: "Qué puede decir este test",
     evidenceTitle: 'Canon e Interpretación',
     testTitle: '¿Qué Patrón Te Impulsa?',
     testButton: 'HACER EL TEST DE ALMAS DE UNDERTALE',
@@ -85,10 +85,10 @@ const SHARED_COPY: Record<Locale, Pick<ComparisonCopy, SharedKey>> = {
     gameEvidenceLabel: 'Evidência do jogo',
     interpretationLabel: 'Interpretação',
     differenceTitle: 'Por Que Esses Traços se Confundem',
-    scenariosTitle: 'Mesmo Desafio, Resposta Diferente',
+    scenariosTitle: "Uma pergunta para refletir",
     hybridTitle: 'Se as Duas Pontuações Forem Altas',
-    strengthsTitle: 'Pontos fortes prováveis',
-    risksTitle: 'Riscos possíveis',
+    strengthsTitle: "Um exemplo cotidiano",
+    risksTitle: "O que este teste pode dizer",
     evidenceTitle: 'Cânone e Interpretação',
     testTitle: 'Qual Padrão Move Você?',
     testButton: 'FAZER O TESTE DAS ALMAS DE UNDERTALE',
@@ -102,10 +102,10 @@ const SHARED_COPY: Record<Locale, Pick<ComparisonCopy, SharedKey>> = {
     gameEvidenceLabel: 'Игровые факты',
     interpretationLabel: 'Интерпретация',
     differenceTitle: 'Почему эти черты легко спутать',
-    scenariosTitle: 'Одно испытание — две разные реакции',
+    scenariosTitle: "Вопрос для размышления",
     hybridTitle: 'Если обе шкалы высоки',
-    strengthsTitle: 'Вероятные сильные стороны',
-    risksTitle: 'Возможные риски',
+    strengthsTitle: "Повседневный пример",
+    risksTitle: "Что может сказать этот тест",
     evidenceTitle: 'Канон и фанатская интерпретация',
     testTitle: 'Какая черта движет вами?',
     testButton: 'ПРОЙТИ ТЕСТ ДУШИ UNDERTALE',
@@ -125,144 +125,253 @@ export const BRAVERY_VS_DETERMINATION: ComparisonSample = {
   copy: {
     en: withShared('en', {
       seoTitle: 'Bravery vs Determination: Undertale Soul Traits Compared',
-      seoDescription: 'Compare Bravery and Determination in Undertale: starting despite fear versus refusing to accept defeat, with game evidence and real-life examples.',
+      seoDescription: "Compare Bravery and Determination: acting despite fear versus choosing a meaningful goal. See everyday examples, close scores and the V2 quiz method.",
       heading: 'Bravery vs Determination',
-      intro: 'Both traits can produce bold action. Bravery crosses the threshold while fear is present. Determination returns when an outcome still feels unacceptable.',
-      quickAnswer: 'Bravery dares to start; Determination refuses to stop.',
+      intro: "Bravery concerns action despite fear; Determination concerns choosing and reconsidering the direction of a meaningful goal.",
+      quickAnswer: "Bravery concerns action despite fear; Determination concerns choosing and reconsidering the direction of a meaningful goal.",
       leftLabel: 'Bravery',
       rightLabel: 'Determination',
       rows: [
-        { label: 'Primary drive', left: 'Move toward the obstacle despite fear.', right: 'Keep pursuing an outcome after resistance or failure.', evidence: 'interpretation' },
-        { label: 'Critical moment', left: 'The first step, confrontation, or public decision.', right: 'The return after the first plan has failed.', evidence: 'interpretation' },
-        { label: 'Undertale evidence', left: 'The orange Ball Game result describes rushing “fists-first through all obstacles.”', right: 'Determination is named as the resolve to change fate and enables SOULs to persist after death.', evidence: 'game' },
-        { label: 'Best expression', left: 'Acting before confidence arrives.', right: 'Trying again when defeat is not acceptable.', evidence: 'interpretation' },
-        { label: 'Blind spot', left: 'Acting too quickly to prove fear has no control.', right: 'Continuing after the goal should be reconsidered.', evidence: 'interpretation' },
-      ],
+  {
+    "label": "What this quiz focuses on",
+    "left": "Expressing or acting despite fear or social pressure when doing so is reasonably safe. The score does not reward danger or require an outgoing personality.",
+    "right": "Choosing a goal that matters to you, then deciding how to recommit after a setback. Changing direction after thoughtful review can fit this theme.",
+    "evidence": "interpretation"
+  },
+  {
+    "label": "Undertale evidence",
+    "left": "The orange Ball Game result describes rushing “fists-first through all obstacles.”",
+    "right": "Determination is named as the resolve to change fate and enables SOULs to persist after death.",
+    "evidence": "game"
+  },
+  {
+    "label": "A question for reflection",
+    "left": "What is one safe action you could take without pretending the fear is gone?",
+    "right": "What still makes this goal worth pursuing, and what evidence would make you change it?",
+    "evidence": "interpretation"
+  }
+],
       differenceParagraphs: [
-        'Bravery answers “Will I enter this difficult situation?” Determination answers “Will I accept this ending?” A person can be brave enough to begin yet decide not to continue, or hesitate at first and later become extremely determined.',
-        'Neither trait means fearlessness. Bravery acts while fear is active. Determination may feel fear, exhaustion, or disappointment and still reject the current result.',
-      ],
+  "A project needs a difficult conversation. Bravery addresses the safe step of voicing a concern despite nerves. Determination addresses whether the project still matters and which next step serves that goal. A brave conversation alone does not establish a long-term aim.",
+  "Is the main difficulty facing fear now, or deciding which goal to stand behind?"
+],
       scenarios: [
-        { title: 'Launching an uncertain project', left: 'Publishes the first version despite exposure and doubt.', right: 'Returns after a failed launch and changes the plan.' },
-        { title: 'A difficult conversation', left: 'Raises the issue instead of avoiding it.', right: 'Keeps working toward resolution after the first talk fails.' },
-        { title: 'A public setback', left: 'Faces the next visible challenge.', right: 'Refuses to let the setback become the final outcome.' },
-      ],
-      hybridIntro: 'High Bravery and Determination suggests a person who can enter difficult situations and return after setbacks. This is a trait interpretation, not a diagnosis.',
-      strengths: ['Starts difficult work without waiting for certainty.', 'Recovers after visible failure.', 'Combines initiative with sustained commitment.'],
-      risks: ['Mistaking constant action for progress.', 'Turning every retreat into personal defeat.', 'Ignoring fear signals that contain useful information.'],
+  {
+    "title": "Is the main difficulty facing fear now, or deciding which goal to stand behind?",
+    "left": "What is one safe action you could take without pretending the fear is gone?",
+    "right": "What still makes this goal worth pursuing, and what evidence would make you change it?"
+  }
+],
+      hybridIntro: "Two close scores can describe different responses to the same situation. Read both definitions and notice which part of the decision each addresses. The 3-point display rule does not show that a difference is psychologically significant.",
+      strengths: [
+  "You need to raise a concern. You choose a small safe action, such as asking for a private conversation, while acknowledging that you feel nervous.",
+  "A study plan fails. You reconsider why the qualification matters and choose a next step, rather than keeping the same target just to avoid admitting failure."
+],
+      risks: [
+  "These are self-reported responses to an independently adapted quiz. Public-domain source material does not make the seven-theme combination a validated psychological inventory. Mood, experience and interpretation can affect answers. A low score does not prove you lack a virtue; a high score cannot justify unsafe behavior or diagnose anyone."
+],
       evidenceBody: 'Bravery is explicitly named among the six Ball Game traits and linked to the orange result. Determination is canonical as a power tied to persistence, SAVE, and changing fate, but the game does not explicitly name it as the red SOUL trait. The comparison beyond those facts is this site’s interpretation.',
-      testBody: 'Take the 66-question test to compare whether your pattern is strongest at the first step, after failure, or both.',
+      testBody: "The complete seven-score result, answer review and PNG card are free, with no account, payment or invitation required.",
     }),
     ja: withShared('ja', {
       seoTitle: 'Undertale ゆうきとケツイの違い',
-      seoDescription: 'Undertaleのゆうきとケツイを比較。怖くても始める力と、失敗を受け入れず再挑戦する力の違いをゲーム内根拠と例で解説。',
+      seoDescription: "ゆうきは怖さがあっても行動すること、ケツイは大切な目標への方向を選び直すことです。",
       heading: 'ゆうき vs ケツイ',
-      intro: 'どちらも大胆な行動に見えますが、働く場面が違います。ゆうきは恐れがあるまま境界を越え、ケツイは望まない結果の後に戻ります。',
-      quickAnswer: 'ゆうきは始める。ケツイは終わらせない。',
+      intro: "ゆうきは怖さがあっても行動すること、ケツイは大切な目標への方向を選び直すことです。",
+      quickAnswer: "ゆうきは怖さがあっても行動すること、ケツイは大切な目標への方向を選び直すことです。",
       leftLabel: 'ゆうき',
       rightLabel: 'ケツイ',
       rows: [
-        { label: '原動力', left: '怖くても障害へ向かう。', right: '失敗しても望む結果を追い続ける。', evidence: 'interpretation' },
-        { label: '重要な場面', left: '最初の一歩、対立、公開の決断。', right: '最初の計画が失敗した後の再挑戦。', evidence: 'interpretation' },
-        { label: 'Undertaleでの根拠', left: 'オレンジのボールゲーム結果は、障害へ拳から突進する姿を描く。', right: 'ケツイは運命を変える意志であり、死後もソウルを持続させる力として描かれる。', evidence: 'game' },
-        { label: '強みが出る場面', left: '自信が来る前に行動する。', right: '敗北を受け入れず、もう一度試す。', evidence: 'interpretation' },
-        { label: '注意点', left: '恐れを否定するため急ぎすぎる。', right: '見直すべき目標まで追い続ける。', evidence: 'interpretation' },
-      ],
-      differenceParagraphs: ['ゆうきは「難しい状況に入るか」に答え、ケツイは「この結末を受け入れるか」に答えます。始められても続けない人も、最初は迷っても後で強く粘る人もいます。', 'どちらも無恐怖ではありません。ゆうきは恐れの中で動き、ケツイは恐れや疲れがあっても今の結果を最終結果にしません。'],
+  {
+    "label": "このテストで見るテーマ",
+    "left": "無理のない安全を保ちつつ、怖さや周囲からの圧力があっても伝えたり行動したりすること。危険を求めることや外向的な性格は条件ではない。",
+    "right": "自分にとって大切な目標を選び、つまずいた後にどう取り組み直すか判断すること。十分に考えた上で方向を変えることも、このテーマに含まれる。",
+    "evidence": "interpretation"
+  },
+  {
+    "label": "Undertaleでの根拠",
+    "left": "オレンジのボールゲーム結果は、障害へ拳から突進する姿を描く。",
+    "right": "ケツイは運命を変える意志であり、死後もソウルを持続させる力として描かれる。",
+    "evidence": "game"
+  },
+  {
+    "label": "振り返るための問い",
+    "left": "怖さが消えたふりをせずにできる、安全な一歩は何ですか。",
+    "right": "その目標を今も追う理由は何ですか。どんな事実があれば目標を変えますか。",
+    "evidence": "interpretation"
+  }
+],
+      differenceParagraphs: [
+  "プロジェクトで難しい話し合いが必要になった。ゆうきでは緊張しながらも安全に問題を伝える一歩を見る。ケツイでは、プロジェクトが今も大切か、目標に合う次の一歩は何かを見る。勇気ある話し合いだけで長期の目標が決まるわけではない。",
+  "難しいのは今の怖さに向き合うことですか。それとも目指す目標を決めることですか。"
+],
       scenarios: [
-        { title: '不確実な企画を公開する', left: '疑いや不安があっても最初の版を公開する。', right: '失敗した公開後に戻り、計画を変える。' },
-        { title: '難しい会話', left: '避けずに問題を切り出す。', right: '最初の会話が失敗しても解決を目指す。' },
-        { title: '人前で失敗した', left: '次の見える挑戦に向き合う。', right: '失敗を最後の結末にしない。' },
-      ],
-      hybridIntro: 'ゆうきとケツイが高い人は、難しい状況へ入り、失敗後にも戻れる傾向があります。これは特質の解釈であり診断ではありません。',
-      strengths: ['確信を待たず難しい仕事を始める。', '人前の失敗から立ち直る。', '行動力と継続意志を組み合わせる。'],
-      risks: ['動き続けることを進歩と取り違える。', '撤退を個人的敗北と考える。', '役立つ恐れの信号まで無視する。'],
+  {
+    "title": "難しいのは今の怖さに向き合うことですか。それとも目指す目標を決めることですか。",
+    "left": "怖さが消えたふりをせずにできる、安全な一歩は何ですか。",
+    "right": "その目標を今も追う理由は何ですか。どんな事実があれば目標を変えますか。"
+  }
+],
+      hybridIntro: "近い2つの得点は、同じ状況の違う部分への反応を示すことがあります。両方の定義を読み、それぞれが判断のどの部分を見るか考えてください。3点という表示基準は心理学的に意味のある差を示しません。",
+      strengths: [
+  "気になる問題を伝えたい。緊張を認めながら、個別に話す時間を頼むなど、小さく安全な行動を選ぶ。",
+  "勉強の計画がうまくいかなかった。失敗を認めたくないから同じ目標にこだわるのではなく、その資格を目指す理由を見直して次の一歩を選ぶ。"
+],
+      risks: [
+  "結果は、独自に改編した質問への自己申告の回答です。出典がパブリックドメインでも、7つのテーマの組合せが検証済み心理尺度になるわけではありません。気分、経験、解釈で回答は変わります。低い得点は美徳がない証拠ではなく、高い得点も危険な行動や診断を正当化しません。"
+],
       evidenceBody: 'ゆうきはボールゲームで明示される6特質の一つで、オレンジの結果と結びつきます。ケツイは持続、SAVE、運命を変える力として公式に描かれますが、赤いソウルの特質名とは明言されません。それ以上の比較は当サイトの解釈です。',
-      testBody: '66問のテストで、最初の一歩と失敗後の再挑戦のどちらが強いか確認できます。',
+      testBody: "7つの得点、回答の確認、PNGカードはすべて無料です。アカウント、支払い、招待は不要です。",
     }),
     es: withShared('es', {
       seoTitle: 'Valentía vs Determinación en Undertale',
-      seoDescription: 'Compara Valentía y Determinación en Undertale: empezar pese al miedo frente a rechazar la derrota, con evidencia del juego y ejemplos.',
+      seoDescription: "La Valentía trata de actuar pese al miedo; la Determinación, de elegir y revisar el rumbo de un objetivo importante.",
       heading: 'Valentía vs Determinación',
-      intro: 'Ambos rasgos producen acciones firmes. La Valentía cruza el umbral mientras existe miedo. La Determinación regresa cuando un resultado sigue siendo inaceptable.',
-      quickAnswer: 'La Valentía se atreve a empezar; la Determinación se niega a parar.',
+      intro: "La Valentía trata de actuar pese al miedo; la Determinación, de elegir y revisar el rumbo de un objetivo importante.",
+      quickAnswer: "La Valentía trata de actuar pese al miedo; la Determinación, de elegir y revisar el rumbo de un objetivo importante.",
       leftLabel: 'Valentía',
       rightLabel: 'Determinación',
       rows: [
-        { label: 'Impulso principal', left: 'Avanzar hacia el obstáculo pese al miedo.', right: 'Seguir buscando un resultado después del fracaso.', evidence: 'interpretation' },
-        { label: 'Momento decisivo', left: 'El primer paso, la confrontación o la decisión pública.', right: 'El regreso después de que falla el primer plan.', evidence: 'interpretation' },
-        { label: 'Evidencia en Undertale', left: 'El resultado naranja describe lanzarse con los puños por delante contra los obstáculos.', right: 'La Determinación es la voluntad de cambiar el destino y permite que las almas persistan tras la muerte.', evidence: 'game' },
-        { label: 'Mejor expresión', left: 'Actuar antes de sentir seguridad.', right: 'Intentarlo otra vez cuando la derrota no es aceptable.', evidence: 'interpretation' },
-        { label: 'Punto ciego', left: 'Actuar demasiado rápido para negar el miedo.', right: 'Continuar cuando la meta necesita revisión.', evidence: 'interpretation' },
-      ],
-      differenceParagraphs: ['La Valentía responde “¿entraré en esta situación difícil?”. La Determinación responde “¿aceptaré este final?”. Se puede empezar con valor y no continuar, o dudar al principio y después mostrar gran determinación.', 'Ninguna significa ausencia de miedo. La Valentía actúa con el miedo presente; la Determinación rechaza el resultado pese al miedo, cansancio o decepción.'],
+  {
+    "label": "Qué explora este test",
+    "left": "Expresarte o actuar pese al miedo o la presión social cuando hacerlo es razonablemente seguro. La puntuación no premia el peligro ni exige ser extrovertido.",
+    "right": "Elegir un objetivo que te importe y decidir cómo volver a comprometerte tras un revés. Cambiar de rumbo después de reflexionar también encaja en este tema.",
+    "evidence": "interpretation"
+  },
+  {
+    "label": "Evidencia en Undertale",
+    "left": "El resultado naranja describe lanzarse con los puños por delante contra los obstáculos.",
+    "right": "La Determinación es la voluntad de cambiar el destino y permite que las almas persistan tras la muerte.",
+    "evidence": "game"
+  },
+  {
+    "label": "Una pregunta para reflexionar",
+    "left": "¿Qué acción segura puedes dar sin fingir que el miedo ha desaparecido?",
+    "right": "¿Qué hace que este objetivo siga mereciendo la pena y qué prueba te haría cambiarlo?",
+    "evidence": "interpretation"
+  }
+],
+      differenceParagraphs: [
+  "Un proyecto necesita una conversación difícil. La Valentía aborda expresar una preocupación de forma segura pese a los nervios. La Determinación aborda si el proyecto aún importa y qué paso sirve a su objetivo. Una conversación valiente no establece por sí sola una meta a largo plazo.",
+  "¿La dificultad principal es afrontar el miedo ahora o decidir qué objetivo defender?"
+],
       scenarios: [
-        { title: 'Lanzar un proyecto incierto', left: 'Publica la primera versión pese a las dudas.', right: 'Regresa tras un mal lanzamiento y cambia el plan.' },
-        { title: 'Una conversación difícil', left: 'Plantea el problema en vez de evitarlo.', right: 'Busca una solución aunque la primera charla falle.' },
-        { title: 'Un revés público', left: 'Enfrenta el siguiente reto visible.', right: 'No permite que el revés sea el resultado final.' },
-      ],
-      hybridIntro: 'Una combinación alta sugiere capacidad para entrar en situaciones difíciles y volver tras los reveses. Es una interpretación, no un diagnóstico.',
-      strengths: ['Empieza tareas difíciles sin esperar certeza.', 'Se recupera del fracaso visible.', 'Combina iniciativa con compromiso duradero.'],
-      risks: ['Confundir acción constante con progreso.', 'Convertir cada retirada en derrota personal.', 'Ignorar señales útiles del miedo.'],
+  {
+    "title": "¿La dificultad principal es afrontar el miedo ahora o decidir qué objetivo defender?",
+    "left": "¿Qué acción segura puedes dar sin fingir que el miedo ha desaparecido?",
+    "right": "¿Qué hace que este objetivo siga mereciendo la pena y qué prueba te haría cambiarlo?"
+  }
+],
+      hybridIntro: "Dos resultados cercanos pueden describir respuestas a partes distintas de una situación. Lee ambas definiciones y observa qué parte de la decisión trata cada una. La regla de 3 puntos no demuestra una diferencia psicológicamente significativa.",
+      strengths: [
+  "Necesitas plantear una preocupación. Reconoces tus nervios y eliges una acción pequeña y segura, como pedir una conversación privada.",
+  "Falla un plan de estudio. Revisas por qué te importa la titulación y eliges un siguiente paso, en lugar de mantener el objetivo solo para no admitir el fracaso."
+],
+      risks: [
+  "Son respuestas personales a un test adaptado de forma independiente. Las fuentes de dominio público no convierten estos siete temas en un instrumento psicológico validado. El ánimo, la experiencia y la interpretación pueden cambiar las respuestas. Una puntuación baja no prueba que te falte una virtud; una alta no justifica riesgos ni permite diagnosticar."
+],
       evidenceBody: 'Valentía aparece explícitamente entre los seis rasgos del Juego de Pelota y se vincula al resultado naranja. La Determinación es canónica como poder relacionado con persistir, SAVE y cambiar el destino, pero el juego no la nombra como rasgo del Alma Roja. El resto es interpretación del sitio.',
-      testBody: 'Haz el test de 66 preguntas para comparar tu patrón al empezar, después del fracaso o en ambos momentos.',
+      testBody: "El resultado completo de siete temas, la revisión de respuestas y la tarjeta PNG son gratuitos, sin cuenta, pago ni invitaciones.",
     }),
     pt: withShared('pt', {
       seoTitle: 'Bravura vs Determinação em Undertale',
-      seoDescription: 'Compare Bravura e Determinação em Undertale: começar apesar do medo versus recusar a derrota, com evidências do jogo e exemplos.',
+      seoDescription: "A Bravura trata de agir apesar do medo; a Determinação, de escolher e rever o rumo de um objetivo importante.",
       heading: 'Bravura vs Determinação',
-      intro: 'Os dois traços geram ação firme. A Bravura cruza o limite enquanto o medo existe. A Determinação volta quando um resultado continua inaceitável.',
-      quickAnswer: 'A Bravura ousa começar; a Determinação se recusa a parar.',
+      intro: "A Bravura trata de agir apesar do medo; a Determinação, de escolher e rever o rumo de um objetivo importante.",
+      quickAnswer: "A Bravura trata de agir apesar do medo; a Determinação, de escolher e rever o rumo de um objetivo importante.",
       leftLabel: 'Bravura',
       rightLabel: 'Determinação',
       rows: [
-        { label: 'Impulso principal', left: 'Ir em direção ao obstáculo apesar do medo.', right: 'Continuar buscando um resultado depois do fracasso.', evidence: 'interpretation' },
-        { label: 'Momento decisivo', left: 'O primeiro passo, confronto ou decisão pública.', right: 'O retorno depois que o primeiro plano falha.', evidence: 'interpretation' },
-        { label: 'Evidência em Undertale', left: 'O resultado laranja descreve avançar de punhos contra os obstáculos.', right: 'Determinação é a vontade de mudar o destino e permite que almas persistam após a morte.', evidence: 'game' },
-        { label: 'Melhor expressão', left: 'Agir antes de sentir confiança.', right: 'Tentar novamente quando a derrota não é aceitável.', evidence: 'interpretation' },
-        { label: 'Ponto cego', left: 'Agir rápido demais para negar o medo.', right: 'Continuar quando a meta precisa ser revista.', evidence: 'interpretation' },
-      ],
-      differenceParagraphs: ['Bravura responde “vou entrar nesta situação difícil?”. Determinação responde “vou aceitar este final?”. Alguém pode começar com coragem e não continuar, ou hesitar no início e depois mostrar grande determinação.', 'Nenhuma significa ausência de medo. Bravura age com o medo presente; Determinação rejeita o resultado apesar de medo, cansaço ou decepção.'],
+  {
+    "label": "O que este teste explora",
+    "left": "Expressar-se ou agir apesar do medo ou da pressão social quando isso é razoavelmente seguro. A pontuação não premia o perigo nem exige extroversão.",
+    "right": "Escolher um objetivo importante para você e decidir como voltar a se comprometer depois de um revés. Mudar de rumo após uma reflexão também combina com esse tema.",
+    "evidence": "interpretation"
+  },
+  {
+    "label": "Evidência em Undertale",
+    "left": "O resultado laranja descreve avançar de punhos contra os obstáculos.",
+    "right": "Determinação é a vontade de mudar o destino e permite que almas persistam após a morte.",
+    "evidence": "game"
+  },
+  {
+    "label": "Uma pergunta para refletir",
+    "left": "Que ação segura você pode tomar sem fingir que o medo desapareceu?",
+    "right": "O que ainda faz esse objetivo valer a pena e que evidência faria você mudá-lo?",
+    "evidence": "interpretation"
+  }
+],
+      differenceParagraphs: [
+  "Um projeto precisa de uma conversa difícil. A Bravura aborda expressar uma preocupação com segurança apesar do nervosismo. A Determinação aborda se o projeto ainda importa e qual passo serve ao objetivo. Uma conversa corajosa não estabelece sozinha uma meta de longo prazo.",
+  "A principal dificuldade é enfrentar o medo agora ou decidir qual objetivo defender?"
+],
       scenarios: [
-        { title: 'Lançar um projeto incerto', left: 'Publica a primeira versão apesar das dúvidas.', right: 'Volta após um lançamento ruim e muda o plano.' },
-        { title: 'Uma conversa difícil', left: 'Apresenta o problema em vez de evitá-lo.', right: 'Busca solução mesmo após a primeira conversa falhar.' },
-        { title: 'Um revés público', left: 'Enfrenta o próximo desafio visível.', right: 'Não deixa o revés virar o resultado final.' },
-      ],
-      hybridIntro: 'Pontuações altas sugerem capacidade de entrar em situações difíceis e voltar após reveses. É uma interpretação, não um diagnóstico.',
-      strengths: ['Começa tarefas difíceis sem esperar certeza.', 'Recupera-se de falhas visíveis.', 'Combina iniciativa com compromisso duradouro.'],
-      risks: ['Confundir ação constante com progresso.', 'Transformar toda retirada em derrota pessoal.', 'Ignorar sinais úteis do medo.'],
+  {
+    "title": "A principal dificuldade é enfrentar o medo agora ou decidir qual objetivo defender?",
+    "left": "Que ação segura você pode tomar sem fingir que o medo desapareceu?",
+    "right": "O que ainda faz esse objetivo valer a pena e que evidência faria você mudá-lo?"
+  }
+],
+      hybridIntro: "Dois resultados próximos podem descrever respostas a partes diferentes da mesma situação. Leia as duas definições e veja qual parte da decisão cada uma aborda. A regra de 3 pontos não demonstra uma diferença psicologicamente significativa.",
+      strengths: [
+  "Você precisa levantar uma preocupação. Reconhece o nervosismo e escolhe uma ação pequena e segura, como pedir uma conversa particular.",
+  "Um plano de estudo falha. Você revê por que a qualificação importa e escolhe um próximo passo, em vez de manter o objetivo só para não admitir o fracasso."
+],
+      risks: [
+  "São respostas pessoais a um teste adaptado de forma independente. Fontes de domínio público não transformam os sete temas em um instrumento psicológico validado. Humor, experiência e interpretação podem afetar as respostas. Uma pontuação baixa não prova falta de uma virtude; uma alta não justifica riscos nem permite diagnosticar."
+],
       evidenceBody: 'Bravura aparece entre os seis traços do Jogo da Bola e se liga ao resultado laranja. Determinação é canônica como poder ligado a persistir, SAVE e mudar o destino, mas o jogo não a nomeia como traço da Alma Vermelha. O restante é interpretação do site.',
-      testBody: 'Faça o teste de 66 perguntas para comparar seu padrão no começo, depois do fracasso ou nos dois momentos.',
+      testBody: "O resultado completo dos sete temas, a revisão de respostas e o cartão PNG são gratuitos, sem conta, pagamento ou convites.",
     }),
     ru: withShared('ru', {
       seoTitle: 'Храбрость против Решимости в Undertale - Сравнение черт души',
-      seoDescription: 'Сравнение Храбрости и Решимости в Undertale: первый шаг наперекор страху против отказа сдаваться, факты из игры и примеры.',
+      seoDescription: "Храбрость относится к действию несмотря на страх; Решимость — к выбору и пересмотру направления важной цели.",
       heading: 'Храбрость против Решимости',
-      intro: 'Обе черты ведут к смелым поступкам. Храбрость делает шаг вперёд в присутствии страха. Решимость возвращается снова, когда финал кажется неприемлемым.',
-      quickAnswer: 'Храбрость начинает бой; Решимость не позволяет ему закончиться.',
+      intro: "Храбрость относится к действию несмотря на страх; Решимость — к выбору и пересмотру направления важной цели.",
+      quickAnswer: "Храбрость относится к действию несмотря на страх; Решимость — к выбору и пересмотру направления важной цели.",
       leftLabel: 'Храбрость',
       rightLabel: 'Решимость',
       rows: [
-        { label: 'Главный импульс', left: 'Движение к препятствию вопреки страху.', right: 'Продолжение пути после поражения или сопротивления.', evidence: 'interpretation' },
-        { label: 'Решающий момент', left: 'Первый шаг, открытый вызов или публичное решение.', right: 'Возвращение после провала первого плана.', evidence: 'interpretation' },
-        { label: 'Факты Undertale', left: 'Оранжевый флаг в гольфе Сноудина описывает «кулаками напролом через все преграды».', right: 'Решимость названа силой изменять судьбу и позволяет душам жить после смерти.', evidence: 'game' },
-        { label: 'Сильнейшее проявление', left: 'Действие до того, как появится полная уверенность.', right: 'Новая попытка, когда поражение недопустимо.', evidence: 'interpretation' },
-        { label: 'Слепая зона', left: 'Поспешные действия ради доказательства своей неустрашимости.', right: 'Упорство в цели, которую давно стоило пересмотреть.', evidence: 'interpretation' },
-      ],
+  {
+    "label": "На чём сосредоточен тест",
+    "left": "Выражение позиции или действие несмотря на страх и давление окружающих, когда это достаточно безопасно. Оценка не поощряет опасность и не требует общительности.",
+    "right": "Выбор важной для вас цели и решение о том, как снова к ней обратиться после неудачи. Обдуманная смена направления тоже соответствует этой теме.",
+    "evidence": "interpretation"
+  },
+  {
+    "label": "Факты Undertale",
+    "left": "Оранжевый флаг в гольфе Сноудина описывает «кулаками напролом через все преграды».",
+    "right": "Решимость названа силой изменять судьбу и позволяет душам жить после смерти.",
+    "evidence": "game"
+  },
+  {
+    "label": "Вопрос для размышления",
+    "left": "Какой безопасный шаг можно сделать, не притворяясь, что страх исчез?",
+    "right": "Почему эта цель всё ещё стоит усилий и какие факты могли бы заставить вас её изменить?",
+    "evidence": "interpretation"
+  }
+],
       differenceParagraphs: [
-        'Храбрость отвечает на вопрос: «Сделаю ли я шаг в эту неизвестность?» Решимость отвечает на вопрос: «Приму ли я такой финал?» Человек может быть достаточно смелым, чтобы начать, но не захотеть продолжать; или наоборот, долго колебаться перед стартом, но затем проявить несгибаемую решимость.',
-        'Ни одна из черт не означает полного бесстрашия. Храбрость действует бок о бок со страхом. Решимость может испытывать усталость, сомнения и страх, но всё равно отвергать поражение.',
-      ],
+  "Проект требует трудного разговора. Храбрость помогает безопасно высказать опасение несмотря на волнение. Решимость помогает оценить важность проекта и выбрать шаг к его цели. Один смелый разговор сам по себе не определяет долгосрочную цель.",
+  "Главная трудность — встретиться со страхом сейчас или решить, какую цель поддерживать?"
+],
       scenarios: [
-        { title: 'Запуск рискованного проекта', left: 'Публикует первую версию вопреки сомнениям и критике.', right: 'Возвращается после неудачного запуска и меняет план.' },
-        { title: 'Трудный разговор', left: 'Смело поднимает острую тему вместо уклонения.', right: 'Продолжает диалог до полного разрешения конфликта.' },
-        { title: 'Публичная неудача', left: 'Открыто принимает следующий вызов.', right: 'Отказывается позволить неудаче стать финалом истории.' },
-      ],
-      hybridIntro: 'Высокие показатели Храбрости и Решимости говорят о способности решительно браться за сложные вызовы и методично преодолевать любые последствия.',
-      strengths: ['Берётся за сложные задачи без ожидания идеальных условий.', 'Быстро восстанавливается после открытых неудач.', 'Сочетает смелую инициативу с долгосрочной преданностью цели.'],
-      risks: ['Ошибочное принятие суеты за реальный прогресс.', 'Превращение любого тактического отступления в личную трагедию.', 'Игнорирование полезных сигналов осторожности.'],
+  {
+    "title": "Главная трудность — встретиться со страхом сейчас или решить, какую цель поддерживать?",
+    "left": "Какой безопасный шаг можно сделать, не притворяясь, что страх исчез?",
+    "right": "Почему эта цель всё ещё стоит усилий и какие факты могли бы заставить вас её изменить?"
+  }
+],
+      hybridIntro: "Две близкие оценки могут отражать реакции на разные части одной ситуации. Прочитайте оба определения и отметьте, к какой части решения относится каждое. Правило 3 пунктов не доказывает психологически значимой разницы.",
+      strengths: [
+  "Нужно высказать опасение. Вы признаёте своё волнение и выбираете небольшой безопасный шаг, например просите поговорить наедине.",
+  "План подготовки не сработал. Вы заново оцениваете, зачем вам квалификация, и выбираете следующий шаг вместо сохранения цели лишь ради нежелания признать неудачу."
+],
+      risks: [
+  "Это личные ответы на независимо адаптированный тест. Источники из общественного достояния не делают сочетание семи тем валидированным психологическим опросником. Ответы зависят от настроения, опыта и понимания текста. Низкий балл не доказывает отсутствие добродетели, а высокий не оправдывает риск и не позволяет поставить диагноз."
+],
       evidenceBody: 'Храбрость входит в число шести черт игры в мяч и связана с оранжевым флагом. Решимость канонично связана с силой сохранения (SAVE) и изменением судьбы.',
-      testBody: 'Пройдите тест из 66 вопросов, чтобы узнать, что в вас сильнее: смелость первого шага или стойкость после неудач.',
+      testBody: "Полный результат по семи темам, просмотр ответов и PNG-карточка бесплатны. Учётная запись, оплата и приглашения не нужны.",
     }),
   },
 };
@@ -274,141 +383,253 @@ export const INTEGRITY_VS_JUSTICE: ComparisonSample = {
   copy: {
     en: withShared('en', {
       seoTitle: 'Integrity vs Justice: Undertale Soul Traits Compared',
-      seoDescription: 'Compare Integrity and Justice in Undertale: holding yourself to a standard versus defending fairness, with game evidence and practical examples.',
+      seoDescription: "Compare Integrity and Justice: truthful commitments versus fair standards across people. See practical examples, score limits and the V2 quiz method.",
       heading: 'Integrity vs Justice',
-      intro: 'Integrity applies a standard inward: “Will I act consistently with my principles?” Justice applies a standard outward: “Is this situation fair, and should it be corrected?”',
-      quickAnswer: 'Integrity governs yourself; Justice protects fairness.',
+      intro: "Integrity concerns truthful, reliable conduct; Justice concerns fair standards across different people.",
+      quickAnswer: "Integrity concerns truthful, reliable conduct; Justice concerns fair standards across different people.",
       leftLabel: 'Integrity',
       rightLabel: 'Justice',
       rows: [
-        { label: 'Primary focus', left: 'Consistency between values, words, and actions.', right: 'Fair treatment, accountability, and correction.', evidence: 'interpretation' },
-        { label: 'Key question', left: 'Am I behaving according to my principles?', right: 'Are people being treated fairly?', evidence: 'interpretation' },
-        { label: 'Undertale evidence', left: 'The blue Ball Game result praises an original style that pulled the player through.', right: 'The yellow result praises sure-fire accuracy that ended the mayhem.', evidence: 'game' },
-        { label: 'Best expression', left: 'Keeping a promise when nobody is watching.', right: 'Speaking up when another person is treated unfairly.', evidence: 'interpretation' },
-        { label: 'Blind spot', left: 'Becoming rigid or morally isolated.', right: 'Punishing before understanding context.', evidence: 'interpretation' },
-      ],
-      differenceParagraphs: ['Integrity can remain private. Justice usually concerns relationships, rules, or shared consequences. A person may refuse to lie because lying violates personal principles; another may expose the lie because it harms others and distorts fairness.', 'The traits support each other but can conflict. Integrity may require admitting that your own side is wrong. Justice may require revising a rule that once seemed principled but creates unequal outcomes.'],
+  {
+    "label": "What this quiz focuses on",
+    "left": "Honesty, confidentiality and keeping commitments, including admitting mistakes. A score does not establish a person's moral worth or make their beliefs automatically right.",
+    "right": "Applying fair standards to different people, with attention to rights, opportunity and shared outcomes. Fairness can require understanding different needs.",
+    "evidence": "interpretation"
+  },
+  {
+    "label": "Undertale evidence",
+    "left": "The blue Ball Game result praises an original style that pulled the player through.",
+    "right": "The yellow result praises sure-fire accuracy that ended the mayhem.",
+    "evidence": "game"
+  },
+  {
+    "label": "A question for reflection",
+    "left": "What is the honest next sentence, and which commitment can you actually keep?",
+    "right": "Would you accept the same standard if it were applied to you or someone you dislike?",
+    "evidence": "interpretation"
+  }
+],
+      differenceParagraphs: [
+  "An error affects a team. Integrity can mean admitting your own part and correcting a promise. Justice can mean checking the facts and applying the same fair accountability standard to everyone, including friends. These actions can support each other without being identical.",
+  "Are you aligning your own words and actions, or deciding what treatment is fair for everyone?"
+],
       scenarios: [
-        { title: 'A teammate hides a mistake', left: 'Admits your own part and refuses to repeat the deception.', right: 'Ensures responsibility is assigned fairly across the team.' },
-        { title: 'A profitable shortcut breaks a promise', left: 'Rejects it because it violates the commitment.', right: 'Rejects it because customers would carry the unfair cost.' },
-        { title: 'A rule harms one group', left: 'Checks whether supporting it contradicts personal values.', right: 'Works to change the rule and repair the imbalance.' },
-      ],
-      hybridIntro: 'High Integrity and Justice suggests someone who expects ethical consistency from both self and systems. This is an interpretation, not a diagnosis.',
-      strengths: ['Admits personal responsibility.', 'Defends fairness without exempting self.', 'Connects principles to public consequences.'],
-      risks: ['Holding everyone to standards that lack context.', 'Becoming severe when compromise is needed.', 'Treating disagreement as dishonesty or injustice.'],
+  {
+    "title": "Are you aligning your own words and actions, or deciding what treatment is fair for everyone?",
+    "left": "What is the honest next sentence, and which commitment can you actually keep?",
+    "right": "Would you accept the same standard if it were applied to you or someone you dislike?"
+  }
+],
+      hybridIntro: "Two close scores can describe different responses to the same situation. Read both definitions and notice which part of the decision each addresses. The 3-point display rule does not show that a difference is psychologically significant.",
+      strengths: [
+  "You have made a promise you can no longer keep. You explain the problem promptly and discuss a new commitment rather than hiding it.",
+  "A group divides credit for a project. You check contributions and use a standard you could also accept if you were not the person benefiting."
+],
+      risks: [
+  "These are self-reported responses to an independently adapted quiz. Public-domain source material does not make the seven-theme combination a validated psychological inventory. Mood, experience and interpretation can affect answers. A low score does not prove you lack a virtue; a high score cannot justify unsafe behavior or diagnose anyone."
+],
       evidenceBody: 'Integrity and Justice are explicitly named in the Ball Game. The blue result references original style; the yellow result references accuracy ending mayhem. “Self-restraint versus protecting fairness” is a practical interpretation, not a line stated by the game.',
-      testBody: 'Take the test to compare whether your strongest ethical pattern begins with personal consistency, public fairness, or both.',
+      testBody: "The complete seven-score result, answer review and PNG card are free, with no account, payment or invitation required.",
     }),
     ja: withShared('ja', {
       seoTitle: 'Undertale せいじつとせいぎの違い',
-      seoDescription: 'Undertaleのせいじつとせいぎを比較。自分を原則で律する力と、公平を守り不正を正す力の違いを解説。',
+      seoDescription: "せいじつは正直で信頼できる行動、せいぎは相手によらない公平な基準に目を向けます。",
       heading: 'せいじつ vs せいぎ',
-      intro: 'せいじつは基準を自分へ向けます。「自分の原則に沿って行動するか」。せいぎは基準を外へ向けます。「公平か、正すべきか」。',
-      quickAnswer: 'せいじつは自分を律し、せいぎは公平を守ります。',
+      intro: "せいじつは正直で信頼できる行動、せいぎは相手によらない公平な基準に目を向けます。",
+      quickAnswer: "せいじつは正直で信頼できる行動、せいぎは相手によらない公平な基準に目を向けます。",
       leftLabel: 'せいじつ',
       rightLabel: 'せいぎ',
       rows: [
-        { label: '中心', left: '価値観、言葉、行動の一致。', right: '公平な扱い、責任、是正。', evidence: 'interpretation' },
-        { label: '重要な質問', left: '自分は原則どおりに行動しているか。', right: '人々は公平に扱われているか。', evidence: 'interpretation' },
-        { label: 'Undertaleでの根拠', left: '青の結果は独自のスタイルで切り抜けたことを称える。', right: '黄の結果は確かな正確さで混乱を終わらせたことを称える。', evidence: 'game' },
-        { label: '強みが出る場面', left: '誰も見ていなくても約束を守る。', right: '他人が不公平に扱われた時に声を上げる。', evidence: 'interpretation' },
-        { label: '注意点', left: '硬直し、道徳的に孤立する。', right: '事情を理解する前に罰する。', evidence: 'interpretation' },
-      ],
-      differenceParagraphs: ['せいじつは個人の内側だけでも働きます。せいぎは通常、人間関係、規則、共有される結果に関わります。嘘が自分の原則に反するから拒むのがせいじつ、他人を傷つけ公平を壊すから明らかにするのがせいぎです。', '両者は支え合いますが衝突もします。せいじつは自分の側の誤りを認めさせ、せいぎは不平等な結果を生む古い規則の見直しを求めます。'],
+  {
+    "label": "このテストで見るテーマ",
+    "left": "正直さ、秘密を守ること、約束を守ること、間違いを認めること。得点は人の道徳的な価値や信念の正しさを決めない。",
+    "right": "権利、機会、共同の成果に目を向け、相手によらず公平な基準を使うこと。公平さには人ごとの必要を理解することも含まれる。",
+    "evidence": "interpretation"
+  },
+  {
+    "label": "Undertaleでの根拠",
+    "left": "青の結果は独自のスタイルで切り抜けたことを称える。",
+    "right": "黄の結果は確かな正確さで混乱を終わらせたことを称える。",
+    "evidence": "game"
+  },
+  {
+    "label": "振り返るための問い",
+    "left": "次に伝える正直な一言は何ですか。実際に守れる約束はどれですか。",
+    "right": "その基準が自分や苦手な相手に使われても受け入れられますか。",
+    "evidence": "interpretation"
+  }
+],
+      differenceParagraphs: [
+  "間違いがチームに影響した。せいじつでは自分の責任を認め、約束を修正する。せいぎでは事実を確認し、友人を含む全員に公平な責任の基準を使う。両方は支え合えるが、同じ行動ではない。",
+  "自分の言葉と行動をそろえていますか。それとも全員への公平な対応を決めていますか。"
+],
       scenarios: [
-        { title: '仲間が失敗を隠した', left: '自分の責任を認め、隠蔽を繰り返さない。', right: 'チーム内で責任が公平に扱われるようにする。' },
-        { title: '利益になる近道が約束を破る', left: '約束に反するため拒む。', right: '顧客へ不公平な負担を押しつけるため拒む。' },
-        { title: '規則が一部の人を傷つける', left: '支持することが自分の価値観と矛盾しないか確認する。', right: '規則を変え、不均衡を直そうとする。' },
-      ],
-      hybridIntro: '両方が高い人は、自分と仕組みの両方に倫理的一貫性を求める傾向があります。これは解釈であり診断ではありません。',
-      strengths: ['自分の責任を認める。', '自分を例外にせず公平を守る。', '原則と社会的結果を結びつける。'],
-      risks: ['事情を無視した基準を全員へ課す。', '妥協が必要な時にも厳しくなる。', '意見の違いを不誠実や不正と考える。'],
+  {
+    "title": "自分の言葉と行動をそろえていますか。それとも全員への公平な対応を決めていますか。",
+    "left": "次に伝える正直な一言は何ですか。実際に守れる約束はどれですか。",
+    "right": "その基準が自分や苦手な相手に使われても受け入れられますか。"
+  }
+],
+      hybridIntro: "近い2つの得点は、同じ状況の違う部分への反応を示すことがあります。両方の定義を読み、それぞれが判断のどの部分を見るか考えてください。3点という表示基準は心理学的に意味のある差を示しません。",
+      strengths: [
+  "守れない約束をしてしまった。隠すのではなく、問題を早めに説明して、守れる新しい約束を相談する。",
+  "グループで成果の評価を分ける。各自の貢献を確認し、自分が得をしない立場でも受け入れられる基準を使う。"
+],
+      risks: [
+  "結果は、独自に改編した質問への自己申告の回答です。出典がパブリックドメインでも、7つのテーマの組合せが検証済み心理尺度になるわけではありません。気分、経験、解釈で回答は変わります。低い得点は美徳がない証拠ではなく、高い得点も危険な行動や診断を正当化しません。"
+],
       evidenceBody: 'せいじつとせいぎはボールゲームで明示されます。青は独自のスタイル、黄は混乱を終える正確さを示します。「自分を律する／公平を守る」は実生活向けの解釈で、ゲームの直接表現ではありません。',
-      testBody: '66問のテストで、個人の一貫性と社会の公平のどちらが強く表れるか確認できます。',
+      testBody: "7つの得点、回答の確認、PNGカードはすべて無料です。アカウント、支払い、招待は不要です。",
     }),
     es: withShared('es', {
       seoTitle: 'Integridad vs Justicia en Undertale',
-      seoDescription: 'Compara Integridad y Justicia en Undertale: exigirte coherencia frente a defender la equidad, con evidencia del juego y ejemplos.',
+      seoDescription: "La Integridad trata de una conducta honesta y fiable; la Justicia, de criterios justos para personas diferentes.",
       heading: 'Integridad vs Justicia',
-      intro: 'La Integridad dirige la norma hacia dentro: “¿Actúo según mis principios?”. La Justicia la dirige hacia fuera: “¿Es justo y debe corregirse?”.',
-      quickAnswer: 'La Integridad gobierna tus actos; la Justicia protege la equidad.',
+      intro: "La Integridad trata de una conducta honesta y fiable; la Justicia, de criterios justos para personas diferentes.",
+      quickAnswer: "La Integridad trata de una conducta honesta y fiable; la Justicia, de criterios justos para personas diferentes.",
       leftLabel: 'Integridad',
       rightLabel: 'Justicia',
       rows: [
-        { label: 'Enfoque principal', left: 'Coherencia entre valores, palabras y actos.', right: 'Trato justo, responsabilidad y corrección.', evidence: 'interpretation' },
-        { label: 'Pregunta clave', left: '¿Actúo de acuerdo con mis principios?', right: '¿Las personas reciben un trato justo?', evidence: 'interpretation' },
-        { label: 'Evidencia en Undertale', left: 'El resultado azul elogia un estilo original que permitió superar la prueba.', right: 'El amarillo elogia una precisión segura que terminó el caos.', evidence: 'game' },
-        { label: 'Mejor expresión', left: 'Cumplir una promesa cuando nadie mira.', right: 'Hablar cuando alguien recibe un trato injusto.', evidence: 'interpretation' },
-        { label: 'Punto ciego', left: 'Volverse rígido o moralmente aislado.', right: 'Castigar antes de entender el contexto.', evidence: 'interpretation' },
-      ],
-      differenceParagraphs: ['La Integridad puede ser privada. La Justicia suele afectar relaciones, reglas o consecuencias compartidas. Una persona rechaza mentir porque rompe sus principios; otra expone la mentira porque perjudica a otros y altera la equidad.', 'Los rasgos se apoyan, pero también chocan. La Integridad exige admitir que tu propio grupo se equivoca. La Justicia exige revisar una regla que parece coherente pero produce resultados desiguales.'],
+  {
+    "label": "Qué explora este test",
+    "left": "Honestidad, confidencialidad y cumplimiento de compromisos, incluido reconocer errores. Una puntuación no establece el valor moral de nadie ni hace correctas sus creencias.",
+    "right": "Aplicar criterios justos a personas diferentes, atendiendo a sus derechos, oportunidades y resultados compartidos. La justicia puede requerir entender necesidades distintas.",
+    "evidence": "interpretation"
+  },
+  {
+    "label": "Evidencia en Undertale",
+    "left": "El resultado azul elogia un estilo original que permitió superar la prueba.",
+    "right": "El amarillo elogia una precisión segura que terminó el caos.",
+    "evidence": "game"
+  },
+  {
+    "label": "Una pregunta para reflexionar",
+    "left": "¿Cuál es la siguiente frase honesta y qué compromiso puedes cumplir de verdad?",
+    "right": "¿Aceptarías el mismo criterio si se aplicara a ti o a alguien que te cae mal?",
+    "evidence": "interpretation"
+  }
+],
+      differenceParagraphs: [
+  "Un error afecta al equipo. La Integridad puede consistir en reconocer tu parte y corregir una promesa. La Justicia puede consistir en comprobar los hechos y aplicar el mismo criterio justo de responsabilidad a todos, incluidos los amigos. Se apoyan sin ser idénticas.",
+  "¿Estás alineando tus palabras y acciones o decidiendo qué trato es justo para todos?"
+],
       scenarios: [
-        { title: 'Un compañero oculta un error', left: 'Admite su parte y no repite el engaño.', right: 'Reparte la responsabilidad de forma justa.' },
-        { title: 'Un atajo rentable rompe una promesa', left: 'Lo rechaza porque viola el compromiso.', right: 'Lo rechaza porque impone un coste injusto al cliente.' },
-        { title: 'Una regla perjudica a un grupo', left: 'Comprueba si apoyarla contradice sus valores.', right: 'Intenta cambiarla y reparar el desequilibrio.' },
-      ],
-      hybridIntro: 'Puntuaciones altas sugieren que esperas coherencia ética tanto de ti como de los sistemas. Es una interpretación, no un diagnóstico.',
-      strengths: ['Admite responsabilidad personal.', 'Defiende la equidad sin darse excepciones.', 'Conecta principios con consecuencias públicas.'],
-      risks: ['Aplicar normas sin contexto.', 'Ser severo cuando hace falta negociar.', 'Confundir desacuerdo con deshonestidad o injusticia.'],
+  {
+    "title": "¿Estás alineando tus palabras y acciones o decidiendo qué trato es justo para todos?",
+    "left": "¿Cuál es la siguiente frase honesta y qué compromiso puedes cumplir de verdad?",
+    "right": "¿Aceptarías el mismo criterio si se aplicara a ti o a alguien que te cae mal?"
+  }
+],
+      hybridIntro: "Dos resultados cercanos pueden describir respuestas a partes distintas de una situación. Lee ambas definiciones y observa qué parte de la decisión trata cada una. La regla de 3 puntos no demuestra una diferencia psicológicamente significativa.",
+      strengths: [
+  "Ya no puedes cumplir una promesa. Explicas el problema pronto y acuerdas un nuevo compromiso en lugar de ocultarlo.",
+  "Un grupo reparte el reconocimiento de un proyecto. Revisas las contribuciones y usas un criterio que aceptarías incluso sin beneficiarte de él."
+],
+      risks: [
+  "Son respuestas personales a un test adaptado de forma independiente. Las fuentes de dominio público no convierten estos siete temas en un instrumento psicológico validado. El ánimo, la experiencia y la interpretación pueden cambiar las respuestas. Una puntuación baja no prueba que te falte una virtud; una alta no justifica riesgos ni permite diagnosticar."
+],
       evidenceBody: 'Integridad y Justicia aparecen en el Juego de Pelota. El resultado azul alude al estilo original; el amarillo, a la precisión que termina el caos. “Regularse a uno mismo frente a proteger la equidad” es una interpretación práctica.',
-      testBody: 'Haz el test para comparar coherencia personal, equidad pública o una combinación de ambas.',
+      testBody: "El resultado completo de siete temas, la revisión de respuestas y la tarjeta PNG son gratuitos, sin cuenta, pago ni invitaciones.",
     }),
     pt: withShared('pt', {
       seoTitle: 'Integridade vs Justiça em Undertale',
-      seoDescription: 'Compare Integridade e Justiça em Undertale: cobrar coerência de si versus defender a equidade, com evidências e exemplos.',
+      seoDescription: "A Integridade trata de uma conduta honesta e confiável; a Justiça, de critérios justos para pessoas diferentes.",
       heading: 'Integridade vs Justiça',
-      intro: 'Integridade dirige o padrão para dentro: “ajo segundo meus princípios?”. Justiça o dirige para fora: “isto é justo e deve ser corrigido?”.',
-      quickAnswer: 'Integridade governa seus atos; Justiça protege a equidade.',
+      intro: "A Integridade trata de uma conduta honesta e confiável; a Justiça, de critérios justos para pessoas diferentes.",
+      quickAnswer: "A Integridade trata de uma conduta honesta e confiável; a Justiça, de critérios justos para pessoas diferentes.",
       leftLabel: 'Integridade',
       rightLabel: 'Justiça',
       rows: [
-        { label: 'Foco principal', left: 'Coerência entre valores, palavras e ações.', right: 'Tratamento justo, responsabilidade e correção.', evidence: 'interpretation' },
-        { label: 'Pergunta central', left: 'Estou agindo segundo meus princípios?', right: 'As pessoas estão sendo tratadas com justiça?', evidence: 'interpretation' },
-        { label: 'Evidência em Undertale', left: 'O resultado azul elogia um estilo original que superou a prova.', right: 'O amarelo elogia a precisão que encerrou o caos.', evidence: 'game' },
-        { label: 'Melhor expressão', left: 'Cumprir uma promessa quando ninguém vê.', right: 'Falar quando alguém recebe tratamento injusto.', evidence: 'interpretation' },
-        { label: 'Ponto cego', left: 'Ficar rígido ou moralmente isolado.', right: 'Punir antes de entender o contexto.', evidence: 'interpretation' },
-      ],
-      differenceParagraphs: ['Integridade pode ser privada. Justiça costuma envolver relações, regras ou consequências coletivas. Uma pessoa rejeita mentir porque isso quebra seus princípios; outra revela a mentira porque ela prejudica outros e distorce a equidade.', 'Os traços se apoiam, mas podem colidir. Integridade exige admitir quando seu lado erra. Justiça exige revisar uma regra coerente que produz resultados desiguais.'],
+  {
+    "label": "O que este teste explora",
+    "left": "Honestidade, confidencialidade e cumprimento de compromissos, inclusive admitir erros. Uma pontuação não define o valor moral de alguém nem torna suas crenças corretas.",
+    "right": "Aplicar critérios justos a pessoas diferentes, considerando direitos, oportunidades e resultados compartilhados. A justiça pode exigir entender necessidades diferentes.",
+    "evidence": "interpretation"
+  },
+  {
+    "label": "Evidência em Undertale",
+    "left": "O resultado azul elogia um estilo original que superou a prova.",
+    "right": "O amarelo elogia a precisão que encerrou o caos.",
+    "evidence": "game"
+  },
+  {
+    "label": "Uma pergunta para refletir",
+    "left": "Qual é a próxima frase honesta e que compromisso você realmente pode cumprir?",
+    "right": "Você aceitaria o mesmo critério se ele fosse aplicado a você ou a alguém de quem não gosta?",
+    "evidence": "interpretation"
+  }
+],
+      differenceParagraphs: [
+  "Um erro afeta a equipe. A Integridade pode significar admitir sua parte e corrigir uma promessa. A Justiça pode significar verificar os fatos e aplicar o mesmo critério justo de responsabilidade a todos, inclusive amigos. As ações se apoiam sem serem idênticas.",
+  "Você está alinhando suas palavras e ações ou decidindo qual tratamento é justo para todos?"
+],
       scenarios: [
-        { title: 'Um colega esconde um erro', left: 'Admite sua parte e não repete o engano.', right: 'Garante divisão justa da responsabilidade.' },
-        { title: 'Um atalho lucrativo quebra uma promessa', left: 'Recusa porque viola o compromisso.', right: 'Recusa porque impõe custo injusto ao cliente.' },
-        { title: 'Uma regra prejudica um grupo', left: 'Verifica se apoiá-la contradiz seus valores.', right: 'Tenta mudar a regra e reparar o desequilíbrio.' },
-      ],
-      hybridIntro: 'Pontuações altas sugerem expectativa de coerência ética em si e nos sistemas. É uma interpretação, não um diagnóstico.',
-      strengths: ['Admite responsabilidade pessoal.', 'Defende equidade sem se dar exceções.', 'Liga princípios a consequências públicas.'],
-      risks: ['Aplicar padrões sem contexto.', 'Ser severo quando é preciso negociar.', 'Confundir discordância com desonestidade ou injustiça.'],
+  {
+    "title": "Você está alinhando suas palavras e ações ou decidindo qual tratamento é justo para todos?",
+    "left": "Qual é a próxima frase honesta e que compromisso você realmente pode cumprir?",
+    "right": "Você aceitaria o mesmo critério se ele fosse aplicado a você ou a alguém de quem não gosta?"
+  }
+],
+      hybridIntro: "Dois resultados próximos podem descrever respostas a partes diferentes da mesma situação. Leia as duas definições e veja qual parte da decisão cada uma aborda. A regra de 3 pontos não demonstra uma diferença psicologicamente significativa.",
+      strengths: [
+  "Você não consegue mais cumprir uma promessa. Explica o problema logo e combina um novo compromisso em vez de escondê-lo.",
+  "Um grupo divide o reconhecimento de um projeto. Você verifica as contribuições e usa um critério que aceitaria mesmo sem se beneficiar dele."
+],
+      risks: [
+  "São respostas pessoais a um teste adaptado de forma independente. Fontes de domínio público não transformam os sete temas em um instrumento psicológico validado. Humor, experiência e interpretação podem afetar as respostas. Uma pontuação baixa não prova falta de uma virtude; uma alta não justifica riscos nem permite diagnosticar."
+],
       evidenceBody: 'Integridade e Justiça aparecem no Jogo da Bola. O resultado azul cita estilo original; o amarelo, precisão encerrando o caos. “Regular a si versus proteger a equidade” é interpretação prática.',
-      testBody: 'Faça o teste para comparar coerência pessoal, equidade pública ou a combinação das duas.',
+      testBody: "O resultado completo dos sete temas, a revisão de respostas e o cartão PNG são gratuitos, sem conta, pagamento ou convites.",
     }),
     ru: withShared('ru', {
       seoTitle: 'Порядочность против Справедливости в Undertale - Сравнение черт души',
-      seoDescription: 'Сравнение Порядочности и Справедливости в Undertale: внутренняя верность себе против защиты прав других и восстановления баланса.',
+      seoDescription: "Порядочность относится к честному и надёжному поведению; Справедливость — к справедливым критериям для разных людей.",
       heading: 'Порядочность против Справедливости',
-      intro: 'Обе добродетели защищают моральные нормы. Порядочность охраняет внутреннюю честность и верность принципам. Справедливость направлена вовне — на исправление несправедливости и защиту других.',
-      quickAnswer: 'Порядочность охраняет чистоту совести; Справедливость восстанавливает внешний баланс.',
+      intro: "Порядочность относится к честному и надёжному поведению; Справедливость — к справедливым критериям для разных людей.",
+      quickAnswer: "Порядочность относится к честному и надёжному поведению; Справедливость — к справедливым критериям для разных людей.",
       leftLabel: 'Порядочность',
       rightLabel: 'Справедливость',
       rows: [
-        { label: 'Главный фокус', left: 'Верность слову и внутреннему кодексу чести.', right: 'Защита прав, баланса и равных правил для всех.', evidence: 'interpretation' },
-        { label: 'Триггер действия', left: 'Угроза лицемерия или нарушения личных принципов.', right: 'Наблюдение за притеснением слабых или несправедливым судом.', evidence: 'interpretation' },
-        { label: 'Факты Undertale', left: 'Синий флаг: «Твой оригинальный стиль помог пройти игру в мяч». Пуанты и пачка.', right: 'Жёлтый флаг: «Твоя меткая стрельба положила конец бесчинствам». Пистолет и шляпа.', evidence: 'game' },
-        { label: 'Сильнейшее проявление', left: 'Отказ от компромисса с совестью ради выгоды.', right: 'Открытое обличение несправедливости и защита пострадавших.', evidence: 'interpretation' },
-        { label: 'Слепая зона', left: 'Холодная ригидность и негибкость к чужим слабостям.', right: 'Карательный пыл, забывающий о милосердии.', evidence: 'interpretation' },
-      ],
+  {
+    "label": "На чём сосредоточен тест",
+    "left": "Честность, сохранение доверенной информации и выполнение обязательств, включая признание ошибок. Балл не определяет моральную ценность человека и не делает его убеждения верными.",
+    "right": "Применение справедливых критериев к разным людям с учётом прав, возможностей и общих результатов. Справедливость может требовать понимания разных потребностей.",
+    "evidence": "interpretation"
+  },
+  {
+    "label": "Факты Undertale",
+    "left": "Синий флаг: «Твой оригинальный стиль помог пройти игру в мяч». Пуанты и пачка.",
+    "right": "Жёлтый флаг: «Твоя меткая стрельба положила конец бесчинствам». Пистолет и шляпа.",
+    "evidence": "game"
+  },
+  {
+    "label": "Вопрос для размышления",
+    "left": "Какой будет следующая честная фраза и какое обязательство вы действительно можете выполнить?",
+    "right": "Вы приняли бы тот же критерий, если бы он применялся к вам или к неприятному вам человеку?",
+    "evidence": "interpretation"
+  }
+],
       differenceParagraphs: [
-        'Порядочность сосредоточена на вопросе: «Честен ли я перед самим собой?» Справедливость спрашивает: «Честны ли правила по отношению ко всем участникам?»',
-        'Человек высокой Порядочности откажется жульничать даже втайне. Человек Справедливости немедленно вмешается, когда увидит, как жульничают другие.',
-      ],
+  "Ошибка затронула команду. Порядочность может означать признание своей ответственности и исправление обещания. Справедливость — проверку фактов и единые справедливые критерии ответственности для всех, включая друзей. Эти действия дополняют друг друга, но не совпадают.",
+  "Вы согласуете свои слова и действия или решаете, какое отношение справедливо для всех?"
+],
       scenarios: [
-        { title: 'Нечестное распределение ресурсов', left: 'Отказывается от незаслуженных привилегий.', right: 'Требует открытого пересмотра правил для всей группы.' },
-        { title: 'Конфликт интересов', left: 'Соблюдает строгую дистанцию и верность обязательствам.', right: 'Выносит спор на независимое публичное обсуждение.' },
-        { title: 'Ошибочное обвинение невиновного', left: 'Открыто заявляет свою позицию, не боясь осуждения.', right: 'Собирает доказательства и защищает пострадавшего.' },
-      ],
-      hybridIntro: 'Сочетание высокой Порядочности и Справедливости формирует сильный моральный компас, защищающий как внутреннее достоинство, так и общественное благо.',
-      strengths: ['Безупречная надёжность и верность слову.', 'Смелость отстаивать правду в сложных коллективах.', 'Способность служить авторитетным этическим арбитром.'],
-      risks: ['Категоричность и чрезмерная строгость к окружающим.', 'Склонность видеть мир исключительно в чёрно-белых тонах.', 'Эмоциональное выгорание от постоянной борьбы за правду.'],
+  {
+    "title": "Вы согласуете свои слова и действия или решаете, какое отношение справедливо для всех?",
+    "left": "Какой будет следующая честная фраза и какое обязательство вы действительно можете выполнить?",
+    "right": "Вы приняли бы тот же критерий, если бы он применялся к вам или к неприятному вам человеку?"
+  }
+],
+      hybridIntro: "Две близкие оценки могут отражать реакции на разные части одной ситуации. Прочитайте оба определения и отметьте, к какой части решения относится каждое. Правило 3 пунктов не доказывает психологически значимой разницы.",
+      strengths: [
+  "Вы больше не можете выполнить обещание. Вместо сокрытия проблемы вы быстро объясняете её и обсуждаете новое обязательство.",
+  "Группа распределяет признание за проект. Вы проверяете вклад каждого и применяете критерий, с которым согласились бы и без личной выгоды."
+],
+      risks: [
+  "Это личные ответы на независимо адаптированный тест. Источники из общественного достояния не делают сочетание семи тем валидированным психологическим опросником. Ответы зависят от настроения, опыта и понимания текста. Низкий балл не доказывает отсутствие добродетели, а высокий не оправдывает риск и не позволяет поставить диагноз."
+],
       evidenceBody: 'Порядочность и Справедливость — две самостоятельные человеческие души из гольфа Сноудина.',
-      testBody: 'Пройдите тест из 66 вопросов, чтобы сопоставить ваш уровень Порядочности и Справедливости.',
+      testBody: "Полный результат по семи темам, просмотр ответов и PNG-карточка бесплатны. Учётная запись, оплата и приглашения не нужны.",
     }),
   },
 };
@@ -420,141 +641,253 @@ export const KINDNESS_VS_PATIENCE: ComparisonSample = {
   copy: {
     en: withShared('en', {
       seoTitle: 'Kindness vs Patience: Undertale Soul Traits Compared',
-      seoDescription: 'Compare Kindness and Patience in Undertale: caring for others versus regulating urgency, with game evidence, examples, strengths, and risks.',
+      seoDescription: "Compare Kindness and Patience: offering useful care versus handling waiting and frustration. Read practical examples and the V2 quiz scoring guide.",
       heading: 'Kindness vs Patience',
-      intro: 'Kindness directs attention toward another person’s needs. Patience regulates your own urgency so time, uncertainty, or frustration does not force a poor response.',
-      quickAnswer: 'Kindness cares for others; Patience controls urgency.',
+      intro: "Kindness concerns useful care for another person; Patience concerns your response to waiting, irritation or repeated difficulty.",
+      quickAnswer: "Kindness concerns useful care for another person; Patience concerns your response to waiting, irritation or repeated difficulty.",
       leftLabel: 'Kindness',
       rightLabel: 'Patience',
       rows: [
-        { label: 'Primary focus', left: 'The wellbeing and needs of another person.', right: 'Timing, restraint, and emotional steadiness.', evidence: 'interpretation' },
-        { label: 'Under pressure', left: 'Asks who may be hurt and how to help.', right: 'Slows down before reacting.', evidence: 'interpretation' },
-        { label: 'Undertale evidence', left: 'The green Ball Game result praises concern and care for the ball.', right: 'The light-blue result praises waiting still for the right opportunity.', evidence: 'game' },
-        { label: 'Best expression', left: 'Offering practical care without demanding repayment.', right: 'Waiting for enough information before acting.', evidence: 'interpretation' },
-        { label: 'Blind spot', left: 'Overgiving or avoiding necessary boundaries.', right: 'Waiting so long that help arrives too late.', evidence: 'interpretation' },
-      ],
-      differenceParagraphs: ['A patient response can look kind because it gives someone time, but its immediate task is regulating pace. A kind response can be fast and firm if immediate protection is what another person needs.', 'The distinction matters when waiting has consequences. Patience asks whether delay improves the decision. Kindness asks who bears the cost of that delay.'],
+  {
+    "label": "What this quiz focuses on",
+    "left": "Caring, listening and offering useful help within reasonable limits. Being kind does not require taking over another person's choices or neglecting your own needs.",
+    "right": "How you respond to waiting, minor frustration and annoyance. This theme includes pausing and calming down; it does not ask you to tolerate harm or indefinite delay.",
+    "evidence": "interpretation"
+  },
+  {
+    "label": "Undertale evidence",
+    "left": "The green Ball Game result praises concern and care for the ball.",
+    "right": "The light-blue result praises waiting still for the right opportunity.",
+    "evidence": "game"
+  },
+  {
+    "label": "A question for reflection",
+    "left": "What help would answer this person's actual need, and what can you reasonably offer?",
+    "right": "When is a reasonable follow-up time, and what can you do while waiting?",
+    "evidence": "interpretation"
+  }
+],
+      differenceParagraphs: [
+  "A friend repeats a worry. Kindness asks what kind of support the friend actually wants. Patience concerns how you handle frustration while listening. You can care and still set a time limit; staying calm does not automatically mean the support was useful.",
+  "Are you deciding what help to offer, or how to manage your reaction while the situation continues?"
+],
       scenarios: [
-        { title: 'A friend makes a repeated mistake', left: 'Offers support while setting a caring boundary.', right: 'Allows time for change without demanding instant improvement.' },
-        { title: 'A tense message arrives', left: 'Considers the sender’s distress before replying.', right: 'Waits until the first emotional reaction settles.' },
-        { title: 'Someone needs urgent help', left: 'Acts quickly to reduce harm.', right: 'Avoids impulsive steps that could make the situation worse.' },
-      ],
-      hybridIntro: 'High Kindness and Patience suggests calm care: attention to others supported by emotional restraint. This is a trait interpretation, not a diagnosis.',
-      strengths: ['Listens without rushing another person.', 'Offers help with steadiness.', 'Reduces conflict while preserving care.'],
-      risks: ['Delaying hard boundaries in the name of understanding.', 'Absorbing too much emotional responsibility.', 'Waiting when decisive protection is needed.'],
+  {
+    "title": "Are you deciding what help to offer, or how to manage your reaction while the situation continues?",
+    "left": "What help would answer this person's actual need, and what can you reasonably offer?",
+    "right": "When is a reasonable follow-up time, and what can you do while waiting?"
+  }
+],
+      hybridIntro: "Two close scores can describe different responses to the same situation. Read both definitions and notice which part of the decision each addresses. The 3-point display rule does not show that a difference is psychologically significant.",
+      strengths: [
+  "A friend is struggling. Before offering help, you ask whether they want listening, practical support or some space.",
+  "A reply is late. You choose a reasonable time to follow up and turn to another task instead of repeatedly checking or taking frustration out on someone."
+],
+      risks: [
+  "These are self-reported responses to an independently adapted quiz. Public-domain source material does not make the seven-theme combination a validated psychological inventory. Mood, experience and interpretation can affect answers. A low score does not prove you lack a virtue; a high score cannot justify unsafe behavior or diagnose anyone."
+],
       evidenceBody: 'Kindness and Patience are explicitly named in the Ball Game. The green result refers to concern and care; the light-blue result refers to waiting still for an opportunity. The broader behavioral comparison is this site’s interpretation.',
-      testBody: 'Take the test to compare whether your calm responses come more from care for others, control of urgency, or both.',
+      testBody: "The complete seven-score result, answer review and PNG card are free, with no account, payment or invitation required.",
     }),
     ja: withShared('ja', {
       seoTitle: 'Undertale しんせつとにんたいの違い',
-      seoDescription: 'Undertaleのしんせつとにんたいを比較。他人を気づかう力と、自分の焦りを抑え適切な時機を待つ力の違いを解説。',
+      seoDescription: "やさしさは相手に役立つ気遣い、にんたいは待ち時間やいらだちへの自分の対応です。",
       heading: 'しんせつ vs にんたい',
-      intro: 'しんせつは他人の必要へ注意を向けます。にんたいは自分の焦りを整え、時間、不確実さ、苛立ちに悪い反応をさせません。',
-      quickAnswer: 'しんせつは人を気づかい、にんたいは焦りを抑えます。',
+      intro: "やさしさは相手に役立つ気遣い、にんたいは待ち時間やいらだちへの自分の対応です。",
+      quickAnswer: "やさしさは相手に役立つ気遣い、にんたいは待ち時間やいらだちへの自分の対応です。",
       leftLabel: 'しんせつ',
       rightLabel: 'にんたい',
       rows: [
-        { label: '中心', left: '他人の安全、感情、必要。', right: '時機、自制、感情の安定。', evidence: 'interpretation' },
-        { label: '圧力の中で', left: '誰が傷つくか、どう助けるかを考える。', right: '反応する前に速度を落とす。', evidence: 'interpretation' },
-        { label: 'Undertaleでの根拠', left: '緑の結果はボールへの気づかいと世話を称える。', right: '水色の結果は好機まで静かに待ったことを称える。', evidence: 'game' },
-        { label: '強みが出る場面', left: '見返りを求めず実用的に助ける。', right: '十分な情報を待ってから動く。', evidence: 'interpretation' },
-        { label: '注意点', left: '与えすぎ、必要な境界を避ける。', right: '待ちすぎて助けが遅れる。', evidence: 'interpretation' },
-      ],
-      differenceParagraphs: ['にんたい強い反応は相手に時間を与えるため、しんせつに見えます。しかし直接の役割は速度の調整です。しんせつは、すぐ守る必要があるなら速く厳しい行動にもなります。', '待つことに代償がある時、違いが見えます。にんたいは「遅らせると判断が良くなるか」、しんせつは「その遅れの負担を誰が受けるか」を考えます。'],
+  {
+    "label": "このテストで見るテーマ",
+    "left": "無理のない範囲で気にかけ、話を聞き、役に立つ助けを提供すること。相手の選択を代わりに決めたり、自分の必要を無視したりする必要はない。",
+    "right": "待ち時間、小さなつまずき、いらだちにどう対応するか。このテーマには一呼吸置いて落ち着くことが含まれるが、害や終わりのない遅れを我慢する必要はない。",
+    "evidence": "interpretation"
+  },
+  {
+    "label": "Undertaleでの根拠",
+    "left": "緑の結果はボールへの気づかいと世話を称える。",
+    "right": "水色の結果は好機まで静かに待ったことを称える。",
+    "evidence": "game"
+  },
+  {
+    "label": "振り返るための問い",
+    "left": "相手の本当の必要に合う助けは何ですか。無理なく何を提供できますか。",
+    "right": "いつ確認するのが適切ですか。待つ間に何ができますか。",
+    "evidence": "interpretation"
+  }
+],
+      differenceParagraphs: [
+  "友人が同じ心配を繰り返す。やさしさでは相手が本当に求める支援を考える。にんたいでは聞く間のいらだちへの対応を見る。気にかけながら時間を区切ることもでき、落ち着いているだけで役立つ支援になるわけではない。",
+  "どんな助けを提供するか考えていますか。それとも状況が続く間の反応を調整していますか。"
+],
       scenarios: [
-        { title: '友人が同じ失敗を繰り返す', left: '支えながら思いやりある境界を作る。', right: '即時改善を求めず変化の時間を与える。' },
-        { title: '緊張したメッセージが届く', left: '返信前に相手の苦しさを考える。', right: '最初の感情が静まるまで待つ。' },
-        { title: '誰かが緊急の助けを必要とする', left: '害を減らすため素早く動く。', right: '状況を悪化させる衝動的な手を避ける。' },
-      ],
-      hybridIntro: '両方が高い人は、他人への注意を感情的自制で支える「落ち着いた気づかい」を示す傾向があります。これは診断ではありません。',
-      strengths: ['相手を急かさず聞く。', '安定した助けを提供する。', '気づかいを保ちながら対立を弱める。'],
-      risks: ['理解の名で難しい境界を遅らせる。', '他人の感情的責任を抱えすぎる。', '決断的な保護が必要な時にも待つ。'],
+  {
+    "title": "どんな助けを提供するか考えていますか。それとも状況が続く間の反応を調整していますか。",
+    "left": "相手の本当の必要に合う助けは何ですか。無理なく何を提供できますか。",
+    "right": "いつ確認するのが適切ですか。待つ間に何ができますか。"
+  }
+],
+      hybridIntro: "近い2つの得点は、同じ状況の違う部分への反応を示すことがあります。両方の定義を読み、それぞれが判断のどの部分を見るか考えてください。3点という表示基準は心理学的に意味のある差を示しません。",
+      strengths: [
+  "友人が困っている。助ける前に、話を聞いてほしいのか、具体的な支援がほしいのか、少し一人でいたいのかを聞く。",
+  "返事が遅れている。適切に確認する時刻を決め、何度も確認したり誰かにいらだちをぶつけたりする代わりに、別の作業に取り組む。"
+],
+      risks: [
+  "結果は、独自に改編した質問への自己申告の回答です。出典がパブリックドメインでも、7つのテーマの組合せが検証済み心理尺度になるわけではありません。気分、経験、解釈で回答は変わります。低い得点は美徳がない証拠ではなく、高い得点も危険な行動や診断を正当化しません。"
+],
       evidenceBody: 'しんせつとにんたいはボールゲームで明示されます。緑は気づかいと世話、水色は好機まで静かに待つことを示します。それ以上の行動比較は当サイトの解釈です。',
-      testBody: '66問のテストで、落ち着いた反応が他人への気づかい、自分の焦りの制御、または両方から来るか確認できます。',
+      testBody: "7つの得点、回答の確認、PNGカードはすべて無料です。アカウント、支払い、招待は不要です。",
     }),
     es: withShared('es', {
       seoTitle: 'Bondad vs Paciencia en Undertale',
-      seoDescription: 'Compara Bondad y Paciencia en Undertale: cuidar a otros frente a regular la urgencia, con evidencia del juego, ejemplos y riesgos.',
+      seoDescription: "La Bondad trata del cuidado útil de otra persona; la Paciencia, de tu reacción a la espera, la irritación o las dificultades repetidas.",
       heading: 'Bondad vs Paciencia',
-      intro: 'La Bondad dirige la atención a las necesidades de otra persona. La Paciencia regula tu urgencia para que el tiempo, la duda o la frustración no dicten una mala respuesta.',
-      quickAnswer: 'La Bondad cuida a otros; la Paciencia controla la urgencia.',
+      intro: "La Bondad trata del cuidado útil de otra persona; la Paciencia, de tu reacción a la espera, la irritación o las dificultades repetidas.",
+      quickAnswer: "La Bondad trata del cuidado útil de otra persona; la Paciencia, de tu reacción a la espera, la irritación o las dificultades repetidas.",
       leftLabel: 'Bondad',
       rightLabel: 'Paciencia',
       rows: [
-        { label: 'Enfoque principal', left: 'Bienestar y necesidades de otra persona.', right: 'Momento, contención y estabilidad emocional.', evidence: 'interpretation' },
-        { label: 'Bajo presión', left: 'Pregunta quién puede sufrir y cómo ayudar.', right: 'Reduce la velocidad antes de reaccionar.', evidence: 'interpretation' },
-        { label: 'Evidencia en Undertale', left: 'El resultado verde elogia la preocupación y el cuidado por la pelota.', right: 'El celeste elogia esperar quieto la oportunidad adecuada.', evidence: 'game' },
-        { label: 'Mejor expresión', left: 'Ofrecer ayuda práctica sin exigir recompensa.', right: 'Esperar suficiente información antes de actuar.', evidence: 'interpretation' },
-        { label: 'Punto ciego', left: 'Dar demasiado o evitar límites necesarios.', right: 'Esperar tanto que la ayuda llegue tarde.', evidence: 'interpretation' },
-      ],
-      differenceParagraphs: ['Una respuesta paciente puede parecer bondadosa porque da tiempo, pero su tarea inmediata es regular el ritmo. Una respuesta bondadosa puede ser rápida y firme si alguien necesita protección inmediata.', 'Cuando esperar tiene consecuencias, la Paciencia pregunta si la demora mejora la decisión. La Bondad pregunta quién soporta el coste de esa demora.'],
+  {
+    "label": "Qué explora este test",
+    "left": "Preocuparte, escuchar y ofrecer ayuda útil dentro de límites razonables. Ser amable no exige decidir por otra persona ni descuidar tus necesidades.",
+    "right": "Cómo respondes a la espera, la frustración leve y la irritación. Incluye hacer una pausa y calmarte; no exige tolerar daño ni retrasos indefinidos.",
+    "evidence": "interpretation"
+  },
+  {
+    "label": "Evidencia en Undertale",
+    "left": "El resultado verde elogia la preocupación y el cuidado por la pelota.",
+    "right": "El celeste elogia esperar quieto la oportunidad adecuada.",
+    "evidence": "game"
+  },
+  {
+    "label": "Una pregunta para reflexionar",
+    "left": "¿Qué ayuda responde a su necesidad real y qué puedes ofrecer razonablemente?",
+    "right": "¿Cuándo sería razonable preguntar de nuevo y qué puedes hacer mientras esperas?",
+    "evidence": "interpretation"
+  }
+],
+      differenceParagraphs: [
+  "Un amigo repite una preocupación. La Bondad pregunta qué apoyo desea realmente. La Paciencia trata de gestionar la frustración al escuchar. Puedes preocuparte y poner un límite de tiempo; mantener la calma no demuestra por sí solo que la ayuda fuera útil.",
+  "¿Estás decidiendo qué ayuda ofrecer o cómo gestionar tu reacción mientras continúa la situación?"
+],
       scenarios: [
-        { title: 'Un amigo repite un error', left: 'Ofrece apoyo y establece un límite cuidadoso.', right: 'Da tiempo para cambiar sin exigir mejora instantánea.' },
-        { title: 'Llega un mensaje tenso', left: 'Considera el malestar del remitente antes de responder.', right: 'Espera a que baje la primera reacción emocional.' },
-        { title: 'Alguien necesita ayuda urgente', left: 'Actúa rápido para reducir el daño.', right: 'Evita pasos impulsivos que empeoren la situación.' },
-      ],
-      hybridIntro: 'Puntuaciones altas sugieren cuidado sereno: atención a otros sostenida por autocontrol emocional. Es una interpretación, no un diagnóstico.',
-      strengths: ['Escucha sin apresurar a la otra persona.', 'Ayuda con estabilidad.', 'Reduce conflicto sin perder el cuidado.'],
-      risks: ['Retrasar límites difíciles en nombre de la comprensión.', 'Asumir demasiada responsabilidad emocional.', 'Esperar cuando hace falta protección decidida.'],
+  {
+    "title": "¿Estás decidiendo qué ayuda ofrecer o cómo gestionar tu reacción mientras continúa la situación?",
+    "left": "¿Qué ayuda responde a su necesidad real y qué puedes ofrecer razonablemente?",
+    "right": "¿Cuándo sería razonable preguntar de nuevo y qué puedes hacer mientras esperas?"
+  }
+],
+      hybridIntro: "Dos resultados cercanos pueden describir respuestas a partes distintas de una situación. Lee ambas definiciones y observa qué parte de la decisión trata cada una. La regla de 3 puntos no demuestra una diferencia psicológicamente significativa.",
+      strengths: [
+  "Un amigo tiene dificultades. Antes de ayudar, preguntas si quiere que lo escuches, apoyo práctico o un poco de espacio.",
+  "Una respuesta tarda. Eliges un momento razonable para preguntar y haces otra tarea, en vez de revisar sin parar o descargar la frustración en alguien."
+],
+      risks: [
+  "Son respuestas personales a un test adaptado de forma independiente. Las fuentes de dominio público no convierten estos siete temas en un instrumento psicológico validado. El ánimo, la experiencia y la interpretación pueden cambiar las respuestas. Una puntuación baja no prueba que te falte una virtud; una alta no justifica riesgos ni permite diagnosticar."
+],
       evidenceBody: 'Bondad y Paciencia aparecen en el Juego de Pelota. El verde habla de preocupación y cuidado; el celeste, de esperar quieto una oportunidad. La comparación amplia es interpretación del sitio.',
-      testBody: 'Haz el test para comparar cuidado hacia otros, control de la urgencia o ambos patrones.',
+      testBody: "El resultado completo de siete temas, la revisión de respuestas y la tarjeta PNG son gratuitos, sin cuenta, pago ni invitaciones.",
     }),
     pt: withShared('pt', {
       seoTitle: 'Bondade vs Paciência em Undertale',
-      seoDescription: 'Compare Bondade e Paciência em Undertale: cuidar dos outros versus regular a urgência, com evidências, exemplos e riscos.',
+      seoDescription: "A Bondade trata do cuidado útil com outra pessoa; a Paciência, da sua reação à espera, à irritação ou às dificuldades repetidas.",
       heading: 'Bondade vs Paciência',
-      intro: 'Bondade dirige atenção às necessidades de outra pessoa. Paciência regula sua urgência para que tempo, dúvida ou frustração não imponham uma resposta ruim.',
-      quickAnswer: 'Bondade cuida dos outros; Paciência controla a urgência.',
+      intro: "A Bondade trata do cuidado útil com outra pessoa; a Paciência, da sua reação à espera, à irritação ou às dificuldades repetidas.",
+      quickAnswer: "A Bondade trata do cuidado útil com outra pessoa; a Paciência, da sua reação à espera, à irritação ou às dificuldades repetidas.",
       leftLabel: 'Bondade',
       rightLabel: 'Paciência',
       rows: [
-        { label: 'Foco principal', left: 'Bem-estar e necessidades de outra pessoa.', right: 'Momento, contenção e estabilidade emocional.', evidence: 'interpretation' },
-        { label: 'Sob pressão', left: 'Pergunta quem pode sofrer e como ajudar.', right: 'Reduz a velocidade antes de reagir.', evidence: 'interpretation' },
-        { label: 'Evidência em Undertale', left: 'O resultado verde elogia preocupação e cuidado com a bola.', right: 'O azul-claro elogia esperar imóvel pela oportunidade certa.', evidence: 'game' },
-        { label: 'Melhor expressão', left: 'Oferecer ajuda prática sem cobrar retorno.', right: 'Esperar informação suficiente antes de agir.', evidence: 'interpretation' },
-        { label: 'Ponto cego', left: 'Dar demais ou evitar limites necessários.', right: 'Esperar tanto que a ajuda chegue tarde.', evidence: 'interpretation' },
-      ],
-      differenceParagraphs: ['Uma resposta paciente pode parecer bondosa porque dá tempo, mas sua tarefa imediata é regular o ritmo. Uma resposta bondosa pode ser rápida e firme quando alguém precisa de proteção imediata.', 'Quando esperar tem consequências, Paciência pergunta se a demora melhora a decisão. Bondade pergunta quem paga o custo dessa demora.'],
+  {
+    "label": "O que este teste explora",
+    "left": "Cuidar, ouvir e oferecer ajuda útil dentro de limites razoáveis. Ser gentil não exige decidir por outra pessoa nem ignorar suas próprias necessidades.",
+    "right": "Como você reage à espera, à frustração leve e à irritação. Inclui pausar e se acalmar; não exige tolerar danos ou atrasos indefinidos.",
+    "evidence": "interpretation"
+  },
+  {
+    "label": "Evidência em Undertale",
+    "left": "O resultado verde elogia preocupação e cuidado com a bola.",
+    "right": "O azul-claro elogia esperar imóvel pela oportunidade certa.",
+    "evidence": "game"
+  },
+  {
+    "label": "Uma pergunta para refletir",
+    "left": "Que ajuda atende à necessidade real dessa pessoa e o que você pode oferecer de forma razoável?",
+    "right": "Quando seria razoável perguntar de novo e o que você pode fazer enquanto espera?",
+    "evidence": "interpretation"
+  }
+],
+      differenceParagraphs: [
+  "Um amigo repete uma preocupação. A Bondade pergunta qual apoio ele realmente quer. A Paciência trata de lidar com a frustração ao ouvir. Você pode se importar e estabelecer um limite de tempo; ficar calmo não prova sozinho que a ajuda foi útil.",
+  "Você está decidindo que ajuda oferecer ou como lidar com sua reação enquanto a situação continua?"
+],
       scenarios: [
-        { title: 'Um amigo repete um erro', left: 'Oferece apoio e cria um limite cuidadoso.', right: 'Dá tempo para mudar sem exigir melhora instantânea.' },
-        { title: 'Chega uma mensagem tensa', left: 'Considera o sofrimento do remetente antes de responder.', right: 'Espera a primeira reação emocional baixar.' },
-        { title: 'Alguém precisa de ajuda urgente', left: 'Age rápido para reduzir o dano.', right: 'Evita passos impulsivos que piorem a situação.' },
-      ],
-      hybridIntro: 'Pontuações altas sugerem cuidado calmo: atenção aos outros sustentada por autocontrole emocional. É interpretação, não diagnóstico.',
-      strengths: ['Escuta sem apressar a outra pessoa.', 'Ajuda com estabilidade.', 'Reduz conflito sem perder o cuidado.'],
-      risks: ['Adiar limites difíceis em nome da compreensão.', 'Assumir responsabilidade emocional demais.', 'Esperar quando é necessária proteção decidida.'],
+  {
+    "title": "Você está decidindo que ajuda oferecer ou como lidar com sua reação enquanto a situação continua?",
+    "left": "Que ajuda atende à necessidade real dessa pessoa e o que você pode oferecer de forma razoável?",
+    "right": "Quando seria razoável perguntar de novo e o que você pode fazer enquanto espera?"
+  }
+],
+      hybridIntro: "Dois resultados próximos podem descrever respostas a partes diferentes da mesma situação. Leia as duas definições e veja qual parte da decisão cada uma aborda. A regra de 3 pontos não demonstra uma diferença psicologicamente significativa.",
+      strengths: [
+  "Um amigo está com dificuldades. Antes de ajudar, você pergunta se ele quer ser ouvido, apoio prático ou um pouco de espaço.",
+  "Uma resposta demora. Você escolhe um momento razoável para perguntar e faz outra tarefa, em vez de verificar sem parar ou descontar a frustração em alguém."
+],
+      risks: [
+  "São respostas pessoais a um teste adaptado de forma independente. Fontes de domínio público não transformam os sete temas em um instrumento psicológico validado. Humor, experiência e interpretação podem afetar as respostas. Uma pontuação baixa não prova falta de uma virtude; uma alta não justifica riscos nem permite diagnosticar."
+],
       evidenceBody: 'Bondade e Paciência aparecem no Jogo da Bola. O verde fala de preocupação e cuidado; o azul-claro, de esperar imóvel por uma oportunidade. A comparação ampla é interpretação do site.',
-      testBody: 'Faça o teste para comparar cuidado com os outros, controle da urgência ou os dois padrões.',
+      testBody: "O resultado completo dos sete temas, a revisão de respostas e o cartão PNG são gratuitos, sem conta, pagamento ou convites.",
     }),
     ru: withShared('ru', {
       seoTitle: 'Доброта против Терпения в Undertale - Сравнение черт души',
-      seoDescription: 'Сравнение Доброты и Терпения в Undertale: деятельная забота против мудрого выжидания и душевного спокойствия.',
+      seoDescription: "Доброта относится к полезной заботе о другом; Терпение — к вашей реакции на ожидание, раздражение или повторяющиеся трудности.",
       heading: 'Доброта против Терпения',
-      intro: 'Обе черты создают атмосферу безопасности и тепла. Доброта делает шаг навстречу через заботу и поддержку. Терпение создаёт пространство, выжидая и не торопя события.',
-      quickAnswer: 'Доброта согревает заботой; Терпение защищает спокойствием.',
+      intro: "Доброта относится к полезной заботе о другом; Терпение — к вашей реакции на ожидание, раздражение или повторяющиеся трудности.",
+      quickAnswer: "Доброта относится к полезной заботе о другом; Терпение — к вашей реакции на ожидание, раздражение или повторяющиеся трудности.",
       leftLabel: 'Доброта',
       rightLabel: 'Терпение',
       rows: [
-        { label: 'Главный импульс', left: 'Деятельное сострадание и стремление облегчить боль.', right: 'Эмоциональная выдержка и способность ждать момента.', evidence: 'interpretation' },
-        { label: 'Стиль действия', left: 'Прямая помощь, утешение и доброе слово.', right: 'Спокойное наблюдение без суеты и давления.', evidence: 'interpretation' },
-        { label: 'Факты Undertale', left: 'Зелёный флаг, сковорода и фартук. Зелёная магия исцеляет.', right: 'Голубой флаг, игрушечный нож и лента. Голубые атаки требуют неподвижности.', evidence: 'game' },
-        { label: 'Сильнейшее проявление', left: 'Поддержка человека в самый трудный момент.', right: 'Сохранение хладнокровия в разгар кризиса.', evidence: 'interpretation' },
-        { label: 'Слепая зона', left: 'Самопожертвование в ущерб собственному здоровью.', right: 'Пассивность там, где требуется срочное вмешательство.', evidence: 'interpretation' },
-      ],
+  {
+    "label": "На чём сосредоточен тест",
+    "left": "Забота, умение слушать и полезная помощь в разумных пределах. Доброта не требует решать за другого человека или пренебрегать своими потребностями.",
+    "right": "Реакция на ожидание, небольшие неудачи и раздражение. Сюда относятся пауза и самоуспокоение, но не обязанность терпеть вред или бесконечную задержку.",
+    "evidence": "interpretation"
+  },
+  {
+    "label": "Факты Undertale",
+    "left": "Зелёный флаг, сковорода и фартук. Зелёная магия исцеляет.",
+    "right": "Голубой флаг, игрушечный нож и лента. Голубые атаки требуют неподвижности.",
+    "evidence": "game"
+  },
+  {
+    "label": "Вопрос для размышления",
+    "left": "Какая помощь отвечает реальной потребности человека и что вы можете разумно предложить?",
+    "right": "Когда разумно уточнить ответ и что можно сделать во время ожидания?",
+    "evidence": "interpretation"
+  }
+],
       differenceParagraphs: [
-        'Доброта спрашивает: «Что я могу сделать для тебя прямо сейчас?» Терпение спрашивает: «Готов ли этот момент для правильного действия?»',
-        'Доброта может броситься на помощь слишком рано; Терпение способно удержать от поспешных шагов, дав человеку возможность справиться самому.',
-      ],
+  "Друг повторяет своё беспокойство. Доброта помогает спросить, какая поддержка ему действительно нужна. Терпение относится к управлению раздражением во время разговора. Можно заботиться и ограничить время; спокойствие само по себе не доказывает полезность помощи.",
+  "Вы решаете, какую помощь предложить, или как управлять своей реакцией, пока ситуация продолжается?"
+],
       scenarios: [
-        { title: 'Друг переживает тяжёлый стресс', left: 'Приносит еду, слушает и окружает теплом.', right: 'Даёт пространство побыть одному, оставаясь на связи.' },
-        { title: 'Острый конфликт в команде', left: 'Сглаживает углы и ищет примирение.', right: 'Ждёт, пока схлынут эмоции, прежде чем возобновить разговор.' },
-        { title: 'Медленный прогресс в учёбе', left: 'Хвалит за любые усилия и вдохновляет.', right: 'Спокойно продолжает планомерные занятия без упрёков.' },
-      ],
-      hybridIntro: 'Сочетание Доброты и Терпения создаёт редкий баланс сердечного тепла и эмоциональной зрелости.',
-      strengths: ['Глубокая эмпатия без навязчивости.', 'Способность выдерживать чужие эмоции без раздражения.', 'Умение создавать психологический комфорт в любом окружении.'],
-      risks: ['Игнорирование собственных потребностей ради чужого спокойствия.', 'Затягивание необходимых неприятных решений.', 'Трудности с обозначением жестких личных границ.'],
+  {
+    "title": "Вы решаете, какую помощь предложить, или как управлять своей реакцией, пока ситуация продолжается?",
+    "left": "Какая помощь отвечает реальной потребности человека и что вы можете разумно предложить?",
+    "right": "Когда разумно уточнить ответ и что можно сделать во время ожидания?"
+  }
+],
+      hybridIntro: "Две близкие оценки могут отражать реакции на разные части одной ситуации. Прочитайте оба определения и отметьте, к какой части решения относится каждое. Правило 3 пунктов не доказывает психологически значимой разницы.",
+      strengths: [
+  "У друга трудности. Прежде чем помогать, вы спрашиваете, хочет ли он, чтобы его выслушали, нужна ли практическая помощь или время наедине.",
+  "Ответ задерживается. Вы выбираете разумное время для уточнения и занимаетесь другой задачей вместо постоянных проверок или раздражения на других."
+],
+      risks: [
+  "Это личные ответы на независимо адаптированный тест. Источники из общественного достояния не делают сочетание семи тем валидированным психологическим опросником. Ответы зависят от настроения, опыта и понимания текста. Низкий балл не доказывает отсутствие добродетели, а высокий не оправдывает риск и не позволяет поставить диагноз."
+],
       evidenceBody: 'Доброта и Терпение канонично представлены зелёной и голубой душами в Undertale.',
-      testBody: 'Пройдите тест из 66 вопросов, чтобы оценить баланс Доброты и Терпения в вашем характере.',
+      testBody: "Полный результат по семи темам, просмотр ответов и PNG-карточка бесплатны. Учётная запись, оплата и приглашения не нужны.",
     }),
   },
 };
@@ -566,142 +899,254 @@ export const BRAVERY_VS_PATIENCE: ComparisonSample = {
   copy: {
     en: withShared('en', {
       seoTitle: 'Bravery vs Patience: Undertale Soul Traits Compared',
-      seoDescription: 'Compare Bravery and Patience in Undertale: acting despite fear versus waiting for the right moment, with game evidence, examples, strengths, and risks.',
+      seoDescription: "Compare Bravery and Patience: acting safely despite fear versus pausing through frustration. See everyday examples and how to read the V2 quiz scores.",
       heading: 'Bravery vs Patience',
-      intro: 'Bravery reduces the power of hesitation and moves toward the obstacle. Patience resists premature action and protects the right timing.',
-      quickAnswer: 'Bravery takes action; Patience waits for the right moment.',
+      intro: "Bravery concerns a safe action despite fear; Patience concerns pausing and managing frustration when timing matters.",
+      quickAnswer: "Bravery concerns a safe action despite fear; Patience concerns pausing and managing frustration when timing matters.",
       leftLabel: 'Bravery',
       rightLabel: 'Patience',
       rows: [
-        { label: 'Primary move', left: 'Advance despite fear or uncertainty.', right: 'Hold position until timing or information improves.', evidence: 'interpretation' },
-        { label: 'Main risk avoided', left: 'Missing the opportunity through hesitation.', right: 'Damaging the outcome through haste.', evidence: 'interpretation' },
-        { label: 'Undertale evidence', left: 'The orange Ball Game result rewards rushing through obstacles.', right: 'The light-blue result rewards waiting still before a sharp attack.', evidence: 'game' },
-        { label: 'Best expression', left: 'Acting when delay mainly protects comfort.', right: 'Waiting when action would be premature.', evidence: 'interpretation' },
-        { label: 'Blind spot', left: 'Confusing speed with courage.', right: 'Confusing avoidance with wise timing.', evidence: 'interpretation' },
-      ],
-      differenceParagraphs: ['These traits disagree about timing, not commitment. Bravery notices the cost of delay. Patience notices the cost of moving too early. A mature decision asks which cost is larger in this specific situation.', 'Waiting can require courage when others demand immediate action. Acting can require patience when the action follows long preparation. The useful distinction is the decision at the critical moment.'],
+  {
+    "label": "What this quiz focuses on",
+    "left": "Expressing or acting despite fear or social pressure when doing so is reasonably safe. The score does not reward danger or require an outgoing personality.",
+    "right": "How you respond to waiting, minor frustration and annoyance. This theme includes pausing and calming down; it does not ask you to tolerate harm or indefinite delay.",
+    "evidence": "interpretation"
+  },
+  {
+    "label": "Undertale evidence",
+    "left": "The orange Ball Game result rewards rushing through obstacles.",
+    "right": "The light-blue result rewards waiting still before a sharp attack.",
+    "evidence": "game"
+  },
+  {
+    "label": "A question for reflection",
+    "left": "What is one safe action you could take without pretending the fear is gone?",
+    "right": "When is a reasonable follow-up time, and what can you do while waiting?",
+    "evidence": "interpretation"
+  }
+],
+      differenceParagraphs: [
+  "A meeting becomes heated. Bravery can help you raise a necessary concern even while nervous. Patience can help you pause, listen and choose a calmer moment. Speaking quickly is not always brave, and waiting is not always patient.",
+  "What needs to be said, and what timing lets you say it safely and clearly?"
+],
       scenarios: [
-        { title: 'An opportunity has incomplete information', left: 'Acts if the window will close and the risk is survivable.', right: 'Waits if one missing fact could change the decision.' },
-        { title: 'A conflict is escalating', left: 'Intervenes when silence would permit harm.', right: 'Pauses when immediate words would inflame the conflict.' },
-        { title: 'A creative work feels imperfect', left: 'Publishes when fear is the main blocker.', right: 'Revises when the remaining flaws are concrete and fixable.' },
-      ],
-      hybridIntro: 'High Bravery and Patience suggests flexible timing: the ability to move decisively or wait deliberately. This is an interpretation, not a diagnosis.',
-      strengths: ['Distinguishes useful delay from avoidance.', 'Acts quickly after deliberate observation.', 'Can tolerate both exposure and uncertainty.'],
-      risks: ['Swinging between impulsive action and excessive delay.', 'Using one trait to rationalize the other’s blind spot.', 'Waiting for a perfect signal, then rushing when pressure peaks.'],
+  {
+    "title": "What needs to be said, and what timing lets you say it safely and clearly?",
+    "left": "What is one safe action you could take without pretending the fear is gone?",
+    "right": "When is a reasonable follow-up time, and what can you do while waiting?"
+  }
+],
+      hybridIntro: "Two close scores can describe different responses to the same situation. Read both definitions and notice which part of the decision each addresses. The 3-point display rule does not show that a difference is psychologically significant.",
+      strengths: [
+  "You need to raise a concern. You choose a small safe action, such as asking for a private conversation, while acknowledging that you feel nervous.",
+  "A reply is late. You choose a reasonable time to follow up and turn to another task instead of repeatedly checking or taking frustration out on someone."
+],
+      risks: [
+  "These are self-reported responses to an independently adapted quiz. Public-domain source material does not make the seven-theme combination a validated psychological inventory. Mood, experience and interpretation can affect answers. A low score does not prove you lack a virtue; a high score cannot justify unsafe behavior or diagnose anyone."
+],
       evidenceBody: 'Bravery and Patience are explicitly named in the Ball Game. Orange rewards fast, obstacle-facing play; light blue rewards waiting still for an opportunity. The broader decision model is this site’s interpretation.',
-      testBody: 'Take the test to compare your tendency to act, wait, and adjust timing under pressure.',
+      testBody: "The complete seven-score result, answer review and PNG card are free, with no account, payment or invitation required.",
     }),
     ja: withShared('ja', {
       seoTitle: 'Undertale ゆうきとにんたいの違い',
-      seoDescription: 'Undertaleのゆうきとにんたいを比較。怖くても行動する力と、適切な時機まで待つ力の違いをゲーム内根拠と例で解説。',
+      seoDescription: "ゆうきは怖さがあっても安全に行動すること、にんたいは一呼吸置き、いらだちとタイミングを扱うことです。",
       heading: 'ゆうき vs にんたい',
-      intro: 'ゆうきは迷いの力を弱め、障害へ進みます。にんたいは早すぎる行動を抑え、適切な時機を守ります。',
-      quickAnswer: 'ゆうきは動き、にんたいは時機を待ちます。',
+      intro: "ゆうきは怖さがあっても安全に行動すること、にんたいは一呼吸置き、いらだちとタイミングを扱うことです。",
+      quickAnswer: "ゆうきは怖さがあっても安全に行動すること、にんたいは一呼吸置き、いらだちとタイミングを扱うことです。",
       leftLabel: 'ゆうき',
       rightLabel: 'にんたい',
       rows: [
-        { label: '中心の行動', left: '恐れや不確実さがあっても進む。', right: '時機や情報が改善するまで待つ。', evidence: 'interpretation' },
-        { label: '避けるリスク', left: '迷って好機を失うこと。', right: '焦って結果を壊すこと。', evidence: 'interpretation' },
-        { label: 'Undertaleでの根拠', left: 'オレンジの結果は障害を突き進む行動を称える。', right: '水色の結果は鋭い攻撃の前に静かに待つ行動を称える。', evidence: 'game' },
-        { label: '強みが出る場面', left: '遅れが安心だけを守っている時に動く。', right: '行動が早すぎる時に待つ。', evidence: 'interpretation' },
-        { label: '注意点', left: '速さをゆうきと取り違える。', right: '回避を賢い時機と取り違える。', evidence: 'interpretation' },
-      ],
-      differenceParagraphs: ['両者が違うのは覚悟ではなく時機です。ゆうきは遅れの代償を見て、にんたいは早すぎる行動の代償を見ます。成熟した判断は、その場でどちらの代償が大きいかを考えます。', '周囲が即時行動を求める時、待つにもゆうきが必要です。長い準備の後の行動には、にんたいが含まれます。重要なのは決定的瞬間の選択です。'],
+  {
+    "label": "このテストで見るテーマ",
+    "left": "無理のない安全を保ちつつ、怖さや周囲からの圧力があっても伝えたり行動したりすること。危険を求めることや外向的な性格は条件ではない。",
+    "right": "待ち時間、小さなつまずき、いらだちにどう対応するか。このテーマには一呼吸置いて落ち着くことが含まれるが、害や終わりのない遅れを我慢する必要はない。",
+    "evidence": "interpretation"
+  },
+  {
+    "label": "Undertaleでの根拠",
+    "left": "オレンジの結果は障害を突き進む行動を称える。",
+    "right": "水色の結果は鋭い攻撃の前に静かに待つ行動を称える。",
+    "evidence": "game"
+  },
+  {
+    "label": "振り返るための問い",
+    "left": "怖さが消えたふりをせずにできる、安全な一歩は何ですか。",
+    "right": "いつ確認するのが適切ですか。待つ間に何ができますか。",
+    "evidence": "interpretation"
+  }
+],
+      differenceParagraphs: [
+  "会議が熱くなった。ゆうきは緊張していても必要な問題を伝える助けになる。にんたいは一度止まり、話を聞き、落ち着いた時を選ぶ助けになる。早く話せば勇敢、待てば辛抱強いとは限らない。",
+  "何を伝える必要がありますか。安全にはっきり伝えるには、いつがよいですか。"
+],
       scenarios: [
-        { title: '情報不足の好機', left: '機会が閉じ、損失に耐えられるなら動く。', right: '一つの情報で判断が変わるなら待つ。' },
-        { title: '対立が激しくなる', left: '沈黙が害を許すなら介入する。', right: 'すぐ話すと悪化するなら一度止まる。' },
-        { title: '作品が不完全に感じる', left: '恐れだけが障害なら公開する。', right: '具体的に直せる欠点があるなら修正する。' },
-      ],
-      hybridIntro: '両方が高い人は、決断的に動くことと意図的に待つことを切り替えられる傾向があります。これは診断ではありません。',
-      strengths: ['有用な遅れと回避を区別する。', '観察後に素早く動く。', '注目と不確実さの両方に耐える。'],
-      risks: ['衝動と過度な遅れの間を揺れる。', '一方の弱点を他方で正当化する。', '完璧な信号を待ち、圧力の頂点で急ぐ。'],
+  {
+    "title": "何を伝える必要がありますか。安全にはっきり伝えるには、いつがよいですか。",
+    "left": "怖さが消えたふりをせずにできる、安全な一歩は何ですか。",
+    "right": "いつ確認するのが適切ですか。待つ間に何ができますか。"
+  }
+],
+      hybridIntro: "近い2つの得点は、同じ状況の違う部分への反応を示すことがあります。両方の定義を読み、それぞれが判断のどの部分を見るか考えてください。3点という表示基準は心理学的に意味のある差を示しません。",
+      strengths: [
+  "気になる問題を伝えたい。緊張を認めながら、個別に話す時間を頼むなど、小さく安全な行動を選ぶ。",
+  "返事が遅れている。適切に確認する時刻を決め、何度も確認したり誰かにいらだちをぶつけたりする代わりに、別の作業に取り組む。"
+],
+      risks: [
+  "結果は、独自に改編した質問への自己申告の回答です。出典がパブリックドメインでも、7つのテーマの組合せが検証済み心理尺度になるわけではありません。気分、経験、解釈で回答は変わります。低い得点は美徳がない証拠ではなく、高い得点も危険な行動や診断を正当化しません。"
+],
       evidenceBody: 'ゆうきとにんたいはボールゲームで明示されます。オレンジは障害を素早く進む行動、水色は好機まで静かに待つ行動を示します。それ以上の判断モデルは当サイトの解釈です。',
-      testBody: '66問のテストで、圧力の中で動く、待つ、時機を変える傾向を比較できます。',
+      testBody: "7つの得点、回答の確認、PNGカードはすべて無料です。アカウント、支払い、招待は不要です。",
     }),
     es: withShared('es', {
       seoTitle: 'Valentía vs Paciencia en Undertale',
-      seoDescription: 'Compara Valentía y Paciencia en Undertale: actuar pese al miedo frente a esperar el momento adecuado, con evidencia y ejemplos.',
+      seoDescription: "La Valentía trata de actuar con seguridad pese al miedo; la Paciencia, de pausar y gestionar la frustración cuando importa el momento.",
       heading: 'Valentía vs Paciencia',
-      intro: 'La Valentía reduce el poder de la duda y avanza hacia el obstáculo. La Paciencia resiste la acción prematura y protege el momento adecuado.',
-      quickAnswer: 'La Valentía actúa; la Paciencia espera el momento adecuado.',
+      intro: "La Valentía trata de actuar con seguridad pese al miedo; la Paciencia, de pausar y gestionar la frustración cuando importa el momento.",
+      quickAnswer: "La Valentía trata de actuar con seguridad pese al miedo; la Paciencia, de pausar y gestionar la frustración cuando importa el momento.",
       leftLabel: 'Valentía',
       rightLabel: 'Paciencia',
       rows: [
-        { label: 'Movimiento principal', left: 'Avanzar pese al miedo o la incertidumbre.', right: 'Esperar hasta que mejoren el momento o la información.', evidence: 'interpretation' },
-        { label: 'Riesgo que evita', left: 'Perder la oportunidad por dudar.', right: 'Dañar el resultado por apresurarse.', evidence: 'interpretation' },
-        { label: 'Evidencia en Undertale', left: 'El resultado naranja recompensa atravesar obstáculos con rapidez.', right: 'El celeste recompensa esperar quieto antes de un ataque preciso.', evidence: 'game' },
-        { label: 'Mejor expresión', left: 'Actuar cuando la demora solo protege la comodidad.', right: 'Esperar cuando actuar sería prematuro.', evidence: 'interpretation' },
-        { label: 'Punto ciego', left: 'Confundir velocidad con valor.', right: 'Confundir evasión con buen momento.', evidence: 'interpretation' },
-      ],
-      differenceParagraphs: ['Los rasgos discrepan sobre el momento, no sobre el compromiso. La Valentía ve el coste de esperar. La Paciencia ve el coste de moverse pronto. Una decisión madura compara ambos costes.', 'Esperar puede exigir valor cuando otros piden acción inmediata. Actuar puede contener paciencia cuando sigue a una preparación larga. La diferencia útil está en la decisión del momento crítico.'],
+  {
+    "label": "Qué explora este test",
+    "left": "Expresarte o actuar pese al miedo o la presión social cuando hacerlo es razonablemente seguro. La puntuación no premia el peligro ni exige ser extrovertido.",
+    "right": "Cómo respondes a la espera, la frustración leve y la irritación. Incluye hacer una pausa y calmarte; no exige tolerar daño ni retrasos indefinidos.",
+    "evidence": "interpretation"
+  },
+  {
+    "label": "Evidencia en Undertale",
+    "left": "El resultado naranja recompensa atravesar obstáculos con rapidez.",
+    "right": "El celeste recompensa esperar quieto antes de un ataque preciso.",
+    "evidence": "game"
+  },
+  {
+    "label": "Una pregunta para reflexionar",
+    "left": "¿Qué acción segura puedes dar sin fingir que el miedo ha desaparecido?",
+    "right": "¿Cuándo sería razonable preguntar de nuevo y qué puedes hacer mientras esperas?",
+    "evidence": "interpretation"
+  }
+],
+      differenceParagraphs: [
+  "Una reunión se caldea. La Valentía ayuda a plantear una preocupación necesaria pese a los nervios. La Paciencia ayuda a parar, escuchar y elegir un momento más tranquilo. Hablar deprisa no siempre es valiente y esperar no siempre es paciente.",
+  "¿Qué necesitas decir y qué momento te permite decirlo con seguridad y claridad?"
+],
       scenarios: [
-        { title: 'Una oportunidad con información incompleta', left: 'Actúa si la ventana se cierra y el riesgo es soportable.', right: 'Espera si un dato puede cambiar la decisión.' },
-        { title: 'Un conflicto aumenta', left: 'Interviene si el silencio permite daño.', right: 'Pausa si hablar ahora empeoraría el conflicto.' },
-        { title: 'Una obra parece imperfecta', left: 'Publica si el miedo es el bloqueo principal.', right: 'Revisa si los defectos son concretos y corregibles.' },
-      ],
-      hybridIntro: 'Puntuaciones altas sugieren flexibilidad para actuar con decisión o esperar de forma deliberada. Es una interpretación, no un diagnóstico.',
-      strengths: ['Distingue demora útil de evasión.', 'Actúa rápido después de observar.', 'Tolera exposición e incertidumbre.'],
-      risks: ['Oscilar entre impulso y demora excesiva.', 'Usar un rasgo para justificar el punto ciego del otro.', 'Esperar una señal perfecta y luego correr bajo presión.'],
+  {
+    "title": "¿Qué necesitas decir y qué momento te permite decirlo con seguridad y claridad?",
+    "left": "¿Qué acción segura puedes dar sin fingir que el miedo ha desaparecido?",
+    "right": "¿Cuándo sería razonable preguntar de nuevo y qué puedes hacer mientras esperas?"
+  }
+],
+      hybridIntro: "Dos resultados cercanos pueden describir respuestas a partes distintas de una situación. Lee ambas definiciones y observa qué parte de la decisión trata cada una. La regla de 3 puntos no demuestra una diferencia psicológicamente significativa.",
+      strengths: [
+  "Necesitas plantear una preocupación. Reconoces tus nervios y eliges una acción pequeña y segura, como pedir una conversación privada.",
+  "Una respuesta tarda. Eliges un momento razonable para preguntar y haces otra tarea, en vez de revisar sin parar o descargar la frustración en alguien."
+],
+      risks: [
+  "Son respuestas personales a un test adaptado de forma independiente. Las fuentes de dominio público no convierten estos siete temas en un instrumento psicológico validado. El ánimo, la experiencia y la interpretación pueden cambiar las respuestas. Una puntuación baja no prueba que te falte una virtud; una alta no justifica riesgos ni permite diagnosticar."
+],
       evidenceBody: 'Valentía y Paciencia aparecen en el Juego de Pelota. El naranja premia rapidez ante obstáculos; el celeste, esperar quieto una oportunidad. El modelo amplio es interpretación del sitio.',
-      testBody: 'Haz el test para comparar tu tendencia a actuar, esperar y ajustar el momento bajo presión.',
+      testBody: "El resultado completo de siete temas, la revisión de respuestas y la tarjeta PNG son gratuitos, sin cuenta, pago ni invitaciones.",
     }),
     pt: withShared('pt', {
       seoTitle: 'Bravura vs Paciência em Undertale',
-      seoDescription: 'Compare Bravura e Paciência em Undertale: agir apesar do medo versus esperar o momento certo, com evidências e exemplos.',
+      seoDescription: "A Bravura trata de uma ação segura apesar do medo; a Paciência, de pausar e lidar com a frustração quando o momento importa.",
       heading: 'Bravura vs Paciência',
-      intro: 'Bravura reduz o poder da hesitação e avança para o obstáculo. Paciência resiste à ação prematura e protege o momento certo.',
-      quickAnswer: 'Bravura age; Paciência espera o momento certo.',
+      intro: "A Bravura trata de uma ação segura apesar do medo; a Paciência, de pausar e lidar com a frustração quando o momento importa.",
+      quickAnswer: "A Bravura trata de uma ação segura apesar do medo; a Paciência, de pausar e lidar com a frustração quando o momento importa.",
       leftLabel: 'Bravura',
       rightLabel: 'Paciência',
       rows: [
-        { label: 'Movimento principal', left: 'Avançar apesar do medo ou incerteza.', right: 'Esperar até o momento ou a informação melhorar.', evidence: 'interpretation' },
-        { label: 'Risco evitado', left: 'Perder a oportunidade por hesitação.', right: 'Prejudicar o resultado pela pressa.', evidence: 'interpretation' },
-        { label: 'Evidência em Undertale', left: 'O resultado laranja recompensa atravessar obstáculos rapidamente.', right: 'O azul-claro recompensa esperar imóvel antes de um ataque preciso.', evidence: 'game' },
-        { label: 'Melhor expressão', left: 'Agir quando a demora protege apenas o conforto.', right: 'Esperar quando agir seria prematuro.', evidence: 'interpretation' },
-        { label: 'Ponto cego', left: 'Confundir velocidade com coragem.', right: 'Confundir fuga com bom momento.', evidence: 'interpretation' },
-      ],
-      differenceParagraphs: ['Os traços discordam sobre o momento, não sobre compromisso. Bravura vê o custo de esperar. Paciência vê o custo de agir cedo. Uma decisão madura compara os dois custos.', 'Esperar pode exigir coragem quando outros pedem ação imediata. Agir pode conter paciência quando vem após longa preparação. A diferença útil está na decisão do momento crítico.'],
+  {
+    "label": "O que este teste explora",
+    "left": "Expressar-se ou agir apesar do medo ou da pressão social quando isso é razoavelmente seguro. A pontuação não premia o perigo nem exige extroversão.",
+    "right": "Como você reage à espera, à frustração leve e à irritação. Inclui pausar e se acalmar; não exige tolerar danos ou atrasos indefinidos.",
+    "evidence": "interpretation"
+  },
+  {
+    "label": "Evidência em Undertale",
+    "left": "O resultado laranja recompensa atravessar obstáculos rapidamente.",
+    "right": "O azul-claro recompensa esperar imóvel antes de um ataque preciso.",
+    "evidence": "game"
+  },
+  {
+    "label": "Uma pergunta para refletir",
+    "left": "Que ação segura você pode tomar sem fingir que o medo desapareceu?",
+    "right": "Quando seria razoável perguntar de novo e o que você pode fazer enquanto espera?",
+    "evidence": "interpretation"
+  }
+],
+      differenceParagraphs: [
+  "Uma reunião fica acalorada. A Bravura ajuda a levantar uma preocupação necessária apesar do nervosismo. A Paciência ajuda a pausar, ouvir e escolher um momento mais calmo. Falar rápido nem sempre é corajoso, e esperar nem sempre é paciente.",
+  "O que precisa ser dito e qual momento permite dizer isso com segurança e clareza?"
+],
       scenarios: [
-        { title: 'Uma oportunidade com informação incompleta', left: 'Age se a janela fechar e o risco for suportável.', right: 'Espera se um dado puder mudar a decisão.' },
-        { title: 'Um conflito aumenta', left: 'Intervém se o silêncio permitir dano.', right: 'Pausa se falar agora piorar o conflito.' },
-        { title: 'Uma obra parece imperfeita', left: 'Publica se o medo for o principal bloqueio.', right: 'Revisa se os defeitos forem concretos e corrigíveis.' },
-      ],
-      hybridIntro: 'Pontuações altas sugerem flexibilidade para agir com decisão ou esperar de propósito. É interpretação, não diagnóstico.',
-      strengths: ['Distingue demora útil de fuga.', 'Age rápido depois de observar.', 'Tolera exposição e incerteza.'],
-      risks: ['Oscilar entre impulso e demora excessiva.', 'Usar um traço para justificar o ponto cego do outro.', 'Esperar sinal perfeito e correr sob pressão.'],
+  {
+    "title": "O que precisa ser dito e qual momento permite dizer isso com segurança e clareza?",
+    "left": "Que ação segura você pode tomar sem fingir que o medo desapareceu?",
+    "right": "Quando seria razoável perguntar de novo e o que você pode fazer enquanto espera?"
+  }
+],
+      hybridIntro: "Dois resultados próximos podem descrever respostas a partes diferentes da mesma situação. Leia as duas definições e veja qual parte da decisão cada uma aborda. A regra de 3 pontos não demonstra uma diferença psicologicamente significativa.",
+      strengths: [
+  "Você precisa levantar uma preocupação. Reconhece o nervosismo e escolhe uma ação pequena e segura, como pedir uma conversa particular.",
+  "Uma resposta demora. Você escolhe um momento razoável para perguntar e faz outra tarefa, em vez de verificar sem parar ou descontar a frustração em alguém."
+],
+      risks: [
+  "São respostas pessoais a um teste adaptado de forma independente. Fontes de domínio público não transformam os sete temas em um instrumento psicológico validado. Humor, experiência e interpretação podem afetar as respostas. Uma pontuação baixa não prova falta de uma virtude; uma alta não justifica riscos nem permite diagnosticar."
+],
       evidenceBody: 'Bravura e Paciência aparecem no Jogo da Bola. O laranja premia rapidez diante de obstáculos; o azul-claro, esperar imóvel por uma oportunidade. O modelo amplo é interpretação do site.',
-      testBody: 'Faça o teste para comparar sua tendência a agir, esperar e ajustar o momento sob pressão.',
+      testBody: "O resultado completo dos sete temas, a revisão de respostas e o cartão PNG são gratuitos, sem conta, pagamento ou convites.",
     }),
     ru: withShared('ru', {
       seoTitle: 'Храбрость против Терпения в Undertale - Сравнение черт души',
-      seoDescription: 'Сравнение Храбрости и Терпения в Undertale: стремительное действие против выжидания и наблюдения, игровая механика и реальные примеры.',
+      seoDescription: "Храбрость относится к безопасному действию несмотря на страх; Терпение — к паузе и управлению раздражением с учётом времени.",
       heading: 'Храбрость против Терпения',
-      intro: 'Храбрость и Терпение представляют две противоположные тактики преодоления трудностей: движение сквозь опасность против выжидания момента.',
-      quickAnswer: 'Храбрость движется сквозь шторм; Терпение ждёт, пока он утихнет.',
+      intro: "Храбрость относится к безопасному действию несмотря на страх; Терпение — к паузе и управлению раздражением с учётом времени.",
+      quickAnswer: "Храбрость относится к безопасному действию несмотря на страх; Терпение — к паузе и управлению раздражением с учётом времени.",
       leftLabel: 'Храбрость',
       rightLabel: 'Терпение',
       rows: [
-        { label: 'Философия действия', left: 'Действовать немедленно вопреки страху.', right: 'Наблюдать и дождаться наилучшего окна возможностей.', evidence: 'interpretation' },
-        { label: 'Реакция на опасность', left: 'Движение вперёд напролом.', right: 'Полная неподвижность и хладнокровие.', evidence: 'interpretation' },
-        { label: 'Механика Undertale', left: 'Оранжевые снаряды: двигайтесь, чтобы не получить урон.', right: 'Голубые снаряды: замрите, чтобы пропустить урон.', evidence: 'game' },
-        { label: 'Сильнейшее проявление', left: 'Решительный прорыв в критической ситуации.', right: 'Безупречная выдержка под давлением.', evidence: 'interpretation' },
-        { label: 'Слепая зона', left: 'Неоправданный риск и импульсивность.', right: 'Упущенные возможности из-за излишней медлительности.', evidence: 'interpretation' },
-      ],
+  {
+    "label": "На чём сосредоточен тест",
+    "left": "Выражение позиции или действие несмотря на страх и давление окружающих, когда это достаточно безопасно. Оценка не поощряет опасность и не требует общительности.",
+    "right": "Реакция на ожидание, небольшие неудачи и раздражение. Сюда относятся пауза и самоуспокоение, но не обязанность терпеть вред или бесконечную задержку.",
+    "evidence": "interpretation"
+  },
+  {
+    "label": "Механика Undertale",
+    "left": "Оранжевые снаряды: двигайтесь, чтобы не получить урон.",
+    "right": "Голубые снаряды: замрите, чтобы пропустить урон.",
+    "evidence": "game"
+  },
+  {
+    "label": "Вопрос для размышления",
+    "left": "Какой безопасный шаг можно сделать, не притворяясь, что страх исчез?",
+    "right": "Когда разумно уточнить ответ и что можно сделать во время ожидания?",
+    "evidence": "interpretation"
+  }
+],
       differenceParagraphs: [
-        'В Undertale это буквальная противоположность боевых механик: оранжевый цвет требует непрерывного движения, а голубой — абсолютного покоя.',
-        'В жизни Храбрость помогает сделать первый шаг, а Терпение — не сорваться раньше времени.',
-      ],
+  "Обсуждение стало напряжённым. Храбрость помогает высказать необходимое опасение даже при волнении. Терпение помогает остановиться, выслушать и выбрать спокойный момент. Быстрая речь не всегда означает храбрость, а ожидание — терпение.",
+  "Что нужно сказать и когда это можно сделать безопасно и ясно?"
+],
       scenarios: [
-        { title: 'Внезапная кризисная ситуация', left: 'Сразу бросается устранять источник угрозы.', right: 'Оценивает обстановку и ждёт прояснения картины.' },
-        { title: 'Переговоры зашли в тупик', left: 'Предлагает смелый и неожиданный компромисс.', right: 'Берёт паузу и ждёт следующего шага оппонента.' },
-        { title: 'Новая карьерная возможность', left: 'Подаёт заявку немедленно, даже без полного соответствия.', right: 'Тщательно готовится и ждёт идеальной вакансии.' },
-      ],
-      hybridIntro: 'Сочетание Храбрости и Терпения объединяет готовность к риску с глубоким стратегическим расчётом.',
-      strengths: ['Идеальное чувство момента для решающего действия.', 'Способность как к резкому рывку, так и к долгой позиционной борьбе.', 'Хладнокровие в опасных ситуациях.']
+  {
+    "title": "Что нужно сказать и когда это можно сделать безопасно и ясно?",
+    "left": "Какой безопасный шаг можно сделать, не притворяясь, что страх исчез?",
+    "right": "Когда разумно уточнить ответ и что можно сделать во время ожидания?"
+  }
+],
+      hybridIntro: "Две близкие оценки могут отражать реакции на разные части одной ситуации. Прочитайте оба определения и отметьте, к какой части решения относится каждое. Правило 3 пунктов не доказывает психологически значимой разницы.",
+      strengths: [
+  "Нужно высказать опасение. Вы признаёте своё волнение и выбираете небольшой безопасный шаг, например просите поговорить наедине.",
+  "Ответ задерживается. Вы выбираете разумное время для уточнения и занимаетесь другой задачей вместо постоянных проверок или раздражения на других."
+]
 ,
-      risks: ['Внутренний конфликт между порывом действовать и желанием подождать.', 'Усталость от постоянного сдерживания инициативы.'],
+      risks: [
+  "Это личные ответы на независимо адаптированный тест. Источники из общественного достояния не делают сочетание семи тем валидированным психологическим опросником. Ответы зависят от настроения, опыта и понимания текста. Низкий балл не доказывает отсутствие добродетели, а высокий не оправдывает риск и не позволяет поставить диагноз."
+],
       evidenceBody: 'Оранжевая и голубая механики атак в Undertale служат прямым отражением этих качеств.',
-      testBody: 'Пройдите тест из 66 вопросов, чтобы узнать, какая стратегия вам ближе.',
+      testBody: "Полный результат по семи темам, просмотр ответов и PNG-карточка бесплатны. Учётная запись, оплата и приглашения не нужны.",
     }),
   },
 };
@@ -713,141 +1158,253 @@ export const JUSTICE_VS_KINDNESS: ComparisonSample = {
   copy: {
     en: withShared('en', {
       seoTitle: 'Justice vs Kindness: Undertale Soul Traits Compared',
-      seoDescription: 'Compare Justice and Kindness in Undertale: defending fairness versus reducing harm, with game evidence, difficult scenarios, strengths, and risks.',
+      seoDescription: "Compare Justice and Kindness: fair treatment and consistent standards versus care that meets a need. Read examples and the limits of the V2 quiz scores.",
       heading: 'Justice vs Kindness',
-      intro: 'Justice asks what treatment is fair and what accountability is required. Kindness asks what response will care for people and reduce unnecessary harm.',
-      quickAnswer: 'Justice protects fairness; Kindness reduces harm.',
+      intro: "Justice concerns fair treatment and consistent standards; Kindness concerns care that answers someone's actual need.",
+      quickAnswer: "Justice concerns fair treatment and consistent standards; Kindness concerns care that answers someone's actual need.",
       leftLabel: 'Justice',
       rightLabel: 'Kindness',
       rows: [
-        { label: 'Primary focus', left: 'Fair rules, equal consideration, and accountability.', right: 'Care, relief, and the wellbeing of people involved.', evidence: 'interpretation' },
-        { label: 'After wrongdoing', left: 'Clarifies responsibility and repairs unfairness.', right: 'Prevents further harm and supports recovery.', evidence: 'interpretation' },
-        { label: 'Undertale evidence', left: 'The yellow Ball Game result praises accuracy ending the mayhem.', right: 'The green result praises concern and care leading to victory.', evidence: 'game' },
-        { label: 'Best expression', left: 'Protecting someone whose rights were ignored.', right: 'Responding without adding avoidable suffering.', evidence: 'interpretation' },
-        { label: 'Blind spot', left: 'Making punishment more important than repair.', right: 'Avoiding accountability to preserve comfort.', evidence: 'interpretation' },
-      ],
-      differenceParagraphs: ['Justice and Kindness often want the same outcome but disagree on method. Justice worries that mercy without accountability leaves the vulnerable unprotected. Kindness worries that punishment without care reproduces harm.', 'The strongest response may combine both: name the wrongdoing clearly, protect the harmed person, set proportionate consequences, and leave room for repair when repair is safe.'],
+  {
+    "label": "What this quiz focuses on",
+    "left": "Applying fair standards to different people, with attention to rights, opportunity and shared outcomes. Fairness can require understanding different needs.",
+    "right": "Caring, listening and offering useful help within reasonable limits. Being kind does not require taking over another person's choices or neglecting your own needs.",
+    "evidence": "interpretation"
+  },
+  {
+    "label": "Undertale evidence",
+    "left": "The yellow Ball Game result praises accuracy ending the mayhem.",
+    "right": "The green result praises concern and care leading to victory.",
+    "evidence": "game"
+  },
+  {
+    "label": "A question for reflection",
+    "left": "Would you accept the same standard if it were applied to you or someone you dislike?",
+    "right": "What help would answer this person's actual need, and what can you reasonably offer?",
+    "evidence": "interpretation"
+  }
+],
+      differenceParagraphs: [
+  "A teammate misses a deadline because of illness. Justice asks how to apply a fair standard with the relevant facts. Kindness asks what practical support would help within your limits. Fairness need not ignore needs, and care need not excuse every commitment.",
+  "What standard would remain fair for everyone, and what support would help this person?"
+],
       scenarios: [
-        { title: 'A colleague causes preventable harm', left: 'Documents what happened and requests fair accountability.', right: 'Supports the harmed person and avoids public humiliation.' },
-        { title: 'A rule is applied equally but causes hardship', left: 'Checks whether equal treatment is genuinely fair.', right: 'Seeks an exception that reduces unnecessary suffering.' },
-        { title: 'Someone apologizes after wrongdoing', left: 'Looks for responsibility and concrete repair.', right: 'Considers remorse, context, and a humane path forward.' },
-      ],
-      hybridIntro: 'High Justice and Kindness suggests compassionate accountability: protecting fairness while limiting unnecessary harm. This is an interpretation, not a diagnosis.',
-      strengths: ['Defends people without dehumanizing the offender.', 'Balances consequences with repair.', 'Notices both unequal treatment and emotional cost.'],
-      risks: ['Becoming trapped between firmness and mercy.', 'Taking responsibility for everyone’s pain.', 'Creating inconsistent consequences to avoid discomfort.'],
+  {
+    "title": "What standard would remain fair for everyone, and what support would help this person?",
+    "left": "Would you accept the same standard if it were applied to you or someone you dislike?",
+    "right": "What help would answer this person's actual need, and what can you reasonably offer?"
+  }
+],
+      hybridIntro: "Two close scores can describe different responses to the same situation. Read both definitions and notice which part of the decision each addresses. The 3-point display rule does not show that a difference is psychologically significant.",
+      strengths: [
+  "A group divides credit for a project. You check contributions and use a standard you could also accept if you were not the person benefiting.",
+  "A friend is struggling. Before offering help, you ask whether they want listening, practical support or some space."
+],
+      risks: [
+  "These are self-reported responses to an independently adapted quiz. Public-domain source material does not make the seven-theme combination a validated psychological inventory. Mood, experience and interpretation can affect answers. A low score does not prove you lack a virtue; a high score cannot justify unsafe behavior or diagnose anyone."
+],
       evidenceBody: 'Justice and Kindness are explicitly named in the Ball Game. Yellow refers to accuracy ending mayhem; green refers to concern and care. “Fairness versus reducing harm” is a practical interpretation, not a direct rule stated by the game.',
-      testBody: 'Take the test to compare your response to unfairness, suffering, accountability, and repair.',
+      testBody: "The complete seven-score result, answer review and PNG card are free, with no account, payment or invitation required.",
     }),
     ja: withShared('ja', {
       seoTitle: 'Undertale せいぎとしんせつの違い',
-      seoDescription: 'Undertaleのせいぎとしんせつを比較。公平を守り責任を求める力と、不要な害を減らし人を気づかう力の違いを解説。',
+      seoDescription: "せいぎは公平な対応と一貫した基準、やさしさは相手の本当の必要に合う気遣いです。",
       heading: 'せいぎ vs しんせつ',
-      intro: 'せいぎは何が公平で、どんな責任が必要かを問います。しんせつは人を気づかい、不要な害を減らす反応を問います。',
-      quickAnswer: 'せいぎは公平を守り、しんせつは害を減らします。',
+      intro: "せいぎは公平な対応と一貫した基準、やさしさは相手の本当の必要に合う気遣いです。",
+      quickAnswer: "せいぎは公平な対応と一貫した基準、やさしさは相手の本当の必要に合う気遣いです。",
       leftLabel: 'せいぎ',
       rightLabel: 'しんせつ',
       rows: [
-        { label: '中心', left: '公平な規則、平等な配慮、責任。', right: '気づかい、救済、関係者の健康。', evidence: 'interpretation' },
-        { label: '問題行動の後', left: '責任を明確にし、不公平を直す。', right: '追加の害を防ぎ、回復を支える。', evidence: 'interpretation' },
-        { label: 'Undertaleでの根拠', left: '黄の結果は混乱を終わらせた正確さを称える。', right: '緑の結果は勝利につながる気づかいと世話を称える。', evidence: 'game' },
-        { label: '強みが出る場面', left: '権利を無視された人を守る。', right: '避けられる苦しみを増やさず対応する。', evidence: 'interpretation' },
-        { label: '注意点', left: '修復より罰を重要にする。', right: '安心を守るため責任追及を避ける。', evidence: 'interpretation' },
-      ],
-      differenceParagraphs: ['せいぎとしんせつは同じ結果を望みながら、方法で対立します。せいぎは責任のない慈悲が弱い人を守れないと考え、しんせつは気づかいのない罰が害を繰り返すと考えます。', '強い対応は両方を使えます。問題を明確にし、被害を受けた人を守り、釣り合う結果を設け、安全なら修復の余地を残します。'],
+  {
+    "label": "このテストで見るテーマ",
+    "left": "権利、機会、共同の成果に目を向け、相手によらず公平な基準を使うこと。公平さには人ごとの必要を理解することも含まれる。",
+    "right": "無理のない範囲で気にかけ、話を聞き、役に立つ助けを提供すること。相手の選択を代わりに決めたり、自分の必要を無視したりする必要はない。",
+    "evidence": "interpretation"
+  },
+  {
+    "label": "Undertaleでの根拠",
+    "left": "黄の結果は混乱を終わらせた正確さを称える。",
+    "right": "緑の結果は勝利につながる気づかいと世話を称える。",
+    "evidence": "game"
+  },
+  {
+    "label": "振り返るための問い",
+    "left": "その基準が自分や苦手な相手に使われても受け入れられますか。",
+    "right": "相手の本当の必要に合う助けは何ですか。無理なく何を提供できますか。",
+    "evidence": "interpretation"
+  }
+],
+      differenceParagraphs: [
+  "病気でチームの仲間が期限に遅れた。せいぎでは必要な事実を踏まえて公平な基準を考える。やさしさでは無理のない具体的な支援を考える。公平さは必要を無視することではなく、気遣いもすべての約束を免除することではない。",
+  "全員に公平な基準は何ですか。この人にはどんな支援が役立ちますか。"
+],
       scenarios: [
-        { title: '同僚が防げた害を起こした', left: '事実を記録し、公平な責任を求める。', right: '被害を受けた人を支え、公開の屈辱を避ける。' },
-        { title: '平等な規則が苦痛を生む', left: '同じ扱いが本当に公平か確認する。', right: '不要な苦しみを減らす例外を探す。' },
-        { title: '問題行動の後に謝罪した', left: '責任と具体的な修復を見る。', right: '反省、事情、人間的な前進方法を考える。' },
-      ],
-      hybridIntro: '両方が高い人は、公平を守りながら不要な害を抑える「思いやりある責任」を示す傾向があります。これは診断ではありません。',
-      strengths: ['相手を人間以下に扱わず人を守る。', '結果と修復の釣り合いを取る。', '不平等と感情的代償の両方に気づく。'],
-      risks: ['厳しさと慈悲の間で動けなくなる。', '全員の苦しみに責任を感じる。', '不快感を避けるため結果を不統一にする。'],
+  {
+    "title": "全員に公平な基準は何ですか。この人にはどんな支援が役立ちますか。",
+    "left": "その基準が自分や苦手な相手に使われても受け入れられますか。",
+    "right": "相手の本当の必要に合う助けは何ですか。無理なく何を提供できますか。"
+  }
+],
+      hybridIntro: "近い2つの得点は、同じ状況の違う部分への反応を示すことがあります。両方の定義を読み、それぞれが判断のどの部分を見るか考えてください。3点という表示基準は心理学的に意味のある差を示しません。",
+      strengths: [
+  "グループで成果の評価を分ける。各自の貢献を確認し、自分が得をしない立場でも受け入れられる基準を使う。",
+  "友人が困っている。助ける前に、話を聞いてほしいのか、具体的な支援がほしいのか、少し一人でいたいのかを聞く。"
+],
+      risks: [
+  "結果は、独自に改編した質問への自己申告の回答です。出典がパブリックドメインでも、7つのテーマの組合せが検証済み心理尺度になるわけではありません。気分、経験、解釈で回答は変わります。低い得点は美徳がない証拠ではなく、高い得点も危険な行動や診断を正当化しません。"
+],
       evidenceBody: 'せいぎとしんせつはボールゲームで明示されます。黄は混乱を終える正確さ、緑は気づかいと世話を示します。「公平／害を減らす」は実生活向けの解釈です。',
-      testBody: '66問のテストで、不公平、苦しみ、責任、修復への反応を比較できます。',
+      testBody: "7つの得点、回答の確認、PNGカードはすべて無料です。アカウント、支払い、招待は不要です。",
     }),
     es: withShared('es', {
       seoTitle: 'Justicia vs Bondad en Undertale',
-      seoDescription: 'Compara Justicia y Bondad en Undertale: defender la equidad frente a reducir el daño, con evidencia, escenarios, fortalezas y riesgos.',
+      seoDescription: "La Justicia trata del trato justo y los criterios coherentes; la Bondad, del cuidado que responde a una necesidad real.",
       heading: 'Justicia vs Bondad',
-      intro: 'La Justicia pregunta qué trato es justo y qué responsabilidad hace falta. La Bondad pregunta qué respuesta cuida a las personas y reduce daño innecesario.',
-      quickAnswer: 'La Justicia protege la equidad; la Bondad reduce el daño.',
+      intro: "La Justicia trata del trato justo y los criterios coherentes; la Bondad, del cuidado que responde a una necesidad real.",
+      quickAnswer: "La Justicia trata del trato justo y los criterios coherentes; la Bondad, del cuidado que responde a una necesidad real.",
       leftLabel: 'Justicia',
       rightLabel: 'Bondad',
       rows: [
-        { label: 'Enfoque principal', left: 'Reglas justas, consideración igual y responsabilidad.', right: 'Cuidado, alivio y bienestar de las personas.', evidence: 'interpretation' },
-        { label: 'Después del daño', left: 'Aclara responsabilidad y repara la desigualdad.', right: 'Evita más daño y apoya la recuperación.', evidence: 'interpretation' },
-        { label: 'Evidencia en Undertale', left: 'El resultado amarillo elogia la precisión que termina el caos.', right: 'El verde elogia la preocupación y el cuidado que llevan a la victoria.', evidence: 'game' },
-        { label: 'Mejor expresión', left: 'Proteger a quien vio ignorados sus derechos.', right: 'Responder sin añadir sufrimiento evitable.', evidence: 'interpretation' },
-        { label: 'Punto ciego', left: 'Dar más importancia al castigo que a reparar.', right: 'Evitar responsabilidad para conservar comodidad.', evidence: 'interpretation' },
-      ],
-      differenceParagraphs: ['Justicia y Bondad suelen querer el mismo resultado, pero discrepan sobre el método. La Justicia teme que la compasión sin responsabilidad deje desprotegida a la persona vulnerable. La Bondad teme que el castigo sin cuidado reproduzca el daño.', 'La respuesta más sólida puede combinar ambas: nombrar el daño, proteger a la persona afectada, establecer consecuencias proporcionales y permitir reparación cuando sea segura.'],
+  {
+    "label": "Qué explora este test",
+    "left": "Aplicar criterios justos a personas diferentes, atendiendo a sus derechos, oportunidades y resultados compartidos. La justicia puede requerir entender necesidades distintas.",
+    "right": "Preocuparte, escuchar y ofrecer ayuda útil dentro de límites razonables. Ser amable no exige decidir por otra persona ni descuidar tus necesidades.",
+    "evidence": "interpretation"
+  },
+  {
+    "label": "Evidencia en Undertale",
+    "left": "El resultado amarillo elogia la precisión que termina el caos.",
+    "right": "El verde elogia la preocupación y el cuidado que llevan a la victoria.",
+    "evidence": "game"
+  },
+  {
+    "label": "Una pregunta para reflexionar",
+    "left": "¿Aceptarías el mismo criterio si se aplicara a ti o a alguien que te cae mal?",
+    "right": "¿Qué ayuda responde a su necesidad real y qué puedes ofrecer razonablemente?",
+    "evidence": "interpretation"
+  }
+],
+      differenceParagraphs: [
+  "Un compañero incumple un plazo por enfermedad. La Justicia pregunta cómo aplicar un criterio justo con los hechos relevantes. La Bondad pregunta qué apoyo práctico puedes ofrecer dentro de tus límites. Ser justo no exige ignorar necesidades y cuidar no exige excusar todo compromiso.",
+  "¿Qué criterio seguiría siendo justo para todos y qué apoyo ayudaría a esta persona?"
+],
       scenarios: [
-        { title: 'Un colega causa daño evitable', left: 'Documenta lo ocurrido y pide responsabilidad justa.', right: 'Apoya a la persona afectada y evita humillación pública.' },
-        { title: 'Una regla igual causa dificultad', left: 'Comprueba si el trato igual es realmente justo.', right: 'Busca una excepción que reduzca sufrimiento innecesario.' },
-        { title: 'Alguien se disculpa', left: 'Busca responsabilidad y reparación concreta.', right: 'Considera arrepentimiento, contexto y una salida humana.' },
-      ],
-      hybridIntro: 'Puntuaciones altas sugieren responsabilidad compasiva: proteger la equidad limitando el daño innecesario. Es una interpretación, no un diagnóstico.',
-      strengths: ['Defiende sin deshumanizar al responsable.', 'Equilibra consecuencias y reparación.', 'Ve desigualdad y coste emocional.'],
-      risks: ['Quedar atrapado entre firmeza y compasión.', 'Asumir el dolor de todos.', 'Crear consecuencias incoherentes para evitar incomodidad.'],
+  {
+    "title": "¿Qué criterio seguiría siendo justo para todos y qué apoyo ayudaría a esta persona?",
+    "left": "¿Aceptarías el mismo criterio si se aplicara a ti o a alguien que te cae mal?",
+    "right": "¿Qué ayuda responde a su necesidad real y qué puedes ofrecer razonablemente?"
+  }
+],
+      hybridIntro: "Dos resultados cercanos pueden describir respuestas a partes distintas de una situación. Lee ambas definiciones y observa qué parte de la decisión trata cada una. La regla de 3 puntos no demuestra una diferencia psicológicamente significativa.",
+      strengths: [
+  "Un grupo reparte el reconocimiento de un proyecto. Revisas las contribuciones y usas un criterio que aceptarías incluso sin beneficiarte de él.",
+  "Un amigo tiene dificultades. Antes de ayudar, preguntas si quiere que lo escuches, apoyo práctico o un poco de espacio."
+],
+      risks: [
+  "Son respuestas personales a un test adaptado de forma independiente. Las fuentes de dominio público no convierten estos siete temas en un instrumento psicológico validado. El ánimo, la experiencia y la interpretación pueden cambiar las respuestas. Una puntuación baja no prueba que te falte una virtud; una alta no justifica riesgos ni permite diagnosticar."
+],
       evidenceBody: 'Justicia y Bondad aparecen en el Juego de Pelota. El amarillo habla de precisión que termina el caos; el verde, de preocupación y cuidado. “Equidad frente a reducir daño” es interpretación práctica.',
-      testBody: 'Haz el test para comparar tu respuesta a la injusticia, el sufrimiento, la responsabilidad y la reparación.',
+      testBody: "El resultado completo de siete temas, la revisión de respuestas y la tarjeta PNG son gratuitos, sin cuenta, pago ni invitaciones.",
     }),
     pt: withShared('pt', {
       seoTitle: 'Justiça vs Bondade em Undertale',
-      seoDescription: 'Compare Justiça e Bondade em Undertale: defender equidade versus reduzir dano, com evidências, cenários, forças e riscos.',
+      seoDescription: "A Justiça trata de tratamento justo e critérios coerentes; a Bondade, do cuidado que responde a uma necessidade real.",
       heading: 'Justiça vs Bondade',
-      intro: 'Justiça pergunta qual tratamento é justo e qual responsabilidade é necessária. Bondade pergunta qual resposta cuida das pessoas e reduz dano desnecessário.',
-      quickAnswer: 'Justiça protege a equidade; Bondade reduz o dano.',
+      intro: "A Justiça trata de tratamento justo e critérios coerentes; a Bondade, do cuidado que responde a uma necessidade real.",
+      quickAnswer: "A Justiça trata de tratamento justo e critérios coerentes; a Bondade, do cuidado que responde a uma necessidade real.",
       leftLabel: 'Justiça',
       rightLabel: 'Bondade',
       rows: [
-        { label: 'Foco principal', left: 'Regras justas, consideração igual e responsabilidade.', right: 'Cuidado, alívio e bem-estar das pessoas.', evidence: 'interpretation' },
-        { label: 'Depois do dano', left: 'Esclarece responsabilidade e corrige desigualdade.', right: 'Evita mais dano e apoia recuperação.', evidence: 'interpretation' },
-        { label: 'Evidência em Undertale', left: 'O resultado amarelo elogia a precisão que encerra o caos.', right: 'O verde elogia preocupação e cuidado que levam à vitória.', evidence: 'game' },
-        { label: 'Melhor expressão', left: 'Proteger quem teve seus direitos ignorados.', right: 'Responder sem acrescentar sofrimento evitável.', evidence: 'interpretation' },
-        { label: 'Ponto cego', left: 'Dar mais valor à punição que ao reparo.', right: 'Evitar responsabilidade para manter conforto.', evidence: 'interpretation' },
-      ],
-      differenceParagraphs: ['Justiça e Bondade costumam querer o mesmo resultado, mas discordam do método. Justiça teme que compaixão sem responsabilidade deixe vulneráveis sem proteção. Bondade teme que punição sem cuidado reproduza o dano.', 'A resposta mais forte pode unir ambas: nomear o dano, proteger a pessoa afetada, criar consequências proporcionais e permitir reparo quando for seguro.'],
+  {
+    "label": "O que este teste explora",
+    "left": "Aplicar critérios justos a pessoas diferentes, considerando direitos, oportunidades e resultados compartilhados. A justiça pode exigir entender necessidades diferentes.",
+    "right": "Cuidar, ouvir e oferecer ajuda útil dentro de limites razoáveis. Ser gentil não exige decidir por outra pessoa nem ignorar suas próprias necessidades.",
+    "evidence": "interpretation"
+  },
+  {
+    "label": "Evidência em Undertale",
+    "left": "O resultado amarelo elogia a precisão que encerra o caos.",
+    "right": "O verde elogia preocupação e cuidado que levam à vitória.",
+    "evidence": "game"
+  },
+  {
+    "label": "Uma pergunta para refletir",
+    "left": "Você aceitaria o mesmo critério se ele fosse aplicado a você ou a alguém de quem não gosta?",
+    "right": "Que ajuda atende à necessidade real dessa pessoa e o que você pode oferecer de forma razoável?",
+    "evidence": "interpretation"
+  }
+],
+      differenceParagraphs: [
+  "Um colega perde um prazo por doença. A Justiça pergunta como aplicar um critério justo com os fatos relevantes. A Bondade pergunta que apoio prático cabe nos seus limites. Ser justo não exige ignorar necessidades, e cuidar não exige desculpar todo compromisso.",
+  "Que critério continuaria justo para todos e que apoio ajudaria essa pessoa?"
+],
       scenarios: [
-        { title: 'Um colega causa dano evitável', left: 'Documenta o ocorrido e pede responsabilidade justa.', right: 'Apoia a pessoa afetada e evita humilhação pública.' },
-        { title: 'Uma regra igual causa dificuldade', left: 'Verifica se tratamento igual é realmente justo.', right: 'Busca exceção que reduza sofrimento desnecessário.' },
-        { title: 'Alguém pede desculpas', left: 'Busca responsabilidade e reparo concreto.', right: 'Considera arrependimento, contexto e caminho humano.' },
-      ],
-      hybridIntro: 'Pontuações altas sugerem responsabilidade compassiva: proteger equidade limitando dano desnecessário. É interpretação, não diagnóstico.',
-      strengths: ['Defende sem desumanizar o responsável.', 'Equilibra consequências e reparo.', 'Percebe desigualdade e custo emocional.'],
-      risks: ['Ficar preso entre firmeza e compaixão.', 'Assumir a dor de todos.', 'Criar consequências incoerentes para evitar desconforto.'],
+  {
+    "title": "Que critério continuaria justo para todos e que apoio ajudaria essa pessoa?",
+    "left": "Você aceitaria o mesmo critério se ele fosse aplicado a você ou a alguém de quem não gosta?",
+    "right": "Que ajuda atende à necessidade real dessa pessoa e o que você pode oferecer de forma razoável?"
+  }
+],
+      hybridIntro: "Dois resultados próximos podem descrever respostas a partes diferentes da mesma situação. Leia as duas definições e veja qual parte da decisão cada uma aborda. A regra de 3 pontos não demonstra uma diferença psicologicamente significativa.",
+      strengths: [
+  "Um grupo divide o reconhecimento de um projeto. Você verifica as contribuições e usa um critério que aceitaria mesmo sem se beneficiar dele.",
+  "Um amigo está com dificuldades. Antes de ajudar, você pergunta se ele quer ser ouvido, apoio prático ou um pouco de espaço."
+],
+      risks: [
+  "São respostas pessoais a um teste adaptado de forma independente. Fontes de domínio público não transformam os sete temas em um instrumento psicológico validado. Humor, experiência e interpretação podem afetar as respostas. Uma pontuação baixa não prova falta de uma virtude; uma alta não justifica riscos nem permite diagnosticar."
+],
       evidenceBody: 'Justiça e Bondade aparecem no Jogo da Bola. O amarelo fala de precisão encerrando o caos; o verde, de preocupação e cuidado. “Equidade versus reduzir dano” é interpretação prática.',
-      testBody: 'Faça o teste para comparar sua resposta a injustiça, sofrimento, responsabilidade e reparo.',
+      testBody: "O resultado completo dos sete temas, a revisão de respostas e o cartão PNG são gratuitos, sem conta, pagamento ou convites.",
     }),
     ru: withShared('ru', {
       seoTitle: 'Справедливость против Доброты в Undertale - Сравнение черт души',
-      seoDescription: 'Сравнение Справедливости и Доброты в Undertale: беспристрастный закон против милосердия и прощения, лор и практические примеры.',
+      seoDescription: "Справедливость относится к справедливому отношению и последовательным критериям; Доброта — к заботе, отвечающей реальной потребности.",
       heading: 'Справедливость против Доброты',
-      intro: 'Обе черты стремятся сделать мир лучше, но по-разному. Справедливость требует ответственности и соблюдения правил. Доброта дарует второй шанс и согревает прощением.',
-      quickAnswer: 'Справедливость требует честного суда; Доброта предлагает прощение.',
+      intro: "Справедливость относится к справедливому отношению и последовательным критериям; Доброта — к заботе, отвечающей реальной потребности.",
+      quickAnswer: "Справедливость относится к справедливому отношению и последовательным критериям; Доброта — к заботе, отвечающей реальной потребности.",
       leftLabel: 'Справедливость',
       rightLabel: 'Доброта',
       rows: [
-        { label: 'Главная ценность', left: 'Равенство перед правилами и воздаяние по заслугам.', right: 'Сострадание, исцеление и эмоциональная забота.', evidence: 'interpretation' },
-        { label: 'Реакция на ошибку', left: 'Призыв к ответу и исправление последствий.', right: 'Понимание мотивов и помощь в исправлении.', evidence: 'interpretation' },
-        { label: 'Снаряжение Undertale', left: 'Пустой пистолет и ковбойская шляпа (оружие возмездия).', right: 'Сковорода и фартук (предметы заботы и питания).', evidence: 'game' },
-        { label: 'Сильнейшее проявление', left: 'Защита слабых через установление честных правил.', right: 'Безусловная поддержка оступившегося человека.', evidence: 'interpretation' },
-        { label: 'Слепая зона', left: 'Чрезмерная суровость, исключающая милосердие.', right: 'Попустительство, позволяющее нарушать границы.', evidence: 'interpretation' },
-      ],
+  {
+    "label": "На чём сосредоточен тест",
+    "left": "Применение справедливых критериев к разным людям с учётом прав, возможностей и общих результатов. Справедливость может требовать понимания разных потребностей.",
+    "right": "Забота, умение слушать и полезная помощь в разумных пределах. Доброта не требует решать за другого человека или пренебрегать своими потребностями.",
+    "evidence": "interpretation"
+  },
+  {
+    "label": "Снаряжение Undertale",
+    "left": "Пустой пистолет и ковбойская шляпа (оружие возмездия).",
+    "right": "Сковорода и фартук (предметы заботы и питания).",
+    "evidence": "game"
+  },
+  {
+    "label": "Вопрос для размышления",
+    "left": "Вы приняли бы тот же критерий, если бы он применялся к вам или к неприятному вам человеку?",
+    "right": "Какая помощь отвечает реальной потребности человека и что вы можете разумно предложить?",
+    "evidence": "interpretation"
+  }
+],
       differenceParagraphs: [
-        'Справедливость спрашивает: «Что правильно и заслуженно?» Доброта спрашивает: «Что сейчас поможет и облегчит боль?»',
-        'Справедливость без Доброты может быть безжалостной; Доброта без Справедливости может стать наивной и беззащитной.',
-      ],
+  "Коллега пропустил срок из-за болезни. Справедливость ставит вопрос о критерии с учётом нужных фактов. Доброта — о посильной практической помощи. Справедливость не требует игнорировать потребности, а забота — оправдывать любое невыполнение обязательства.",
+  "Какой критерий останется справедливым для всех и какая поддержка поможет этому человеку?"
+],
       scenarios: [
-        { title: 'Коллега сорвал общий дедлайн', left: 'Требует честного разбора причин перед всей командой.', right: 'Берёт часть задач на себя и помогает доделать.' },
-        { title: 'Нарушение договоренности', left: 'Применяет оговоренные штрафные санкции.', right: 'Входит в положение и даёт дополнительное время.' },
-        { title: 'Обидчик раскаялся', left: 'Смягчает наказание, но настаивает на компенсации.', right: 'Искренне прощает и помогает восстановить доверие.' },
-      ],
-      hybridIntro: 'Союз Справедливости и Доброты — это идеал мудрого и гуманного лидера, способного защищать порядок с человеческим лицом.',
-      strengths: ['Умение быть требовательным, оставаясь человечным.', 'Создание безопасной и справедливой атмосферы.', 'Заслуженный авторитет и глубокое уважение окружающих.'],
-      risks: ['Трудные моральные дилеммы между долгом и жалостью.', 'Опасность угодить в ловушку обвинений с обеих сторон.'],
+  {
+    "title": "Какой критерий останется справедливым для всех и какая поддержка поможет этому человеку?",
+    "left": "Вы приняли бы тот же критерий, если бы он применялся к вам или к неприятному вам человеку?",
+    "right": "Какая помощь отвечает реальной потребности человека и что вы можете разумно предложить?"
+  }
+],
+      hybridIntro: "Две близкие оценки могут отражать реакции на разные части одной ситуации. Прочитайте оба определения и отметьте, к какой части решения относится каждое. Правило 3 пунктов не доказывает психологически значимой разницы.",
+      strengths: [
+  "Группа распределяет признание за проект. Вы проверяете вклад каждого и применяете критерий, с которым согласились бы и без личной выгоды.",
+  "У друга трудности. Прежде чем помогать, вы спрашиваете, хочет ли он, чтобы его выслушали, нужна ли практическая помощь или время наедине."
+],
+      risks: [
+  "Это личные ответы на независимо адаптированный тест. Источники из общественного достояния не делают сочетание семи тем валидированным психологическим опросником. Ответы зависят от настроения, опыта и понимания текста. Низкий балл не доказывает отсутствие добродетели, а высокий не оправдывает риск и не позволяет поставить диагноз."
+],
       evidenceBody: 'Жёлтая душа правосудия и зелёная душа доброты символизируют две грани морального выбора в Undertale.',
-      testBody: 'Пройдите тест из 66 вопросов, чтобы увидеть, что преобладает в вашем мировоззрении — закон или милосердие.',
+      testBody: "Полный результат по семи темам, просмотр ответов и PNG-карточка бесплатны. Учётная запись, оплата и приглашения не нужны.",
     }),
   },
 };

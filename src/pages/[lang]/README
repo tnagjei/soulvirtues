@@ -1,0 +1,8 @@
+# [lang]
+- 用途：生成共享的非英语方法说明页
+- 关键入口：method.astro
+- 边界/依赖：仅 ja/es/pt/ru 四种静态语言；内容来自 MethodPage
+> 一旦本目录内容变化，请更新本文件
+
+## Files
+- method.astro：生成四个 /<lang>/method/ 页面，保持与英文相同的来源、题号和计分定义

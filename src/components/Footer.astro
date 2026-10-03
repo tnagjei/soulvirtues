@@ -5,6 +5,7 @@
 
 import { getTranslations, type Locale } from '../i18n';
 import { getLocalizedSoulDetails } from '../data/soulDetailsI18n';
+import { ASSESSMENT_COPY } from '../data/assessmentContent';
 
 interface Props {
   lang?: Locale;
@@ -25,7 +26,7 @@ const homeLink = lang === 'en' ? '/' : `/${lang}/`;
 const testLink = lang === 'en' ? '/#test' : `/${lang}/#test`;
 const virtuesLink = lang === 'en' ? '/#virtues' : `/${lang}/#virtues`;
 const comparisonHubLink = lang === 'en' ? '/compare/' : `/${lang}/compare/`;
-const scoringLink = lang === 'en' ? '/#scoring' : `/${lang}/#scoring`;
+const scoringLink = lang === 'en' ? '/method/' : '/' + lang + '/method/';
 const faqLink = lang === 'en' ? '/#faq' : `/${lang}/#faq`;
 const soulsPrefix = lang === 'en' ? '/souls' : `/${lang}/souls`;
 const rawCurrentPath = Astro.url.pathname.replace(/^\/(ja|es|pt|ru)(?=\/|$)/, '') || '/';
@@ -104,7 +105,7 @@ const russianPath = isUnlocalized ? '/ru/' : `/ru${currentPath === '/' ? '/' : c
           <li><a href={testLink} class="hover:text-white transition-colors">{t.footer.testLink}</a></li>
           <li><a href={virtuesLink} class="hover:text-white transition-colors">{t.footer.traitsLink}</a></li>
           <li><a href={comparisonHubLink} class="hover:text-white transition-colors">{footerCopy.comparisons}</a></li>
-          <li><a href={scoringLink} class="hover:text-white transition-colors">{t.footer.scoringLink}</a></li>
+          <li><a href={scoringLink} class="hover:text-white transition-colors">{ASSESSMENT_COPY[lang].methodLink}</a></li>
           <li><a href={faqLink} class="hover:text-white transition-colors">{t.footer.faqLink}</a></li>
         </ul>
       </div>

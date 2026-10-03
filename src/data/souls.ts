@@ -21,8 +21,8 @@ export const SOULS: Record<SoulCode, SoulDefinition> = {
     label: 'RED',
     hex: '#ff0000',
     confuse: 'PER',
-    tag: 'Despite how many times I fell, I always got back up.',
-    description: "Determination does not necessarily mean optimism or hopefulness, as they imply expecting things to work out. Determination does not require that. It is the part of a person that drives them to keep going even when everything seems to be for nothing. It shows up as a specific kind of restlessness. You are hard to talk out of things. You have a sense of how a story is supposed to end and a physical difficulty accepting versions where it does not.",
+    tag: "What still makes this goal worth pursuing, and what evidence would make you change it?",
+    description: "Choosing a goal that matters to you, then deciding how to recommit after a setback. Changing direction after thoughtful review can fit this theme.",
   },
   BRV: {
     code: 'BRV',
@@ -30,8 +30,8 @@ export const SOULS: Record<SoulCode, SoulDefinition> = {
     label: 'ORANGE',
     hex: '#fca600',
     confuse: 'DET',
-    tag: 'Even with trembling in my legs, I refused to back down.',
-    description: "Bravery is not the absence of fear; rather, it is the drive to keep moving in spite of it. Where others would give up when faced with a seemingly impossible challenge, it shines by leading the charge. It tends to look like a willingness to be the first one to speak, the first one to make a choice, the first one to pursue its wishes. Brave people would much rather be hurt than sit idly by to avoid pain.",
+    tag: "What is one safe action you could take without pretending the fear is gone?",
+    description: "Expressing or acting despite fear or social pressure when doing so is reasonably safe. The score does not reward danger or require an outgoing personality.",
   },
   JUS: {
     code: 'JUS',
@@ -39,8 +39,8 @@ export const SOULS: Record<SoulCode, SoulDefinition> = {
     label: 'YELLOW',
     hex: '#ffff00',
     confuse: 'INT',
-    tag: 'Despite the cruelty I endured, I never let myself be corrupted.',
-    description: "Justice is the ideal that fairness should come first: all individuals deserve equal consideration. Slights against yourself can sometimes be let go of; slights against someone who could not stop them, almost never. It makes you the kind of person who will bring a wrongdoing to light no matter what, often at your own expense.",
+    tag: "Would you accept the same standard if it were applied to you or someone you dislike?",
+    description: "Applying fair standards to different people, with attention to rights, opportunity and shared outcomes. Fairness can require understanding different needs.",
   },
   KND: {
     code: 'KND',
@@ -48,8 +48,8 @@ export const SOULS: Record<SoulCode, SoulDefinition> = {
     label: 'GREEN',
     hex: '#00c000',
     confuse: 'PAT',
-    tag: 'No matter how many times I got hurt, I never let that make me cruel.',
-    description: "Kindness is warm, active empathy and genuine consideration for others. It values compassion and forgiveness above cold efficiency. It is the ability to offer warmth and care even when the world feels indifferent or harsh, choosing to heal rather than harm.",
+    tag: "What help would answer this person's actual need, and what can you reasonably offer?",
+    description: "Caring, listening and offering useful help within reasonable limits. Being kind does not require taking over another person's choices or neglecting your own needs.",
   },
   PAT: {
     code: 'PAT',
@@ -57,8 +57,8 @@ export const SOULS: Record<SoulCode, SoulDefinition> = {
     label: 'CYAN',
     hex: '#42fcff',
     confuse: 'KND',
-    tag: 'Even when everything urged haste, I chose to wait for the right moment.',
-    description: "Patience is emotional equilibrium and tranquility. It is the wisdom to know when to pause, observe, and let events unfold naturally rather than rushing into rash action. It brings calm into chaotic situations and provides steady emotional resilience.",
+    tag: "When is a reasonable follow-up time, and what can you do while waiting?",
+    description: "How you respond to waiting, minor frustration and annoyance. This theme includes pausing and calming down; it does not ask you to tolerate harm or indefinite delay.",
   },
   INT: {
     code: 'INT',
@@ -66,8 +66,8 @@ export const SOULS: Record<SoulCode, SoulDefinition> = {
     label: 'BLUE',
     hex: '#003cff',
     confuse: 'JUS',
-    tag: 'Regardless of what others do, I hold true to my inner code.',
-    description: "Integrity is unwavering honesty and alignment with personal principles. It is doing what is right even when nobody is watching. People with strong integrity refuse to compromise their moral core or pretend to be someone they are not.",
+    tag: "What is the honest next sentence, and which commitment can you actually keep?",
+    description: "Honesty, confidentiality and keeping commitments, including admitting mistakes. A score does not establish a person's moral worth or make their beliefs automatically right.",
   },
   PER: {
     code: 'PER',
@@ -75,8 +75,8 @@ export const SOULS: Record<SoulCode, SoulDefinition> = {
     label: 'PURPLE',
     hex: '#d400d4',
     confuse: 'DET',
-    tag: 'When motivation faded, discipline carried me through to the end.',
-    description: "Perseverance is methodical discipline, study, and endurance. While Determination burns hot and stubborn, Perseverance is steady, calculated, and disciplined. It is the grit to finish what you started through habit and quiet dedication.",
+    tag: "What small practice step can you repeat, and how will you tell whether it is working?",
+    description: "Continuing useful effort during execution, managing distractions and trying to finish work. A productive routine also makes room for rest and changes based on feedback.",
   }
 };
 

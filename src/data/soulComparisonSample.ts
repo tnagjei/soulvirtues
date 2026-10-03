@@ -1,4 +1,4 @@
-// input: None (approved determination-versus-perseverance comparison copy in four locales)
+// input: None (approved determination-versus-perseverance V2 comparison copy in five locales)
 // output: Localized pilot comparison data and shared comparison types
 // pos: src/data/soulComparisonSample.ts (更新规则：文案或证据边界变化需同步本注释与 src/data/README.md)
 
@@ -64,285 +64,325 @@ export const DETERMINATION_VS_PERSEVERANCE: ComparisonSample = {
   copy: {
     en: {
       seoTitle: 'Determination vs Perseverance: Undertale Soul Traits',
-      seoDescription: 'Compare Determination and Perseverance in Undertale: desired outcomes vs steady routines, game evidence, real-life examples, and a dual-trait profile.',
+      seoDescription: "Compare Determination and Perseverance: choosing and revising a goal versus useful effort during execution. Read examples and the V2 scoring method.",
       eyebrow: 'SOUL TRAIT COMPARISON',
       heading: 'Determination vs Perseverance',
-      intro: 'Both traits can look like “never giving up,” but they keep a person moving for different reasons. Determination rejects an unwanted ending. Perseverance continues through method, repetition, and discipline.',
+      intro: "Determination concerns the goal you choose and reconsider; Perseverance concerns useful effort while carrying out the work.",
       quickAnswerLabel: 'QUICK ANSWER',
-      quickAnswer: 'Determination rejects the ending; Perseverance keeps the routine.',
+      quickAnswer: "Determination concerns the goal you choose and reconsider; Perseverance concerns useful effort while carrying out the work.",
       matrixTitle: 'The Core Difference',
       leftLabel: 'Determination',
       rightLabel: 'Perseverance',
       gameEvidenceLabel: 'Game evidence',
       interpretationLabel: 'Interpretation',
       rows: [
-        {
-          label: 'Primary drive',
-          left: 'A strong refusal to accept the current outcome.',
-          right: 'A commitment to keep following a process.',
-          evidence: 'interpretation',
-        },
-        {
-          label: 'After failure',
-          left: 'Returns because the ending still feels unacceptable.',
-          right: 'Returns because the work is part of an established routine.',
-          evidence: 'interpretation',
-        },
-        {
-          label: 'When motivation fades',
-          left: 'The desired result can reignite another attempt.',
-          right: 'Habits, notes, and repetition carry the work forward.',
-          evidence: 'interpretation',
-        },
-        {
-          label: 'Undertale evidence',
-          left: 'Determination is directly tied to human persistence, SAVE, and the ability to continue after death.',
-          right: 'Perseverance is named by the Snowdin Ball Game, whose purple result emphasizes continuing and taking notes.',
-          evidence: 'game',
-        },
-        {
-          label: 'Best expression',
-          left: 'Recovering after a major setback and trying again.',
-          right: 'Making steady progress through a difficult long-term task.',
-          evidence: 'interpretation',
-        },
-        {
-          label: 'Possible blind spot',
-          left: 'Refusing to accept when a goal should change.',
-          right: 'Following a routine after it has stopped producing value.',
-          evidence: 'interpretation',
-        },
-      ],
+  {
+    "label": "What this quiz focuses on",
+    "left": "Choosing a goal that matters to you, then deciding how to recommit after a setback. Changing direction after thoughtful review can fit this theme.",
+    "right": "Continuing useful effort during execution, managing distractions and trying to finish work. A productive routine also makes room for rest and changes based on feedback.",
+    "evidence": "interpretation"
+  },
+  {
+    "label": "Undertale evidence",
+    "left": "Determination is directly tied to human persistence, SAVE, and the ability to continue after death.",
+    "right": "Perseverance is named by the Snowdin Ball Game, whose purple result emphasizes continuing and taking notes.",
+    "evidence": "game"
+  },
+  {
+    "label": "A question for reflection",
+    "left": "What still makes this goal worth pursuing, and what evidence would make you change it?",
+    "right": "What small practice step can you repeat, and how will you tell whether it is working?",
+    "evidence": "interpretation"
+  }
+],
       differenceTitle: 'Why These Traits Are Easy to Confuse',
       differenceParagraphs: [
-        'From the outside, both people may keep working after everyone else stops. The difference is not how long they continue; it is what keeps them continuing. A determined person is pulled by the ending they still want. A persevering person is supported by a repeatable way of working.',
-        'Imagine failing an exam. Determination says, “I do not accept this result; I will pass.” Perseverance says, “I will study two hours each day, record every mistake, and take the exam again.” One response protects the goal. The other protects the process.',
-        'Neither trait is automatically better. Determination without review can become fixation. Perseverance without review can become empty repetition. Healthy persistence checks both the destination and the method.',
-      ],
-      scenariosTitle: 'Same Challenge, Different Response',
+  "Your first study plan fails. Determination asks whether the qualification still serves a goal you value and what direction to choose next. Perseverance asks how to practice regularly, use feedback and complete the next useful task.",
+  "Are you deciding what is worth pursuing, or how to keep doing the work?"
+],
+      scenariosTitle: "A question for reflection",
       scenarios: [
-        {
-          title: 'A project fails at launch',
-          left: 'Reframes the failure as another attempt and returns to the desired outcome.',
-          right: 'Reviews the failure, updates the checklist, and resumes a regular work cycle.',
-        },
-        {
-          title: 'Progress becomes invisible',
-          left: 'Keeps going because abandoning the ending feels impossible.',
-          right: 'Keeps going because the next scheduled step is already clear.',
-        },
-        {
-          title: 'The plan stops working',
-          left: 'May change tactics quickly while protecting the same goal.',
-          right: 'May study the pattern carefully before adjusting the routine.',
-        },
-      ],
+  {
+    "title": "Are you deciding what is worth pursuing, or how to keep doing the work?",
+    "left": "What still makes this goal worth pursuing, and what evidence would make you change it?",
+    "right": "What small practice step can you repeat, and how will you tell whether it is working?"
+  }
+],
       hybridTitle: 'If Both Scores Are High',
-      hybridIntro: 'A high Determination and Perseverance combination suggests someone who can protect a difficult goal and support it with repeated action. This is a trait interpretation, not a medical or psychological diagnosis.',
-      strengthsTitle: 'Likely strengths',
+      hybridIntro: "Two close scores can describe different responses to the same situation. Read both definitions and notice which part of the decision each addresses. The 3-point display rule does not show that a difference is psychologically significant.",
+      strengthsTitle: "One everyday example",
       strengths: [
-        'Turns strong intentions into consistent work.',
-        'Recovers from setbacks without losing the larger goal.',
-        'Can combine emotional commitment with practical systems.',
-      ],
-      risksTitle: 'Possible risks',
+  "A study plan fails. You reconsider why the qualification matters and choose a next step, rather than keeping the same target just to avoid admitting failure.",
+  "You keep making an error while learning. You plan a short practice session, record one change to try and check whether the change helps."
+],
+      risksTitle: "What this quiz can and cannot tell you",
       risks: [
-        'Overworking because both the goal and routine are hard to release.',
-        'Continuing after evidence suggests a different direction.',
-        'Treating rest as failure instead of part of sustainable progress.',
-      ],
+  "These are self-reported responses to an independently adapted quiz. Public-domain source material does not make the seven-theme combination a validated psychological inventory. Mood, experience and interpretation can affect answers. A low score does not prove you lack a virtue; a high score cannot justify unsafe behavior or diagnose anyone."
+],
       evidenceTitle: 'Canon and Community Interpretation',
       evidenceBody: 'The game does not explicitly name the red SOUL trait Determination. Determination itself is canonically established as a power or substance produced by human SOULs, while Perseverance is one of the six traits named by the Snowdin Ball Game. This page uses the common community label “Red SOUL / Determination” for search clarity, but it does not present that label as confirmed canon.',
       testTitle: 'Which Pattern Drives You?',
-      testBody: 'Take the 66-question Soul Virtues test to compare your Determination and Perseverance scores, then return here to interpret the difference.',
+      testBody: "The complete seven-score result, answer review and PNG card are free, with no account, payment or invitation required.",
       testButton: 'TAKE THE UNDERTALE SOUL TEST (66 QUESTIONS)',
       exploreLabel: 'Read the complete trait guide',
       breadcrumbCompare: 'Comparisons',
     },
     ja: {
       seoTitle: 'Undertale ケツイとふくつの違い',
-      seoDescription: 'Undertaleのケツイとふくつを比較。望む結末を諦めない力と、習慣や方法を続ける力の違い、ゲーム内根拠、複合タイプを解説。',
+      seoDescription: "ケツイは選び直す目標、こんきは仕事を進める中での有用な努力に目を向けます。",
       eyebrow: 'ソウル特質比較',
       heading: 'ケツイ vs ふくつ',
-      intro: 'どちらも「諦めない」と見えますが、前へ進む理由が違います。ケツイは望まない結末を拒み、ふくつは方法・反復・規律によって歩みを続けます。',
+      intro: "ケツイは選び直す目標、こんきは仕事を進める中での有用な努力に目を向けます。",
       quickAnswerLabel: 'ひとことで言うと',
-      quickAnswer: 'ケツイは結末を諦めず、ふくつは習慣を止めません。',
+      quickAnswer: "ケツイは選び直す目標、こんきは仕事を進める中での有用な努力に目を向けます。",
       matrixTitle: '本質的な違い',
       leftLabel: 'ケツイ',
       rightLabel: 'ふくつ',
       gameEvidenceLabel: 'ゲーム内根拠',
       interpretationLabel: 'サイト独自の解釈',
       rows: [
-        { label: '原動力', left: '今の結果を受け入れたくない強い意志。', right: '決めた手順を続けるという約束。', evidence: 'interpretation' },
-        { label: '失敗した後', left: '望む結末ではないから、もう一度戻る。', right: '作業が習慣になっているから、もう一度戻る。', evidence: 'interpretation' },
-        { label: 'やる気が消えた時', left: '欲しい結果が再挑戦の火をつける。', right: '習慣、記録、反復が作業を前に進める。', evidence: 'interpretation' },
-        { label: 'Undertaleでの根拠', left: 'ケツイは人間の持続、SAVE、死後も続ける力と直接結びつく。', right: 'ふくつはスノーフルのボールゲームで明示され、紫の結果は継続と記録を強調する。', evidence: 'game' },
-        { label: '強みが出る場面', left: '大きな失敗から立ち直り、再挑戦する時。', right: '難しい長期課題を少しずつ進める時。', evidence: 'interpretation' },
-        { label: '注意点', left: '変えるべき目標まで手放せなくなる。', right: '価値を失った習慣まで続けてしまう。', evidence: 'interpretation' },
-      ],
+  {
+    "label": "このテストで見るテーマ",
+    "left": "自分にとって大切な目標を選び、つまずいた後にどう取り組み直すか判断すること。十分に考えた上で方向を変えることも、このテーマに含まれる。",
+    "right": "実行の途中でも有用な努力を続け、注意のそれを抑え、仕事の完成を目指すこと。役立つ習慣には休息やフィードバックに応じた変更も必要。",
+    "evidence": "interpretation"
+  },
+  {
+    "label": "Undertaleでの根拠",
+    "left": "ケツイは人間の持続、SAVE、死後も続ける力と直接結びつく。",
+    "right": "ふくつはスノーフルのボールゲームで明示され、紫の結果は継続と記録を強調する。",
+    "evidence": "game"
+  },
+  {
+    "label": "振り返るための問い",
+    "left": "その目標を今も追う理由は何ですか。どんな事実があれば目標を変えますか。",
+    "right": "繰り返せる小さな練習は何ですか。効果があるかどう確認しますか。",
+    "evidence": "interpretation"
+  }
+],
       differenceTitle: 'なぜ混同しやすいのか',
       differenceParagraphs: [
-        '外から見ると、どちらも他の人が止めた後まで努力を続けます。違いは継続時間ではなく、継続を支えるものです。ケツイはまだ望んでいる結末に引かれ、ふくつは繰り返せる方法に支えられます。',
-        '試験に落ちた場面なら、ケツイは「この結果は受け入れない。必ず合格する」と考えます。ふくつは「毎日2時間勉強し、間違いを記録して、もう一度受ける」と考えます。',
-        'どちらが常に優れているわけではありません。見直しのないケツイは執着に、見直しのないふくつは意味のない反復になり得ます。',
-      ],
-      scenariosTitle: '同じ問題への違う反応',
+  "最初の勉強計画が失敗した。ケツイでは、その資格が今も大切な目標につながるか、次にどの方向を選ぶかを考える。こんきでは、定期的に練習し、助言を生かし、次の有用な作業を完成させる方法を考える。",
+  "今考えているのは追う価値のある目標ですか。それとも作業を続ける方法ですか。"
+],
+      scenariosTitle: "振り返るための問い",
       scenarios: [
-        { title: '公開した企画が失敗した', left: '失敗を次の挑戦として捉え、望む結果へ戻る。', right: '失敗を分析し、チェックリストを直して作業周期を再開する。' },
-        { title: '進歩が見えない', left: '結末を諦めることができないため続ける。', right: '次にすることが決まっているため続ける。' },
-        { title: '計画が機能しない', left: '目標を守りながら、手段を素早く変える。', right: '傾向を記録してから、習慣を調整する。' },
-      ],
+  {
+    "title": "今考えているのは追う価値のある目標ですか。それとも作業を続ける方法ですか。",
+    "left": "その目標を今も追う理由は何ですか。どんな事実があれば目標を変えますか。",
+    "right": "繰り返せる小さな練習は何ですか。効果があるかどう確認しますか。"
+  }
+],
       hybridTitle: '両方のスコアが高い場合',
-      hybridIntro: '難しい目標を守る力と、反復行動で支える力を併せ持つ傾向があります。これは特質の解釈であり、医学的・心理学的診断ではありません。',
-      strengthsTitle: '考えられる強み',
-      strengths: ['強い意志を継続的な行動に変えられる。', '失敗しても大きな目標を失わない。', '感情的な覚悟と実用的な仕組みを組み合わせられる。'],
-      risksTitle: '考えられるリスク',
-      risks: ['目標も習慣も手放せず、働きすぎる。', '方向転換すべき証拠があっても続ける。', '休息を持続の一部ではなく失敗と捉える。'],
+      hybridIntro: "近い2つの得点は、同じ状況の違う部分への反応を示すことがあります。両方の定義を読み、それぞれが判断のどの部分を見るか考えてください。3点という表示基準は心理学的に意味のある差を示しません。",
+      strengthsTitle: "日常の例",
+      strengths: [
+  "勉強の計画がうまくいかなかった。失敗を認めたくないから同じ目標にこだわるのではなく、その資格を目指す理由を見直して次の一歩を選ぶ。",
+  "学習中に同じ間違いを繰り返す。短い練習時間を決め、試す変更を一つ記録し、その変更が役立つか確かめる。"
+],
+      risksTitle: "このテストの限界",
+      risks: [
+  "結果は、独自に改編した質問への自己申告の回答です。出典がパブリックドメインでも、7つのテーマの組合せが検証済み心理尺度になるわけではありません。気分、経験、解釈で回答は変わります。低い得点は美徳がない証拠ではなく、高い得点も危険な行動や診断を正当化しません。"
+],
       evidenceTitle: '公式設定とコミュニティ解釈',
       evidenceBody: 'ゲームは赤いソウルの特質を「ケツイ」と明言していません。ケツイは人間のソウルが生み出す力・物質として公式に描かれ、ふくつはスノーフルのボールゲームで示される6特質の一つです。このページは検索上分かりやすい一般的な「赤いソウル／ケツイ」という呼び方を使いますが、公式確定設定としては扱いません。',
       testTitle: 'あなたを動かすのはどちら？',
-      testBody: '66問のソウル特質テストでケツイとふくつの割合を比べ、その違いをこのページで確認できます。',
+      testBody: "7つの得点、回答の確認、PNGカードはすべて無料です。アカウント、支払い、招待は不要です。",
       testButton: 'Undertale ソウル診断テストを受ける (全66問)',
       exploreLabel: '特質の完全ガイドを見る',
       breadcrumbCompare: '比較',
     },
     es: {
       seoTitle: 'Determinación vs Perseverancia en Undertale',
-      seoDescription: 'Compara Determinación y Perseverancia en Undertale: resultado deseado frente a rutina constante, evidencia del juego, ejemplos y perfil combinado.',
+      seoDescription: "La Determinación trata del objetivo que eliges y reconsideras; la Perseverancia, del esfuerzo útil al realizar el trabajo.",
       eyebrow: 'COMPARACIÓN DE RASGOS DEL ALMA',
       heading: 'Determinación vs Perseverancia',
-      intro: 'Ambos rasgos pueden parecer “no rendirse”, pero mantienen a una persona en movimiento por motivos distintos. La Determinación rechaza un final no deseado. La Perseverancia continúa mediante método, repetición y disciplina.',
+      intro: "La Determinación trata del objetivo que eliges y reconsideras; la Perseverancia, del esfuerzo útil al realizar el trabajo.",
       quickAnswerLabel: 'RESPUESTA RÁPIDA',
-      quickAnswer: 'La Determinación rechaza el final; la Perseverancia mantiene la rutina.',
+      quickAnswer: "La Determinación trata del objetivo que eliges y reconsideras; la Perseverancia, del esfuerzo útil al realizar el trabajo.",
       matrixTitle: 'La Diferencia Central',
       leftLabel: 'Determinación',
       rightLabel: 'Perseverancia',
       gameEvidenceLabel: 'Evidencia del juego',
       interpretationLabel: 'Interpretación',
       rows: [
-        { label: 'Impulso principal', left: 'Negarse a aceptar el resultado actual.', right: 'Comprometerse a seguir un proceso.', evidence: 'interpretation' },
-        { label: 'Después del fracaso', left: 'Regresa porque el final sigue siendo inaceptable.', right: 'Regresa porque el trabajo forma parte de una rutina.', evidence: 'interpretation' },
-        { label: 'Cuando desaparece la motivación', left: 'El resultado deseado enciende otro intento.', right: 'Los hábitos, las notas y la repetición sostienen el trabajo.', evidence: 'interpretation' },
-        { label: 'Evidencia en Undertale', left: 'La Determinación se vincula directamente con la persistencia humana, SAVE y continuar después de la muerte.', right: 'La Perseverancia aparece en el Juego de Pelota de Snowdin; el resultado morado destaca continuar y tomar notas.', evidence: 'game' },
-        { label: 'Mejor expresión', left: 'Recuperarse de un gran revés y volver a intentarlo.', right: 'Avanzar de forma constante en una tarea difícil y larga.', evidence: 'interpretation' },
-        { label: 'Punto ciego', left: 'No aceptar que una meta debe cambiar.', right: 'Mantener una rutina que ya no aporta valor.', evidence: 'interpretation' },
-      ],
+  {
+    "label": "Qué explora este test",
+    "left": "Elegir un objetivo que te importe y decidir cómo volver a comprometerte tras un revés. Cambiar de rumbo después de reflexionar también encaja en este tema.",
+    "right": "Mantener un esfuerzo útil durante la ejecución, gestionar distracciones e intentar terminar el trabajo. Una rutina productiva también permite descansar y cambiar según la experiencia.",
+    "evidence": "interpretation"
+  },
+  {
+    "label": "Evidencia en Undertale",
+    "left": "La Determinación se vincula directamente con la persistencia humana, SAVE y continuar después de la muerte.",
+    "right": "La Perseverancia aparece en el Juego de Pelota de Snowdin; el resultado morado destaca continuar y tomar notas.",
+    "evidence": "game"
+  },
+  {
+    "label": "Una pregunta para reflexionar",
+    "left": "¿Qué hace que este objetivo siga mereciendo la pena y qué prueba te haría cambiarlo?",
+    "right": "¿Qué pequeño paso puedes repetir y cómo sabrás si está funcionando?",
+    "evidence": "interpretation"
+  }
+],
       differenceTitle: 'Por Qué Se Confunden',
       differenceParagraphs: [
-        'Desde fuera, ambas personas siguen trabajando cuando los demás se detienen. La diferencia no es cuánto continúan, sino qué sostiene esa continuidad. La persona determinada es atraída por el final que todavía desea; la perseverante se apoya en una forma repetible de trabajar.',
-        'Tras suspender un examen, la Determinación dice: “No acepto este resultado; aprobaré”. La Perseverancia dice: “Estudiaré dos horas al día, registraré cada error y volveré a presentarme”. Una protege la meta; la otra protege el proceso.',
-        'Ningún rasgo es siempre mejor. La Determinación sin revisión puede volverse obsesión. La Perseverancia sin revisión puede convertirse en repetición vacía.',
-      ],
-      scenariosTitle: 'Mismo Reto, Respuesta Distinta',
+  "Tu primer plan de estudio falla. La Determinación pregunta si la titulación sigue sirviendo a algo que valoras y qué rumbo elegir. La Perseverancia pregunta cómo practicar con regularidad, usar lo aprendido y completar la siguiente tarea útil.",
+  "¿Estás decidiendo qué merece la pena perseguir o cómo seguir haciendo el trabajo?"
+],
+      scenariosTitle: "Una pregunta para reflexionar",
       scenarios: [
-        { title: 'Un proyecto fracasa al lanzarse', left: 'Convierte el fracaso en otro intento y vuelve al resultado deseado.', right: 'Analiza el fallo, actualiza la lista y reanuda el ciclo de trabajo.' },
-        { title: 'El progreso deja de verse', left: 'Continúa porque abandonar el final parece imposible.', right: 'Continúa porque el siguiente paso programado está claro.' },
-        { title: 'El plan deja de funcionar', left: 'Cambia de táctica rápidamente sin abandonar la meta.', right: 'Estudia el patrón antes de ajustar la rutina.' },
-      ],
+  {
+    "title": "¿Estás decidiendo qué merece la pena perseguir o cómo seguir haciendo el trabajo?",
+    "left": "¿Qué hace que este objetivo siga mereciendo la pena y qué prueba te haría cambiarlo?",
+    "right": "¿Qué pequeño paso puedes repetir y cómo sabrás si está funcionando?"
+  }
+],
       hybridTitle: 'Si Ambas Puntuaciones Son Altas',
-      hybridIntro: 'La combinación sugiere capacidad para proteger una meta difícil y sostenerla con acciones repetidas. Es una interpretación de rasgos, no un diagnóstico médico ni psicológico.',
-      strengthsTitle: 'Fortalezas probables',
-      strengths: ['Convierte intenciones fuertes en trabajo constante.', 'Se recupera sin perder la meta general.', 'Combina compromiso emocional con sistemas prácticos.'],
-      risksTitle: 'Riesgos posibles',
-      risks: ['Trabajar en exceso porque cuesta soltar la meta y la rutina.', 'Continuar aunque la evidencia aconseje otra dirección.', 'Tratar el descanso como fracaso.'],
+      hybridIntro: "Dos resultados cercanos pueden describir respuestas a partes distintas de una situación. Lee ambas definiciones y observa qué parte de la decisión trata cada una. La regla de 3 puntos no demuestra una diferencia psicológicamente significativa.",
+      strengthsTitle: "Un ejemplo cotidiano",
+      strengths: [
+  "Falla un plan de estudio. Revisas por qué te importa la titulación y eliges un siguiente paso, en lugar de mantener el objetivo solo para no admitir el fracaso.",
+  "Repites un error mientras aprendes. Planificas una práctica breve, anotas un cambio y compruebas si ayuda."
+],
+      risksTitle: "Qué puede decir este test",
+      risks: [
+  "Son respuestas personales a un test adaptado de forma independiente. Las fuentes de dominio público no convierten estos siete temas en un instrumento psicológico validado. El ánimo, la experiencia y la interpretación pueden cambiar las respuestas. Una puntuación baja no prueba que te falte una virtud; una alta no justifica riesgos ni permite diagnosticar."
+],
       evidenceTitle: 'Canon e Interpretación de la Comunidad',
       evidenceBody: 'El juego no nombra explícitamente Determinación al rasgo del Alma Roja. La Determinación sí está establecida como poder o sustancia producida por las almas humanas, mientras que Perseverancia es uno de los seis rasgos nombrados por el Juego de Pelota de Snowdin. Esta página usa la etiqueta comunitaria “Alma Roja / Determinación” para facilitar la búsqueda, sin presentarla como canon confirmado.',
       testTitle: '¿Qué Patrón Te Impulsa?',
-      testBody: 'Realiza el test de 66 preguntas para comparar tus puntuaciones de Determinación y Perseverancia.',
+      testBody: "El resultado completo de siete temas, la revisión de respuestas y la tarjeta PNG son gratuitos, sin cuenta, pago ni invitaciones.",
       testButton: 'HACER EL TEST DE ALMAS DE UNDERTALE',
       exploreLabel: 'Leer la guía completa del rasgo',
       breadcrumbCompare: 'Comparaciones',
     },
     pt: {
       seoTitle: 'Determinação vs Perseverança em Undertale',
-      seoDescription: 'Compare Determinação e Perseverança em Undertale: resultado desejado versus rotina constante, evidências do jogo, exemplos e perfil combinado.',
+      seoDescription: "A Determinação trata do objetivo que você escolhe e reconsidera; a Perseverança, do esforço útil para realizar o trabalho.",
       eyebrow: 'COMPARAÇÃO DE TRAÇOS DA ALMA',
       heading: 'Determinação vs Perseverança',
-      intro: 'Os dois traços podem parecer “nunca desistir”, mas mantêm uma pessoa em movimento por motivos diferentes. A Determinação rejeita um final indesejado. A Perseverança continua por método, repetição e disciplina.',
+      intro: "A Determinação trata do objetivo que você escolhe e reconsidera; a Perseverança, do esforço útil para realizar o trabalho.",
       quickAnswerLabel: 'RESPOSTA RÁPIDA',
-      quickAnswer: 'A Determinação rejeita o final; a Perseverança mantém a rotina.',
+      quickAnswer: "A Determinação trata do objetivo que você escolhe e reconsidera; a Perseverança, do esforço útil para realizar o trabalho.",
       matrixTitle: 'A Diferença Central',
       leftLabel: 'Determinação',
       rightLabel: 'Perseverança',
       gameEvidenceLabel: 'Evidência do jogo',
       interpretationLabel: 'Interpretação',
       rows: [
-        { label: 'Impulso principal', left: 'Recusar o resultado atual.', right: 'Comprometer-se a seguir um processo.', evidence: 'interpretation' },
-        { label: 'Depois do fracasso', left: 'Volta porque o final ainda é inaceitável.', right: 'Volta porque o trabalho faz parte de uma rotina.', evidence: 'interpretation' },
-        { label: 'Quando a motivação some', left: 'O resultado desejado acende outra tentativa.', right: 'Hábitos, anotações e repetição sustentam o trabalho.', evidence: 'interpretation' },
-        { label: 'Evidência em Undertale', left: 'A Determinação se liga diretamente à persistência humana, SAVE e continuar após a morte.', right: 'A Perseverança aparece no Jogo da Bola de Snowdin; o resultado roxo destaca continuar e fazer anotações.', evidence: 'game' },
-        { label: 'Melhor expressão', left: 'Recuperar-se de um grande revés e tentar novamente.', right: 'Avançar constantemente em uma tarefa difícil e longa.', evidence: 'interpretation' },
-        { label: 'Ponto cego', left: 'Não aceitar quando uma meta precisa mudar.', right: 'Manter uma rotina que deixou de gerar valor.', evidence: 'interpretation' },
-      ],
+  {
+    "label": "O que este teste explora",
+    "left": "Escolher um objetivo importante para você e decidir como voltar a se comprometer depois de um revés. Mudar de rumo após uma reflexão também combina com esse tema.",
+    "right": "Manter um esforço útil durante a execução, lidar com distrações e tentar terminar o trabalho. Uma rotina produtiva também permite descanso e mudanças com base no aprendizado.",
+    "evidence": "interpretation"
+  },
+  {
+    "label": "Evidência em Undertale",
+    "left": "A Determinação se liga diretamente à persistência humana, SAVE e continuar após a morte.",
+    "right": "A Perseverança aparece no Jogo da Bola de Snowdin; o resultado roxo destaca continuar e fazer anotações.",
+    "evidence": "game"
+  },
+  {
+    "label": "Uma pergunta para refletir",
+    "left": "O que ainda faz esse objetivo valer a pena e que evidência faria você mudá-lo?",
+    "right": "Que pequeno passo você pode repetir e como vai saber se está funcionando?",
+    "evidence": "interpretation"
+  }
+],
       differenceTitle: 'Por Que Esses Traços se Confundem',
       differenceParagraphs: [
-        'Por fora, as duas pessoas continuam quando todos param. A diferença não é por quanto tempo seguem, mas o que sustenta a continuidade. A pessoa determinada é puxada pelo final que ainda deseja; a perseverante é apoiada por uma forma repetível de trabalhar.',
-        'Depois de reprovar em uma prova, a Determinação diz: “Não aceito este resultado; vou passar”. A Perseverança diz: “Vou estudar duas horas por dia, registrar cada erro e tentar novamente”. Uma protege a meta; a outra protege o processo.',
-        'Nenhum traço é sempre melhor. Determinação sem revisão pode virar fixação. Perseverança sem revisão pode virar repetição vazia.',
-      ],
-      scenariosTitle: 'Mesmo Desafio, Resposta Diferente',
+  "Seu primeiro plano de estudo falha. A Determinação pergunta se a qualificação ainda serve a algo que você valoriza e qual rumo escolher. A Perseverança pergunta como praticar com regularidade, usar o aprendizado e concluir a próxima tarefa útil.",
+  "Você está decidindo o que vale a pena buscar ou como continuar fazendo o trabalho?"
+],
+      scenariosTitle: "Uma pergunta para refletir",
       scenarios: [
-        { title: 'Um projeto falha no lançamento', left: 'Transforma a falha em outra tentativa e volta ao resultado desejado.', right: 'Analisa a falha, atualiza a lista e retoma o ciclo de trabalho.' },
-        { title: 'O progresso fica invisível', left: 'Continua porque abandonar o final parece impossível.', right: 'Continua porque o próximo passo programado está claro.' },
-        { title: 'O plano para de funcionar', left: 'Muda de tática rapidamente sem abandonar a meta.', right: 'Estuda o padrão antes de ajustar a rotina.' },
-      ],
+  {
+    "title": "Você está decidindo o que vale a pena buscar ou como continuar fazendo o trabalho?",
+    "left": "O que ainda faz esse objetivo valer a pena e que evidência faria você mudá-lo?",
+    "right": "Que pequeno passo você pode repetir e como vai saber se está funcionando?"
+  }
+],
       hybridTitle: 'Se as Duas Pontuações Forem Altas',
-      hybridIntro: 'A combinação sugere capacidade de proteger uma meta difícil e sustentá-la com ações repetidas. É uma interpretação de traços, não um diagnóstico médico ou psicológico.',
-      strengthsTitle: 'Pontos fortes prováveis',
-      strengths: ['Transforma intenções fortes em trabalho consistente.', 'Recupera-se sem perder a meta maior.', 'Combina compromisso emocional com sistemas práticos.'],
-      risksTitle: 'Riscos possíveis',
-      risks: ['Trabalhar demais porque é difícil soltar a meta e a rotina.', 'Continuar mesmo quando as evidências indicam outra direção.', 'Tratar descanso como fracasso.'],
+      hybridIntro: "Dois resultados próximos podem descrever respostas a partes diferentes da mesma situação. Leia as duas definições e veja qual parte da decisão cada uma aborda. A regra de 3 pontos não demonstra uma diferença psicologicamente significativa.",
+      strengthsTitle: "Um exemplo cotidiano",
+      strengths: [
+  "Um plano de estudo falha. Você revê por que a qualificação importa e escolhe um próximo passo, em vez de manter o objetivo só para não admitir o fracasso.",
+  "Você repete um erro enquanto aprende. Planeja uma prática curta, registra uma mudança e verifica se ela ajuda."
+],
+      risksTitle: "O que este teste pode dizer",
+      risks: [
+  "São respostas pessoais a um teste adaptado de forma independente. Fontes de domínio público não transformam os sete temas em um instrumento psicológico validado. Humor, experiência e interpretação podem afetar as respostas. Uma pontuação baixa não prova falta de uma virtude; uma alta não justifica riscos nem permite diagnosticar."
+],
       evidenceTitle: 'Cânone e Interpretação da Comunidade',
       evidenceBody: 'O jogo não nomeia explicitamente Determinação como o traço da Alma Vermelha. A Determinação é estabelecida como poder ou substância produzida pelas almas humanas, enquanto Perseverança é um dos seis traços citados no Jogo da Bola de Snowdin. Esta página usa o rótulo comunitário “Alma Vermelha / Determinação” para facilitar a busca, sem apresentá-lo como cânone confirmado.',
       testTitle: 'Qual Padrão Move Você?',
-      testBody: 'Faça o teste de 66 perguntas para comparar suas pontuações de Determinação e Perseverança.',
+      testBody: "O resultado completo dos sete temas, a revisão de respostas e o cartão PNG são gratuitos, sem conta, pagamento ou convites.",
       testButton: 'FAZER O TESTE DAS ALMAS DE UNDERTALE',
       exploreLabel: 'Ler o guia completo do traço',
       breadcrumbCompare: 'Comparações',
     },
     ru: {
       seoTitle: 'Решимость против Настойчивости в Undertale - Сравнение душ',
-      seoDescription: 'Сравнение Решимости и Настойчивости в Undertale: отказ от поражения против дисциплины и привычки, игровые факты и комбинированный профиль.',
+      seoDescription: "Решимость относится к выбору и пересмотру цели; Настойчивость — к полезным усилиям при выполнении работы.",
       eyebrow: 'СРАВНЕНИЕ ЧЕРТ ДУШИ',
       heading: 'Решимость против Настойчивости',
-      intro: 'Обе черты ассоциируются с понятием «никогда не сдаваться», но движут человеком по разным причинам. Решимость отвергает неприемлемый финал. Настойчивость продолжает движение благодаря методу, повторению и дисциплине.',
+      intro: "Решимость относится к выбору и пересмотру цели; Настойчивость — к полезным усилиям при выполнении работы.",
       quickAnswerLabel: 'КРАТКИЙ ОТВЕТ',
-      quickAnswer: 'Решимость отвергает поражение; Настойчивость держит ритм.',
+      quickAnswer: "Решимость относится к выбору и пересмотру цели; Настойчивость — к полезным усилиям при выполнении работы.",
       matrixTitle: 'Ключевое различие',
       leftLabel: 'Решимость',
       rightLabel: 'Настойчивость',
       gameEvidenceLabel: 'Игровые факты',
       interpretationLabel: 'Интерпретация',
       rows: [
-        { label: 'Главный импульс', left: 'Отказ смириться с текущим исходом.', right: 'Следование выбранному процессу.', evidence: 'interpretation' },
-        { label: 'После неудачи', left: 'Возвращается, потому что поражение недопустимо.', right: 'Возвращается, потому что работа — часть заведённого порядка.', evidence: 'interpretation' },
-        { label: 'Когда угасает мотивация', left: 'Желаемый финал вновь разжигает попытку.', right: 'Привычки, конспекты и повторение поддерживают работу.', evidence: 'interpretation' },
-        { label: 'Факты в Undertale', left: 'Решимость связана со способностью сохраняться (SAVE) и жить после смерти.', right: 'Настойчивость описана в гольфе Сноудина: фиолетовый результат подчёркивает упорство и конспекты.', evidence: 'game' },
-        { label: 'Сильнейшее проявление', left: 'Подняться после сокрушительного удара и пробовать снова.', right: 'Неуклонный прогресс в долгой и сложной задаче.', evidence: 'interpretation' },
-        { label: 'Слепая зона', left: 'Неспособность вовремя скорректировать цель.', right: 'Следование рутине, которая перестала приносить пользу.', evidence: 'interpretation' },
-      ],
+  {
+    "label": "На чём сосредоточен тест",
+    "left": "Выбор важной для вас цели и решение о том, как снова к ней обратиться после неудачи. Обдуманная смена направления тоже соответствует этой теме.",
+    "right": "Продолжение полезной работы, управление отвлечениями и стремление завершить задачу. Продуктивный распорядок также предусматривает отдых и изменения с учётом обратной связи.",
+    "evidence": "interpretation"
+  },
+  {
+    "label": "Факты в Undertale",
+    "left": "Решимость связана со способностью сохраняться (SAVE) и жить после смерти.",
+    "right": "Настойчивость описана в гольфе Сноудина: фиолетовый результат подчёркивает упорство и конспекты.",
+    "evidence": "game"
+  },
+  {
+    "label": "Вопрос для размышления",
+    "left": "Почему эта цель всё ещё стоит усилий и какие факты могли бы заставить вас её изменить?",
+    "right": "Какой небольшой шаг можно повторять и как понять, что он работает?",
+    "evidence": "interpretation"
+  }
+],
       differenceTitle: 'Почему эти черты легко спутать',
       differenceParagraphs: [
-        'Со стороны оба человека продолжают путь, когда остальные опустили руки. Разница кроется в источнике этой стойкости. Человеком Решимости движет цель, которую он не готов отпустить; человеком Настойчивости — налаженная система действий.',
-        'После провала на экзамене Решимость скажет: «Я не приму этот провал, я всё равно сдам». Настойчивость скажет: «Я буду заниматься по 2 часа в день, разберу ошибки и пересдам». Одна защищает цель, другая защищает процесс.',
-        'Ни одна из черт не лучше другой. Решимость без гибкости рискует стать слепым упрямством. Настойчивость без рефлексии — бессмысленным повторением.',
-      ],
-      scenariosTitle: 'Одно испытание — две разные реакции',
+  "Первый план учёбы не сработал. Решимость ставит вопрос, служит ли квалификация тому, что вам важно, и какое направление выбрать. Настойчивость ставит вопрос о регулярной практике, использовании обратной связи и завершении следующей полезной задачи.",
+  "Вы решаете, к чему стоит стремиться, или как продолжать работу?"
+],
+      scenariosTitle: "Вопрос для размышления",
       scenarios: [
-        { title: 'Проект провалился на старте', left: 'Превращает провал в новую попытку и снова рвётся к цели.', right: 'Анализирует ошибки, обновляет план и возобновляет рабочий цикл.' },
-        { title: 'Прогресс долго не виден', left: 'Продолжает, потому что бросить цель кажется немыслимым.', right: 'Продолжает, потому что понятен следующий шаг в расписании.' },
-        { title: 'План перестал работать', left: 'Быстро меняет тактику, не отказываясь от конечной цели.', right: 'Изучает систему, прежде чем аккуратно подправить рутину.' },
-      ],
+  {
+    "title": "Вы решаете, к чему стоит стремиться, или как продолжать работу?",
+    "left": "Почему эта цель всё ещё стоит усилий и какие факты могли бы заставить вас её изменить?",
+    "right": "Какой небольшой шаг можно повторять и как понять, что он работает?"
+  }
+],
       hybridTitle: 'Если обе шкалы высоки',
-      hybridIntro: 'Такая комбинация говорит о способности ставить амбициозные цели и методично добиваться их ежедневным трудом.',
-      strengthsTitle: 'Вероятные сильные стороны',
-      strengths: ['Превращает сильные намерения в системную работу.', 'Умеет восстанавливаться после сбоев без потери глобальной цели.', 'Сочетает эмоциональную вовлечённость с практической дисциплиной.'],
-      risksTitle: 'Возможные риски',
-      risks: ['Переутомление из-за сложности отпустить цель или прервать рутину.', 'Продолжение движения даже тогда, когда обстоятельства требуют смены направления.', 'Восприятие отдыха как слабости или поражения.'],
+      hybridIntro: "Две близкие оценки могут отражать реакции на разные части одной ситуации. Прочитайте оба определения и отметьте, к какой части решения относится каждое. Правило 3 пунктов не доказывает психологически значимой разницы.",
+      strengthsTitle: "Повседневный пример",
+      strengths: [
+  "План подготовки не сработал. Вы заново оцениваете, зачем вам квалификация, и выбираете следующий шаг вместо сохранения цели лишь ради нежелания признать неудачу.",
+  "При обучении вы повторяете ошибку. Планируете короткую практику, записываете одно изменение и проверяете, помогает ли оно."
+],
+      risksTitle: "Что может сказать этот тест",
+      risks: [
+  "Это личные ответы на независимо адаптированный тест. Источники из общественного достояния не делают сочетание семи тем валидированным психологическим опросником. Ответы зависят от настроения, опыта и понимания текста. Низкий балл не доказывает отсутствие добродетели, а высокий не оправдывает риск и не позволяет поставить диагноз."
+],
       evidenceTitle: 'Канон и фанатская интерпретация',
       evidenceBody: 'В оригинальной игре Undertale черта Красной Души прямо не названа Решимостью. Решимость описана как субстанция и сила человеческих душ. Название «Красная Душа / Решимость» используется как общепринятый ориентир сообщества.',
       testTitle: 'Какая черта движет вами?',
-      testBody: 'Пройдите тест из 66 вопросов, чтобы сравнить ваш уровень Решимости и Настойчивости.',
+      testBody: "Полный результат по семи темам, просмотр ответов и PNG-карточка бесплатны. Учётная запись, оплата и приглашения не нужны.",
       testButton: 'ПРОЙТИ ТЕСТ ДУШИ UNDERTALE',
       exploreLabel: 'Читать полный гид по черте души',
       breadcrumbCompare: 'Сравнения',

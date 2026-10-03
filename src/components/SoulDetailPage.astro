@@ -1,6 +1,6 @@
 ---
 // input: soulDetail object with localized copy, lang ('en' | 'ja' | 'es' | 'pt' | 'ru')
-// output: Responsive localized trait page with schema, interpretation labels, equipment, mechanics, deepDive section, independent reflection prompts, verifiable references, and CTA
+// output: Responsive localized trait page with schema, interpretation labels, equipment, mechanics, V2 definitions/examples, independent reflection prompts, verifiable references, and CTA
 // pos: src/components/SoulDetailPage.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import Layout from '../layouts/Layout.astro';
@@ -12,6 +12,7 @@ import { SOULS_HUB_COPY } from '../data/soulsHub';
 import { SOUL_MEANING } from '../data/soulMeaning';
 import { CONTENT_READING_COPY, SOUL_REFLECTION_PROMPTS, getContentReferences } from '../data/contentEvidence';
 import type { Locale } from '../i18n';
+import { ASSESSMENT_COPY, TRAIT_READING } from '../data/assessmentContent';
 
 interface Props {
   soulDetail: SoulDetail;
@@ -19,6 +20,8 @@ interface Props {
 }
 
 const { soulDetail, lang = 'en' } = Astro.props;
+const assessmentCopy = ASSESSMENT_COPY[lang];
+const reading = TRAIT_READING[lang][soulDetail.code];
 const siteUrl = "https://soulvirtues.org";
 const soulWord = { en: 'SOUL', ja: 'タマシイ', es: 'Alma', pt: 'Alma', ru: 'Душа' }[lang];
 const langPrefix = lang === 'en' ? '' : `/${lang}`;
@@ -130,7 +133,7 @@ const structuredData = {
           </h1>
 
           <p class="text-xs sm:text-sm text-gray-300 font-mono italic mb-4 border-l-2 pl-3 py-1 border-gray-700">
-            <span class="text-yellow-400 not-italic font-bold">{soulDetail.labels.interpretationLabel}</span> {soulDetail.tagQuote}
+            <span class="text-yellow-400 not-italic font-bold">{soulDetail.labels.interpretationLabel}</span> {reading.prompt}
           </p>
 
           <div class="p-3 bg-black/60 border border-gray-800 text-xs text-gray-300 font-mono">
@@ -208,66 +211,15 @@ const structuredData = {
         </p>
       </section>
 
-      <!-- Section 4: Psychological Analysis & Personality Profile -->
-      <section class="pixel-card-sub p-6 sm:p-8">
-        <h2 class="text-xl sm:text-2xl font-bold text-white font-mono mb-4 flex items-center gap-2">
-          <span class="text-lg" style={`color: ${soulDetail.hex}`}>✦</span>
-          {soulDetail.labels.personalityHeading}
-        </h2>
-
-        <div class="mb-6 p-4 bg-black/60 border border-gray-800">
-          <h3 class="text-xs font-mono uppercase text-gray-400 mb-1">{soulDetail.labels.motivationLabel}</h3>
-          <p class="text-sm text-white font-medium">
-            {soulDetail.personalityAnalysis.coreMotivation}
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
-          <div class="bg-black/50 border border-emerald-900/50 p-4">
-            <h3 class="text-xs font-mono uppercase text-emerald-400 mb-3 flex items-center gap-1">
-              <span>✓</span> {soulDetail.labels.strengthsLabel}
-            </h3>
-            <ul class="space-y-2 text-xs text-gray-300">
-              {soulDetail.personalityAnalysis.strengths.map((s) => (
-                <li class="flex items-start gap-2">
-                  <span class="text-emerald-400">•</span>
-                  <span>{s}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div class="bg-black/50 border border-red-900/50 p-4">
-            <h3 class="text-xs font-mono uppercase text-red-400 mb-3 flex items-center gap-1">
-              <span>⚠</span> {soulDetail.labels.weaknessesLabel}
-            </h3>
-            <ul class="space-y-2 text-xs text-gray-300">
-              {soulDetail.personalityAnalysis.weaknesses.map((w) => (
-                <li class="flex items-start gap-2">
-                  <span class="text-red-400">•</span>
-                  <span>{w}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        <p class="text-xs sm:text-sm text-gray-300 leading-relaxed p-4 bg-black/40 border-l-2 border-gray-700">
-          <strong class="text-white font-mono">{soulDetail.labels.realWorldLabel}</strong> {soulDetail.personalityAnalysis.realWorldTraits}
-        </p>
-      </section>
-
-      <!-- Section 4.5: Deep Dive (AdSense content depth) -->
-      <section class="pixel-card-sub p-6 sm:p-8">
-        <h2 class="text-xl sm:text-2xl font-bold text-white font-mono mb-4 flex items-center gap-2">
-          <span class="text-lg" style={`color: ${soulDetail.hex}`}>✦</span>
-          {soulDetail.labels.deepDiveHeading}
-        </h2>
-        <div class="space-y-4">
-          {soulDetail.deepDive.map((p) => (
-            <p class="text-sm text-gray-300 leading-relaxed">{p}</p>
-          ))}
-        </div>
+      <section id="assessment-definition" class="pixel-card-sub p-6 sm:p-8 space-y-5">
+        <h2 class="text-xl sm:text-2xl font-bold text-white font-mono">{assessmentCopy.definitionTitle}</h2>
+        <p class="text-sm text-gray-300 leading-relaxed">{reading.focus}</p>
+        <h3 class="font-mono font-bold text-white">{assessmentCopy.exampleTitle}</h3>
+        <p class="text-sm text-gray-300 leading-relaxed">{reading.scenario}</p>
+        <h3 class="font-mono font-bold text-white">{assessmentCopy.questionTitle}</h3>
+        <p class="text-sm text-gray-300 leading-relaxed">{reading.prompt}</p>
+        <p class="text-xs text-gray-400 leading-relaxed">{assessmentCopy.limitsBody}</p>
+        <a href={langPrefix + '/method/'} class="text-sm text-cyan-300 underline">{assessmentCopy.methodLink}</a>
       </section>
 
       <aside id="trait-reflection" class="border-2 border-purple-800 bg-black p-5 sm:p-7">

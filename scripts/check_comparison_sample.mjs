@@ -53,7 +53,9 @@ for (const pair of pairs) {
 
 const english = await load('dist/compare/determination-vs-perseverance/index.html');
 assert.match(english, /The game does not explicitly name the red SOUL trait Determination/);
-assert.match(english, /Determination rejects the ending; Perseverance keeps the routine/);
+assert.match(english, /Determination concerns the goal you choose and reconsider/);
+assert.match(english, /Perseverance concerns useful effort/);
+assert.match(english, /href="\/method\/"/);
 
 for (const pair of pairs) {
   for (const trait of [pair.left, pair.right]) {

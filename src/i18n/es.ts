@@ -3,9 +3,10 @@
 // pos: src/i18n/es.ts (更新规则：文件变更需同步本注释与所属目录 README)
 
 import type { Translations } from './types';
+import { ASSESSMENT_COPY } from '../data/assessmentContent';
 import type { SoulCode, SoulDefinition } from '../data/souls';
 import type { QuestionItem } from '../data/questions';
-import { QUESTIONS } from '../data/questions';
+import { getQuestions } from '../data/questions';
 
 export const ES_SOULS: Record<SoulCode, SoulDefinition> = {
   DET: {
@@ -14,8 +15,8 @@ export const ES_SOULS: Record<SoulCode, SoulDefinition> = {
     label: 'ROJA',
     hex: '#ff0000',
     confuse: 'PER',
-    tag: 'A pesar de cuántas veces caí, siempre me volví a levantar.',
-    description: 'La determinación no significa necesariamente optimismo o esperanza. Es la parte de una persona que la impulsa a seguir adelante incluso cuando todo parece inútil. Tienes un sentido claro de cómo debe terminar una historia y una dificultad física para aceptar versiones donde no lo hace.',
+    tag: "¿Qué hace que este objetivo siga mereciendo la pena y qué prueba te haría cambiarlo?",
+    description: "Elegir un objetivo que te importe y decidir cómo volver a comprometerte tras un revés. Cambiar de rumbo después de reflexionar también encaja en este tema.",
   },
   BRV: {
     code: 'BRV',
@@ -23,8 +24,8 @@ export const ES_SOULS: Record<SoulCode, SoulDefinition> = {
     label: 'NARANJA',
     hex: '#fca600',
     confuse: 'DET',
-    tag: 'Incluso con temblor en mis piernas, me negué a retroceder.',
-    description: 'La valentía no es la ausencia de miedo; es el impulso de seguir moviéndose a pesar de él. Donde otros se rendirían ante un desafío imposible, tú brillas liderando la carga. Eres quien da el primer paso y toma las decisiones difíciles.',
+    tag: "¿Qué acción segura puedes dar sin fingir que el miedo ha desaparecido?",
+    description: "Expresarte o actuar pese al miedo o la presión social cuando hacerlo es razonablemente seguro. La puntuación no premia el peligro ni exige ser extrovertido.",
   },
   JUS: {
     code: 'JUS',
@@ -32,8 +33,8 @@ export const ES_SOULS: Record<SoulCode, SoulDefinition> = {
     label: 'AMARILLA',
     hex: '#ffff00',
     confuse: 'INT',
-    tag: 'A pesar de la crueldad que soporté, nunca me dejé corromper.',
-    description: 'La justicia es el ideal de que la equidad es lo primero: todos merecen la misma consideración. Eres el tipo de persona que sacará a la luz cualquier injusticia sin importar el costo personal.',
+    tag: "¿Aceptarías el mismo criterio si se aplicara a ti o a alguien que te cae mal?",
+    description: "Aplicar criterios justos a personas diferentes, atendiendo a sus derechos, oportunidades y resultados compartidos. La justicia puede requerir entender necesidades distintas.",
   },
   KND: {
     code: 'KND',
@@ -41,8 +42,8 @@ export const ES_SOULS: Record<SoulCode, SoulDefinition> = {
     label: 'VERDE',
     hex: '#00c000',
     confuse: 'PAT',
-    tag: 'Sin importar cuántas veces salí herido, nunca dejé que eso me volviera cruel.',
-    description: 'La amabilidad es empatía activa y cálida consideración hacia los demás. Valora la compasión y el perdón por encima de la fría eficiencia, eligiendo sanar antes que dañar.',
+    tag: "¿Qué ayuda responde a su necesidad real y qué puedes ofrecer razonablemente?",
+    description: "Preocuparte, escuchar y ofrecer ayuda útil dentro de límites razonables. Ser amable no exige decidir por otra persona ni descuidar tus necesidades.",
   },
   PAT: {
     code: 'PAT',
@@ -50,8 +51,8 @@ export const ES_SOULS: Record<SoulCode, SoulDefinition> = {
     label: 'CIAN',
     hex: '#42fcff',
     confuse: 'KND',
-    tag: 'Incluso cuando todo urgía prisa, elegí esperar el momento adecuado.',
-    description: 'La paciencia es serenidad emocional y observación reflexiva. No te dejas llevar por las prisas y sabes esperar con calma a que llegue el momento preciso para actuar.',
+    tag: "¿Cuándo sería razonable preguntar de nuevo y qué puedes hacer mientras esperas?",
+    description: "Cómo respondes a la espera, la frustración leve y la irritación. Incluye hacer una pausa y calmarte; no exige tolerar daño ni retrasos indefinidos.",
   },
   INT: {
     code: 'INT',
@@ -59,8 +60,8 @@ export const ES_SOULS: Record<SoulCode, SoulDefinition> = {
     label: 'AZUL',
     hex: '#003cff',
     confuse: 'JUS',
-    tag: 'Incluso cuando nadie miraba, nunca mentí a mi propio corazón.',
-    description: 'La integridad es honestidad moral y autenticidad inquebrantable. Mantienes tus principios y convicciones personales sin importar la presión social o las modas pasajeras.',
+    tag: "¿Cuál es la siguiente frase honesta y qué compromiso puedes cumplir de verdad?",
+    description: "Honestidad, confidencialidad y cumplimiento de compromisos, incluido reconocer errores. Una puntuación no establece el valor moral de nadie ni hace correctas sus creencias.",
   },
   PER: {
     code: 'PER',
@@ -68,93 +69,12 @@ export const ES_SOULS: Record<SoulCode, SoulDefinition> = {
     label: 'MORADA',
     hex: '#d535d5',
     confuse: 'DET',
-    tag: 'Incluso en la oscuridad sin fin, continué registrando paso a paso.',
-    description: 'La perseverancia es disciplina silenciosa, estudio metódico y tenacidad. No depende de impulsos momentáneos, sino del compromiso continuo de terminar lo que empezaste.',
+    tag: "¿Qué pequeño paso puedes repetir y cómo sabrás si está funcionando?",
+    description: "Mantener un esfuerzo útil durante la ejecución, gestionar distracciones e intentar terminar el trabajo. Una rutina productiva también permite descansar y cambiar según la experiencia.",
   },
 };
 
-const ES_LIKERT_LABELS = [
-  'Muy en desacuerdo',
-  'En desacuerdo',
-  'Neutral',
-  'De acuerdo',
-  'Muy de acuerdo',
-];
-
-const ES_QUESTIONS_RAW: string[] = [
-  "A menudo sientes que no puedes ser tú mismo cuando estás en grupo.",
-  "Una vez que decides que quieres algo, es casi imposible convencerte de lo contrario.",
-  "Crees que algunas lecciones solo se aprenden cuando a uno le duele.",
-  "Si alguien tiene algo que decirte, no te entra ansiedad esperando a saber qué es.",
-  "Tiendes a evitar hacer cosas que te hacen sentir incómodo.",
-  "Te cuesta mucho perdonar a las personas.",
-  "Haces lo que debes hacer, incluso cuando te falta la motivación.",
-  "Crees que la gente puede confiar en ti para guardar secretos.",
-  "Sabes reconocer con claridad cuándo algo ha llegado a su fin.",
-  "A menudo te dicen que tienes tendencia a entrometerte demasiado.",
-  "Crees que el tiempo lo cura todo.",
-  "Te vendría bien ser más abierto con las cosas que te duelen.",
-  "Crees que todos deberían ser juzgados con los mismos estándares.",
-  "A menudo te arrepientes de cosas que dijiste en el calor del momento.",
-  "Ajustas tu forma de actuar y hablar según con quién estés.",
-  "Te incomoda hablar de tus problemas con otros, pero quieres que otros te cuenten los suyos.",
-  "Crees que pedir ayuda a los demás equivale a fracasar.",
-  "Le dirías a un amigo que se equivoca aunque eso hiera sus sentimientos.",
-  "~ ¿crees que incluso la peor persona puede cambiar...? ¿que cualquiera puede ser buena persona, si tan solo lo intenta?",
-  "Cuando pierdes el interés en algo, lo abandonas por completo.",
-  "Necesitas que las cosas se resuelvan rápido, de lo contrario te da ansiedad.",
-  "Disfrutas probar cosas nuevas que llamen tu atención, especialmente si te sacan de tu zona de confort.",
-  "Cuando sabes que alguien está equivocado, no puedes evitar corregirlo.",
-  "Sin importar lo que hagan los demás, tienes tus propias reglas que nunca rompes.",
-  "Sueles procrastinar hasta el último segundo antes de una fecha límite.",
-  "No te gusta deberle nada a nadie e intentas devolver favores cuanto antes.",
-  "Cuando algo que te importaba fracasa o termina, tardas mucho en encontrar algo nuevo que te entusiasme.",
-  "Cuestionas con frecuencia tu identidad e intentas conocerte mejor a ti mismo.",
-  "Si un ser querido te pide ayuda, llegarías hasta el final aunque eso signifique salir herido en el camino.",
-  "Rechazarías una oportunidad si supieras que otra persona encaja mucho mejor.",
-  "Crees que el fin justifica los medios.",
-  "Te cuesta creer que vales el esfuerzo de estar contigo, salvo por mera conveniencia.",
-  "Otros dicen que hablas sin pensar.",
-  "Necesitas tener las cosas planificadas antes de sentirte listo para actuar.",
-  "Te consideras impulsado más por tus emociones que por los hechos objetivos.",
-  "Ante una decisión difícil, prefieres pedir opinión a elegir por tu cuenta.",
-  "Te gustaría amarte tal como eres, pero rara vez lo consigues.",
-  "Rindes mal cuando no sabes si lo estás haciendo bien o no.",
-  "Has seguido con cosas mucho después de que dejaran de hacerte bien, porque rendirse se sentía como traición.",
-  "Preferirías ser odiado antes que tener que fingir ser otra persona.",
-  "Cuando algo parece poco probable que funcione, prefieres poner tus esfuerzos en otra cosa que sí lo haga.",
-  "Crees que resolverle los problemas a alguien es hacerle un mal favor.",
-  "Si alguien dice que no te atreverías a hacer algo, sientes la necesidad de demostrarle que se equivoca.",
-  "Te guardas las cosas que te molestan hasta que se vuelven insoportables.",
-  "No te molesta estar sentado en silencio con alguien durante mucho tiempo.",
-  "A menudo interrumpes a los demás cuando hablas de algo que te emociona.",
-  "Crees que algunos de tus intereses son vergonzosos y evitas hablar de ellos con desconocidos.",
-  "Crees que suavizar las cosas solo puede empeorarlas a largo plazo.",
-  "Las situaciones difíciles difícilmente te estresan.",
-  "Crees que algunas cosas son inalcanzables y que conformarse con lo que hay es aceptable.",
-  "Para ti es más importante agradar que ser comprendido.",
-  "Te sientes cómodo anteponiendo tus necesidades cuando chocan con las de otra persona.",
-  "Tiendes a soportar situaciones difíciles en lugar de ser quien les ponga fin.",
-  "Evitas intervenir en asuntos que no te conciernen directamente.",
-  "Ver que alguien es tratado injustamente te enfurece profundamente.",
-  "Valoras el viaje más que el destino final.",
-  "Cuando alguien tiene dificultades, dejar que falle y aprenda de la experiencia a veces es lo mejor.",
-  "Eres más crítico contigo mismo que con los demás.",
-  "Te pondrías en peligro si con eso ayudas a un ser querido.",
-  "A veces piensas que eres superior a las demás personas.",
-  "Otros dirían que eres de mente cerrada o inflexible en tus métodos.",
-  "Ante las adversidades, tu primer instinto es seguir adelante pase lo que pase.",
-  "Sueles preferir tener conversaciones difíciles una vez que ha pasado la exaltación del momento.",
-  "Aceptarías con agrado un elogio sobre ti aunque no fuera del todo exacto.",
-  "Has empezado muchas cosas que no has llevado hasta el final.",
-  "Haber intentado algo y fracasado sigue siendo mejor que no haber intentado nada en absoluto."
-];
-
-export const ES_QUESTIONS: QuestionItem[] = QUESTIONS.map((q, idx) => ({
-  ...q,
-  q: ES_QUESTIONS_RAW[idx] || q.q,
-  labels: ES_LIKERT_LABELS,
-}));
+export const ES_QUESTIONS: QuestionItem[] = getQuestions('es');
 
 export const esTranslations: Translations = {
   locale: 'es',
@@ -165,7 +85,7 @@ export const esTranslations: Translations = {
   heroTitle: "SOUL VIRTUES",
   heroTitleHighlight: "EXTRACTOR",
   heroSubtitle: 'Realiza el test gratuito de 66 preguntas <strong class="text-white">Soul Virtues Test (Test de Almas de Undertale)</strong> para descubrir tu perfil entre Determinación, Valentía, Justicia, Amabilidad, Paciencia, Integridad y Perseverancia.',
-  heroNote: "¿Qué alma de Undertale eres? Completa la evaluación para descubrir tu porcentaje en los 7 rasgos y tu tarjeta pixel-art personalizada.",
+  heroNote: "El resultado completo de siete temas, la revisión de respuestas y la tarjeta PNG son gratuitos, sin cuenta, pago ni invitaciones.",
   nav: {
     startTest: "Empezar Test",
     sevenVirtues: "7 Virtudes",
@@ -194,32 +114,32 @@ export const esTranslations: Translations = {
   },
   what: {
     title: "¿Qué es Soul Virtues Extractor?",
-    p1: '<strong class="text-white">Soul Virtues Extractor</strong> es un test de personalidad y de almas de 66 preguntas inspirado en Undertale, diseñado para medir siete virtudes del alma humana.',
-    p2: 'Los cuestionarios tradicionales suelen encasillarte en una sola etiqueta rígida preguntando "¿Cuál es tu color de alma?". Por el contrario, nuestro <strong>Undertale Soul Test</strong> reconoce que la personalidad es multifacética y que todos poseemos una mezcla de los siete rasgos en diferentes proporciones.',
-    p3: 'Al responder a 66 afirmaciones, obtienes un <strong>Perfil de 7 Dimensiones</strong> completo. Cada respuesta influye en múltiples virtudes de forma simultánea, reflejando cómo interactúan tus rasgos reales.',
-    p4: 'Ya sea que busques un <strong>Undertale Soul Quiz</strong>, explores conceptos de <strong>Deltarune</strong> o quieras una evaluación profunda creada por la comunidad, esta herramienta te ofrece resultados transparentes y fáciles de compartir.',
+    p1: "Soul Virtues Extractor es un test de fans independiente, gratuito y pensado para reflexionar. Sus 66 afirmaciones exploran siete temas cotidianos con una presentación inspirada en Undertale. No es una prueba oficial ni una evaluación clínica.",
+    p2: "50 es el punto medio neutral de esta escala de respuestas. Una puntuación mayor indica que tus respuestas encajan con más afirmaciones del tema. No es un percentil poblacional ni una nota moral. Si todo es neutral, no hay tema principal. Mostramos los empates y presentamos juntos los resultados separados por hasta 3 puntos como ayuda de lectura, no como hallazgo estadístico.",
+    p3: "El banco actual adapta 56 afirmaciones de dominio público de IPIP y añade 10 de Determinación escritas de forma independiente. Elegimos materiales de un conjunto mayor, no de un test fijo de 56 preguntas. Las siete agrupaciones y la redacción son decisiones de este sitio.",
+    p4: "El resultado completo de siete temas, la revisión de respuestas y la tarjeta PNG son gratuitos, sin cuenta, pago ni invitaciones.",
   },
   why: {
     title: "¿Por qué hacer Soul Virtues Extractor?",
-    intro: "¿Por qué completar un test de 66 preguntas en lugar de un cuestionario rápido? Estas son las 4 ventajas clave:",
+    intro: "Soul Virtues Extractor es un test de fans independiente, gratuito y pensado para reflexionar. Sus 66 afirmaciones exploran siete temas cotidianos con una presentación inspirada en Undertale. No es una prueba oficial ni una evaluación clínica.",
     points: [
-      {
-        title: "1. Más allá de una etiqueta única",
-        desc: "En lugar de asignarte un solo resultado, el test muestra tus porcentajes en los siete rasgos, permitiéndote ver tanto tu virtud dominante como tus virtudes de apoyo.",
-      },
-      {
-        title: "2. Interacción real entre virtudes",
-        desc: "Algunas respuestas influyen en más de un rasgo. Esto permite que el resultado refleje cómo las virtudes se potencian o equilibran mutuamente.",
-      },
-      {
-        title: "3. Vista completa con tarjeta gráfica",
-        desc: "Al finalizar, no solo obtienes tu alma principal, sino un desglose visual completo con barras porcentuales y una tarjeta de arte pixel personalizada.",
-      },
-      {
-        title: "4. 100% Local y Privado",
-        desc: "Tus respuestas se calculan directamente en tu navegador web. No se requiere registro ni se recopilan datos personales en servidores externos.",
-      },
-    ],
+  {
+    "title": "Siete puntuaciones en un resultado completo",
+    "desc": "El resultado completo de siete temas, la revisión de respuestas y la tarjeta PNG son gratuitos, sin cuenta, pago ni invitaciones."
+  },
+  {
+    "title": "Fuentes de preguntas comprobables",
+    "desc": "El banco actual adapta 56 afirmaciones de dominio público de IPIP y añade 10 de Determinación escritas de forma independiente. Elegimos materiales de un conjunto mayor, no de un test fijo de 56 preguntas. Las siete agrupaciones y la redacción son decisiones de este sitio."
+  },
+  {
+    "title": "Lee tus respuestas en contexto",
+    "desc": "50 es el punto medio neutral de esta escala de respuestas. Una puntuación mayor indica que tus respuestas encajan con más afirmaciones del tema. No es un percentil poblacional ni una nota moral. Si todo es neutral, no hay tema principal. Mostramos los empates y presentamos juntos los resultados separados por hasta 3 puntos como ayuda de lectura, no como hallazgo estadístico."
+  },
+  {
+    "title": "Progreso local sin cuenta",
+    "desc": "Las respuestas se calculan y guardan en este navegador con un identificador estable y la versión del banco. Puedes seguir el mismo progreso en cualquiera de nuestros cinco idiomas en este navegador, pero no se transfiere entre dispositivos. Las respuestas antiguas no se aplican a preguntas nuevas. El sonido se guarda por separado."
+  }
+],
   },
   traits: {
     title: "Las 7 Almas de Undertale y los Rasgos que Representan",
@@ -227,27 +147,36 @@ export const esTranslations: Translations = {
   },
   colors: {
     title: "¿Cuál es tu color de alma en Undertale?",
-    desc: "Tu virtud más alta determina tu color principal de alma, mientras que el informe completo muestra la distribución en los siete colores:",
+    desc: "El resultado muestra siete puntuaciones independientes. Una puntuación claramente principal puede mostrarse como un color; las respuestas neutras o empatadas no se fuerzan a un solo tipo.",
     note: "*Nota: En la tradición de la comunidad de Undertale, el Alma Roja se asocia comúnmente con la Determinación, aunque el juego original no nombra explícitamente su rasgo oficial.",
     items: [
-      { title: "ALMA ROJA · Determinación*", desc: "Firme resolución de seguir adelante cuando todo está en tu contra." },
-      { title: "ALMA NARANJA · Valentía", desc: "Tomar acción directa y liderar la marcha a pesar del miedo palpable." },
-      { title: "ALMA AMARILLA · Justicia", desc: "Postura inquebrantable por la equidad, la verdad y la defensa de los débiles." },
-      { title: "ALMA VERDE · Amabilidad", desc: "Empatía activa, compasión y elegir sanar y perdonar antes que confrontar." },
-      { title: "ALMA CIAN · Paciencia", desc: "Serenidad emocional, calma reflexiva y saber esperar el momento idóneo." },
-      { title: "ALMA AZUL · Integridad", desc: "Honestidad moral y mantenerse fiel a los propios principios auténticos." },
-      { title: "ALMA MORADA · Perseverancia", desc: "Disciplina silenciosa, estudio metódico y terminar con constancia lo iniciado.", colSpan2: true },
+      { title: "ALMA ROJA · Determinación*", desc: "Elegir un objetivo que te importe y decidir cómo volver a comprometerte tras un revés. Cambiar de rumbo después de reflexionar también encaja en este tema." },
+      { title: "ALMA NARANJA · Valentía", desc: "Expresarte o actuar pese al miedo o la presión social cuando hacerlo es razonablemente seguro. La puntuación no premia el peligro ni exige ser extrovertido." },
+      { title: "ALMA AMARILLA · Justicia", desc: "Aplicar criterios justos a personas diferentes, atendiendo a sus derechos, oportunidades y resultados compartidos. La justicia puede requerir entender necesidades distintas." },
+      { title: "ALMA VERDE · Amabilidad", desc: "Preocuparte, escuchar y ofrecer ayuda útil dentro de límites razonables. Ser amable no exige decidir por otra persona ni descuidar tus necesidades." },
+      { title: "ALMA CIAN · Paciencia", desc: "Cómo respondes a la espera, la frustración leve y la irritación. Incluye hacer una pausa y calmarte; no exige tolerar daño ni retrasos indefinidos." },
+      { title: "ALMA AZUL · Integridad", desc: "Honestidad, confidencialidad y cumplimiento de compromisos, incluido reconocer errores. Una puntuación no establece el valor moral de nadie ni hace correctas sus creencias." },
+      { title: "ALMA MORADA · Perseverancia", desc: "Mantener un esfuerzo útil durante la ejecución, gestionar distracciones e intentar terminar el trabajo. Una rutina productiva también permite descansar y cambiar según la experiencia.", colSpan2: true },
     ],
   },
   scoring: {
     title: "Cómo funciona el algoritmo de puntuación",
-    intro: 'A diferencia de los cuestionarios sencillos que solo suman +1 punto, <strong>Soul Virtues Extractor</strong> utiliza una matriz de puntuación matemática continua:',
+    intro: "Cómo se calcula cada resultado",
     cards: [
-      { title: "Ponderación Multirrasgo", desc: "Cada afirmación puede aportar puntos a virtudes primarias y ajustar simultáneamente rasgos en conflicto." },
-      { title: "Punto Base Neutral del 50%", desc: "El 50% representa neutralidad exacta. Puntuaciones superiores indican afinidad; inferiores, menor preferencia." },
-      { title: "Curva de Potencia No Lineal", desc: "Una fórmula matemática (exponente 0.6) evita la acumulación en el centro y produce porcentajes nítidos y expresivos." },
-    ],
-    note: "Las respuestas neutrales otorgan 0 puntos, funcionando como un salto intencionado. Responder con total sinceridad garantiza un resultado más representativo.",
+  {
+    "title": "Cinco opciones y preguntas inversas",
+    "desc": "Elige entre cinco respuestas: de totalmente en desacuerdo (1) a totalmente de acuerdo (5). En una afirmación inversa usamos 6 menos la respuesta. Cada afirmación pertenece a un solo tema."
+  },
+  {
+    "title": "Una media para cada tema",
+    "desc": "Calculamos la media de las respuestas corregidas del tema y aplicamos 100 × (media − 1) ÷ 4."
+  },
+  {
+    "title": "Una escala transparente de 0 a 100",
+    "desc": "Los siete resultados son independientes. No tienen que sumar 100 y un número distinto de preguntas no cambia el máximo."
+  }
+],
+    note: "Elige entre cinco respuestas: de totalmente en desacuerdo (1) a totalmente de acuerdo (5). En una afirmación inversa usamos 6 menos la respuesta. Cada afirmación pertenece a un solo tema. Calculamos la media de las respuestas corregidas del tema y aplicamos 100 × (media − 1) ÷ 4. Los siete resultados son independientes. No tienen que sumar 100 y un número distinto de preguntas no cambia el máximo.",
   },
   features: {
     title: "Características Destacadas",
@@ -262,40 +191,7 @@ export const esTranslations: Translations = {
   faq: {
     title: "Preguntas Frecuentes (FAQ)",
     subtitle: "Todo lo que necesitas saber sobre Soul Virtues Extractor, los rasgos de alma y el sistema de puntuación.",
-    items: [
-      {
-        q: "¿Qué es Soul Virtues Extractor?",
-        a: "Es un test de personalidad de 66 preguntas inspirado en Undertale que mide siete virtudes del alma humana: Determinación (Roja*), Valentía (Naranja), Justicia (Amarilla), Amabilidad (Verde), Paciencia (Cian), Integridad (Azul) y Perseverancia (Morada), generando un perfil porcentual continuo."
-      },
-      {
-        q: "¿Qué Alma de Undertale eres?",
-        a: "Tu alma dominante corresponde a la virtud en la que obtienes tu mayor porcentaje. Si tu mayor afinidad es la Determinación, tu alma principal será el Alma Roja."
-      },
-      {
-        q: "¿Cuáles son los siete rasgos de alma de Undertale?",
-        a: "Los siete rasgos de alma son: Determinación (Roja · fuerza de voluntad*), Valentía (Naranja · encarar el miedo), Justicia (Amarilla · equidad y rectitud), Amabilidad (Verde · compasión activa), Paciencia (Cian · observación y espera), Integridad (Azul · honestidad y autenticidad) y Perseverancia (Morada · estudio y constancia)."
-      },
-      {
-        q: "¿Cómo se determina el color de tu alma?",
-        a: "Tu virtud más alta define tu color principal, mientras que la pantalla de resultados muestra tu distribución en los 7 colores (*el rojo se asocia ampliamente a la Determinación en el fandom)."
-      },
-      {
-        q: "¿Es un test de Undertale o de Deltarune?",
-        a: "Los siete rasgos y colores provienen directamente del lore de Undertale de Toby Fox, pero la comunidad de Deltarune y Undertale comparte activamente estos conceptos, por lo que es ideal para seguidores de ambas obras."
-      },
-      {
-        q: "¿En qué se diferencia de un test normal de Undertale?",
-        a: "Los cuestionarios típicos encasillan en un solo resultado con preguntas triviales. Nuestra herramienta utiliza una matriz de 66 afirmaciones con curvas no lineales para calcular proporciones multidimensionales exactas."
-      },
-      {
-        q: "¿Cuántas preguntas tiene el test?",
-        a: "Consta de 66 afirmaciones con escala Likert de 5 puntos. Elegir Neutral otorga 0 puntos y funciona como un salto voluntario."
-      },
-      {
-        q: "¿Puedo obtener puntuaciones altas en más de una virtud?",
-        a: "Sí, es muy habitual. Muchas personas obtienen porcentajes elevados en combinaciones como Alta Amabilidad y Alta Integridad."
-      }
-    ],
+    items: ASSESSMENT_COPY.es.faqItems,
   },
   quizUI: {
     resultReading: {
@@ -308,7 +204,7 @@ export const esTranslations: Translations = {
       "tieTitle": "RASGOS PRINCIPALES EMPATADOS",
       "tieBody": "Varios rasgos comparten la puntuación mostrada más alta. Su orden no decide un ganador.",
       "closeBody": "Las dos puntuaciones principales están a 3 puntos o menos. Las mostramos juntas para facilitar la lectura, no como prueba de significación estadística.",
-      "scoreScaleNote": "Cada barra es una puntuación independiente: 50% es neutral. No suman 100% y no son percentiles de población ni un diagnóstico psicológico.",
+      "scoreScaleNote": "Son puntuaciones independientes de 0 a 100 para tus respuestas, no percentiles poblacionales ni notas morales. No tienen que sumar 100.",
       "evidenceTitle": "CÓMO TUS RESPUESTAS AFECTARON LA PUNTUACIÓN",
       "evidenceRaised": "Aumentó este rasgo",
       "evidenceLowered": "Redujo este rasgo",
@@ -321,12 +217,8 @@ export const esTranslations: Translations = {
     musicBgmLabel: "MÚSICA (BGM):",
     soundSfxLabel: "EFECTOS (SFX):",
     muteBtn: "SILENCIAR",
-    soundEngineNote: "Motor de Sonido Undertale · Ajustes guardados automáticamente",
-    introScenes: [
-      "¿ESTAMOS CONECTADOS?",
-      "MUY INTERESANTE. UN ALMA EN EL VACÍO...",
-      "EXTRAIGAMOS TU VERDADERA VIRTUD.",
-    ],
+    soundEngineNote: "Audio de píxeles · Ajustes guardados",
+    introScenes: ["¿ESTAMOS CONECTADOS?","UN ALMA EN EL VACÍO...","EXPLOREMOS TUS RESPUESTAS."],
     introContinueHint: "pulsa Z o haz clic para continuar",
     skipBtn: "SALTAR",
     startTitle: "SOUL VIRTUES EXTRACTOR",
@@ -344,13 +236,7 @@ export const esTranslations: Translations = {
     extremeLeft: "Muy en desacuerdo",
     extremeRight: "Muy de acuerdo",
     tapAnswerHint: "Toca una respuesta para continuar",
-    likertLabels: [
-      "Muy en desacuerdo",
-      "En desacuerdo",
-      "Neutral",
-      "De acuerdo",
-      "Muy de acuerdo",
-    ],
+    likertLabels: ["Totalmente en desacuerdo","En desacuerdo","Neutral","De acuerdo","Totalmente de acuerdo"],
     backBtn: "ATRÁS",
     confirmBtn: "CONFIRMAR",
     skipNeutralBtn: "SALTAR (NEUTRAL)",

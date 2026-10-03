@@ -6,9 +6,11 @@
 
 ## Files
 - contentEvidence.ts：已核验的社区资料链接、事实/解释边界与五语言35条独立反思示例
-- questions.ts：66 道完整李克特量表题目与各维度原始权重
+- quizSession.ts：题库版本、稳定题号保存/恢复与答案值校验；不把旧数组或无效记录算入新题
+- assessmentContent.ts：五语言V2定义、实际情境、反思问题、来源方法和FAQ；复用于结果、方法页与详情页
+- questions.ts：V2 66题五语言文字、56条IPIP官方来源与10条自拟题、稳定题号及每题单一维度
 - souls.ts：七种灵魂特质名称、颜色、十六进制色值、代表金句与深度说明
-- scoring.ts：网页与验证共用的现有线性选项权重/0.6幂曲线、有效答案校验、中立/缺失/并列/接近结果和本地回答贡献
+- scoring.ts：网页与验证共用的V2正反向平均分、有效答案校验、中立/缺失/并列/接近结果和本地回答贡献
 - soulDetails.ts：七大灵魂特质英文原作证据边界、专属装备、战斗机制、SEO 描述与 deepDive 深读正文
 - soulDetailsI18n.ts：日、西、葡、俄多语言灵魂特质设定、证据边界与标签
 - soulDetailsLocalizedContent.ts：四种非英语语言的 28 组物品与性格分析完整正文，含各特质 deepDive 深读正文

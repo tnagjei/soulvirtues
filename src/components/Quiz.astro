@@ -1,7 +1,9 @@
 ---
 // input: lang ('en' | 'ja' | 'es' | 'pt' | 'ru'), static scoring data, localized dictionaries, and six approved comparison pairs
-// output: Five-language quiz with shared scoring, neutral/tied result explanations, private answer evidence, matching cards, minimal analytics, and a voluntary feedback channel
+// output: Five-language V2 quiz with versioned shared progress, mean scoring, neutral/tied readings, matching versioned cards, and private answer evidence
 // pos: src/components/Quiz.astro (更新规则：文件变更需同步本注释与所属目录 README)
+
+import { ASSESSMENT_COPY } from '../data/assessmentContent';
 
 import { getTranslations, type Locale } from '../i18n';
 import { SOUL_CODES } from '../data/souls';
@@ -42,6 +44,12 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
   data-quiz-ui={quizUIJson}
   data-comparison-pairs={comparisonPairsJson}
 >
+  <div class="border border-gray-800 bg-black px-4 py-1 mb-4 text-xs text-gray-400 leading-relaxed">
+    <a href={lang === 'en' ? '/method/' : '/' + lang + '/method/'} class="flex min-h-11 items-center text-cyan-300 underline">{ASSESSMENT_COPY[lang].methodLink}</a>
+    <p id="quiz-bank-update" class="hidden mt-2 text-amber-300" role="status">{ASSESSMENT_COPY[lang].versionNotice}</p>
+    <p id="quiz-storage-error" class="hidden mt-2 text-amber-300" role="status">{ASSESSMENT_COPY[lang].storageError}</p>
+  </div>
+
   <!-- Background Audio Elements -->
   <audio id="audio-bgm" loop preload="auto" src="/audio/bgm_ambient.m4a"></audio>
   <audio id="audio-move" preload="auto" src="/audio/sfx_move.wav"></audio>
@@ -694,6 +702,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
 
 <script>
   import { computeScores as scoreAnswers } from "../data/scoring";
+  import { ANSWER_STORAGE_KEY, BANK_VERSION, encodeAnswers, decodeAnswers } from "../data/quizSession";
   function initQuiz() {
     const root = document.getElementById("quiz-root");
     if (!root) return;
@@ -707,7 +716,8 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
     const QUIZ_UI = JSON.parse(root.getAttribute("data-quiz-ui") || "{}");
     const COMPARISON_PAIRS = JSON.parse(root.getAttribute("data-comparison-pairs") || "{}");
 
-    const STORAGE_KEY = "soulvirtues_answers_" + LANG;
+    const STORAGE_KEY = ANSWER_STORAGE_KEY;
+    root.dataset.bankVersion = BANK_VERSION;
     const SETTINGS_KEY = "soulvirtues_audio_settings";
 
     // -------------------------------------------------------------
@@ -929,15 +939,31 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
     let advanceTimer = null;
     let advanceStartTime = 0;
 
-    try {
-      const savedAnswers = localStorage.getItem(STORAGE_KEY);
-      if (savedAnswers) {
-        const parsed = JSON.parse(savedAnswers);
-        if (Array.isArray(parsed) && parsed.length === QUESTIONS.length) {
-          userAnswers = parsed;
-        }
+    function showPersistenceError() {
+      document.getElementById("quiz-storage-error")?.classList.remove("hidden");
+    }
+
+    function saveProgress() {
+      try {
+        localStorage.setItem(STORAGE_KEY, encodeAnswers(userAnswers, QUESTIONS));
+      } catch {
+        showPersistenceError();
       }
-    } catch (e) {}
+    }
+
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      const restored = saved ? decodeAnswers(saved, QUESTIONS) : null;
+      if (restored) {
+        userAnswers = restored;
+      } else {
+        const hasOlderProgress = ["en", "ja", "es", "pt", "ru"].some(locale =>
+          localStorage.getItem("soulvirtues_answers_" + locale) !== null);
+        if (saved || hasOlderProgress) document.getElementById("quiz-bank-update")?.classList.remove("hidden");
+      }
+    } catch {
+      showPersistenceError();
+    }
 
     function showScreen(screen) {
       ["intro", "start", "active", "result", "review", "souls"].forEach(s => {
@@ -981,10 +1007,10 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
     };
 
     // Initial Screen Decision
-    const isDebugResult = window.location.search.includes("debug=result") || window.location.hash === "#debug-result";
+    const isDebugResult = import.meta.env.DEV && (window.location.search.includes("debug=result") || window.location.hash === "#debug-result");
     if (isDebugResult && userAnswers.filter(a => a !== null).length < QUESTIONS.length) {
       userAnswers = new Array(QUESTIONS.length).fill(1);
-      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(userAnswers)); } catch (e) {}
+      saveProgress();
     }
 
     const answeredCount = userAnswers.filter(a => a !== null).length;
@@ -1015,6 +1041,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       currentIndex = index;
       const q = QUESTIONS[index];
       if (!q) return;
+      root.dataset.questionId = q.id;
 
       currentSelection = userAnswers[index] !== null ? userAnswers[index] : 2;
 
@@ -1148,9 +1175,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
     function confirmAndAdvance() {
       playSound("select");
       userAnswers[currentIndex] = currentSelection;
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(userAnswers));
-      } catch (e) {}
+      saveProgress();
 
       if (currentIndex < QUESTIONS.length - 1) {
         renderQuestion(currentIndex + 1);
@@ -1235,7 +1260,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       if (descEl) descEl.textContent = dominantSoul.description;
       root.dataset.resultKind = score.kind;
       document.getElementById("result-score-note").textContent = QUIZ_UI.resultReading.scoreScaleNote;
-      document.getElementById("secondary-callout").classList.toggle("hidden", score.kind !== "dominant");
+      document.getElementById("secondary-callout").classList.toggle("hidden", score.secondarySoul === null);
       for (const id of ["btn-share-card", "btn-download-card"]) {
         document.getElementById(id).disabled = score.kind === "incomplete";
       }
@@ -1270,7 +1295,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       if (secDesc) secDesc.textContent = secondarySoul.description;
 
       const compareBtn = document.getElementById("btn-compare-top-souls");
-      const comparison = score.kind === "balanced" || score.kind === "incomplete" || (score.kind === "tied" && score.leaders.length > 2)
+      const comparison = score.kind === "balanced" || score.kind === "incomplete" || (score.kind === "tied" && score.leaders.length > 2) || (score.kind === "dominant" && score.secondarySoul === null)
         ? null : COMPARISON_PAIRS[[dominantCode, secondaryCode].sort().join("-")];
       if (compareBtn) {
         compareBtn.classList.toggle("hidden", !comparison);
@@ -1399,7 +1424,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       ctx.fillStyle = "#c9ccc9";
       ctx.font = "bold 17px monospace";
       ctx.textAlign = "right";
-      ctx.fillText(QUIZ_UI.shareCardMeta, 1010, 82, 410);
+      ctx.fillText("V" + BANK_VERSION.split("-")[0] + " · " + QUIZ_UI.shareCardMeta, 1010, 82, 410);
 
       ctx.strokeStyle = "#343936";
       ctx.lineWidth = 3;
@@ -1697,7 +1722,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
     document.getElementById("btn-start-fresh")?.addEventListener("click", () => {
       userAnswers = new Array(QUESTIONS.length).fill(null);
       try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(userAnswers));
+        saveProgress();
         localStorage.removeItem("soulvirtues_roadmap_vote_v1");
       } catch (e) {}
       showScreen("active");
@@ -1746,7 +1771,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
     document.getElementById("btn-quiz-reset")?.addEventListener("click", () => {
       if (confirm(QUIZ_UI.resetConfirm || "Reset all 66 questions?")) {
         userAnswers = new Array(QUESTIONS.length).fill(null);
-        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(userAnswers)); } catch (e) {}
+        saveProgress();
         showScreen("start");
       }
     });
