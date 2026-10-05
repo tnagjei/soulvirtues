@@ -21,7 +21,7 @@ const { lang = 'en' } = Astro.props;
   aria-live="polite"
 >
   <!-- Header Bar with Undertale Heart -->
-  <div class="flex items-center justify-between border-b-2 border-gray-700 pb-2 mb-3">
+  <div class="flex items-center border-b-2 border-gray-700 pb-2 mb-3">
     <div class="flex items-center gap-2">
       <div class="w-4 h-4 text-red-500 animate-pulse flex-shrink-0">
         <svg viewBox="0 0 16 16" fill="currentColor" class="w-full h-full" shape-rendering="crispEdges" aria-hidden="true">
@@ -32,14 +32,6 @@ const { lang = 'en' } = Astro.props;
         LANGUAGE / 言語
       </span>
     </div>
-    <button
-      id="btn-dismiss-lang"
-      type="button"
-      class="inline-flex min-w-11 min-h-11 items-center justify-center text-xs text-gray-400 hover:text-white border border-gray-600 hover:border-white p-0 cursor-pointer touch-manipulation active:scale-95 transition-[color,border-color,transform] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-      aria-label="Close"
-    >
-      ✕
-    </button>
   </div>
 
   <!-- Prompt Message Body -->
@@ -88,35 +80,35 @@ const { lang = 'en' } = Astro.props;
         title: '言語設定 / LANGUAGE',
         text: '日本語をご利用ですか？ 日本語版で診断テストを受けますか？',
         switchLabel: '* 日本語で開く',
-        stayLabel: 'このまま (EN)',
+        stayLabel: 'このページの言語のまま',
         targetUrl: '/ja/',
       },
       es: {
         title: 'IDIOMA / LANGUAGE',
         text: '¿Prefieres usar español? ¿Deseas cambiar a la versión en español?',
         switchLabel: '* Cambiar a Español',
-        stayLabel: 'Quedarme aquí',
+        stayLabel: 'Seguir en esta página',
         targetUrl: '/es/',
       },
       pt: {
         title: 'IDIOMA / LANGUAGE',
         text: 'Você prefere português? Deseja alternar para a versão em português?',
         switchLabel: '* Mudar para Português',
-        stayLabel: 'Ficar nesta versão',
+        stayLabel: 'Continuar nesta página',
         targetUrl: '/pt/',
       },
       en: {
         title: 'LANGUAGE SUGGESTION',
         text: 'Prefer English? Would you like to switch to the English version?',
         switchLabel: '* Switch to English',
-        stayLabel: 'Dismiss',
+        stayLabel: 'Stay on this page',
         targetUrl: '/',
       },
       ru: {
         title: 'ЯЗЫК / LANGUAGE',
         text: 'Вы говорите по-русски? Хотите открыть русскую версию теста?',
         switchLabel: '* Перейти на русский',
-        stayLabel: 'Остаться',
+        stayLabel: 'Остаться на этой странице',
         targetUrl: '/ru/',
       },
     };
@@ -183,7 +175,6 @@ const { lang = 'en' } = Astro.props;
       } catch (e) {}
     }
 
-    document.getElementById('btn-dismiss-lang')?.addEventListener('click', dismissPrompt);
     document.getElementById('btn-stay-lang')?.addEventListener('click', dismissPrompt);
     document.getElementById('link-switch-lang')?.addEventListener('click', () => {
       try {

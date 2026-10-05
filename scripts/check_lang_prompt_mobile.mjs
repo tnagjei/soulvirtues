@@ -24,14 +24,15 @@ assert(promptClasses.includes('max-h-[30dvh]'), 'Prompt must stay within 30% of 
 assert(promptClasses.includes('overflow-y-auto'), 'Prompt must scroll instead of overflowing on short screens');
 assert(promptClasses.includes('overscroll-contain'), 'Prompt scrolling must not move the page behind it');
 
-for (const id of ['btn-dismiss-lang', 'btn-stay-lang', 'link-switch-lang']) {
+for (const id of ['btn-stay-lang', 'link-switch-lang']) {
   const classes = classesFor(id);
   assert(classes.includes('min-h-11'), `#${id} must be at least 44px tall`);
   assert(classes.includes('touch-manipulation'), `#${id} must remove mobile tap delay`);
   assert(classes.includes('focus-visible:ring-2'), `#${id} must show a keyboard focus ring`);
 }
 
-assert(classesFor('btn-dismiss-lang').includes('min-w-11'), 'Close button must be at least 44px wide');
+assert(!source.includes('id="btn-dismiss-lang"'), 'Language prompt must use only the explicit stay and switch choices');
+assert(source.includes('stayLabel: \'Seguir en esta página\''), 'Spanish stay choice must clearly explain that the current page language will remain');
 assert(source.includes('aria-live="polite"'), 'Language suggestion must be announced without interrupting users');
 assert(!source.includes('transition-all'), 'Prompt must transition only explicit properties');
 
