@@ -22,4 +22,10 @@ assert(quizSource.includes('showScreen("active")') || quizSource.includes("showS
 // 3. Verify section#test exists in index.astro
 assert(indexSource.includes('id="test"'), 'index.astro must have section id="test"');
 
+// 4. Verify Quiz start screen has accessible click handlers on title and heart icon
+assert(quizSource.includes('id="quiz-start-title"'), 'Quiz.astro must have id="quiz-start-title"');
+assert(quizSource.includes('id="quiz-start-heart"'), 'Quiz.astro must have id="quiz-start-heart"');
+assert(quizSource.includes('triggerStartFromIntroOrCard'), 'Quiz.astro must connect title and heart clicks to quiz start');
+assert(quizSource.includes('border-yellow-400') && quizSource.includes('id="btn-start-fresh"'), 'Quiz.astro must give btn-start-fresh a prominent yellow CTA border');
+
 console.log('Start Test navigation checks passed.');

@@ -1,6 +1,6 @@
 ---
 // input: lang ('en' | 'ja' | 'es' | 'pt' | 'ru'), static scoring data, localized dictionaries, and six approved comparison pairs
-// output: Five-language V2 quiz with versioned shared progress, mean scoring, neutral/tied readings, matching versioned cards, and private answer evidence
+// output: Five-language V2 quiz with versioned shared progress, mean scoring, neutral/tied readings, matching versioned cards, touch-accessible start actions, and private answer evidence
 // pos: src/components/Quiz.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import { ASSESSMENT_COPY } from '../data/assessmentContent';
@@ -196,13 +196,21 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
 
   <!-- 1. Start Screen -->
   <div id="quiz-start" class="pixel-box p-6 sm:p-12 text-center relative overflow-hidden">
-    <div class="w-16 h-16 mx-auto mb-6 text-red-500 drop-shadow-[0_0_18px_rgba(255,0,0,0.85)] animate-pulse">
+    <div
+      id="quiz-start-heart"
+      class="w-16 h-16 mx-auto mb-6 text-red-500 drop-shadow-[0_0_18px_rgba(255,0,0,0.85)] animate-pulse cursor-pointer touch-manipulation hover:scale-110 active:scale-95 transition-transform"
+      title={t.quizUI.startProceedBtn}
+    >
       <svg viewBox="0 0 16 16" fill="currentColor" class="w-full h-full" shape-rendering="crispEdges">
         <path d="M2 0h4v1H2zm8 0h4v1h-4zM1 1h6v1H1zm8 0h6v1H9zM0 2h7v1H0zm9 2h7v1H9zM0 3h7v1H0zm9 3h7v1H9zM0 4h16v6H0zm2 6h12v2H2zm2 2h8v2H4zm2 2h4v2H6z"/>
       </svg>
     </div>
 
-    <h2 class="text-2xl sm:text-4xl font-extrabold text-white tracking-widest uppercase mb-4">
+    <h2
+      id="quiz-start-title"
+      class="text-2xl sm:text-4xl font-extrabold text-white tracking-widest uppercase mb-4 cursor-pointer touch-manipulation hover:text-yellow-400 transition-colors"
+      title={t.quizUI.startProceedBtn}
+    >
       {t.quizUI.startTitle}
     </h2>
     <p class="text-xs sm:text-sm text-gray-300 max-w-xl mx-auto mb-8 leading-relaxed font-sans">
@@ -212,9 +220,10 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
     <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
       <button
         id="btn-start-fresh"
-        class="w-full sm:w-auto px-8 py-4 bg-black border-4 border-white hover:bg-white hover:text-black text-white font-bold text-base uppercase tracking-widest active:scale-95 transition-all cursor-pointer shadow-[4px_4px_0px_rgba(255,255,255,0.4)]"
+        class="w-full sm:w-auto px-8 py-4 bg-black border-4 border-yellow-400 hover:bg-yellow-400 hover:text-black text-yellow-300 font-bold text-base uppercase tracking-widest active:scale-95 transition-all cursor-pointer shadow-[4px_4px_0px_rgba(250,204,21,0.4)] flex items-center justify-center gap-2 group"
       >
-        {t.quizUI.startProceedBtn}
+        <span class="text-red-500 inline-block transition-transform group-hover:scale-125 animate-pulse" aria-hidden="true">❤</span>
+        <span>{t.quizUI.startProceedBtn}</span>
       </button>
 
       <button
@@ -1731,6 +1740,17 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       playSound("select");
     });
 
+    function triggerStartFromIntroOrCard() {
+      const resumeBtn = document.getElementById("btn-resume-quiz");
+      if (resumeBtn && !resumeBtn.classList.contains("hidden")) {
+        resumeBtn.click();
+      } else {
+        document.getElementById("btn-start-fresh")?.click();
+      }
+    }
+    document.getElementById("quiz-start-title")?.addEventListener("click", triggerStartFromIntroOrCard);
+    document.getElementById("quiz-start-heart")?.addEventListener("click", triggerStartFromIntroOrCard);
+
     document.getElementById("quiz-intro")?.addEventListener("click", advanceIntro);
     document.getElementById("btn-skip-intro")?.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -1897,6 +1917,15 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
         if (e.key === "Enter" || e.key.toLowerCase() === "z" || e.key === " ") {
           e.preventDefault();
           advanceIntro();
+        }
+        return;
+      }
+
+      const startScreen = document.getElementById("quiz-start");
+      if (startScreen && !startScreen.classList.contains("hidden")) {
+        if (e.key === "Enter" || e.key.toLowerCase() === "z" || e.key === " ") {
+          e.preventDefault();
+          triggerStartFromIntroOrCard();
         }
         return;
       }
