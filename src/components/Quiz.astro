@@ -388,21 +388,33 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
           Deep behavioral paradox analysis, Undertale battle dynamics, and verified PDF dossier based on your 66-item responses.
         </p>
 
-        <!-- Blurred Sample Preview Area -->
-        <div class="relative bg-black/80 border border-yellow-500/40 p-4 mb-5 text-left font-sans text-xs text-gray-300 rounded overflow-hidden">
-          <p class="font-bold text-yellow-400 font-mono text-[11px] uppercase tracking-wider mb-1">
-            ✦ AI PSYCHOLOGICAL DOSSIER PREVIEW:
-          </p>
-          <p class="leading-relaxed text-gray-200">
-            "Your decision engine operates on a sharp internal locus of autonomy. When confronted by external pressure, your baseline strategy is not to retreat..."
-          </p>
-          <p class="blur-[4px] select-none opacity-40 leading-relaxed mt-1">
-            ...however, under sustained crisis your secondary virtue triggers an unspoken friction point. You perceive vulnerability as compromise, silently bearing relational costs until situational rigidity threatens the very outcome you are fighting to protect...
-          </p>
-          <div class="absolute inset-0 flex items-center justify-center bg-black/50 backdrop-blur-[2px]">
-            <div class="px-3.5 py-1.5 bg-black/95 border-2 border-yellow-400 text-yellow-300 font-mono font-bold text-xs uppercase tracking-widest shadow-[0_0_15px_rgba(250,204,21,0.6)] flex items-center gap-2">
-              <span>🔒</span>
-              <span>CLASSIFIED AI DOSSIER LOCKED</span>
+        <!-- High-Contrast Sample Preview Area (Crystal Clear Top + Targeted Gradient Lock) -->
+        <div class="mb-5 text-left font-sans text-xs rounded border border-yellow-500/50 bg-black/95 overflow-hidden shadow-inner">
+          <!-- 1. Crystal clear excerpt: 100% visible, high-contrast, zero blur -->
+          <div class="p-4 sm:p-5 border-b border-yellow-500/30 bg-gradient-to-r from-yellow-950/30 via-black to-black">
+            <div class="flex items-center gap-2 font-mono font-bold text-yellow-400 text-[11px] uppercase tracking-wider mb-2">
+              <span class="inline-block w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></span>
+              <span>✦ CONFIDENTIAL ARCHIVE EXCERPT:</span>
+            </div>
+            <p id="preview-clear-text" class="text-xs sm:text-sm font-medium text-white leading-relaxed">
+              "Your core psychological engine operates on an unyielding principle of autonomy. When confronted by external pressure, your baseline strategy is not to retreat, but focused resolve to reshape your circumstances according to your vision..."
+            </p>
+          </div>
+
+          <!-- 2. Targeted blurred lower section with gradient overlay -->
+          <div class="relative p-4 sm:p-5 overflow-hidden min-h-[90px]">
+            <p class="text-xs text-gray-400 blur-[3px] select-none opacity-40 leading-relaxed font-serif">
+              ...however, under sustained crisis your secondary virtue triggers an unspoken friction point. You perceive vulnerability as compromise, silently bearing relational costs until situational rigidity threatens the very outcome you are fighting to protect. In collaborative spheres, this manifests as quiet exhaustion when peers fail to match your intensity...
+            </p>
+            <!-- Lock gradient overlay centered over blurred section only -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/90 to-transparent flex flex-col items-center justify-center p-3">
+              <div class="px-4 py-2 bg-black/95 border-2 border-yellow-400 text-yellow-300 font-mono font-bold text-xs uppercase tracking-widest shadow-[0_0_20px_rgba(250,204,21,0.5)] flex items-center gap-2">
+                <span class="text-sm">🔒</span>
+                <span>REST OF 5-CHAPTER DOSSIER LOCKED</span>
+              </div>
+              <span class="text-[10px] text-gray-400 font-mono mt-1.5 uppercase tracking-wider">
+                Unlock full 2,000+ words detailed analysis & PDF handbook below
+              </span>
             </div>
           </div>
         </div>
@@ -1306,6 +1318,21 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
           lang: typeof LANG !== 'undefined' ? LANG : 'en'
         }));
       } catch (e) {}
+
+      // Update clear excerpt in VIP preview card
+      const PREVIEW_EXCERPTS = {
+        red: '"Your core psychological engine operates on an unyielding principle of autonomy. When confronted by external pressure, your baseline strategy is not to retreat, but focused resolve to reshape your circumstances..."',
+        orange: '"Your natural vitality is driven by bold initiative and proactive engagement. You instinctively move into uncharted territory where others hesitate, finding confidence through direct action..."',
+        yellow: '"Your moral compass is calibrated around equity, principled balance, and truth. You possess an innate drive to rectify imbalances and hold standards that others quietly abandon..."',
+        green: '"Your psychological foundation is rooted in genuine empathy and relational grounding. You naturally absorb ambient tension and create safe harbor for those in distress..."',
+        cyan: '"Your greatest asset is observant stillness and situational timing. While others react impulsively to chaos, you naturally pause, evaluate currents, and strike at the exact right moment..."',
+        blue: '"Your inner architecture demands strict authenticity and moral integrity. You require harmony between what you believe and how you act, refusing convenient shortcuts..."',
+        purple: '"Your intellect functions as an unstoppable problem-solving engine. You break down complex obstacles through study, method, and disciplined tenacity until you master them..."'
+      };
+      const previewClearEl = document.getElementById("preview-clear-text");
+      if (previewClearEl && PREVIEW_EXCERPTS[dominantCode]) {
+        previewClearEl.textContent = PREVIEW_EXCERPTS[dominantCode];
+      }
       const dominantSoul = getResultDisplay(score);
 
       const heartEl = document.getElementById("result-heart");
