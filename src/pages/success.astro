@@ -1,6 +1,6 @@
 ---
 // input: Redirect from payment gateway after successful purchase
-// output: Private unlocked 5-chapter AI report view with PDF generation
+// output: High-value visual RPG dossier with badges, dual-column cards, battle stats, and PDF export
 // pos: src/pages/success.astro
 
 import '../styles/global.css';
@@ -12,7 +12,7 @@ import '../styles/global.css';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="robots" content="noindex,follow" />
-    <title>AI Deep Soul Archive - Soul Virtues Extractor</title>
+    <title>Classified Soul Dossier - Soul Virtues Extractor</title>
     <meta name="description" content="Your verified 7-virtue psychological breakdown and AI Deep Soul Archive." />
     <link rel="icon" type="image/png" sizes="512x512" href="/logo.png" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -21,59 +21,86 @@ import '../styles/global.css';
       @media print {
         body { background: #000 !important; color: #fff !important; }
         .no-print { display: none !important; }
-        .page-break { page-break-before: always; break-before: page; }
       }
     </style>
   </head>
   <body class="bg-black text-gray-100 min-h-screen font-sans selection:bg-yellow-500 selection:text-black">
-    <main class="max-w-4xl mx-auto px-4 py-12 text-center text-white">
-      <!-- Success Badge -->
-      <div class="mb-8 no-print">
-        <div class="w-16 h-16 mx-auto mb-4 text-emerald-400 drop-shadow-[0_0_20px_rgba(52,211,153,0.8)]">
+    <main class="max-w-4xl mx-auto px-4 py-10 text-white">
+      <!-- Success Badge (Header) -->
+      <div class="text-center mb-8 no-print">
+        <div class="w-14 h-14 mx-auto mb-3 text-emerald-400 drop-shadow-[0_0_20px_rgba(52,211,153,0.8)]">
           <svg viewBox="0 0 16 16" fill="currentColor" class="w-full h-full" shape-rendering="crispEdges">
             <path d="M2 0h4v1H2zm8 0h4v1h-4zM1 1h6v1H1zm8 0h6v1H9zM0 2h7v1H0zm9 2h7v1H9zM0 3h7v1H0zm9 3h7v1H9zM0 4h16v6H0zm2 6h12v2H2zm2 2h8v2H4zm2 2h4v2H6z"/>
           </svg>
         </div>
-        <div class="inline-block px-3 py-1 text-xs font-mono font-bold tracking-widest uppercase mb-3 border-2 border-emerald-400 text-emerald-300 bg-emerald-950/40">
-          PAYMENT CONFIRMED · ORDER COMPLETED
+        <div class="inline-block px-3 py-1 text-xs font-mono font-bold tracking-widest uppercase mb-2 border-2 border-emerald-400 text-emerald-300 bg-emerald-950/40">
+          ORDER VERIFIED · LEVEL 4 CLEARANCE GRANTED
         </div>
-        <h1 class="text-2xl sm:text-4xl font-black font-mono tracking-tight text-white uppercase mb-3">
-          AI DEEP SOUL ARCHIVE UNLOCKED
+        <h1 class="text-2xl sm:text-4xl font-black font-mono tracking-tight text-white uppercase">
+          CLASSIFIED SOUL DOSSIER
         </h1>
-        <p class="text-sm text-gray-300 max-w-lg mx-auto">
-          Thank you for unlocking your verified Soul Profile. Your comprehensive 5-chapter psychological dossier and downloadable handbook are below.
+        <p class="text-xs sm:text-sm text-gray-300 max-w-md mx-auto mt-2">
+          Your full personality matrix, shadow dynamics, and combat profile have been decrypted below.
         </p>
       </div>
 
-      <!-- Report Container (Render Target for PDF) -->
-      <div id="unlocked-report-card" class="pixel-box p-6 sm:p-10 text-left bg-black border-2 border-yellow-500/80 shadow-[0_0_25px_rgba(234,179,8,0.25)] mb-8">
+      <!-- Main Dossier Card (Render Target for PDF) -->
+      <div id="unlocked-report-card" class="pixel-box p-6 sm:p-10 bg-black border-2 border-yellow-500/80 shadow-[0_0_30px_rgba(234,179,8,0.2)] mb-8 space-y-8">
+        
         <!-- Loading State -->
-        <div id="report-loading" class="py-12 text-center">
-          <div class="inline-block animate-spin text-3xl mb-4 text-yellow-400">✦</div>
-          <p class="font-mono text-sm tracking-wider text-yellow-300">DECRYPTING SOUL PATTERNS & GENERATING 5-CHAPTER ARCHIVE...</p>
+        <div id="report-loading" class="py-16 text-center">
+          <div class="inline-block animate-spin text-4xl mb-4 text-yellow-400">✦</div>
+          <p class="font-mono text-sm tracking-wider text-yellow-300">SYNTHESIZING MULTI-DIMENSIONAL DOSSIER & COMBAT STATS...</p>
         </div>
 
-        <!-- Ready State -->
+        <!-- Loaded State -->
         <div id="report-ready" class="hidden space-y-8">
-          <!-- Official Dossier Header -->
-          <div class="border-b-2 border-yellow-500/40 pb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          
+          <!-- Dossier Top Header -->
+          <div class="border-b-2 border-yellow-500/30 pb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <span class="text-[10px] font-mono uppercase text-gray-400 tracking-widest block">OFFICIAL SUBJECT ARCHIVE</span>
-              <div class="font-mono font-black text-xl text-yellow-400" id="archive-id">SV-CONFIDENTIAL</div>
-              <div class="text-xs text-gray-300 font-mono mt-0.5">UNDERTALE SOUL VIRTUES CLASSIFIED DOSSIER</div>
+              <div class="font-mono font-black text-2xl text-yellow-400 tracking-wide" id="archive-id">SV-CONFIDENTIAL</div>
+              <div class="text-xs text-gray-300 font-mono mt-0.5">UNDERTALE RESEARCH DOSSIER · SECURE CLEARANCE</div>
             </div>
             <div class="text-left sm:text-right">
-              <span class="text-[10px] font-mono uppercase text-emerald-400 tracking-widest block font-bold">STATUS: VERIFIED & COMPLETED</span>
+              <span class="text-[10px] font-mono uppercase text-emerald-400 tracking-widest block font-bold">STATUS: AUTHENTICATED</span>
               <div class="text-xs text-gray-400 font-mono" id="archive-date"></div>
+            </div>
+          </div>
+
+          <!-- Hero Archetype Identity Badge -->
+          <div class="p-6 bg-gradient-to-r from-yellow-950/40 via-gray-900/80 to-black border-2 border-yellow-500/60 rounded relative overflow-hidden">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+              <div>
+                <span class="text-[11px] font-mono font-bold text-yellow-400 uppercase tracking-widest block mb-1">
+                  CORE ARCHETYPE CODENAME
+                </span>
+                <h2 id="archetype-title" class="text-2xl sm:text-3xl font-black font-mono text-white tracking-wide uppercase">
+                  THE INDOMITABLE SENTINEL
+                </h2>
+                <p id="archetype-subtitle" class="text-xs sm:text-sm text-gray-300 italic font-serif mt-1">
+                  Guardian of Unyielding Resolve & Fair Outcomes
+                </p>
+              </div>
+              <div class="sm:text-right flex-shrink-0">
+                <div class="inline-block px-3 py-1.5 bg-yellow-400/20 border border-yellow-400 text-yellow-300 text-xs font-mono font-black tracking-wider uppercase" id="percentile-badge">
+                  TOP 7% RARITY
+                </div>
+              </div>
+            </div>
+            <!-- Identity Tags -->
+            <div id="archetype-tags" class="flex flex-wrap gap-2 pt-2 border-t border-gray-800">
+              <!-- Injected via JS -->
             </div>
           </div>
 
           <!-- Section 1: 7-Virtue Metric Matrix -->
           <div>
-            <h2 class="text-sm font-mono font-bold tracking-widest text-cyan-300 uppercase mb-4 flex items-center gap-2">
-              <span>[CHAPTER 1]</span>
-              <span>7-VIRTUE METRIC MATRIX & PROFILE BALANCE</span>
-            </h2>
+            <h3 class="text-sm font-mono font-bold tracking-widest text-cyan-300 uppercase mb-4 flex items-center gap-2">
+              <span>[01]</span>
+              <span>7-VIRTUE METRIC SPECTRUM</span>
+            </h3>
             <div id="unlocked-virtue-bars" class="space-y-3 font-mono text-xs">
               <!-- Injected via JS -->
             </div>
@@ -81,75 +108,141 @@ import '../styles/global.css';
 
           <!-- Section 2: Core Motivational Engine -->
           <div>
-            <h2 class="text-sm font-mono font-bold tracking-widest text-yellow-300 uppercase mb-3 flex items-center gap-2">
-              <span>[CHAPTER 2]</span>
-              <span>CORE MOTIVATIONAL ENGINE & COGNITIVE BIAS</span>
-            </h2>
-            <div id="unlocked-chapter1" class="text-xs sm:text-sm text-gray-200 leading-relaxed font-sans bg-gray-950 p-5 border border-gray-800 rounded">
+            <h3 class="text-sm font-mono font-bold tracking-widest text-yellow-300 uppercase mb-3 flex items-center gap-2">
+              <span>[02]</span>
+              <span>CORE PSYCHOLOGICAL ENGINE & DECISION PARADIGM</span>
+            </h3>
+            <div id="unlocked-engine" class="text-xs sm:text-sm text-gray-200 leading-relaxed font-sans bg-gray-950 p-5 border border-gray-800 rounded">
               <!-- Injected via JS -->
             </div>
           </div>
 
-          <!-- Section 3: Shadow Paradox & Friction Points -->
+          <!-- Section 3: Dual-Column Light vs. Shadow (Superpowers vs. Blindspots) -->
           <div>
-            <h2 class="text-sm font-mono font-bold tracking-widest text-red-400 uppercase mb-3 flex items-center gap-2">
-              <span>[CHAPTER 3]</span>
-              <span>SHADOW PARADOX: BLIND SPOTS & STRESS TRIGGERS</span>
-            </h2>
-            <div id="unlocked-chapter2" class="text-xs sm:text-sm text-gray-200 leading-relaxed font-sans bg-gray-950 p-5 border border-gray-800 rounded">
-              <!-- Injected via JS -->
+            <h3 class="text-sm font-mono font-bold tracking-widest text-white uppercase mb-4 flex items-center gap-2">
+              <span>[03]</span>
+              <span>POLARITY MATRIX: SUPERPOWERS VS. SHADOW BLINDSPOTS</span>
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <!-- Left: Superpowers -->
+              <div class="p-5 bg-black/80 border-2 border-emerald-500/50 rounded flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center gap-2 text-emerald-400 font-mono font-bold text-xs uppercase tracking-wider mb-3">
+                    <span>⚡</span>
+                    <span>CORE SUPERPOWERS</span>
+                  </div>
+                  <ul id="unlocked-superpowers" class="space-y-2.5 text-xs text-gray-200 leading-relaxed list-disc list-inside">
+                    <!-- Injected via JS -->
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Right: Shadow Blindspots -->
+              <div class="p-5 bg-black/80 border-2 border-red-500/50 rounded flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center gap-2 text-red-400 font-mono font-bold text-xs uppercase tracking-wider mb-3">
+                    <span>⚠️</span>
+                    <span>SHADOW BLINDSPOTS & STRESS TRAPS</span>
+                  </div>
+                  <ul id="unlocked-blindspots" class="space-y-2.5 text-xs text-gray-200 leading-relaxed list-disc list-inside">
+                    <!-- Injected via JS -->
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
 
-          <!-- Section 4: Undertale Battle Philosophy -->
+          <!-- Section 4: RPG Combat Profile & Undertale Mechanics -->
           <div>
-            <h2 class="text-sm font-mono font-bold tracking-widest text-purple-300 uppercase mb-3 flex items-center gap-2">
-              <span>[CHAPTER 4]</span>
-              <span>UNDERTALE SOUL RESONANCE & STRATEGIC COMBAT</span>
-            </h2>
-            <div id="unlocked-chapter3" class="text-xs sm:text-sm text-gray-200 leading-relaxed font-sans bg-gray-950 p-5 border border-gray-800 rounded">
-              <!-- Injected via JS -->
+            <h3 class="text-sm font-mono font-bold tracking-widest text-purple-300 uppercase mb-4 flex items-center gap-2">
+              <span>[04]</span>
+              <span>UNDERTALE SOUL COMBAT PROFILE & BATTLE MECHANICS</span>
+            </h3>
+            <div class="p-5 bg-gradient-to-b from-purple-950/30 via-black to-black border-2 border-purple-500/60 rounded space-y-5">
+              
+              <!-- Combat Stats 4-Grid -->
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center font-mono">
+                <div class="p-3 bg-black border border-purple-500/40 rounded">
+                  <span class="text-[10px] text-gray-400 uppercase tracking-widest block">ATK (IMPACT)</span>
+                  <span id="stat-atk" class="text-xl sm:text-2xl font-black text-red-400">85</span>
+                </div>
+                <div class="p-3 bg-black border border-purple-500/40 rounded">
+                  <span class="text-[10px] text-gray-400 uppercase tracking-widest block">DEF (GUARD)</span>
+                  <span id="stat-def" class="text-xl sm:text-2xl font-black text-cyan-400">92</span>
+                </div>
+                <div class="p-3 bg-black border border-purple-500/40 rounded">
+                  <span class="text-[10px] text-gray-400 uppercase tracking-widest block">STA (RESOLVE)</span>
+                  <span id="stat-sta" class="text-xl sm:text-2xl font-black text-purple-400">98</span>
+                </div>
+                <div class="p-3 bg-black border border-purple-500/40 rounded">
+                  <span class="text-[10px] text-gray-400 uppercase tracking-widest block">AGI (TIMING)</span>
+                  <span id="stat-agi" class="text-xl sm:text-2xl font-black text-yellow-400">70</span>
+                </div>
+              </div>
+
+              <!-- Abilities & Synergy -->
+              <div class="space-y-3 text-xs text-gray-200 font-sans border-t border-purple-900/50 pt-4">
+                <div>
+                  <span class="font-mono font-bold text-purple-300 uppercase block mb-1">
+                    ✦ SOUL BATTLE MECHANIC: <span id="combat-mode" class="text-white">Tethered Matrix Weaver</span>
+                  </span>
+                  <p id="combat-ability" class="text-gray-300 leading-relaxed"></p>
+                </div>
+                <div class="border-t border-gray-900 pt-2">
+                  <span class="font-mono font-bold text-yellow-300 uppercase block mb-1">
+                    ✦ OPTIMAL SOUL SYNERGY:
+                  </span>
+                  <p id="combat-synergy" class="text-gray-300 leading-relaxed"></p>
+                </div>
+              </div>
             </div>
           </div>
 
-          <!-- Section 5: Interpersonal Dynamics -->
+          <!-- Section 5: Action Plan (DOs & DONTs Checklist) -->
           <div>
-            <h2 class="text-sm font-mono font-bold tracking-widest text-emerald-300 uppercase mb-3 flex items-center gap-2">
-              <span>[CHAPTER 5]</span>
-              <span>INTERPERSONAL DYNAMICS & COLLABORATIVE STYLES</span>
-            </h2>
-            <div id="unlocked-chapter4" class="text-xs sm:text-sm text-gray-200 leading-relaxed font-sans bg-gray-950 p-5 border border-gray-800 rounded">
-              <!-- Injected via JS -->
+            <h3 class="text-sm font-mono font-bold tracking-widest text-amber-300 uppercase mb-4 flex items-center gap-2">
+              <span>[05]</span>
+              <span>TACTICAL EVOLUTION PROTOCOL: ACTIONABLE AGENDA</span>
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+              <div class="p-4 bg-black border border-emerald-500/40 rounded">
+                <span class="font-mono font-bold text-emerald-400 uppercase block mb-1.5 flex items-center gap-1.5">
+                  <span>✅</span> <span>KEEP DOING</span>
+                </span>
+                <p id="plan-keep" class="text-gray-300 leading-relaxed"></p>
+              </div>
+              <div class="p-4 bg-black border border-red-500/40 rounded">
+                <span class="font-mono font-bold text-red-400 uppercase block mb-1.5 flex items-center gap-1.5">
+                  <span>🛑</span> <span>STOP DOING</span>
+                </span>
+                <p id="plan-stop" class="text-gray-300 leading-relaxed"></p>
+              </div>
+              <div class="p-4 bg-black border border-yellow-500/40 rounded">
+                <span class="font-mono font-bold text-yellow-400 uppercase block mb-1.5 flex items-center gap-1.5">
+                  <span>🎯</span> <span>30-DAY QUEST</span>
+                </span>
+                <p id="plan-quest" class="text-gray-300 leading-relaxed"></p>
+              </div>
             </div>
           </div>
 
-          <!-- Section 6: Tactical Evolution Protocol -->
-          <div>
-            <h2 class="text-sm font-mono font-bold tracking-widest text-amber-300 uppercase mb-3 flex items-center gap-2">
-              <span>[CHAPTER 6]</span>
-              <span>TACTICAL EVOLUTION PROTOCOL: ACTIONABLE ADVICE</span>
-            </h2>
-            <div id="unlocked-chapter5" class="text-xs sm:text-sm text-gray-200 leading-relaxed font-sans bg-gray-950 p-5 border border-gray-800 rounded">
-              <!-- Injected via JS -->
-            </div>
-          </div>
-
-          <!-- Actions Bar -->
-          <div class="pt-8 border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4 no-print">
+          <!-- Action Controls Bar (Hidden in Print) -->
+          <div class="pt-8 border-t-2 border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4 no-print">
             <a href="/" class="text-xs font-mono text-gray-400 hover:text-white underline">
               ← Return to Soul Virtues Extractor
             </a>
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-3 w-full sm:w-auto">
               <button
                 id="btn-download-pdf"
                 type="button"
-                class="px-6 py-3.5 bg-yellow-400 text-black font-mono font-black text-xs uppercase tracking-wider hover:bg-yellow-300 cursor-pointer transition-all shadow-[3px_3px_0_rgba(255,255,255,0.4)] active:translate-x-[1px] active:translate-y-[1px] flex items-center gap-2"
+                class="w-full sm:w-auto px-6 py-3.5 bg-yellow-400 text-black font-mono font-black text-xs uppercase tracking-wider hover:bg-yellow-300 cursor-pointer transition-all shadow-[4px_4px_0_rgba(255,255,255,0.4)] active:translate-x-[1px] active:translate-y-[1px] flex items-center justify-center gap-2"
               >
                 <span>📥</span>
                 <span id="btn-pdf-text">DOWNLOAD OFFICIAL DOSSIER (PDF)</span>
               </button>
             </div>
           </div>
+
         </div>
 
         <!-- Empty State -->
@@ -165,6 +258,7 @@ import '../styles/global.css';
             </a>
           </div>
         </div>
+
       </div>
     </main>
 
@@ -202,17 +296,17 @@ import '../styles/global.css';
         const scores = resultData?.pct || {
           red: 78, orange: 65, yellow: 70, green: 55, cyan: 60, blue: 68, purple: 74
         };
-        const dominant = resultData?.dominant || 'red';
-        const secondary = resultData?.secondary || 'purple';
+        const dominant = resultData?.dominant || 'purple';
+        const secondary = resultData?.secondary || 'red';
         const lang = resultData?.lang || 'en';
 
-        let reportData = null;
+        let report = null;
         try {
-          const cached = localStorage.getItem('soul_virtues_ai_report_5ch');
-          if (cached) reportData = JSON.parse(cached);
+          const cached = localStorage.getItem('soul_virtues_dossier_v2');
+          if (cached) report = JSON.parse(cached);
         } catch (e) {}
 
-        if (!reportData) {
+        if (!report) {
           try {
             const res = await fetch('/api/generate-report', {
               method: 'POST',
@@ -220,28 +314,68 @@ import '../styles/global.css';
               body: JSON.stringify({ scores, dominant, secondary, lang }),
             });
             if (res.ok) {
-              reportData = await res.json();
-              try { localStorage.setItem('soul_virtues_ai_report_5ch', JSON.stringify(reportData)); } catch (e) {}
+              report = await res.json();
+              try { localStorage.setItem('soul_virtues_dossier_v2', JSON.stringify(report)); } catch (e) {}
             }
           } catch (e) {
-            console.error('Report fetch error:', e);
+            console.error('Dossier fetch error:', e);
           }
         }
 
-        if (!reportData) {
-          reportData = {
-            chapter1_engine: "You embody Determination—a profound internal drive characterized by purposeful autonomy and relentless resilience. When facing adversity, your primary instinct is not passive compromise, but focused resolve to reshape your circumstances according to your vision.",
-            chapter2_paradox: "Your greatest strength—unbending persistence—can subtly shift into situational rigidity. When objectives stall, distinguishing between genuine perseverance and stubborn attachment to outdated assumptions is your key area for personal evolution.",
-            chapter3_combat: "In the Undertale battle philosophy, your soul energy manifests as high baseline HP recovery and steady forward motion. You excel in complex encounters that reward endurance and unwavering commitment over impulsive improvisation.",
-            chapter4_interpersonal: "In collaborative settings, peers perceive you as a pillar of dependability during ambiguous crises. However, you must be mindful of peers who move at a different cadence, ensuring your high intensity does not accidentally overwhelm collaborative momentum.",
-            chapter5_evolution: "Practice deliberate tactical pauses. Taking a structured breath to re-evaluate your assumptions before re-committing your will enhances the strategic impact of your unstoppable drive."
+        // Guaranteed fallback if anything fails
+        if (!report || !report.archetypeTitle) {
+          report = {
+            archetypeTitle: 'THE ARCHITECT OF ENDURANCE',
+            archetypeSubtitle: 'Methodical Sovereign of Long-Horizon Masterwork',
+            tags: ['Sunk-Cost Immunity', 'Systemic Focus', 'Deep Resilience'],
+            percentileRank: 'Top 7% Rarity',
+            engine: 'Your psychological architecture is engineered for compounding mastery. You do not chase transient spikes of motivation; you construct systematic habits and outlast friction. While sprinters burn out in complex arenas, your steady cadence guarantees eventual completion.',
+            superpowers: [
+              'Exhaustion Resistance: Maintains intellectual rigor long after others abandon intricate challenges.',
+              'Pattern Deconstruction: Breaks overwhelming chaotic crises into step-by-step solvable units.',
+              'Quiet Reliability: Peers trust that when you accept a commitment, it will cross the finish line.'
+            ],
+            blindspots: [
+              'Sunk-Cost Fixation: Pouring effort into deteriorating objectives because quitting feels like failure.',
+              'Emotional Isolation: Attempting to resolve human friction with clinical logic instead of empathy.',
+              'Silent Martyrdom: Carrying excessive team burdens without communicating boundary strain.'
+            ],
+            combat: {
+              mode: 'Tethered Matrix Weaver (Purple Soul)',
+              atk: 78, def: 94, sta: 99, agi: 72,
+              ability: 'Iterative Reinforcement: Each consecutive hit absorbed increases defense efficiency by 15%.',
+              synergy: 'Bravery (Orange Soul) supplies the sudden momentum needed to escape stagnant loops.'
+            },
+            actionPlan: {
+              keep: 'Leverage your meticulous structured workflows for complex long-term projects.',
+              stop: 'Stop assuming that suffering through a bad process is a virtue in itself.',
+              quest: 'Execute a 'clean abandon': consciously drop one dead-end commitment this week without guilt.'
+            }
           };
         }
 
         if (loadingEl) loadingEl.classList.add('hidden');
         if (readyEl) readyEl.classList.remove('hidden');
 
-        // Render Bars
+        // Populate Archetype Header
+        const titleEl = document.getElementById('archetype-title');
+        const subEl = document.getElementById('archetype-subtitle');
+        const rankEl = document.getElementById('percentile-badge');
+        const tagsEl = document.getElementById('archetype-tags');
+
+        if (titleEl) titleEl.textContent = report.archetypeTitle || 'THE UNYIELDING SENTINEL';
+        if (subEl) subEl.textContent = report.archetypeSubtitle || 'Guardian of Resolve & Principles';
+        if (rankEl) rankEl.textContent = (report.percentileRank || 'TOP 8% RARITY').toUpperCase();
+
+        if (tagsEl && Array.isArray(report.tags)) {
+          tagsEl.innerHTML = report.tags.map(tag => `
+            <span class="px-2.5 py-0.5 bg-yellow-400/10 border border-yellow-500/40 text-yellow-300 font-mono text-[10px] uppercase font-bold tracking-wider">
+              ✦ ${tag}
+            </span>
+          `).join('');
+        }
+
+        // Render 7-Virtue Bars
         const barsEl = document.getElementById('unlocked-virtue-bars');
         if (barsEl) {
           barsEl.innerHTML = traits.map(t => {
@@ -260,20 +394,38 @@ import '../styles/global.css';
           }).join('');
         }
 
-        // Render 5 Chapters
-        const ch1 = document.getElementById('unlocked-chapter1');
-        const ch2 = document.getElementById('unlocked-chapter2');
-        const ch3 = document.getElementById('unlocked-chapter3');
-        const ch4 = document.getElementById('unlocked-chapter4');
-        const ch5 = document.getElementById('unlocked-chapter5');
+        // Section 2 Engine
+        const engineEl = document.getElementById('unlocked-engine');
+        if (engineEl) engineEl.textContent = report.engine || '';
 
-        if (ch1) ch1.textContent = reportData.chapter1_engine || reportData.coreArchetype || '';
-        if (ch2) ch2.textContent = reportData.chapter2_paradox || reportData.behavioralParadox || '';
-        if (ch3) ch3.textContent = reportData.chapter3_combat || reportData.soulResonance || '';
-        if (ch4) ch4.textContent = reportData.chapter4_interpersonal || 'Peers respect your principled presence and stability during moments of organizational uncertainty.';
-        if (ch5) ch5.textContent = reportData.chapter5_evolution || 'Cultivate adaptive pacing: balance decisive action with situational reflection for maximum long-term fulfillment.';
+        // Section 3 Superpowers & Blindspots
+        const supEl = document.getElementById('unlocked-superpowers');
+        const blindEl = document.getElementById('unlocked-blindspots');
 
-        // PDF Download Engine
+        if (supEl && Array.isArray(report.superpowers)) {
+          supEl.innerHTML = report.superpowers.map(s => `<li class="leading-relaxed mb-1.5">${s}</li>`).join('');
+        }
+        if (blindEl && Array.isArray(report.blindspots)) {
+          blindEl.innerHTML = report.blindspots.map(b => `<li class="leading-relaxed mb-1.5">${b}</li>`).join('');
+        }
+
+        // Section 4 Combat
+        const c = report.combat || {};
+        document.getElementById('stat-atk').textContent = c.atk || 80;
+        document.getElementById('stat-def').textContent = c.def || 85;
+        document.getElementById('stat-sta').textContent = c.sta || 90;
+        document.getElementById('stat-agi').textContent = c.agi || 75;
+        document.getElementById('combat-mode').textContent = c.mode || 'Resonant Vector';
+        document.getElementById('combat-ability').textContent = c.ability || 'Absorbs pressure to enhance subsequent tactical focus.';
+        document.getElementById('combat-synergy').textContent = c.synergy || 'Determination (Red Soul) provides kinetic forward momentum.';
+
+        // Section 5 Action Plan
+        const ap = report.actionPlan || {};
+        document.getElementById('plan-keep').textContent = ap.keep || 'Trust your core values during ambiguous challenges.';
+        document.getElementById('plan-stop').textContent = ap.stop || 'Avoid taking sole responsibility for unpredictable group outcomes.';
+        document.getElementById('plan-quest').textContent = ap.quest || 'Schedule a structured reflection block this week.';
+
+        // PDF Download
         const pdfBtn = document.getElementById('btn-download-pdf');
         if (pdfBtn) {
           pdfBtn.addEventListener('click', async () => {
@@ -283,8 +435,8 @@ import '../styles/global.css';
 
             const element = document.getElementById('unlocked-report-card');
             const opt = {
-              margin: [10, 10, 10, 10],
-              filename: `Soul-Virtues-Archive-${new Date().toISOString().slice(0,10)}.pdf`,
+              margin: [8, 8, 8, 8],
+              filename: `Soul-Virtues-Dossier-${new Date().toISOString().slice(0,10)}.pdf`,
               image: { type: 'jpeg', quality: 0.98 },
               html2canvas: { scale: 2, useCORS: true, backgroundColor: '#000000' },
               jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
@@ -297,7 +449,7 @@ import '../styles/global.css';
                 window.print();
               }
             } catch (err) {
-              console.error('PDF generation fallback to print:', err);
+              console.error('PDF fail fallback to print:', err);
               window.print();
             } finally {
               if (btnText) btnText.textContent = 'DOWNLOAD OFFICIAL DOSSIER (PDF)';
