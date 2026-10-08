@@ -32,3 +32,4 @@ spd-v2-quality-*.md
 reports/gsc/launchd/*.log
 reports/gsc/launchd/*.err
 reports/gsc/day15-review.md
+.waffo_key

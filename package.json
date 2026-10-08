@@ -12,6 +12,7 @@
     "audit:seo": "node scripts/audit_site_seo.mjs"
   },
   "dependencies": {
+    "@waffo/pancake-ts": "^0.25.0",
     "astro": "^5.4.2",
     "clsx": "^2.1.1",
     "tailwind-merge": "^3.0.2"

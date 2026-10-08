@@ -29,7 +29,8 @@ function getFiles(dir) {
 }
 
 const notFoundPath = path.join(distDir, '404.html');
-const htmlFiles = getFiles(distDir).filter(file => file !== notFoundPath && !path.basename(file).startsWith('naver'));
+const successPath = path.join(distDir, 'success', 'index.html');
+const htmlFiles = getFiles(distDir).filter(file => file !== notFoundPath && file !== successPath && !path.basename(file).startsWith('naver'));
 if (htmlFiles.length === 0) {
   console.error('Error: No HTML files found in dist/. Please run npm run build first.');
   process.exit(1);
@@ -82,6 +83,13 @@ if (!fs.existsSync(notFoundPath)) {
   }
   if (!/<a\s+[^>]*href=["']\/["']/i.test(notFoundContent)) {
     linkIssues.push({ page: '/404.html', issue: '404 page must link to the homepage' });
+  }
+}
+
+if (fs.existsSync(successPath)) {
+  const successContent = fs.readFileSync(successPath, 'utf8');
+  if (!/<meta\s+name=["']robots["']\s+content=["']noindex,\s*follow["']/i.test(successContent)) {
+    metaIssues.push({ page: '/success/', issue: 'Success page must use noindex,follow' });
   }
 }
 

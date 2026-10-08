@@ -432,6 +432,41 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       </div>
     </div>
 
+    <!-- AI Deep Soul Archive Premium Card -->
+    <div id="premium-unlock-card" class="mb-10 max-w-2xl mx-auto p-5 sm:p-7 bg-gradient-to-b from-yellow-950/40 via-black to-black border-2 border-yellow-500/80 shadow-[0_0_25px_rgba(234,179,8,0.25)] text-center relative overflow-hidden">
+      <div class="inline-flex items-center gap-2 px-3 py-1 bg-yellow-500/10 border border-yellow-400 text-yellow-300 text-xs font-mono font-bold uppercase tracking-widest mb-3">
+        <span>⚡ LIMITED PROMO</span>
+        <span>·</span>
+        <span id="discount-timer" class="text-white font-mono">09:59</span>
+      </div>
+      
+      <h4 class="text-lg sm:text-2xl font-black font-mono tracking-wide text-white uppercase mb-2">
+        Unlock AI Deep Soul Archive
+      </h4>
+      <p class="text-xs sm:text-sm text-gray-300 max-w-lg mx-auto mb-4 leading-relaxed font-sans">
+        Discover your hidden behavioral paradoxes, Undertale soul battle dynamics, and personalized psychological profile with our AI Deep Analysis.
+      </p>
+
+      <div class="flex items-center justify-center gap-3 mb-5 font-mono">
+        <span class="text-xs text-gray-500 line-through">US$14.93</span>
+        <span class="text-2xl font-black text-yellow-400">US$4.93</span>
+        <span class="text-[10px] px-2 py-0.5 bg-red-600 text-white font-bold uppercase">67% OFF</span>
+      </div>
+
+      <button
+        id="btn-checkout-waffo"
+        type="button"
+        class="w-full sm:w-auto px-8 py-3.5 bg-yellow-400 hover:bg-yellow-300 text-black font-mono font-black text-xs sm:text-sm uppercase tracking-wider shadow-[4px_4px_0_rgba(255,255,255,0.4)] active:translate-x-[2px] active:translate-y-[2px] cursor-pointer transition-all flex items-center justify-center gap-2 mx-auto"
+      >
+        <span id="btn-checkout-spinner" class="hidden animate-spin">✦</span>
+        <span id="btn-checkout-text">UNLOCK YOUR AI REPORT ($4.93) →</span>
+      </button>
+
+      <p class="text-[11px] text-gray-400 mt-3 font-sans">
+        Instant Digital Delivery · 100% Secure Checkout via Waffo Pancake
+      </p>
+    </div>
+
     <!-- Share and Download Actions -->
     <div class="max-w-2xl mx-auto pt-6 border-t-2 border-gray-800">
       <button
@@ -1243,6 +1278,14 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       const score = computeScores();
       const { pct, ranked } = score;
       const dominantCode = ranked[0];
+      try {
+        localStorage.setItem("soul_virtues_last_result", JSON.stringify({
+          pct,
+          dominant: dominantCode,
+          secondary: score.secondarySoul,
+          lang: typeof LANG !== 'undefined' ? LANG : 'en'
+        }));
+      } catch (e) {}
       const dominantSoul = getResultDisplay(score);
 
       const heartEl = document.getElementById("result-heart");
@@ -1840,6 +1883,47 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
     document.getElementById("btn-share-card")?.addEventListener("click", shareResultCard);
     document.getElementById("btn-download-card")?.addEventListener("click", downloadResultCard);
     document.getElementById("btn-copy-link")?.addEventListener("click", copyShareLink);
+
+    // Waffo Checkout Handler
+    const checkoutBtn = document.getElementById("btn-checkout-waffo");
+    if (checkoutBtn) {
+      checkoutBtn.addEventListener("click", async () => {
+        const textEl = document.getElementById("btn-checkout-text");
+        const spinner = document.getElementById("btn-checkout-spinner");
+        if (textEl) textEl.textContent = "CONNECTING SECURE CHECKOUT...";
+        if (spinner) spinner.classList.remove("hidden");
+        checkoutBtn.disabled = true;
+
+        try {
+          const res = await fetch("/api/create-checkout", { method: "POST" });
+          const data = await res.json();
+          if (data.checkoutUrl) {
+            window.open(data.checkoutUrl, "_blank", "noopener,noreferrer");
+          } else {
+            throw new Error(data.error || "No checkout URL");
+          }
+        } catch (e) {
+          window.open("https://pancake.waffo.ai/store/tangjei-v8slaj4n", "_blank", "noopener,noreferrer");
+        } finally {
+          if (textEl) textEl.textContent = "UNLOCK YOUR AI REPORT ($4.93) →";
+          if (spinner) spinner.classList.add("hidden");
+          checkoutBtn.disabled = false;
+        }
+      });
+    }
+
+    let secondsLeft = 599;
+    const timerEl = document.getElementById("discount-timer");
+    if (timerEl) {
+      setInterval(() => {
+        if (secondsLeft > 0) {
+          secondsLeft--;
+          const m = String(Math.floor(secondsLeft / 60)).padStart(2, "0");
+          const s = String(secondsLeft % 60).padStart(2, "0");
+          timerEl.textContent = `${m}:${s}`;
+        }
+      }, 1000);
+    }
     document.getElementById("btn-retake")?.addEventListener("click", () => {
       try { localStorage.removeItem("soulvirtues_roadmap_vote_v1"); } catch (e) {}
       showScreen("start");
