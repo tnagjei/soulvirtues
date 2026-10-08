@@ -1942,15 +1942,18 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
         checkoutBtn.disabled = true;
 
         try {
-          const res = await fetch("/api/create-checkout", { method: "POST" });
+          const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+          const apiUrl = isLocal ? "https://soulvirtues.org/api/create-checkout" : "/api/create-checkout";
+          const res = await fetch(apiUrl, { method: "POST" });
           const data = await res.json();
           if (data.checkoutUrl) {
             window.open(data.checkoutUrl, "_blank", "noopener,noreferrer");
           } else {
-            throw new Error(data.error || "No checkout URL");
+            throw new Error(data.error || "Failed to create checkout");
           }
         } catch (e) {
-          window.open("https://pancake.waffo.ai/store/tangjei-v8slaj4n", "_blank", "noopener,noreferrer");
+          console.error("Checkout connection error:", e);
+          alert("Unable to initiate secure checkout session. Please check your network or try again.");
         } finally {
           if (textEl) textEl.textContent = "UNLOCK YOUR AI REPORT ($4.93) →";
           if (spinner) spinner.classList.add("hidden");

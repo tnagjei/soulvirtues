@@ -308,7 +308,9 @@ import '../styles/global.css';
 
         if (!report) {
           try {
-            const res = await fetch('/api/generate-report', {
+            const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+            const apiUrl = isLocal ? 'https://soulvirtues.org/api/generate-report' : '/api/generate-report';
+            const res = await fetch(apiUrl, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ scores, dominant, secondary, lang }),
