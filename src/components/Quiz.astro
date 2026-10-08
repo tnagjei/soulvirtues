@@ -373,6 +373,61 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
         <!-- Injected via JS -->
       </p>
 
+      <!-- First Screen Premium Card with Blurred Preview -->
+      <div id="premium-unlock-card" class="mt-8 mb-8 max-w-2xl mx-auto p-5 sm:p-7 bg-gradient-to-b from-yellow-950/50 via-black to-black border-2 border-yellow-400 shadow-[0_0_30px_rgba(250,204,21,0.3)] text-center relative overflow-hidden">
+        <div class="inline-flex items-center gap-2 px-3 py-1 bg-yellow-500/20 border border-yellow-400 text-yellow-300 text-xs font-mono font-bold uppercase tracking-widest mb-3">
+          <span>⚡ LIMITED PROMO</span>
+          <span>·</span>
+          <span id="discount-timer" class="text-white font-mono font-bold">09:59</span>
+        </div>
+        
+        <h4 class="text-xl sm:text-3xl font-black font-mono tracking-tight text-white uppercase mb-2">
+          Unlock Full AI Deep Soul Archive
+        </h4>
+        <p class="text-xs sm:text-sm text-gray-300 max-w-lg mx-auto mb-4 leading-relaxed font-sans">
+          Deep behavioral paradox analysis, Undertale battle dynamics, and verified PDF dossier based on your 66-item responses.
+        </p>
+
+        <!-- Blurred Sample Preview Area -->
+        <div class="relative bg-black/80 border border-yellow-500/40 p-4 mb-5 text-left font-sans text-xs text-gray-300 rounded overflow-hidden">
+          <p class="font-bold text-yellow-400 font-mono text-[11px] uppercase tracking-wider mb-1">
+            ✦ AI PSYCHOLOGICAL DOSSIER PREVIEW:
+          </p>
+          <p class="leading-relaxed text-gray-200">
+            "Your decision engine operates on a sharp internal locus of autonomy. When confronted by external pressure, your baseline strategy is not to retreat..."
+          </p>
+          <p class="blur-[4px] select-none opacity-40 leading-relaxed mt-1">
+            ...however, under sustained crisis your secondary virtue triggers an unspoken friction point. You perceive vulnerability as compromise, silently bearing relational costs until situational rigidity threatens the very outcome you are fighting to protect...
+          </p>
+          <div class="absolute inset-0 flex items-center justify-center bg-black/50 backdrop-blur-[2px]">
+            <div class="px-3.5 py-1.5 bg-black/95 border-2 border-yellow-400 text-yellow-300 font-mono font-bold text-xs uppercase tracking-widest shadow-[0_0_15px_rgba(250,204,21,0.6)] flex items-center gap-2">
+              <span>🔒</span>
+              <span>CLASSIFIED AI DOSSIER LOCKED</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Price Anchor -->
+        <div class="flex items-center justify-center gap-3 mb-4 font-mono">
+          <span class="text-xs text-gray-500 line-through">US$14.93</span>
+          <span class="text-2xl sm:text-3xl font-black text-yellow-400">US$4.93</span>
+          <span class="text-[10px] px-2 py-0.5 bg-red-600 text-white font-bold uppercase">67% OFF</span>
+        </div>
+
+        <button
+          id="btn-checkout-waffo"
+          type="button"
+          class="w-full sm:w-auto px-8 py-3.5 bg-yellow-400 hover:bg-yellow-300 text-black font-mono font-black text-xs sm:text-sm uppercase tracking-wider shadow-[4px_4px_0_rgba(255,255,255,0.5)] active:translate-x-[2px] active:translate-y-[2px] cursor-pointer transition-all flex items-center justify-center gap-2 mx-auto"
+        >
+          <span id="btn-checkout-spinner" class="hidden animate-spin">✦</span>
+          <span id="btn-checkout-text">UNLOCK FULL ARCHIVE NOW ($4.93) →</span>
+        </button>
+
+        <p class="text-[11px] text-gray-400 mt-3 font-sans">
+          Instant Delivery · Multi-Page Verified Dossier · 100% Secure via Waffo
+        </p>
+      </div>
+
       <!-- Direct High-Converting Soul Trait Subpage Internal Link -->
       <div class="mt-6 text-center">
         <a
@@ -430,41 +485,6 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       <div id="virtue-bars" class="space-y-4 max-w-2xl mx-auto">
         <!-- 7 Bars injected via JS -->
       </div>
-    </div>
-
-    <!-- AI Deep Soul Archive Premium Card -->
-    <div id="premium-unlock-card" class="mb-10 max-w-2xl mx-auto p-5 sm:p-7 bg-gradient-to-b from-yellow-950/40 via-black to-black border-2 border-yellow-500/80 shadow-[0_0_25px_rgba(234,179,8,0.25)] text-center relative overflow-hidden">
-      <div class="inline-flex items-center gap-2 px-3 py-1 bg-yellow-500/10 border border-yellow-400 text-yellow-300 text-xs font-mono font-bold uppercase tracking-widest mb-3">
-        <span>⚡ LIMITED PROMO</span>
-        <span>·</span>
-        <span id="discount-timer" class="text-white font-mono">09:59</span>
-      </div>
-      
-      <h4 class="text-lg sm:text-2xl font-black font-mono tracking-wide text-white uppercase mb-2">
-        Unlock AI Deep Soul Archive
-      </h4>
-      <p class="text-xs sm:text-sm text-gray-300 max-w-lg mx-auto mb-4 leading-relaxed font-sans">
-        Discover your hidden behavioral paradoxes, Undertale soul battle dynamics, and personalized psychological profile with our AI Deep Analysis.
-      </p>
-
-      <div class="flex items-center justify-center gap-3 mb-5 font-mono">
-        <span class="text-xs text-gray-500 line-through">US$14.93</span>
-        <span class="text-2xl font-black text-yellow-400">US$4.93</span>
-        <span class="text-[10px] px-2 py-0.5 bg-red-600 text-white font-bold uppercase">67% OFF</span>
-      </div>
-
-      <button
-        id="btn-checkout-waffo"
-        type="button"
-        class="w-full sm:w-auto px-8 py-3.5 bg-yellow-400 hover:bg-yellow-300 text-black font-mono font-black text-xs sm:text-sm uppercase tracking-wider shadow-[4px_4px_0_rgba(255,255,255,0.4)] active:translate-x-[2px] active:translate-y-[2px] cursor-pointer transition-all flex items-center justify-center gap-2 mx-auto"
-      >
-        <span id="btn-checkout-spinner" class="hidden animate-spin">✦</span>
-        <span id="btn-checkout-text">UNLOCK YOUR AI REPORT ($4.93) →</span>
-      </button>
-
-      <p class="text-[11px] text-gray-400 mt-3 font-sans">
-        Instant Digital Delivery · 100% Secure Checkout via Waffo Pancake
-      </p>
     </div>
 
     <!-- Share and Download Actions -->
