@@ -1,7 +1,7 @@
 ---
 // input: Redirect from payment gateway after successful purchase
 // output: High-value visual RPG dossier with badges, dual-column cards, battle stats, and PDF export
-// pos: src/pages/success.astro
+// pos: src/pages/success.astro (更新规则：交付变化同步报告接口、回归与 src/pages/README)
 
 import '../styles/global.css';
 ---
@@ -34,13 +34,13 @@ import '../styles/global.css';
           </svg>
         </div>
         <div class="inline-block px-3 py-1 text-xs font-mono font-bold tracking-widest uppercase mb-2 border-2 border-emerald-400 text-emerald-300 bg-emerald-950/40">
-          ORDER VERIFIED · LEVEL 4 CLEARANCE GRANTED
+          REPORT DELIVERY
         </div>
         <h1 class="text-2xl sm:text-4xl font-black font-mono tracking-tight text-white uppercase">
           CLASSIFIED SOUL DOSSIER
         </h1>
         <p class="text-xs sm:text-sm text-gray-300 max-w-md mx-auto mt-2">
-          Your full personality matrix, shadow dynamics, and combat profile have been decrypted below.
+          Your saved quiz profile and reflection guide will appear below.
         </p>
       </div>
 
@@ -53,18 +53,25 @@ import '../styles/global.css';
           <p class="font-mono text-sm tracking-wider text-yellow-300">SYNTHESIZING MULTI-DIMENSIONAL DOSSIER & COMBAT STATS...</p>
         </div>
 
+        <section id="report-error" class="hidden text-center py-8" role="alert">
+          <h2 class="font-mono text-amber-300 text-lg mb-3">REPORT TEMPORARILY UNAVAILABLE</h2>
+          <p class="text-sm text-gray-300 mb-5">We could not load your report. You do not need to pay again. Retry, or contact tangjei414@gmail.com if the problem continues.</p>
+          <button id="btn-retry-report" type="button" class="min-h-11 px-5 py-3 bg-yellow-400 text-black font-bold cursor-pointer">RETRY REPORT</button>
+        </section>
+
         <!-- Loaded State -->
         <div id="report-ready" class="hidden space-y-8">
+          <p id="report-source" class="text-sm text-gray-300" role="status"></p>
           
           <!-- Dossier Top Header -->
           <div class="border-b-2 border-yellow-500/30 pb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <span class="text-[10px] font-mono uppercase text-gray-400 tracking-widest block">OFFICIAL SUBJECT ARCHIVE</span>
+              <span class="text-[10px] font-mono uppercase text-gray-400 tracking-widest block">PERSONAL REFLECTION ARCHIVE</span>
               <div class="font-mono font-black text-2xl text-yellow-400 tracking-wide" id="archive-id">SV-CONFIDENTIAL</div>
-              <div class="text-xs text-gray-300 font-mono mt-0.5">UNDERTALE RESEARCH DOSSIER · SECURE CLEARANCE</div>
+              <div class="text-xs text-gray-300 font-mono mt-0.5">INDEPENDENT FAN REFLECTION GUIDE</div>
             </div>
             <div class="text-left sm:text-right">
-              <span class="text-[10px] font-mono uppercase text-emerald-400 tracking-widest block font-bold">STATUS: AUTHENTICATED</span>
+              <span class="text-[10px] font-mono uppercase text-emerald-400 tracking-widest block font-bold">QUIZ-BASED INTERPRETATION</span>
               <div class="text-xs text-gray-400 font-mono" id="archive-date"></div>
             </div>
           </div>
@@ -85,7 +92,7 @@ import '../styles/global.css';
               </div>
               <div class="sm:text-right flex-shrink-0">
                 <div class="inline-block px-3 py-1.5 bg-yellow-400/20 border border-yellow-400 text-yellow-300 text-xs font-mono font-black tracking-wider uppercase" id="percentile-badge">
-                  TOP 7% RARITY
+                  REFLECTION GUIDE
                 </div>
               </div>
             </div>
@@ -156,10 +163,11 @@ import '../styles/global.css';
           <div>
             <h3 class="text-sm font-mono font-bold tracking-widest text-purple-300 uppercase mb-4 flex items-center gap-2">
               <span>[04]</span>
-              <span>UNDERTALE SOUL COMBAT PROFILE & BATTLE MECHANICS</span>
+              <span>FAN-MADE RPG STORY PROFILE</span>
             </h3>
             <div class="p-5 bg-gradient-to-b from-purple-950/30 via-black to-black border-2 border-purple-500/60 rounded space-y-5">
               
+              <p class="text-xs text-gray-300">This section is fictional fan storytelling. The RPG stats and abilities are not measurements of your personality or official Undertale mechanics.</p>
               <!-- Combat Stats 4-Grid -->
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center font-mono">
                 <div class="p-3 bg-black border border-purple-500/40 rounded">
@@ -238,7 +246,7 @@ import '../styles/global.css';
                 class="w-full sm:w-auto px-6 py-3.5 bg-yellow-400 text-black font-mono font-black text-xs uppercase tracking-wider hover:bg-yellow-300 cursor-pointer transition-all shadow-[4px_4px_0_rgba(255,255,255,0.4)] active:translate-x-[1px] active:translate-y-[1px] flex items-center justify-center gap-2"
               >
                 <span>📥</span>
-                <span id="btn-pdf-text">DOWNLOAD OFFICIAL DOSSIER (PDF)</span>
+                <span id="btn-pdf-text">DOWNLOAD DOSSIER (PDF)</span>
               </button>
             </div>
           </div>
@@ -250,7 +258,7 @@ import '../styles/global.css';
           <div class="text-4xl text-amber-400">⚠️</div>
           <h3 class="text-lg font-bold font-mono text-white">NO ACTIVE TEST SESSION LOCATED</h3>
           <p class="text-xs text-gray-300 max-w-md mx-auto">
-            Payment was confirmed, but we didn't find your completed answers on this device. Click below to complete the 66-question test and your verified archive will unlock instantly.
+            We could not find a complete quiz on this browser. Open this page on the device where you completed the quiz, or return to finish your saved answers. For help recovering a report, contact tangjei414@gmail.com.
           </p>
           <div class="pt-4">
             <a href="/#test" class="inline-block px-6 py-3 bg-yellow-400 text-black font-bold font-mono text-xs uppercase tracking-widest hover:bg-yellow-300">
@@ -262,204 +270,143 @@ import '../styles/global.css';
       </div>
     </main>
 
-    <script is:inline>
-      (async function() {
-        try {
-          localStorage.setItem('soul_virtues_paid', 'true');
-          localStorage.setItem('soul_virtues_paid_at', new Date().toISOString());
-        } catch (e) {}
+  <script>
+    import { fetchDossier, isDossierReport, readReportInput, REPORT_CACHE_KEY, type DossierReport } from '../data/reportDelivery';
 
-        const loadingEl = document.getElementById('report-loading');
-        const readyEl = document.getElementById('report-ready');
-        const dateEl = document.getElementById('archive-date');
-        const idEl = document.getElementById('archive-id');
+    const element = (id: string) => document.getElementById(id)!;
+    const text = (id: string, value: string | number) => { element(id).textContent = String(value); };
+    const loading = element('report-loading');
+    const ready = element('report-ready');
+    const empty = element('report-empty');
+    const errorPanel = element('report-error');
+    const retry = element('btn-retry-report') as HTMLButtonElement;
+    const download = element('btn-download-pdf') as HTMLButtonElement;
+    const traits = [
+      { id: 'red', name: 'DETERMINATION', color: '#ff0000' },
+      { id: 'orange', name: 'BRAVERY', color: '#ff9c00' },
+      { id: 'yellow', name: 'JUSTICE', color: '#ffff00' },
+      { id: 'green', name: 'KINDNESS', color: '#00ff00' },
+      { id: 'cyan', name: 'PATIENCE', color: '#42fcff' },
+      { id: 'blue', name: 'INTEGRITY', color: '#003cff' },
+      { id: 'purple', name: 'PERSEVERANCE', color: '#d800ff' },
+    ] as const;
 
-        if (dateEl) dateEl.textContent = new Date().toLocaleDateString();
-        if (idEl) idEl.textContent = 'SV-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+    function list(id: string, items: string[], tag: 'li' | 'span') {
+      const nodes = items.map(item => {
+        const node = document.createElement(tag);
+        node.textContent = item;
+        node.className = tag === 'span' ? 'px-2.5 py-0.5 border border-yellow-500/40 text-yellow-300 font-mono text-[10px]' : 'leading-relaxed mb-1.5';
+        return node;
+      });
+      element(id).replaceChildren(...nodes);
+    }
 
-        let resultData = null;
-        try {
-          const saved = localStorage.getItem('soul_virtues_last_result');
-          if (saved) resultData = JSON.parse(saved);
-        } catch (e) {}
+    function render(report: DossierReport, input: NonNullable<ReturnType<typeof readReportInput>>, archiveId: string, createdAt: string) {
+      text('archive-id', archiveId);
+      text('archive-date', new Date(createdAt).toLocaleDateString());
+      text('archetype-title', report.archetypeTitle);
+      text('archetype-subtitle', report.archetypeSubtitle);
+      text('percentile-badge', report.source === 'ai' ? 'AI REFLECTION GUIDE' : 'PREPARED REFLECTION GUIDE');
+      text('report-source', report.source === 'ai' ? 'AI-generated interpretation of your quiz scores. For self-reflection; not a clinical assessment.' : 'AI was unavailable. This edition uses prepared guidance selected for your quiz profile; it is not an AI-generated assessment.');
+      list('archetype-tags', report.tags, 'span');
+      list('unlocked-superpowers', report.superpowers, 'li');
+      list('unlocked-blindspots', report.blindspots, 'li');
+      element('unlocked-virtue-bars').replaceChildren(...traits.map(trait => {
+        const score = input.scores[trait.id];
+        const row = document.createElement('div');
+        const label = document.createElement('div');
+        label.className = 'flex justify-between mb-1 text-gray-300';
+        const name = document.createElement('span');
+        name.textContent = trait.name;
+        const value = document.createElement('span');
+        value.textContent = score.toFixed(1).replace(/\.0$/, '') + ' / 100';
+        value.style.color = trait.color;
+        label.append(name, value);
+        const track = document.createElement('div');
+        track.className = 'h-2 bg-gray-900 border border-gray-700';
+        const bar = document.createElement('div');
+        bar.className = 'h-full';
+        bar.style.width = score + '%';
+        bar.style.backgroundColor = trait.color;
+        track.append(bar);
+        row.append(label, track);
+        row.dataset.trait = trait.id;
+        row.dataset.score = String(score);
+        return row;
+      }));
+      text('unlocked-engine', report.engine);
+      for (const stat of ['atk', 'def', 'sta', 'agi'] as const) text('stat-' + stat, report.combat[stat]);
+      text('combat-mode', report.combat.mode);
+      text('combat-ability', report.combat.ability);
+      text('combat-synergy', report.combat.synergy);
+      for (const item of ['keep', 'stop', 'quest'] as const) text('plan-' + item, report.actionPlan[item]);
+    }
 
-        const traits = [
-          { id: 'red', name: 'DETERMINATION', color: '#ff0000', icon: '❤️' },
-          { id: 'orange', name: 'BRAVERY', color: '#ff9c00', icon: '🧡' },
-          { id: 'yellow', name: 'JUSTICE', color: '#ffff00', icon: '💛' },
-          { id: 'green', name: 'KINDNESS', color: '#00ff00', icon: '💚' },
-          { id: 'cyan', name: 'PATIENCE', color: '#42fcff', icon: '🩵' },
-          { id: 'blue', name: 'INTEGRITY', color: '#003cff', icon: '💙' },
-          { id: 'purple', name: 'PERSEVERANCE', color: '#d800ff', icon: '💜' }
-        ];
-
-        const scores = resultData?.pct || {
-          red: 78, orange: 65, yellow: 70, green: 55, cyan: 60, blue: 68, purple: 74
-        };
-        const dominant = resultData?.dominant || 'purple';
-        const secondary = resultData?.secondary || 'red';
-        const lang = resultData?.lang || 'en';
-
-        let report = null;
-        try {
-          const cached = localStorage.getItem('soul_virtues_dossier_v2');
-          if (cached) report = JSON.parse(cached);
-        } catch (e) {}
-
-        if (!report) {
-          try {
-            const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-            const apiUrl = isLocal ? 'https://soulvirtues.org/api/generate-report' : '/api/generate-report';
-            const res = await fetch(apiUrl, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ scores, dominant, secondary, lang }),
-            });
-            if (res.ok) {
-              report = await res.json();
-              try { localStorage.setItem('soul_virtues_dossier_v2', JSON.stringify(report)); } catch (e) {}
-            }
-          } catch (e) {
-            console.error('Dossier fetch error:', e);
-          }
+    async function loadReport() {
+      ready.classList.add('hidden');
+      empty.classList.add('hidden');
+      errorPanel.classList.add('hidden');
+      loading.classList.remove('hidden');
+      retry.disabled = true;
+      download.disabled = true;
+      document.body.dataset.reportState = 'loading';
+      try {
+        const input = readReportInput(localStorage);
+        if (!input) {
+          empty.classList.remove('hidden');
+          document.body.dataset.reportState = 'missing-answers';
+          return;
         }
-
-        // Guaranteed fallback if anything fails
-        if (!report || !report.archetypeTitle) {
-          report = {
-            archetypeTitle: 'THE ARCHITECT OF ENDURANCE',
-            archetypeSubtitle: 'Methodical Sovereign of Long-Horizon Masterwork',
-            tags: ['Sunk-Cost Immunity', 'Systemic Focus', 'Deep Resilience'],
-            percentileRank: 'Top 7% Rarity',
-            engine: 'Your psychological architecture is engineered for compounding mastery. You do not chase transient spikes of motivation; you construct systematic habits and outlast friction. While sprinters burn out in complex arenas, your steady cadence guarantees eventual completion.',
-            superpowers: [
-              'Exhaustion Resistance: Maintains intellectual rigor long after others abandon intricate challenges.',
-              'Pattern Deconstruction: Breaks overwhelming chaotic crises into step-by-step solvable units.',
-              'Quiet Reliability: Peers trust that when you accept a commitment, it will cross the finish line.'
-            ],
-            blindspots: [
-              'Sunk-Cost Fixation: Pouring effort into deteriorating objectives because quitting feels like failure.',
-              'Emotional Isolation: Attempting to resolve human friction with clinical logic instead of empathy.',
-              'Silent Martyrdom: Carrying excessive team burdens without communicating boundary strain.'
-            ],
-            combat: {
-              mode: 'Tethered Matrix Weaver (Purple Soul)',
-              atk: 78, def: 94, sta: 99, agi: 72,
-              ability: 'Iterative Reinforcement: Each consecutive hit absorbed increases defense efficiency by 15%.',
-              synergy: 'Bravery (Orange Soul) supplies the sudden momentum needed to escape stagnant loops.'
-            },
-            actionPlan: {
-              keep: 'Leverage your meticulous structured workflows for complex long-term projects.',
-              stop: 'Stop assuming that suffering through a bad process is a virtue in itself.',
-              quest: 'Execute a 'clean abandon': consciously drop one dead-end commitment this week without guilt.'
-            }
-          };
+        const fingerprint = JSON.stringify(input);
+        let cached;
+        try { cached = JSON.parse(localStorage.getItem(REPORT_CACHE_KEY) || 'null'); } catch { /* An invalid cache is retried from the service. */ }
+        let report: DossierReport;
+        let archiveId: string;
+        let createdAt: string;
+        if (cached?.fingerprint === fingerprint && isDossierReport(cached.report) && typeof cached.archiveId === 'string' && typeof cached.createdAt === 'string' && Number.isFinite(Date.parse(cached.createdAt))) {
+          ({ report, archiveId, createdAt } = cached);
+        } else {
+          const local = ['localhost', '127.0.0.1'].includes(location.hostname);
+          report = await fetchDossier(local ? 'https://soulvirtues.org/api/generate-report' : '/api/generate-report', input);
+          archiveId = 'SV-' + crypto.randomUUID().slice(0, 8).toUpperCase();
+          createdAt = new Date().toISOString();
+          try { localStorage.setItem(REPORT_CACHE_KEY, JSON.stringify({ fingerprint, report, archiveId, createdAt })); } catch { /* The displayed report remains downloadable when storage is full. */ }
         }
+        render(report, input, archiveId, createdAt);
+        ready.classList.remove('hidden');
+        document.body.dataset.reportState = 'ready';
+        download.disabled = false;
+      } catch {
+        errorPanel.classList.remove('hidden');
+        document.body.dataset.reportState = 'error';
+      } finally {
+        loading.classList.add('hidden');
+        retry.disabled = false;
+      }
+    }
+    retry.addEventListener('click', loadReport);
+    void loadReport();
 
-        if (loadingEl) loadingEl.classList.add('hidden');
-        if (readyEl) readyEl.classList.remove('hidden');
-
-        // Populate Archetype Header
-        const titleEl = document.getElementById('archetype-title');
-        const subEl = document.getElementById('archetype-subtitle');
-        const rankEl = document.getElementById('percentile-badge');
-        const tagsEl = document.getElementById('archetype-tags');
-
-        if (titleEl) titleEl.textContent = report.archetypeTitle || 'THE UNYIELDING SENTINEL';
-        if (subEl) subEl.textContent = report.archetypeSubtitle || 'Guardian of Resolve & Principles';
-        if (rankEl) rankEl.textContent = (report.percentileRank || 'TOP 8% RARITY').toUpperCase();
-
-        if (tagsEl && Array.isArray(report.tags)) {
-          tagsEl.innerHTML = report.tags.map(tag => `
-            <span class="px-2.5 py-0.5 bg-yellow-400/10 border border-yellow-500/40 text-yellow-300 font-mono text-[10px] uppercase font-bold tracking-wider">
-              ✦ ${tag}
-            </span>
-          `).join('');
-        }
-
-        // Render 7-Virtue Bars
-        const barsEl = document.getElementById('unlocked-virtue-bars');
-        if (barsEl) {
-          barsEl.innerHTML = traits.map(t => {
-            const pct = Math.round(scores[t.id] ?? 50);
-            return `
-              <div>
-                <div class="flex justify-between items-center mb-1 text-gray-300">
-                  <span>${t.icon} ${t.name}</span>
-                  <span class="font-bold" style="color: ${t.color}">${pct}%</span>
-                </div>
-                <div class="h-2 bg-gray-900 border border-gray-700">
-                  <div class="h-full transition-all duration-500" style="width: ${pct}%; background-color: ${t.color}"></div>
-                </div>
-              </div>
-            `;
-          }).join('');
-        }
-
-        // Section 2 Engine
-        const engineEl = document.getElementById('unlocked-engine');
-        if (engineEl) engineEl.textContent = report.engine || '';
-
-        // Section 3 Superpowers & Blindspots
-        const supEl = document.getElementById('unlocked-superpowers');
-        const blindEl = document.getElementById('unlocked-blindspots');
-
-        if (supEl && Array.isArray(report.superpowers)) {
-          supEl.innerHTML = report.superpowers.map(s => `<li class="leading-relaxed mb-1.5">${s}</li>`).join('');
-        }
-        if (blindEl && Array.isArray(report.blindspots)) {
-          blindEl.innerHTML = report.blindspots.map(b => `<li class="leading-relaxed mb-1.5">${b}</li>`).join('');
-        }
-
-        // Section 4 Combat
-        const c = report.combat || {};
-        document.getElementById('stat-atk').textContent = c.atk || 80;
-        document.getElementById('stat-def').textContent = c.def || 85;
-        document.getElementById('stat-sta').textContent = c.sta || 90;
-        document.getElementById('stat-agi').textContent = c.agi || 75;
-        document.getElementById('combat-mode').textContent = c.mode || 'Resonant Vector';
-        document.getElementById('combat-ability').textContent = c.ability || 'Absorbs pressure to enhance subsequent tactical focus.';
-        document.getElementById('combat-synergy').textContent = c.synergy || 'Determination (Red Soul) provides kinetic forward momentum.';
-
-        // Section 5 Action Plan
-        const ap = report.actionPlan || {};
-        document.getElementById('plan-keep').textContent = ap.keep || 'Trust your core values during ambiguous challenges.';
-        document.getElementById('plan-stop').textContent = ap.stop || 'Avoid taking sole responsibility for unpredictable group outcomes.';
-        document.getElementById('plan-quest').textContent = ap.quest || 'Schedule a structured reflection block this week.';
-
-        // PDF Download
-        const pdfBtn = document.getElementById('btn-download-pdf');
-        if (pdfBtn) {
-          pdfBtn.addEventListener('click', async () => {
-            const btnText = document.getElementById('btn-pdf-text');
-            if (btnText) btnText.textContent = 'GENERATING PDF DOSSIER...';
-            pdfBtn.disabled = true;
-
-            const element = document.getElementById('unlocked-report-card');
-            const opt = {
-              margin: [8, 8, 8, 8],
-              filename: `Soul-Virtues-Dossier-${new Date().toISOString().slice(0,10)}.pdf`,
-              image: { type: 'jpeg', quality: 0.98 },
-              html2canvas: { scale: 2, useCORS: true, backgroundColor: '#000000' },
-              jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
-
-            try {
-              if (typeof html2pdf !== 'undefined') {
-                await html2pdf().set(opt).from(element).save();
-              } else {
-                window.print();
-              }
-            } catch (err) {
-              console.error('PDF fail fallback to print:', err);
-              window.print();
-            } finally {
-              if (btnText) btnText.textContent = 'DOWNLOAD OFFICIAL DOSSIER (PDF)';
-              pdfBtn.disabled = false;
-            }
-          });
-        }
-      })();
-    </script>
+    download.addEventListener('click', async () => {
+      text('btn-pdf-text', 'GENERATING PDF...');
+      download.disabled = true;
+      try {
+        const html2pdf = (window as Window & { html2pdf?: () => any }).html2pdf;
+        if (!html2pdf) { window.print(); return; }
+        await html2pdf().set({
+          margin: [8, 8, 8, 8],
+          filename: 'Soul-Virtues-Dossier-' + new Date().toISOString().slice(0, 10) + '.pdf',
+          image: { type: 'jpeg', quality: 0.98 },
+          html2canvas: { scale: 2, useCORS: true, backgroundColor: '#000000' },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        }).from(element('unlocked-report-card')).save();
+      } catch {
+        window.print();
+      } finally {
+        text('btn-pdf-text', 'DOWNLOAD DOSSIER (PDF)');
+        download.disabled = false;
+      }
+    });
+  </script>
   </body>
 </html>

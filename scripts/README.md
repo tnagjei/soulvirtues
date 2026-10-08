@@ -5,6 +5,7 @@
 > 一旦本目录内容变化，请更新本文件
 
 ## Files
+- check_report_delivery.cjs：验证报告脚本语法、真实分数映射、中立结果、响应结构及 HTTP/JSON/超时失败分支；不调用付费 API
 - verify_scoring.cjs：通过现有esbuild导入真实共享模块，验证V2来源数量/五语题号、正反向及题数归一、中立/缺失/并列/接近、存储版本、卡片和统计隐私边界
 - check_comparison_sample.mjs：验证6组对比页与5个汇总页共35个五语言路由、SEO 标签、证据边界、站点地图与内链
 - check_lang_prompt_mobile.mjs：验证语言提示窗的手机安全区域、触控尺寸、焦点状态与最大占屏高度

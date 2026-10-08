@@ -5,6 +5,7 @@
 > 一旦本目录内容变化，请更新本文件
 
 ## Files
+- reportDelivery.ts：统一真实分数到报告字段的映射、完整响应验证、按结果匹配缓存与覆盖响应正文的请求超时
 - contentEvidence.ts：已核验的社区资料链接、事实/解释边界与五语言35条独立反思示例
 - quizSession.ts：题库版本、稳定题号保存/恢复与答案值校验；不把旧数组或无效记录算入新题
 - assessmentContent.ts：五语言V2定义、实际情境、反思问题、来源方法和FAQ；复用于结果、方法页与详情页；英西语FAQ说明Jaden原版和Deltarune访问边界

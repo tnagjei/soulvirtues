@@ -1,6 +1,8 @@
 // input: JSON with soul scores and traits
 // output: Highly structured RPG & Psychological dossier with badges, stats, and action plans
-// pos: functions/api/generate-report.ts
+// pos: functions/api/generate-report.ts (更新规则：响应协议变化同步报告页面、回归与 functions/api/README.md)
+
+import { isDossierReport, normalizeReportInput } from '../../src/data/reportDelivery';
 
 interface Env {
   DEEPSEEK_API_KEY?: string;
@@ -226,25 +228,28 @@ export async function onRequest(context: { request: Request; env: Env }) {
   }
 
   try {
-    const body = (await context.request.json()) as any;
-    const { scores = {}, dominant = 'red', secondary = null, lang = 'en' } = body;
+    const input = normalizeReportInput(await context.request.json());
+    if (!input) return Response.json({ error: 'A complete, valid quiz score profile is required' }, { status: 400 });
+    const { scores, dominant, secondary, lang } = input;
 
     const apiKey = context.env?.DEEPSEEK_API_KEY || context.env?.OPENAI_API_KEY;
 
     if (apiKey) {
       const prompt = `You are an elite psychological profiler and game lore master of Undertale 7 Soul Virtues.
 Given this user's specific test results:
-- Dominant Virtue: ${TRAIT_NAMES[dominant] || dominant}
+- Dominant Virtue: ${dominant ? TRAIT_NAMES[dominant] : 'No single leading theme. Do not invent one.'}
 - Secondary Virtue: ${secondary ? (TRAIT_NAMES[secondary] || secondary) : 'None'}
 - 7-Virtue Scores: ${JSON.stringify(scores)}
 
-Generate an authoritative, deeply perceptive, RPG-styled confidential personality dossier in ${lang === 'es' ? 'Spanish' : 'English'}.
+Generate an RPG-styled fan self-reflection guide in ${lang === 'es' ? 'Spanish' : 'English'}.
+These are quiz answer scores, not population percentiles or a validated psychological assessment.
+Describe possibilities for reflection, not diagnoses, subconscious facts or claims about how other people see the user.
+The combat section is explicitly fictional fan storytelling, not official game mechanics or psychological measurements.
 Format strictly as JSON with this schema:
 {
   "archetypeTitle": "Uppercase cool archetype name like THE UNYIELDING SENTINEL",
   "archetypeSubtitle": "One poetic line describing their essence",
   "tags": ["3 short hyphen/space tags like High Autonomy, Crisis Anchor, Pattern Hunter"],
-  "percentileRank": "Estimated rarity ranking like Top 6% in Autonomous Resilience",
   "engine": "150-word deep psychological analysis of their primary decision-making engine",
   "superpowers": ["3 bullet points highlighting their rarest psychological superpowers with brief explanation"],
   "blindspots": ["3 bullet points highlighting their shadow blindspots, stress traps, and subconscious fears"],
@@ -274,50 +279,48 @@ Return raw JSON only, no markdown.`;
 
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 7500);
+        try {
 
-        const aiRes = await fetch(endpoint, {
-          method: 'POST',
-          signal: controller.signal,
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${apiKey}`,
-          },
-          body: JSON.stringify({
-            model,
-            messages: [
-              { role: 'system', content: 'You are an elite psychological profiler. Return clean JSON only.' },
-              { role: 'user', content: prompt },
-            ],
-            temperature: 0.7,
-            response_format: { type: 'json_object' },
-          }),
-        });
+          const aiRes = await fetch(endpoint, {
+            method: 'POST',
+            signal: controller.signal,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${apiKey}`,
+            },
+            body: JSON.stringify({
+              model,
+              messages: [
+                { role: 'system', content: 'Write fan self-reflection guidance grounded in the provided scores. Do not invent percentiles or clinical facts. Return clean JSON only.' },
+                { role: 'user', content: prompt },
+              ],
+              temperature: 0.7,
+              response_format: { type: 'json_object' },
+            }),
+          });
 
-        clearTimeout(timeoutId);
-
-        if (aiRes.ok) {
-          const aiData = (await aiRes.json()) as any;
-          const contentText = aiData?.choices?.[0]?.message?.content;
-          if (contentText) {
-            const parsed = JSON.parse(contentText);
-            return new Response(JSON.stringify({ source: 'ai', ...parsed }), {
-              headers: { 'Content-Type': 'application/json' },
-            });
+          if (aiRes.ok) {
+            const aiData = (await aiRes.json()) as any;
+            const contentText = aiData?.choices?.[0]?.message?.content;
+            if (contentText) {
+              const parsed = JSON.parse(contentText);
+              const report = { ...parsed, source: 'ai' };
+              if (isDossierReport(report)) return Response.json(report, { headers: { 'Cache-Control': 'no-store' } });
+            }
           }
-        }
+        } finally { clearTimeout(timeoutId); }
       } catch (aiErr) {
         console.error('AI API failed/timeout, smoothly falling back:', aiErr);
       }
     }
 
     // High quality guaranteed fallback
-    const key = dominant in FALLBACK_DOSSIERS ? dominant : 'red';
+    const key = dominant ?? 'balanced';
     const langKey = lang === 'es' ? 'es' : 'en';
-    const dossier = FALLBACK_DOSSIERS[key] ? FALLBACK_DOSSIERS[key][langKey] : buildGenericFallback(dominant, lang);
+    const dossier = FALLBACK_DOSSIERS[key] ? FALLBACK_DOSSIERS[key][langKey] : buildGenericFallback(key, lang);
 
-    return new Response(JSON.stringify({ source: 'synthesis', ...dossier }), {
-      headers: { 'Content-Type': 'application/json' },
-    });
+    const { percentileRank: _unused, ...content } = dossier;
+    return Response.json({ source: 'synthesis', ...content }, { headers: { 'Cache-Control': 'no-store' } });
   } catch (err: any) {
     return new Response(JSON.stringify({ error: err?.message || 'Report generation failed' }), {
       status: 500,

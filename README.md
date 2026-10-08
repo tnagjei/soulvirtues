@@ -34,6 +34,7 @@
 - 本地预览：`npm run preview`
 - V2回归：`node scripts/verify_scoring.cjs`
 - 路由/站点地图核验：`npm run audit:seo`
+- 报告交付回归：`node scripts/check_report_delivery.cjs`（无需外部 API）
 - 比较与题目渲染核验：`node scripts/check_comparison_sample.mjs`、`node scripts/check_quiz_question_loading.mjs`
 - SEO Day 15 门禁：`node scripts/seo_day15_review.mjs`（由 LaunchAgent 于 2026-09-01 09:00 运行；额度耗尽时保留 7 天重试窗口）
 - SEO Day 30 机会报告：`node scripts/seo_day30_review.mjs`（由 LaunchAgent 于 2026-09-16 09:00 运行；额度耗尽时保留 7 天重试窗口）
@@ -43,3 +44,4 @@
 - 构建命令 (Build Command)：`npm run build`
 - 构建输出目录 (Build output directory)：`dist`
 - 生产域名：`https://soulvirtues.org`
+- 报告交付页 `/success/` 使用编译后的浏览器脚本；Functions 的 `DEEPSEEK_API_KEY` 与 `WAFFO_PRIVATE_KEY` 通过 Cloudflare Secrets 配置。Waffo 当前为测试环境，订单验签与付费权限仍待完成。
