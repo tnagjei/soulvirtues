@@ -1,6 +1,6 @@
 ---
 // input: None (static Terms of Service page)
-// output: Full Terms of Service page outlining commercial terms, refunds, acceptable use and termination
+// output: Full Terms of Service covering MoR sales via Waffo Pancake, age eligibility, browser-session delivery with manual re-delivery, Waffo-aligned refunds, paid-content license, AI disclosure and fan-IP positioning
 // pos: src/pages/terms.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import Layout from '../layouts/Layout.astro';
@@ -45,62 +45,105 @@ const structuredData = {
       <div>
         <h2 class="text-lg font-bold text-white mb-2">2. Entertainment & Informational Purpose</h2>
         <p>
-          The Soul Virtues Extractor is provided solely for entertainment, educational, and fan self-reflection purposes. The results are independent answer-scale scores, not population percentiles, moral grades, formal psychological evaluations or clinical medical advice.
+          The Soul Virtues Extractor is provided solely for entertainment, educational, and fan self-reflection purposes. The results—both the free quiz and any paid report—are independent answer-scale scores and original creative text, not population percentiles, moral grades, formal psychological evaluations, clinical medical advice, or diagnoses of any kind. If you are experiencing emotional distress, please seek support from a qualified professional.
         </p>
       </div>
 
       <div>
-        <h2 class="text-lg font-bold text-white mb-2">3. Digital Products, Pricing & Payment</h2>
+        <h2 class="text-lg font-bold text-white mb-2">3. Eligibility & Age Requirement</h2>
         <p>
-          While the basic 66-question self-reflection quiz and primary soul result are accessible free of charge, we offer premium digital add-ons (including the full 7-virtue AI Deep Soul Archive, comprehensive psychological dossier, and downloadable PDF handbook) for a one-time fee as displayed on the checkout page. All payments are processed securely via our authorized merchant-of-record partners (including Waffo Pancake). By placing an order, you authorize the charge to your chosen payment method.
+          You must be at least 18 years of age, or have the knowledge, consent, and supervision of a parent or legal guardian, to make any purchase on this website. The free quiz remains available to general audiences. Purchases made by minors without guardian consent may be refunded and the corresponding content access revoked.
         </p>
       </div>
 
       <div>
-        <h2 class="text-lg font-bold text-white mb-2">4. Refund & Cancellation Policy</h2>
+        <h2 class="text-lg font-bold text-white mb-2">4. Digital Products, Pricing & Payment</h2>
         <p>
-          Due to the immediate digital nature of our AI Deep Soul Archive and downloadable PDF materials, all digital purchases are generally non-refundable once the report has been generated and delivered to your browser session.
+          While the basic 66-question self-reflection quiz and primary soul result are accessible free of charge, we offer a premium digital product—the <strong>Seven Virtues: Personal Trait Archive &amp; Guidebook</strong> (the "Paid Report")—for a one-time fee as displayed at checkout. From time to time we may offer promotional pricing (such as clearly labeled introductory launch pricing); such promotions are voluntary, honestly labeled, and may end at any time.
         </p>
         <p class="mt-2">
-          <strong>Technical Failure Guarantee:</strong> If a technical error occurs during checkout or report generation—such as being charged without receiving access to your digital dossier within 24 hours—you are entitled to a full refund. To request a refund or report delivery assistance, please contact our support team at 
-          <!--email_off--><a href="mailto:contact@soulvirtues.org" class="text-yellow-400 underline font-mono">contact@soulvirtues.org</a><!--/email_off--> (or 
-          <!--email_off--><a href="mailto:tangjei414@gmail.com" class="text-yellow-400 underline font-mono">tangjei414@gmail.com</a><!--/email_off-->) within 7 days of purchase with your transaction details. Verified refund requests are processed within 3 to 5 business days.
+          All sales are made by <strong>Waffo Pancake</strong>, acting as merchant of record and legal seller of the Paid Report. Payments are processed on Waffo Pancake's secure checkout page, where your payment details and email address are collected by Waffo Pancake for order processing, invoicing, tax compliance, and delivery of your receipt. By placing an order, you authorize the charge to your chosen payment method. Applicable sales tax, VAT, or GST is calculated and remitted by Waffo Pancake where required.
         </p>
       </div>
 
       <div>
-        <h2 class="text-lg font-bold text-white mb-2">5. User Conduct & Acceptable Use</h2>
+        <h2 class="text-lg font-bold text-white mb-2">5. Delivery of Digital Products</h2>
+        <p>
+          The Paid Report is generated and displayed in your browser session immediately after payment is completed and you are redirected back to this website. <strong>Please download or save your report (for example, as a PDF) promptly.</strong> The report is rendered from data stored locally in your browser; clearing your browser data, using private/incognito browsing, or switching to another device may prevent the report from being displayed again.
+        </p>
+        <p class="mt-2">
+          <strong>Re-delivery:</strong> If you lose access to your Paid Report, contact us at
+          <!--email_off--><a href="mailto:contact@soulvirtues.org" class="text-yellow-400 underline font-mono">contact@soulvirtues.org</a><!--/email_off--> with your Waffo order number within 30 days of purchase, and we will manually re-send your report by email within 24 hours.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-bold text-white mb-2">6. Refunds & Disputes</h2>
+        <p>
+          Because the seller of record is Waffo Pancake, refunds and payment disputes for the Paid Report are handled through Waffo Pancake and its buyer protection and refund policies, as presented at checkout and in your receipt email. Requests made through Waffo's official channels take precedence over any conflicting statement in these Terms.
+        </p>
+        <p class="mt-2">
+          <strong>Technical Failure Guarantee:</strong> If a technical error occurs during checkout or report generation—such as being charged without receiving access to your Paid Report within 24 hours—you are entitled to a full refund. To request a refund or assistance, please contact us at
+          <!--email_off--><a href="mailto:contact@soulvirtues.org" class="text-yellow-400 underline font-mono">contact@soulvirtues.org</a><!--/email_off--> (or
+          <!--email_off--><a href="mailto:tangjei414@gmail.com" class="text-yellow-400 underline font-mono">tangjei414@gmail.com</a><!--/email_off-->) with your transaction details. Verified refund requests are processed within 3 to 5 business days.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-bold text-white mb-2">7. License to Paid Content</h2>
+        <p>
+          Upon purchase, you receive a personal, non-exclusive, non-transferable license to view and keep the Paid Report for your own private use. You may not resell, redistribute, republish, or use the Paid Report commercially, in whole or in part, without our prior written permission.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-bold text-white mb-2">8. AI-Generated Content Disclosure</h2>
+        <p>
+          The Paid Report is generated with the assistance of artificial intelligence based on your quiz scores, and is delivered as original creative self-reflection text. It may contain inaccuracies or generic statements, and it does not reflect the judgment of a human professional. All content is provided for entertainment and self-reflection only.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-bold text-white mb-2">9. User Conduct & Acceptable Use</h2>
         <p>
           You agree not to misuse the website, attempt unauthorized access, disrupt web servers, execute automated scraping or abusive traffic generation, bypass payment mechanisms, or distribute malicious code.
         </p>
       </div>
 
       <div>
-        <h2 class="text-lg font-bold text-white mb-2">6. Term, Suspension & Termination</h2>
+        <h2 class="text-lg font-bold text-white mb-2">10. Term, Suspension & Termination</h2>
         <p>
           These Terms of Service remain in effect while you use the website. We reserve the right to immediately suspend or terminate your access to the website, block IP addresses, cancel pending digital delivery sessions, or pursue legal remedies without prior notice if you violate any provision of these Terms or engage in fraudulent activity, unauthorized scraping, or abusive conduct.
         </p>
       </div>
 
       <div>
-        <h2 class="text-lg font-bold text-white mb-2">7. Intellectual Property & Fan Tribute Disclaimer</h2>
+        <h2 class="text-lg font-bold text-white mb-2">11. Intellectual Property & Fan Tribute Disclaimer</h2>
         <p>
-          Undertale and related game assets, characters, and concepts are the intellectual property of Toby Fox. This website is an independent fan-created interactive project and is not affiliated with, authorized, or endorsed by Toby Fox or original rightsholders. Adapted IPIP materials are based on public-domain sources as outlined in our <a href="/method/" class="text-cyan-300 underline">method guide</a>.
+          This website is an independent fan-created interactive project and is not affiliated with, authorized, sponsored, or endorsed by Toby Fox or any original rightsholder. The paid product is our own original, algorithmically generated self-reflection text inspired by seven-virtue philosophy and retro pixel aesthetics; it is not an official game product and contains no official game assets or data. Undertale is a trademark of its respective owner; any references are for identification and fan-tribute purposes only. Adapted IPIP materials are based on public-domain sources as outlined in our <a href="/method/" class="text-cyan-300 underline">method guide</a>.
         </p>
       </div>
 
       <div>
-        <h2 class="text-lg font-bold text-white mb-2">8. Disclaimer of Warranties & Limitation of Liability</h2>
+        <h2 class="text-lg font-bold text-white mb-2">12. Disclaimer of Warranties & Limitation of Liability</h2>
         <p>
           The website and its digital reports are provided on an "AS IS" and "AS AVAILABLE" basis without warranties of any kind. Under no circumstances shall the creators be liable for any indirect, consequential, or incidental damages arising from the use of the quiz or its reflection reports.
         </p>
       </div>
 
       <div>
-        <h2 class="text-lg font-bold text-white mb-2">9. Contact Information & Support</h2>
+        <h2 class="text-lg font-bold text-white mb-2">13. Governing Law & Dispute Resolution</h2>
+        <p>
+          Purchases of the Paid Report are transactions to which Waffo Pancake is the legal seller; the terms presented by Waffo Pancake at checkout, together with your mandatory local consumer protection laws, govern those transactions. For all other matters, these Terms are operated by an independent creator based in mainland China and are governed by the laws of the operator's principal place of business, without prejudice to mandatory consumer rights in your country of residence. Before pursuing any formal dispute, please contact us first at
+          <!--email_off--><a href="mailto:contact@soulvirtues.org" class="text-yellow-400 underline font-mono">contact@soulvirtues.org</a><!--/email_off--> so we can attempt to resolve the matter in good faith.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-bold text-white mb-2">14. Contact Information & Support</h2>
         <p>
           For inquiries regarding these terms, digital orders, billing, or technical assistance, please reach out to:
-          <!--email_off--><a href="mailto:contact@soulvirtues.org" class="text-yellow-400 underline font-mono">contact@soulvirtues.org</a><!--/email_off--> or 
+          <!--email_off--><a href="mailto:contact@soulvirtues.org" class="text-yellow-400 underline font-mono">contact@soulvirtues.org</a><!--/email_off--> or
           <!--email_off--><a href="mailto:tangjei414@gmail.com" class="text-yellow-400 underline font-mono">tangjei414@gmail.com</a><!--/email_off-->.
         </p>
       </div>

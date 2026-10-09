@@ -376,16 +376,14 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       <!-- First Screen Premium Card with Blurred Preview -->
       <div id="premium-unlock-card" class="mt-8 mb-8 max-w-2xl mx-auto p-5 sm:p-7 bg-gradient-to-b from-yellow-950/50 via-black to-black border-2 border-yellow-400 shadow-[0_0_30px_rgba(250,204,21,0.3)] text-center relative overflow-hidden">
         <div class="inline-flex items-center gap-2 px-3 py-1 bg-yellow-500/20 border border-yellow-400 text-yellow-300 text-xs font-mono font-bold uppercase tracking-widest mb-3">
-          <span>⚡ LIMITED PROMO</span>
-          <span>·</span>
-          <span id="discount-timer" class="text-white font-mono font-bold">09:59</span>
+          <span>⚡ Introductory Special</span>
         </div>
-        
+
         <h4 class="text-xl sm:text-3xl font-black font-mono tracking-tight text-white uppercase mb-2">
-          Unlock Full AI Deep Soul Archive
+          Seven Virtues: Personal Trait Archive &amp; Guidebook
         </h4>
         <p class="text-xs sm:text-sm text-gray-300 max-w-lg mx-auto mb-4 leading-relaxed font-sans">
-          Deep behavioral paradox analysis, Undertale battle dynamics, and verified PDF dossier based on your 66-item responses.
+          Deep behavioral paradox analysis, retro RPG battle-style storytelling, and a downloadable PDF guidebook based on your 66-item responses.
         </p>
 
         <!-- High-Contrast Sample Preview Area (Crystal Clear Top + Targeted Gradient Lock) -->
@@ -421,9 +419,8 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
 
         <!-- Price Anchor -->
         <div class="flex items-center justify-center gap-3 mb-4 font-mono">
-          <span class="text-xs text-gray-500 line-through">US$14.93</span>
           <span class="text-2xl sm:text-3xl font-black text-yellow-400">US$4.93</span>
-          <span class="text-[10px] px-2 py-0.5 bg-red-600 text-white font-bold uppercase">67% OFF</span>
+          <span class="text-[10px] px-2 py-0.5 bg-yellow-500/20 border border-yellow-400 text-yellow-300 font-bold uppercase">One-Time</span>
         </div>
 
         <button
@@ -432,11 +429,14 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
           class="w-full sm:w-auto px-8 py-3.5 bg-yellow-400 hover:bg-yellow-300 text-black font-mono font-black text-xs sm:text-sm uppercase tracking-wider shadow-[4px_4px_0_rgba(255,255,255,0.5)] active:translate-x-[2px] active:translate-y-[2px] cursor-pointer transition-all flex items-center justify-center gap-2 mx-auto"
         >
           <span id="btn-checkout-spinner" class="hidden animate-spin">✦</span>
-          <span id="btn-checkout-text">UNLOCK FULL ARCHIVE NOW ($4.93) →</span>
+          <span id="btn-checkout-text">UNLOCK MY TRAIT ARCHIVE ($4.93) →</span>
         </button>
 
         <p class="text-[11px] text-gray-400 mt-3 font-sans">
-          Instant Delivery · Multi-Page Verified Dossier · 100% Secure via Waffo
+          Instant In-Browser Delivery · Multi-Page Personal Dossier · 100% Secure via Waffo
+        </p>
+        <p class="text-[10px] text-gray-500 mt-1.5 font-sans">
+          By purchasing you confirm you are 18+ or have guardian consent. <a href="/terms/" class="underline hover:text-gray-300">Terms</a> · <a href="/privacy/" class="underline hover:text-gray-300">Privacy</a>
         </p>
       </div>
 
@@ -1955,25 +1955,13 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
           console.error("Checkout connection error:", e);
           alert("Unable to initiate secure checkout session. Please check your network or try again.");
         } finally {
-          if (textEl) textEl.textContent = "UNLOCK YOUR AI REPORT ($4.93) →";
+          if (textEl) textEl.textContent = "UNLOCK MY TRAIT ARCHIVE ($4.93) →";
           if (spinner) spinner.classList.add("hidden");
           checkoutBtn.disabled = false;
         }
       });
     }
 
-    let secondsLeft = 599;
-    const timerEl = document.getElementById("discount-timer");
-    if (timerEl) {
-      setInterval(() => {
-        if (secondsLeft > 0) {
-          secondsLeft--;
-          const m = String(Math.floor(secondsLeft / 60)).padStart(2, "0");
-          const s = String(secondsLeft % 60).padStart(2, "0");
-          timerEl.textContent = `${m}:${s}`;
-        }
-      }, 1000);
-    }
     document.getElementById("btn-retake")?.addEventListener("click", () => {
       try { localStorage.removeItem("soulvirtues_roadmap_vote_v1"); } catch (e) {}
       showScreen("start");

@@ -1,5 +1,5 @@
 ---
-// input: None (static Privacy Policy page with Google AdSense and analytics compliance)
+// input: None (static Privacy Policy page with analytics, advertising, payments and AI report compliance)
 // output: Comprehensive Privacy Policy meeting modern compliance and SEO standards
 // pos: src/pages/privacy.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
@@ -31,45 +31,62 @@ const structuredData = {
   <div class="max-w-4xl mx-auto px-4 sm:px-6 py-16">
     <div class="mb-10 text-center">
       <h1 class="text-3xl sm:text-5xl font-black text-white font-mono mb-4">Privacy Policy</h1>
-      <p class="text-gray-400 text-xs font-mono">Last Updated: October 2, 2026</p>
+      <p class="text-gray-400 text-xs font-mono">Last Updated: October 9, 2026</p>
     </div>
 
     <div class="pixel-card p-6 sm:p-10 space-y-6 text-gray-300 text-sm leading-relaxed">
       <div>
         <h2 class="text-lg font-bold text-white mb-2">1. Overview</h2>
         <p>
-          Soul Virtues Extractor ("we", "our", or "the website") is committed to protecting your privacy. This Privacy Policy explains our policies regarding data handling when you use our website (soulvirtues.org).
+          Soul Virtues Extractor ("we", "our", or "the website") is committed to protecting your privacy. This Privacy Policy explains our policies regarding data handling when you use our website (soulvirtues.org), including when you take the free quiz and when you purchase a premium report.
         </p>
       </div>
 
       <div>
         <h2 class="text-lg font-bold text-white mb-2">2. Client-Side Processing</h2>
         <p>
-          Our 66-question test, scores, answer explanations, and image cards are calculated locally in your browser. Our Analytics events exclude individual answers, scores, and trait results. Microsoft Clarity is not loaded on the five homepages that host the quiz. Usage statistics, advertising, and voluntarily submitted feedback are described separately below.
+          Our 66-question test, scores, answer explanations, and image cards are calculated locally in your browser. Our Analytics events exclude individual answers, scores, and trait results. Microsoft Clarity is not loaded on the five homepages that host the quiz. Usage statistics, advertising, payments, and AI-assisted report generation are described separately below.
         </p>
       </div>
 
       <div>
         <h2 class="text-lg font-bold text-white mb-2">3. Local Storage</h2>
         <p>
-          The website uses your browser's local storage (LocalStorage) to save versioned answer progress, audio preferences and a submitted feature-vote choice on your own device. V2 progress is shared across our five language pages in this browser, keyed by question ID. Older-bank progress is not applied to new questions. This information remains strictly on your local browser and can be cleared through your browser settings. "Reset" starts a fresh answer session for the current bank without changing audio settings; older-bank records stay separate until cleared in the browser.
+          The website uses your browser's local storage (LocalStorage) to save versioned answer progress, audio preferences, a submitted feature-vote choice, and a cached copy of any report you have generated on your own device. V2 progress is shared across our five language pages in this browser, keyed by question ID. Older-bank progress is not applied to new questions. This information remains strictly on your local browser and can be cleared through your browser settings. "Reset" starts a fresh answer session for the current bank without changing audio settings; older-bank records stay separate until cleared in the browser.
         </p>
       </div>
 
       <div>
-        <h2 class="text-lg font-bold text-white mb-2">4. Analytics and Performance Tools</h2>
+        <h2 class="text-lg font-bold text-white mb-2">4. Payments & Merchant of Record (Waffo Pancake)</h2>
+        <p>
+          If you purchase a premium report, the sale is made by <strong>Waffo Pancake</strong> acting as merchant of record (the legal seller). Your payment card details and email address are collected and processed on Waffo Pancake's secure checkout page—never on our servers—to complete the order, issue your receipt and invoice, calculate and remit applicable taxes, prevent fraud, and handle refunds. We never see your full card number.
+        </p>
+        <p class="mt-2">
+          Through the Waffo Pancake merchant dashboard, we receive your order status and the email address associated with your order so that we can provide support, verify purchases, and manually re-deliver a report if you request it. Your payment data is otherwise handled by Waffo Pancake under its own privacy and buyer protection policies. Because Waffo Pancake is the legal seller, it retains order and invoice records for the periods required by tax law.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-bold text-white mb-2">5. AI-Assisted Report Generation (Field Guide & Paid Report)</h2>
+        <p>
+          When you open your Soul Field Guide or generate a paid report, your <strong>seven trait scores, dominant and secondary trait labels, and language preference</strong> are sent to our server endpoint, which forwards them to an AI provider (DeepSeek or OpenAI) to generate the personalized text of the report. These scores are numeric self-reflection values: they do not include your name, email address, IP address, or payment details, and we do not store them on our servers beyond generating the response. The AI provider processes the request under its own terms; the generated report is returned to your browser and cached only in your local browser storage.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-bold text-white mb-2">6. Analytics and Performance Tools</h2>
         <p>
           To understand traffic patterns and optimize user experience, we utilize third-party analytics services:
         </p>
         <ul class="list-disc list-inside space-y-1.5 mt-2 pl-2 text-gray-400">
           <li><strong class="text-gray-200">Google Analytics:</strong> Processes usage events such as test completion, card downloads, and a selected feature-vote category, as well as standard request metadata. These events exclude quiz answers, scores, trait results, and free-text suggestions.</li>
           <li><strong class="text-gray-200">Microsoft Clarity:</strong> Runs on static information pages to provide usage recordings and heatmaps. It is not loaded on the five quiz homepages, so it does not record the quiz interaction or its dynamic result. Standard metadata may still be processed on pages where Clarity runs.</li>
-          <li><strong class="text-gray-200">Cloudflare Pages & Security Logs:</strong> Processes standard request metadata (including IP address and request timestamps) strictly for DDoS mitigation and global edge performance.</li>
+          <li><strong class="text-gray-200">Cloudflare Pages & Security Logs:</strong> Processes standard request metadata (including IP address and request timestamps) strictly for DDoS mitigation, edge performance, and abuse prevention on payment-related endpoints.</li>
         </ul>
       </div>
 
       <div>
-        <h2 class="text-lg font-bold text-white mb-2">5. Cookies and Third-Party Advertising (Google AdSense)</h2>
+        <h2 class="text-lg font-bold text-white mb-2">7. Cookies and Third-Party Advertising (Google AdSense)</h2>
         <p>
           We may serve advertisements through Google AdSense and affiliated certified ad networks on our website.
         </p>
@@ -81,30 +98,40 @@ const structuredData = {
       </div>
 
       <div>
-        <h2 class="text-lg font-bold text-white mb-2">6. User Rights and Global Privacy Regulations</h2>
+        <h2 class="text-lg font-bold text-white mb-2">8. User Rights and Global Privacy Regulations</h2>
         <p>
           Depending on your location, you may have specific privacy rights under applicable regulations (such as GDPR for European Economic Area / UK residents, or CCPA/CPRA for California residents):
         </p>
         <ul class="list-disc list-inside space-y-1.5 mt-2 pl-2 text-gray-400">
-          <li><strong class="text-gray-200">EEA / UK Users (GDPR):</strong> You have the right to access, rectify, or erase your personal data, and to manage or withdraw your consent for non-essential cookies through your browser's cookie settings.</li>
-          <li><strong class="text-gray-200">California Residents (CCPA/CPRA):</strong> We do not sell or share personal information for monetary consideration.</li>
+          <li><strong class="text-gray-200">EEA / UK Users (GDPR):</strong> You have the right to access, rectify, or erase your personal data, and to manage or withdraw your consent for non-essential cookies through your browser's cookie settings. Where we process data to perform a contract with you (processing payments and delivering reports you purchase) or for our legitimate interests (site security and abuse prevention), we rely on those legal bases; you may object to processing based on legitimate interests.</li>
+          <li><strong class="text-gray-200">California Residents (CCPA/CPRA):</strong> We do not sell or share personal information for monetary or other valuable consideration. Service providers we use include Cloudflare (hosting), Google (analytics and advertising), Microsoft Clarity (analytics), Waffo Pancake (payments, as merchant of record), and DeepSeek/OpenAI (report text generation on non-identifying scores).</li>
         </ul>
-      </div>
-
-      <div>
-        <h2 class="text-lg font-bold text-white mb-2">7. Children's Privacy</h2>
-        <p>
-          Our website is designed for general audiences and does not knowingly collect or solicit personal information from children under the age of 13.
+        <p class="mt-2">
+          To exercise your rights, contact us at the address below. Because purchase and invoice records are held by Waffo Pancake as the legal seller and retained as required by tax law, deletion requests relating to those records are subject to Waffo Pancake's policies; we will forward your request and assist where we can.
         </p>
       </div>
 
       <div>
-        <h2 class="text-lg font-bold text-white mb-2">8. Voluntary Feedback</h2>
+        <h2 class="text-lg font-bold text-white mb-2">9. Children's Privacy</h2>
+        <p>
+          Our website is designed for general audiences and does not knowingly collect or solicit personal information from children under the age of 13. Purchases require the user to be at least 18 years old or to have the consent and supervision of a parent or legal guardian. If you believe a child has made an unauthorized purchase, contact us and we will assist with a refund via Waffo Pancake.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-bold text-white mb-2">10. Voluntary Feedback</h2>
         <p>Preset feature votes may send the selected category and page language to Analytics. Free-text suggestions are not sent to Analytics. If you use our MakeThisBetter feedback link or widget, the feedback service receives the information you choose to submit. Please do not include sensitive personal information. Feedback is optional and does not affect your test result.</p>
       </div>
 
       <div>
-        <h2 class="text-lg font-bold text-white mb-2">9. Contact Us</h2>
+        <h2 class="text-lg font-bold text-white mb-2">11. International Data Transfers</h2>
+        <p>
+          Our hosting, analytics, advertising, and payment providers operate globally, and the AI providers used for report generation process requests on servers located outside your country (including in the United States or, for DeepSeek, in China). The quiz data sent to AI providers consists of non-identifying numeric scores and trait labels. Buyer name, email, and payment details collected at checkout are processed by Waffo Pancake as the legal seller under its own global compliance program.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-bold text-white mb-2">12. Contact Us</h2>
         <p>
           If you have any questions or comments about this Privacy Policy, please reach out via email at:
           <!--email_off--><a href="mailto:contact@soulvirtues.org" class="text-red-400 underline font-mono">contact@soulvirtues.org</a><!--/email_off-->.
