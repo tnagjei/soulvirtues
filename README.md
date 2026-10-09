@@ -45,3 +45,8 @@
 - 构建输出目录 (Build output directory)：`dist`
 - 生产域名：`https://soulvirtues.org`
 - 报告交付页 `/success/` 使用编译后的浏览器脚本；Functions 的 `DEEPSEEK_API_KEY` 与 `WAFFO_PRIVATE_KEY` 通过 Cloudflare Secrets 配置。Waffo 当前为测试环境，订单验签与付费权限仍待完成。
+
+## 个人手册
+- 回归：node scripts/check_field_guide.cjs。开发预览 /success/?preview=1（明确标注样例，生产构建不启用），西语加 &lang=es。
+- 手册主体复用本地答案和计分，含七项解读、14条回答依据、情境演练、七日清单与笔记；笔记仅存本浏览器，原生打印可另存为带笔记的文本PDF。英文/西语可用。AI视角仅在用户点击时请求，不阻塞主体。
+- 此页面不把跳转作为付款证明；真实订单验证仍需在正式收费前完成。
