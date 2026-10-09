@@ -1,6 +1,6 @@
 ---
 // input: None (static Terms of Service page)
-// output: Full Terms of Service page outlining acceptable use and disclaimers
+// output: Full Terms of Service page outlining commercial terms, refunds, acceptable use and termination
 // pos: src/pages/terms.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import Layout from '../layouts/Layout.astro';
@@ -11,7 +11,7 @@ const structuredData = {
   "@id": "https://soulvirtues.org/terms/#webpage",
   "url": "https://soulvirtues.org/terms/",
   "name": "Terms of Service - Soul Virtues Extractor",
-  "description": "Terms of Service for Soul Virtues Extractor (soulvirtues.org). Acceptable use guidelines, intellectual property notices, and disclaimers.",
+  "description": "Terms of Service for Soul Virtues Extractor (soulvirtues.org). Acceptable use, digital purchases, refund policy, and termination terms.",
   "inLanguage": "en",
   "isPartOf": {
     "@type": "WebSite",
@@ -24,62 +24,84 @@ const structuredData = {
 
 <Layout
   title="Terms of Service - Soul Virtues Extractor"
-  description="Terms of Service for Soul Virtues Extractor (soulvirtues.org). Acceptable use guidelines, intellectual property notices, and disclaimers."
+  description="Terms of Service for Soul Virtues Extractor (soulvirtues.org). Acceptable use guidelines, digital purchases, refund policy, and disclaimers."
   canonicalUrl="https://soulvirtues.org/terms/"
   structuredData={structuredData}
 >
   <div class="max-w-4xl mx-auto px-4 sm:px-6 py-16">
     <div class="mb-10 text-center">
       <h1 class="text-3xl sm:text-5xl font-black text-white font-mono mb-4">Terms of Service</h1>
-      <p class="text-gray-400 text-xs font-mono">Last Updated: October 2, 2026</p>
+      <p class="text-gray-400 text-xs font-mono">Last Updated: October 9, 2026</p>
     </div>
 
     <div class="pixel-card p-6 sm:p-10 space-y-6 text-gray-300 text-sm leading-relaxed">
       <div>
         <h2 class="text-lg font-bold text-white mb-2">1. Agreement to Terms</h2>
         <p>
-          By accessing and using Soul Virtues Extractor (soulvirtues.org), you agree to be bound by these Terms of Service. If you disagree with any part of these terms, you may discontinue use of the website.
+          By accessing and using Soul Virtues Extractor (soulvirtues.org), you agree to be bound by these Terms of Service. If you disagree with any part of these terms, you may discontinue use of the website immediately.
         </p>
       </div>
 
       <div>
         <h2 class="text-lg font-bold text-white mb-2">2. Entertainment & Informational Purpose</h2>
         <p>
-          The Soul Virtues Extractor is provided solely for entertainment, educational, and fan appreciation purposes. The results are independent answer-scale scores, not population percentiles, moral grades, formal psychological evaluations or clinical medical advice. Changing the question bank changes the measurement; results from different versions should not be treated as directly comparable.
+          The Soul Virtues Extractor is provided solely for entertainment, educational, and fan self-reflection purposes. The results are independent answer-scale scores, not population percentiles, moral grades, formal psychological evaluations or clinical medical advice.
         </p>
       </div>
 
       <div>
-        <h2 class="text-lg font-bold text-white mb-2">3. Intellectual Property & Fan Tribute Disclaimer</h2>
+        <h2 class="text-lg font-bold text-white mb-2">3. Digital Products, Pricing & Payment</h2>
         <p>
-          Undertale and related game assets, characters, and concepts are the intellectual property of Toby Fox. This website is a fan-created interactive project and is not affiliated with or endorsed by Toby Fox or original rightsholders.
+          While the basic 66-question self-reflection quiz and primary soul result are accessible free of charge, we offer premium digital add-ons (including the full 7-virtue AI Deep Soul Archive, comprehensive psychological dossier, and downloadable PDF handbook) for a one-time fee as displayed on the checkout page. All payments are processed securely via our authorized merchant-of-record partners (including Waffo Pancake). By placing an order, you authorize the charge to your chosen payment method.
         </p>
       </div>
 
       <div>
-        <h2 class="text-lg font-bold text-white mb-2">Question Sources</h2>
-        <p>IPIP source materials are in the public domain and may be used commercially or non-commercially. Our adapted wording, independent questions, seven-theme grouping and score display are documented in the <a href="/method/" class="text-cyan-300 underline">method guide</a>. This source permission does not claim a license to every game asset or another publisher's code, wording or interface.</p>
-      </div>
-
-      <div>
-        <h2 class="text-lg font-bold text-white mb-2">4. User Conduct</h2>
+        <h2 class="text-lg font-bold text-white mb-2">4. Refund & Cancellation Policy</h2>
         <p>
-          You agree not to misuse the website, attempt unauthorized access, disrupt web servers, or distribute malicious code.
+          Due to the immediate digital nature of our AI Deep Soul Archive and downloadable PDF materials, all digital purchases are generally non-refundable once the report has been generated and delivered to your browser session.
+        </p>
+        <p class="mt-2">
+          <strong>Technical Failure Guarantee:</strong> If a technical error occurs during checkout or report generation—such as being charged without receiving access to your digital dossier within 24 hours—you are entitled to a full refund. To request a refund or report delivery assistance, please contact our support team at 
+          <!--email_off--><a href="mailto:contact@soulvirtues.org" class="text-yellow-400 underline font-mono">contact@soulvirtues.org</a><!--/email_off--> (or 
+          <!--email_off--><a href="mailto:tangjei414@gmail.com" class="text-yellow-400 underline font-mono">tangjei414@gmail.com</a><!--/email_off-->) within 7 days of purchase with your transaction details. Verified refund requests are processed within 3 to 5 business days.
         </p>
       </div>
 
       <div>
-        <h2 class="text-lg font-bold text-white mb-2">5. Disclaimer of Warranties</h2>
+        <h2 class="text-lg font-bold text-white mb-2">5. User Conduct & Acceptable Use</h2>
         <p>
-          The website is provided on an "AS IS" and "AS AVAILABLE" basis without warranties of any kind, express or implied.
+          You agree not to misuse the website, attempt unauthorized access, disrupt web servers, execute automated scraping or abusive traffic generation, bypass payment mechanisms, or distribute malicious code.
         </p>
       </div>
 
       <div>
-        <h2 class="text-lg font-bold text-white mb-2">6. Contact Information</h2>
+        <h2 class="text-lg font-bold text-white mb-2">6. Term, Suspension & Termination</h2>
         <p>
-          For any inquiries regarding these terms, please contact:
-          <!--email_off--><a href="mailto:contact@soulvirtues.org" class="text-red-400 underline font-mono">contact@soulvirtues.org</a><!--/email_off-->.
+          These Terms of Service remain in effect while you use the website. We reserve the right to immediately suspend or terminate your access to the website, block IP addresses, cancel pending digital delivery sessions, or pursue legal remedies without prior notice if you violate any provision of these Terms or engage in fraudulent activity, unauthorized scraping, or abusive conduct.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-bold text-white mb-2">7. Intellectual Property & Fan Tribute Disclaimer</h2>
+        <p>
+          Undertale and related game assets, characters, and concepts are the intellectual property of Toby Fox. This website is an independent fan-created interactive project and is not affiliated with, authorized, or endorsed by Toby Fox or original rightsholders. Adapted IPIP materials are based on public-domain sources as outlined in our <a href="/method/" class="text-cyan-300 underline">method guide</a>.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-bold text-white mb-2">8. Disclaimer of Warranties & Limitation of Liability</h2>
+        <p>
+          The website and its digital reports are provided on an "AS IS" and "AS AVAILABLE" basis without warranties of any kind. Under no circumstances shall the creators be liable for any indirect, consequential, or incidental damages arising from the use of the quiz or its reflection reports.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="text-lg font-bold text-white mb-2">9. Contact Information & Support</h2>
+        <p>
+          For inquiries regarding these terms, digital orders, billing, or technical assistance, please reach out to:
+          <!--email_off--><a href="mailto:contact@soulvirtues.org" class="text-yellow-400 underline font-mono">contact@soulvirtues.org</a><!--/email_off--> or 
+          <!--email_off--><a href="mailto:tangjei414@gmail.com" class="text-yellow-400 underline font-mono">tangjei414@gmail.com</a><!--/email_off-->.
         </p>
       </div>
     </div>
