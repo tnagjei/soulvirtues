@@ -435,9 +435,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
         <p class="text-[11px] text-gray-400 mt-3 font-sans">
           Instant In-Browser Delivery · Multi-Page Personal Dossier · 100% Secure via Waffo
         </p>
-        <p class="text-[10px] text-gray-500 mt-1.5 font-sans">
-          By purchasing you confirm you are 18+ or have guardian consent. <a href="/terms/" class="underline hover:text-gray-300">Terms</a> · <a href="/privacy/" class="underline hover:text-gray-300">Privacy</a>
-        </p>
+        <p class="text-[10px] text-gray-500 mt-1.5 font-sans" set:html={t.quizUI.purchaseDisclaimer} />
       </div>
 
       <!-- Direct High-Converting Soul Trait Subpage Internal Link -->

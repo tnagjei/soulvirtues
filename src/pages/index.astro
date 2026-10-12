@@ -7,6 +7,7 @@ import Layout from '../layouts/Layout.astro';
 import Quiz from '../components/Quiz.astro';
 import SoulCard from '../components/SoulCard.astro';
 import FAQ from '../components/FAQ.astro';
+import PricingSection from '../components/PricingSection.astro';
 import { SOUL_CODES, SOUL_SLUGS_BY_CODE } from '../data/souls';
 import { SOULS_HUB_COPY } from '../data/soulsHub';
 import { getTranslations } from '../i18n';
@@ -236,6 +237,9 @@ const structuredData = {
       ))}
     </div>
   </section>
+
+  <!-- Section 6.5: Pricing -->
+  <PricingSection pricing={t.pricing} />
 
   <!-- Section 7: FAQ -->
   <section id="faq" class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80 scroll-mt-20">

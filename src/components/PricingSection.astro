@@ -1,0 +1,68 @@
+---
+// input: pricing translations (t.pricing from src/i18n/*.ts)
+// output: Two-card pricing section showing free quiz ($0) vs one-time paid report (US$4.93) with buy-flow explanation
+// pos: src/components/PricingSection.astro (更新规则：价格或结构变化需同步 i18n 五语言 pricing 文案与目录 README)
+
+import type { SectionPricing } from '../i18n/types';
+
+interface Props {
+  pricing: SectionPricing;
+}
+
+const { pricing } = Astro.props;
+---
+
+<section id="pricing" class="py-16 px-4 sm:px-6 max-w-5xl mx-auto border-t border-gray-800/80 scroll-mt-20">
+  <div class="text-center max-w-3xl mx-auto mb-10">
+    <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-mono tracking-wide mb-3">
+      {pricing.title}
+    </h2>
+    <p class="text-xs sm:text-sm text-gray-400">
+      {pricing.subtitle}
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+    <!-- Free card -->
+    <div class="pixel-card p-6 flex flex-col">
+      <h3 class="text-sm font-mono font-bold uppercase text-gray-300 mb-3">{pricing.freeTitle}</h3>
+      <div class="flex items-baseline gap-2 mb-3">
+        <span class="text-3xl font-black text-white font-mono">{pricing.freePrice}</span>
+      </div>
+      <p class="text-xs text-gray-400 mb-4 font-sans">{pricing.freeDesc}</p>
+      <ul class="text-xs text-gray-300 space-y-2 mb-6 font-sans list-disc list-inside">
+        {pricing.freeItems.map((item) => <li>{item}</li>)}
+      </ul>
+      <a
+        href="#test"
+        class="mt-auto inline-flex items-center justify-center px-5 py-3 min-h-[44px] bg-black border-2 border-gray-600 hover:border-white text-xs font-mono font-bold text-gray-200 hover:text-white uppercase tracking-wider transition-colors"
+      >
+        {pricing.freeCta}
+      </a>
+    </div>
+
+    <!-- Paid report card -->
+    <div class="pixel-card p-6 flex flex-col border-2 border-yellow-400/70">
+      <div class="flex items-center justify-between gap-2 mb-3">
+        <h3 class="text-sm font-mono font-bold uppercase text-yellow-300">{pricing.paidTitle}</h3>
+        <span class="text-[10px] px-2 py-0.5 bg-yellow-500/20 border border-yellow-400 text-yellow-300 font-bold uppercase whitespace-nowrap">{pricing.paidBadge}</span>
+      </div>
+      <div class="flex items-baseline gap-2 mb-3">
+        <span class="text-3xl font-black text-yellow-400 font-mono">{pricing.paidPrice}</span>
+      </div>
+      <p class="text-xs text-gray-400 mb-4 font-sans">{pricing.paidDesc}</p>
+      <ul class="text-xs text-gray-300 space-y-2 mb-6 font-sans list-disc list-inside">
+        {pricing.paidItems.map((item) => <li>{item}</li>)}
+      </ul>
+      <p class="text-xs text-gray-400 font-sans mb-4 mt-auto">{pricing.paidHow}</p>
+      <a
+        href="#test"
+        class="inline-flex items-center justify-center px-5 py-3 min-h-[44px] bg-yellow-400 hover:bg-yellow-300 text-black text-xs font-mono font-black uppercase tracking-wider shadow-[3px_3px_0_rgba(255,255,255,0.4)] active:translate-x-[1px] active:translate-y-[1px] transition-all"
+      >
+        {pricing.paidCta}
+      </a>
+    </div>
+  </div>
+
+  <p class="text-[11px] text-gray-500 mt-6 text-center max-w-3xl mx-auto font-sans" set:html={pricing.note} />
+</section>

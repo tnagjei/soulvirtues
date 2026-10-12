@@ -72,6 +72,24 @@ export interface SectionFeatures {
   items: Array<{ num: string; title: string; desc: string }>;
 }
 
+export interface SectionPricing {
+  title: string;
+  subtitle: string;
+  freeTitle: string;
+  freePrice: string;
+  freeDesc: string;
+  freeItems: string[];
+  freeCta: string;
+  paidTitle: string;
+  paidPrice: string;
+  paidBadge: string;
+  paidDesc: string;
+  paidItems: string[];
+  paidHow: string;
+  paidCta: string;
+  note: string;
+}
+
 export interface FAQItem {
   q: string;
   a: string;
@@ -158,6 +176,7 @@ export interface QuizUITranslations {
   reviewAnswersBtn: string;
   browseSoulsBtn: string;
   retakeBtn: string;
+  purchaseDisclaimer: string;
   reviewTitle: string;
   reviewBackBtn: string;
   soulsGalleryTitle: string;
@@ -186,6 +205,7 @@ export interface Translations {
   colors: SectionColors;
   scoring: SectionScoring;
   features: SectionFeatures;
+  pricing: SectionPricing;
   faq: SectionFAQ;
   quizUI: QuizUITranslations;
   souls: Record<SoulCode, SoulDefinition>;
