@@ -1,6 +1,6 @@
 ---
-// input: Complete V2 answers saved in this browser
-// output: A personal reflection workbook with answer evidence and print-ready pages
+// input: A private report link and a server-verified purchase
+// output: The saved personal workbook, order status and print-ready pages
 // pos: src/pages/success.astro (更新规则：交付变化同步 field-guide 脚本、样式、回归与 src/pages/README)
 import '../styles/fonts.css';
 import '../styles/report.css';
@@ -24,8 +24,11 @@ import '../styles/report.css';
         <label class="sr-only" for="report-language">Report language</label>
         <select id="report-language"><option value="en">English</option><option value="es">Español</option></select>
         <button id="save-pdf" class="primary" disabled>Save PDF</button>
+        <button id="save-report-link" class="secondary" disabled hidden>Save private link</button>
       </div>
     </header>
+    <section id="delivery-status" class="delivery-status no-print" role="status" hidden></section>
+    <input id="private-report-link" class="private-report-link no-print" type="text" readonly hidden aria-label="Private report link" />
     <div class="guide-layout">
       <aside class="guide-nav no-print"><p id="contents-label">Inside your guide</p><nav id="contents" aria-label="Report sections"></nav><p id="save-state" role="status"></p></aside>
       <main id="guide" aria-busy="true">

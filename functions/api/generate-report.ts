@@ -1,8 +1,10 @@
-// input: JSON with soul scores and traits
-// output: Highly structured RPG & Psychological dossier with badges, stats, and action plans
+// input: Private paid report identity; trusted saved scores for optional AI
+// output: One cached optional perspective per paid report and language
 // pos: functions/api/generate-report.ts (更新规则：响应协议变化同步报告页面、回归与 functions/api/README.md)
 
 import { isDossierReport, normalizeReportInput } from '../../src/data/reportDelivery';
+import { database, guideLanguage, ownedReport, refreshPayment, requirePaid, rowById, snapshot, type PaymentEnv } from '../_shared/reports';
+import { errorResponse, json, requestJson, sameOrigin, DeliveryError } from '../_shared/waffo';
 
 interface Env {
   DEEPSEEK_API_KEY?: string;
@@ -222,17 +224,13 @@ function buildGenericFallback(dominant: string, lang: string): DossierReport {
   };
 }
 
-export async function onRequest(context: { request: Request; env: Env }) {
-  if (context.request.method !== 'POST') {
-    return new Response(JSON.stringify({ error: 'Method not allowed' }), { status: 405 });
-  }
-
+export async function generateDossier(value: unknown, env: Env): Promise<Response> {
   try {
-    const input = normalizeReportInput(await context.request.json());
+    const input = normalizeReportInput(value);
     if (!input) return Response.json({ error: 'A complete, valid quiz score profile is required' }, { status: 400 });
     const { scores, dominant, secondary, lang } = input;
 
-    const apiKey = context.env?.DEEPSEEK_API_KEY || context.env?.OPENAI_API_KEY;
+    const apiKey = env?.DEEPSEEK_API_KEY || env?.OPENAI_API_KEY;
 
     if (apiKey) {
       const prompt = `You are an elite psychological profiler and game lore master of Undertale 7 Soul Virtues.
@@ -271,7 +269,7 @@ Format strictly as JSON with this schema:
 Return raw JSON only, no markdown.`;
 
       try {
-        const isDeepSeek = Boolean(context.env?.DEEPSEEK_API_KEY);
+        const isDeepSeek = Boolean(env?.DEEPSEEK_API_KEY);
         const endpoint = isDeepSeek
           ? 'https://api.deepseek.com/chat/completions'
           : 'https://api.openai.com/v1/chat/completions';
@@ -314,7 +312,7 @@ Return raw JSON only, no markdown.`;
       }
     }
 
-    // High quality guaranteed fallback
+    // Prepared optional interpretation is labeled separately from AI output.
     const key = dominant ?? 'balanced';
     const langKey = lang === 'es' ? 'es' : 'en';
     const dossier = FALLBACK_DOSSIERS[key] ? FALLBACK_DOSSIERS[key][langKey] : buildGenericFallback(key, lang);
@@ -327,4 +325,40 @@ Return raw JSON only, no markdown.`;
       headers: { 'Content-Type': 'application/json' },
     });
   }
+}
+
+
+export async function onRequest(context: { request: Request; env: PaymentEnv }): Promise<Response> {
+  if (context.request.method !== 'POST') return json({ error: 'Method not allowed.' }, 405);
+  try {
+    sameOrigin(context.request);
+    const body = await requestJson(context.request);
+    const lang = guideLanguage(body.lang);
+    const row = await refreshPayment(context.env, await ownedReport(context.request, context.env, body.reportId), true);
+    requirePaid(row);
+    const column = lang === 'es' ? 'ai_es' : 'ai_en';
+    const lease = lang === 'es' ? 'ai_lease_es' : 'ai_lease_en';
+    const cached = row[column];
+    if (cached) return json(JSON.parse(cached));
+    const db = database(context.env);
+    const now = new Date().toISOString();
+    const claimed = await db.prepare(`UPDATE paid_reports SET ${lease}=? WHERE id=? AND status='paid'
+      AND ${column} IS NULL AND (${lease} IS NULL OR ${lease}<?)`)
+      .bind(now, row.id, new Date(Date.now() - 45000).toISOString()).run();
+    if (!claimed.meta.changes) {
+      const current = (await rowById(context.env, row.id))!;
+      requirePaid(current);
+      return current[column] ? json(JSON.parse(current[column]!)) : json({ status: 'generating' }, 202);
+    }
+    try {
+      const response = await generateDossier({ ...snapshot(row, lang).input, lang }, context.env);
+      const report = await response.json();
+      if (!response.ok || !isDossierReport(report)) throw new DeliveryError(503, 'The optional AI perspective is unavailable. Your complete guide is still ready.');
+      const saved = await db.prepare(`UPDATE paid_reports SET ${column}=?,${lease}=NULL WHERE id=? AND status='paid' AND ${lease}=?`).bind(JSON.stringify(report), row.id, now).run();
+      if (!saved.meta.changes) throw new DeliveryError(403, 'The order no longer has report access.');
+      return json(report);
+    } finally {
+      await db.prepare(`UPDATE paid_reports SET ${lease}=NULL WHERE id=? AND ${lease}=?`).bind(row.id, now).run();
+    }
+  } catch (error) { return errorResponse(error); }
 }

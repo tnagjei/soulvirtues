@@ -383,7 +383,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
           Seven Virtues: Personal Trait Archive &amp; Guidebook
         </h4>
         <p class="text-xs sm:text-sm text-gray-300 max-w-lg mx-auto mb-4 leading-relaxed font-sans">
-          Deep behavioral paradox analysis, retro RPG battle-style storytelling, and a downloadable PDF guidebook based on your 66-item responses.
+          Seven trait readings, your actual answer receipts, practical exercises, and a PDF workbook based on your 66 answers.
         </p>
 
         <!-- High-Contrast Sample Preview Area (Crystal Clear Top + Targeted Gradient Lock) -->
@@ -392,26 +392,26 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
           <div class="p-4 sm:p-5 border-b border-yellow-500/30 bg-gradient-to-r from-yellow-950/30 via-black to-black">
             <div class="flex items-center gap-2 font-mono font-bold text-yellow-400 text-[11px] uppercase tracking-wider mb-2">
               <span class="inline-block w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></span>
-              <span>✦ CONFIDENTIAL ARCHIVE EXCERPT:</span>
+              <span>✦ PERSONAL WORKBOOK PREVIEW:</span>
             </div>
             <p id="preview-clear-text" class="text-xs sm:text-sm font-medium text-white leading-relaxed">
-              "Your core psychological engine operates on an unyielding principle of autonomy. When confronted by external pressure, your baseline strategy is not to retreat, but focused resolve to reshape your circumstances according to your vision..."
+              Your guide traces these scores back to the answers you gave. It includes seven readings, practical exercises and a seven-day plan to check what fits your experience.
             </p>
           </div>
 
           <!-- 2. Targeted blurred lower section with gradient overlay -->
           <div class="relative p-4 sm:p-5 overflow-hidden min-h-[90px]">
             <p class="text-xs text-gray-400 blur-[3px] select-none opacity-40 leading-relaxed font-serif">
-              ...however, under sustained crisis your secondary virtue triggers an unspoken friction point. You perceive vulnerability as compromise, silently bearing relational costs until situational rigidity threatens the very outcome you are fighting to protect. In collaborative spheres, this manifests as quiet exhaustion when peers fail to match your intensity...
+              Each reading includes the theme, the actual answers behind it, a question to check in real life and a small practice exercise. Your full workbook also includes a seven-day plan and space for your own notes.
             </p>
             <!-- Lock gradient overlay centered over blurred section only -->
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/90 to-transparent flex flex-col items-center justify-center p-3">
               <div class="px-4 py-2 bg-black/95 border-2 border-yellow-400 text-yellow-300 font-mono font-bold text-xs uppercase tracking-widest shadow-[0_0_20px_rgba(250,204,21,0.5)] flex items-center gap-2">
                 <span class="text-sm">🔒</span>
-                <span>REST OF 5-CHAPTER DOSSIER LOCKED</span>
+                <span>FULL PERSONAL WORKBOOK LOCKED</span>
               </div>
               <span class="text-[10px] text-gray-400 font-mono mt-1.5 uppercase tracking-wider">
-                Unlock full 2,000+ words detailed analysis & PDF handbook below
+                Unlock all seven readings, your answer receipts & PDF workbook below
               </span>
             </div>
           </div>
@@ -423,6 +423,10 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
           <span class="text-[10px] px-2 py-0.5 bg-yellow-500/20 border border-yellow-400 text-yellow-300 font-bold uppercase">One-Time</span>
         </div>
 
+        <label class="flex items-start gap-3 text-left text-[11px] text-gray-300 font-sans max-w-xl mx-auto mb-4 leading-relaxed">
+          <input id="checkout-consent" type="checkbox" class="mt-1 flex-none w-4 h-4" />
+          <span>{lang === 'es' ? 'Tengo 18 años o permiso de mi tutor. Acepto guardar mis 66 respuestas y mi informe para la entrega y recuperación. El acceso online dura 30 días. Informe en inglés o español.' : 'I am 18+ or have guardian permission. I agree to save my 66 answers and report for secure delivery and recovery. Online access lasts 30 days. Report available in English or Spanish.'} <a href="/terms/" class="underline">Terms</a> · <a href="/privacy/" class="underline">Privacy</a></span>
+        </label>
         <button
           id="btn-checkout-waffo"
           type="button"
@@ -433,8 +437,9 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
         </button>
 
         <p class="text-[11px] text-gray-400 mt-3 font-sans">
-          Instant In-Browser Delivery · Multi-Page Personal Dossier · 100% Secure via Waffo
+          Saved Personal Guide · PDF &amp; Private Access Link · Checkout by Waffo
         </p>
+        <p id="checkout-status" class="text-xs text-amber-200 mt-3 font-sans" role="status" aria-live="polite"></p>
         <p class="text-[10px] text-gray-500 mt-1.5 font-sans" set:html={t.quizUI.purchaseDisclaimer} />
       </div>
 
@@ -777,6 +782,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
 <script>
   import { computeScores as scoreAnswers } from "../data/scoring";
   import { ANSWER_STORAGE_KEY, BANK_VERSION, encodeAnswers, decodeAnswers } from "../data/quizSession";
+  import { checkoutAccess, reportApi } from "../data/paidReport";
   function initQuiz() {
     const root = document.getElementById("quiz-root");
     if (!root) return;
@@ -1317,20 +1323,10 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
         }));
       } catch (e) {}
 
-      // Update clear excerpt in VIP preview card
-      const PREVIEW_EXCERPTS = {
-        red: '"Your core psychological engine operates on an unyielding principle of autonomy. When confronted by external pressure, your baseline strategy is not to retreat, but focused resolve to reshape your circumstances..."',
-        orange: '"Your natural vitality is driven by bold initiative and proactive engagement. You instinctively move into uncharted territory where others hesitate, finding confidence through direct action..."',
-        yellow: '"Your moral compass is calibrated around equity, principled balance, and truth. You possess an innate drive to rectify imbalances and hold standards that others quietly abandon..."',
-        green: '"Your psychological foundation is rooted in genuine empathy and relational grounding. You naturally absorb ambient tension and create safe harbor for those in distress..."',
-        cyan: '"Your greatest asset is observant stillness and situational timing. While others react impulsively to chaos, you naturally pause, evaluate currents, and strike at the exact right moment..."',
-        blue: '"Your inner architecture demands strict authenticity and moral integrity. You require harmony between what you believe and how you act, refusing convenient shortcuts..."',
-        purple: '"Your intellect functions as an unstoppable problem-solving engine. You break down complex obstacles through study, method, and disciplined tenacity until you master them..."'
-      };
       const previewClearEl = document.getElementById("preview-clear-text");
-      if (previewClearEl && PREVIEW_EXCERPTS[dominantCode]) {
-        previewClearEl.textContent = PREVIEW_EXCERPTS[dominantCode];
-      }
+      if (previewClearEl) previewClearEl.textContent = LANG === 'es'
+        ? 'La guía relaciona tus puntuaciones con las respuestas que diste. Incluye siete lecturas, ejercicios prácticos y un plan de siete días para comprobar qué encaja con tu experiencia.'
+        : 'Your guide traces these scores back to the answers you gave. It includes seven readings, practical exercises and a seven-day plan to check what fits your experience.';
       const dominantSoul = getResultDisplay(score);
 
       const heartEl = document.getElementById("result-heart");
@@ -1929,32 +1925,47 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
     document.getElementById("btn-download-card")?.addEventListener("click", downloadResultCard);
     document.getElementById("btn-copy-link")?.addEventListener("click", copyShareLink);
 
-    // Waffo Checkout Handler
+    // Save the complete answer snapshot before handing the customer to Waffo.
     const checkoutBtn = document.getElementById("btn-checkout-waffo");
     if (checkoutBtn) {
       checkoutBtn.addEventListener("click", async () => {
         const textEl = document.getElementById("btn-checkout-text");
         const spinner = document.getElementById("btn-checkout-spinner");
-        if (textEl) textEl.textContent = "CONNECTING SECURE CHECKOUT...";
-        if (spinner) spinner.classList.remove("hidden");
+        const feedback = document.getElementById("checkout-status");
+        const consent = document.getElementById("checkout-consent") as HTMLInputElement | null;
+        const original = textEl?.textContent;
+        const es = LANG === "es";
+        if (feedback) feedback.textContent = "";
+        if (!consent?.checked) {
+          if (feedback) feedback.textContent = es ? "Confirma el aviso de compra y almacenamiento antes de continuar." : "Confirm the purchase and storage notice before continuing.";
+          return;
+        }
+        if (["localhost", "127.0.0.1"].includes(location.hostname)) {
+          if (feedback) feedback.textContent = es ? "Esta es una vista previa local. Haz el test en soulvirtues.org para comprobar un pago." : "This is a local preview. Complete the quiz on soulvirtues.org to test payment.";
+          return;
+        }
         checkoutBtn.disabled = true;
-
+        if (textEl) textEl.textContent = es ? "GUARDANDO TU INFORME…" : "SAVING YOUR REPORT…";
+        spinner?.classList.remove("hidden");
         try {
-          const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
-          const apiUrl = isLocal ? "https://soulvirtues.org/api/create-checkout" : "/api/create-checkout";
-          const res = await fetch(apiUrl, { method: "POST" });
-          const data = await res.json();
-          if (data.checkoutUrl) {
-            window.open(data.checkoutUrl, "_blank", "noopener,noreferrer");
-          } else {
-            throw new Error(data.error || "Failed to create checkout");
-          }
-        } catch (e) {
-          console.error("Checkout connection error:", e);
-          alert("Unable to initiate secure checkout session. Please check your network or try again.");
+          if (userAnswers.some(answer => answer === null)) throw new Error(es ? "Completa las 66 preguntas primero." : "Complete all 66 questions first.");
+          const quiz = JSON.parse(encodeAnswers(userAnswers, QUESTIONS));
+          const access = await checkoutAccess(localStorage, quiz);
+          const response = await reportApi("/api/create-checkout", null, { quiz, lang: es ? "es" : "en", reportId: access.id, accessToken: access.token, consent: true });
+          if (response.status === 202) {
+            if (feedback) feedback.textContent = es ? "Tu enlace ya se está preparando. Espera unos segundos y comprueba de nuevo; no vuelvas a pagar." : "Your link is already being prepared. Wait a few seconds and check again; do not pay twice.";
+          } else if (response.data.alreadyPaid === true) {
+            location.assign("/success/?report=" + access.id);
+          } else if (typeof response.data.checkoutUrl === "string") {
+            const url = new URL(response.data.checkoutUrl);
+            if (url.protocol !== "https:" || !["checkout.waffo.ai", "pancake.waffo.ai"].includes(url.hostname)) throw new Error("Invalid checkout link.");
+            location.assign(url.href);
+          } else throw new Error("The checkout response is incomplete.");
+        } catch (error) {
+          if (feedback) feedback.textContent = error instanceof Error ? error.message : (es ? "No se pudo preparar el pago. Vuelve a comprobarlo." : "Checkout could not be prepared. Please check again.");
         } finally {
-          if (textEl) textEl.textContent = "UNLOCK MY TRAIT ARCHIVE ($4.93) →";
-          if (spinner) spinner.classList.add("hidden");
+          if (textEl) textEl.textContent = original || "UNLOCK MY TRAIT ARCHIVE ($4.93) →";
+          spinner?.classList.add("hidden");
           checkoutBtn.disabled = false;
         }
       });

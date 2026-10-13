@@ -1,10 +1,9 @@
 // input: Versioned quiz answers, workbook notes and optional report API response
 // output: A readable, interactive personal field guide with a print-ready workbook
 // pos: src/scripts/field-guide.ts (更新规则：页面变化同步报告样式、数据模块与本目录 README)
-import { buildFieldGuide, readFieldGuide, sampleGuideInput, GUIDE_COPY, GUIDE_VERSION, type GuideLanguage } from '../data/fieldGuide';
-import { normalizeReportInput, fetchDossier, isDossierReport } from '../data/reportDelivery';
-import { computeScores } from '../data/scoring';
-import { QUESTIONS } from '../data/questions';
+import { GUIDE_COPY, GUIDE_VERSION, type GuideLanguage } from '../data/fieldGuide';
+import { isDossierReport } from '../data/reportDelivery';
+import { paidReport, privateReportLink, reportApi, resolveAccess, ReportApiError, type FieldGuide, type PaidReport, type ReportAccess } from '../data/paidReport';
 import { SOUL_CODES, type SoulCode } from '../data/souls';
 
 const el = (id: string) => document.getElementById(id)!;
@@ -16,7 +15,10 @@ const pdf = el('save-pdf') as HTMLButtonElement;
 const preview = import.meta.env.DEV && new URLSearchParams(location.search).get('preview') === '1';
 let lang: GuideLanguage = new URLSearchParams(location.search).get('lang') === 'es' ? 'es' : 'en';
 try { if (!new URLSearchParams(location.search).has('lang') && JSON.parse(localStorage.getItem('soul_virtues_last_result') || '{}')?.lang === 'es') lang = 'es'; } catch { /* The missing-answer screen handles damaged storage. */ }
-let guide: ReturnType<typeof buildFieldGuide>;
+let guide: FieldGuide;
+let access: ReportAccess | null = null;
+let paid: PaidReport | null = null;
+let loadVersion = 0;
 let state: { createdAt: string; focus: SoulCode; notes: Record<string, string>; completed: Record<string, boolean[]> };
 let storageKey = '';
 const note = (id: string, label: string, large = false) => `<div><label for="note-${id}">${escape(label)}</label><textarea class="note-input" id="note-${id}" data-note="${id}" maxlength="2000" rows="${large ? 5 : 3}" placeholder="${escape(guide.copy.notePlaceholder)}"></textarea><div class="print-note" data-print-note="${id}" data-placeholder="${escape(guide.copy.noteBlank)}"></div></div>`;
@@ -108,47 +110,89 @@ function render() {
   document.body.dataset.reportState = 'ready';
   root.setAttribute('aria-busy', 'false');
   saveState();
+  if (!preview && paid) {
+    const box = el('delivery-status');
+    box.hidden = false;
+    const number = paid.order.number || (lang === 'es' ? 'Ver recibo de Waffo' : 'See your Waffo receipt');
+    const expiry = paid.expiresAt ? new Date(paid.expiresAt).toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-GB') : '';
+    box.textContent = lang === 'es'
+      ? `Pago confirmado · Pedido ${number}. Guarda el PDF y tu enlace privado. Acceso online hasta ${expiry}; las notas quedan en este navegador.`
+      : `Payment confirmed · Order ${number}. Save your PDF and private link. Online access until ${expiry}; notes stay in this browser.`;
+    const copy = el('save-report-link') as HTMLButtonElement;
+    copy.hidden = false; copy.disabled = false;
+    copy.textContent = lang === 'es' ? 'Guardar enlace privado' : 'Save private link';
+    if (paid.ai) showAI(paid.ai);
+  }
+}
+function showAI(report: import('../data/reportDelivery').DossierReport) {
+  const result = el('ai-result');
+  result.replaceChildren();
+  for (const [heading, body] of [[guide.copy.check, report.engine], [guide.copy.try, report.actionPlan.quest]]) {
+    const h = document.createElement('h3'); h.textContent = heading;
+    const p = document.createElement('p'); p.textContent = body;
+    result.append(h, p);
+  }
+  result.hidden = false;
+  el('ai-status').textContent = report.source === 'ai' ? guide.copy.aiSource : guide.copy.aiPrepared;
 }
 async function requestAI() {
-  if (preview) return;
+  if (preview || !access) return;
+  const requestedLanguage = lang;
+  const requestedAccess = access;
   const button = el('request-ai') as HTMLButtonElement;
   const status = el('ai-status');
   const result = el('ai-result');
   button.disabled = true;
   status.textContent = guide.copy.aiBusy;
   try {
-    const input = { ...guide.input, lang };
-    const fingerprint = JSON.stringify(input);
-    const cacheKey = 'soul_field_ai_' + guide.id + '_' + lang;
-    let cache;
-    try { cache = JSON.parse(localStorage.getItem(cacheKey) || 'null'); } catch { /* A damaged optional cache may be regenerated. */ }
-    const local = ['localhost', '127.0.0.1'].includes(location.hostname);
-    const report = cache?.fingerprint === fingerprint && isDossierReport(cache.report) ? cache.report : await fetchDossier(local ? 'https://soulvirtues.org/api/generate-report' : '/api/generate-report', input);
-    try { localStorage.setItem(cacheKey, JSON.stringify({ fingerprint, report })); } catch { /* The guide remains usable without storage. */ }
-    result.replaceChildren();
-    for (const [heading, body] of [[guide.copy.check, report.engine], [guide.copy.try, report.actionPlan.quest]]) {
-      const h = document.createElement('h3'); h.textContent = heading;
-      const p = document.createElement('p'); p.textContent = body;
-      result.append(h, p);
-    }
-    result.hidden = false;
-    status.textContent = report.source === 'ai' ? guide.copy.aiSource : guide.copy.aiPrepared;
+    const response = await reportApi('/api/generate-report', access, { reportId: access.id, lang });
+    if (requestedLanguage !== lang || requestedAccess.id !== access?.id) return;
+    if (response.status === 202) { status.textContent = lang === 'es' ? 'La interpretación ya se está preparando. Vuelve a comprobarla en un momento.' : 'The perspective is already being prepared. Check again in a moment.'; return; }
+    if (!isDossierReport(response.data)) throw new Error('Incomplete AI response');
+    if (paid) paid.ai = response.data;
+    showAI(response.data);
   } catch { status.textContent = guide.copy.aiError; }
   finally { button.disabled = false; }
 }
-function init() {
+async function init() {
+  const version = ++loadVersion;
+  pdf.disabled = true;
+  const copyButton = el('save-report-link') as HTMLButtonElement;
+  copyButton.disabled = true; copyButton.hidden = true;
+  el('delivery-status').hidden = true;
+  el('contents').textContent = '';
+  root.setAttribute('aria-busy', 'true');
   try {
     if (preview) {
+      const { buildFieldGuide, sampleGuideInput } = await import('../data/fieldGuide');
+      const { computeScores } = await import('../data/scoring');
+      const { QUESTIONS } = await import('../data/questions');
+      const { normalizeReportInput } = await import('../data/reportDelivery');
       const answers = sampleGuideInput();
       const input = normalizeReportInput({ pct: computeScores(answers, QUESTIONS).pct, lang: 'en' })!;
       guide = buildFieldGuide(input, answers, lang);
       el('preview-banner').hidden = false;
       el('preview-banner').textContent = GUIDE_COPY[lang].sample;
     } else {
-      const stored = readFieldGuide(localStorage, lang);
-      if (!stored) throw new Error('Missing completed answers');
-      guide = stored;
+      const url = new URL(location.href);
+      access = resolveAccess(localStorage, url);
+      if (!access) throw new ReportApiError(401, 'Open your private report link or use the browser where you purchased.');
+      if (url.hash && localStorage.getItem('soulvirtues_paid_access_v1')?.includes(access.token)) { url.hash = ''; history.replaceState(null, '', url); }
+      paid = null;
+      const deadline = Date.now() + 75000;
+      for (let attempt = 0; attempt < 16 && Date.now() < deadline; attempt++) {
+        if (version !== loadVersion) return;
+        paid = await paidReport(access, lang, Math.min(16000, Math.max(1, deadline - Date.now())));
+        if (paid) break;
+        root.innerHTML = `<section class="empty-state"><h1>${lang === 'es' ? 'Confirmando tu pago' : 'Confirming your payment'}</h1><p>${lang === 'es' ? 'Estamos comprobando el pedido con Waffo. No vuelvas a pagar. Después del pago, pulsa Done en Waffo para regresar.' : 'We are checking the order with Waffo. Do not pay again. After payment, click Done in Waffo to return.'}</p></section>`;
+        document.body.dataset.reportState = 'payment-pending';
+        await new Promise(resolve => setTimeout(resolve, Math.min(4000, Math.max(0, deadline - Date.now()))));
+      }
+      if (version !== loadVersion) return;
+      if (!paid) throw new ReportApiError(202, 'Payment confirmation is still pending. Do not pay again; check your Waffo receipt and retry.');
+      guide = paid.guide;
     }
+    if (version !== loadVersion) return;
     storageKey = 'soul_field_notes_' + GUIDE_VERSION + '_' + guide.id;
     let saved;
     try { saved = JSON.parse(localStorage.getItem(storageKey) || 'null'); } catch { /* Keep reading possible if old notes are damaged. */ }
@@ -158,11 +202,14 @@ function init() {
     for (const code of SOUL_CODES) completed[code] = Array.isArray(saved?.completed?.[code]) ? Array.from({ length: 7 }, (_, i) => saved.completed[code][i] === true) : Array(7).fill(false);
     state = { createdAt: typeof saved?.createdAt === 'string' && Number.isFinite(Date.parse(saved.createdAt)) ? saved.createdAt : new Date().toISOString(), focus: SOUL_CODES.includes(saved?.focus) ? saved.focus : guide.ranked[0].code, notes, completed };
     render();
-  } catch {
+  } catch (error) {
+    if (version !== loadVersion) return;
     const c = GUIDE_COPY[lang];
-    root.innerHTML = `<section class="empty-state"><h1>${escape(c.noAnswers)}</h1><p>${escape(c.noAnswersBody)}</p><a href="/#test">${escape(c.home)} →</a><p><a href="mailto:tangjei414@gmail.com">tangjei414@gmail.com</a></p></section>`;
+    const message = error instanceof Error ? error.message : c.noAnswersBody;
+    root.innerHTML = `<section class="empty-state"><h1>${lang === 'es' ? 'Acceso a tu informe' : 'Your report access'}</h1><p>${escape(message)}</p><p>${lang === 'es' ? 'Si pagaste, no necesitas volver a pagar. Contacta con nosotros con tu número de pedido.' : 'If you already paid, do not pay again. Contact us with your Waffo order number if you need help.'}</p><button id="retry-report" class="secondary">${lang === 'es' ? 'Volver a comprobar' : 'Check again'}</button><p><a href="mailto:tangjei414@gmail.com">tangjei414@gmail.com</a></p><a href="/#test">${escape(c.home)} →</a></section>`;
+    el('retry-report').addEventListener('click', init);
     root.setAttribute('aria-busy', 'false');
-    document.body.dataset.reportState = 'missing-answers';
+    document.body.dataset.reportState = error instanceof ReportApiError && error.status === 202 ? 'payment-pending' : 'access-error';
     pdf.disabled = true;
   }
 }
@@ -174,4 +221,15 @@ const openBeforePrint = new Map<HTMLDetailsElement, boolean>();
 window.addEventListener('beforeprint', () => { document.querySelectorAll<HTMLDetailsElement>('.trait-detail').forEach(detail => { if (!openBeforePrint.has(detail)) openBeforePrint.set(detail, detail.open);detail.open = true; }); });
 window.addEventListener('afterprint', () => { openBeforePrint.forEach((open, detail) => { detail.open = open; });openBeforePrint.clear(); });
 pdf.addEventListener('click', () => { el('save-state').textContent = guide.copy.printHelp;window.print(); });
+el('save-report-link').addEventListener('click', async () => {
+  if (!access || preview) return;
+  const link = privateReportLink(location.origin, access);
+  const warning = lang === 'es' ? 'Guarda este enlace en privado: quien lo tenga podrá leer tu informe. Las notas no se sincronizan entre dispositivos.' : 'Keep this link private: anyone with it can read your report. Notes do not sync between devices.';
+  try { await navigator.clipboard.writeText(link); el('save-state').textContent = (lang === 'es' ? 'Enlace copiado. ' : 'Link copied. ') + warning; }
+  catch {
+    const input = el('private-report-link') as HTMLInputElement;
+    input.value = link; input.hidden = false; input.focus(); input.select();
+    el('save-state').textContent = (lang === 'es' ? 'Copia manualmente el enlace mostrado. ' : 'Copy the displayed link manually. ') + warning;
+  }
+});
 init();

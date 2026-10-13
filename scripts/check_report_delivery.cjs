@@ -33,32 +33,32 @@ async function run() {
   const neutral = delivery.normalizeReportInput({ scores: Object.fromEntries(Object.keys(input.scores).map(k => [k, 50])) });
   assert.equal(neutral.dominant, null);
   assert.equal(neutral.secondary, null);
-  const response = await handler.onRequest({ request: new Request('https://example.com/api/generate-report', { method: 'POST', body: JSON.stringify(input) }), env: {} });
+  const response = await handler.generateDossier(input, {});
   const report = await response.json();
   assert.equal(report.source, 'synthesis');
   assert(delivery.isDossierReport(report));
   for (const color of Object.keys(input.scores)) {
     const profile = { scores: Object.fromEntries(Object.keys(input.scores).map(k => [k, k === color ? 90 : 50])), lang: 'es' };
-    const r = await handler.onRequest({ request: new Request('https://example.com/api', { method: 'POST', body: JSON.stringify(profile) }), env: {} });
+    const r = await handler.generateDossier(profile, {});
     assert(delivery.isDossierReport(await r.json()), 'Every profile must have a complete prepared guide');
   }
-  const bad = await handler.onRequest({ request: new Request('https://example.com/api', { method: 'POST', body: JSON.stringify({ scores: { red: 90 } }) }), env: {} });
+  const bad = await handler.generateDossier({ scores: { red: 90 } }, {});
   assert.equal(bad.status, 400);
   assert(!delivery.isDossierReport({ ...report, actionPlan: {} }));
   const original = global.fetch;
   const originalTimer = global.setTimeout;
   try {
-    const makeRequest = () => ({ request: new Request('https://example.com/api', { method: 'POST', body: JSON.stringify(input) }), env: { DEEPSEEK_API_KEY: 'test-only-not-a-real-key' } });
+    const generate = () => handler.generateDossier(input, { DEEPSEEK_API_KEY: 'test-only-not-a-real-key' });
     for (const status of [402, 500]) {
       global.fetch = async () => new Response('', { status });
-      const result = await handler.onRequest(makeRequest());
+      const result = await generate();
       assert.equal((await result.json()).source, 'synthesis');
     }
     global.fetch = async () => Response.json({ choices: [{ message: { content: '{"archetypeTitle":"partial"}' } }] });
-    assert.equal((await (await handler.onRequest(makeRequest())).json()).source, 'synthesis');
+    assert.equal((await (await generate()).json()).source, 'synthesis');
     global.setTimeout = (callback, delay, ...args) => originalTimer(callback, delay === 7500 ? 5 : delay, ...args);
     global.fetch = async (_url, init) => ({ ok: true, json: () => new Promise((_resolve, reject) => init.signal.addEventListener('abort', () => reject(new Error('body timed out')))) });
-    assert.equal((await (await handler.onRequest(makeRequest())).json()).source, 'synthesis');
+    assert.equal((await (await generate()).json()).source, 'synthesis');
     global.setTimeout = originalTimer;
     global.fetch = async () => Response.json(report);
     assert.equal((await delivery.fetchDossier('/api', input)).source, 'synthesis');

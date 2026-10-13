@@ -1,0 +1,26 @@
+// input: Soul Virtues Pages build and its dedicated report database
+// output: Reproducible production bindings without embedding private credentials
+// pos: wrangler.jsonc (更新规则：绑定变化同步 README、付款回归与 Cloudflare 部署)
+{
+  "name": "soulvirtues",
+  "account_id": "082320a811af438151c6f4743495c203",
+  "pages_build_output_dir": "./dist",
+  "compatibility_date": "2026-08-17",
+  "d1_databases": [
+    {
+      "binding": "REPORTS_DB",
+      "database_name": "soulvirtues-reports",
+      "database_id": "0afc3785-6cbe-4949-b09c-ef8524095e2f",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "vars": {
+    "WAFFO_WEBHOOK_PUBLIC_KEY": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAz+xApdTIb4ua+DgZKQ54iBsD82ybyhGCLRETONW4Jgbb3A8DUM1LqBk6r/CmTOCHqLalTQHNigvP3R5zkDNXiRJz6gA4MJ/+8K0+mnEE2RISQzN+Qu65TNd6svb+INm/kMaftY4uIXr6y6kchtTJdwnQhcKdAL2v7h7IFnkVelQsKxDdb2PqX8xX/qwd01iXvMcpCCaXovUwZsxH2QN5ZKBTseJivbhUeyJCco4fdUyxOMHe2ybCVhyvim2uxAl1nkvL5L8RCWMCAV55LLo09OhmLahz/DYNu13YLVP6dvIT09ZFBYU6Owj1NxdinTynlJCFS9VYwBgmftosSE1UdwIDAQAB"
+  },
+  "env": {
+    "preview": {
+      "d1_databases": [],
+      "vars": {}
+    }
+  }
+}

@@ -1148,3 +1148,9 @@ astro-dev-toolbar {
     margin-bottom:6pt
   }
 }
+/* The paid access controls wrap without changing the print workbook. */
+.guide-top .tools { flex-wrap: wrap; }
+.delivery-status { max-width: 1180px; margin: 18px auto 0; padding: 14px 22px; color: #d9e4c1; background: #182219; border: 1px solid #384532; font: 14px/1.7 var(--sans); overflow-wrap: anywhere; }
+.private-report-link { display: block; width: calc(100% - 36px); max-width: 1136px; margin: 12px auto; padding: 12px; border: 1px solid #687a47; background: #151c16; color: #e5eed5; font: 13px var(--sans); }
+.private-report-link[hidden], .delivery-status[hidden] { display: none; }
+#save-report-link[hidden] { display: none; }
