@@ -5,7 +5,7 @@
 > 一旦本目录内容变化，请更新本文件
 
 ## Files
-- Header.astro：全站顶部粘性导航栏，含 LOGO、平滑锚点跳转与测验直接唤醒、同页面5语言切换与移动端菜单
+- Header.astro：全站顶部粘性导航栏，含 LOGO、平滑锚点跳转与测验直接唤醒、同页面5语言切换与移动端菜单；桌面语言下拉支持 hover、点击/触屏点按与键盘（Enter/Space/方向键/Escape），配 aria-expanded 与 inert 保证收起时既不遮挡也不占 Tab 序
 - Footer.astro：全站底部版权、外链、免责声明、5 语言切换与本地化灵魂及对比汇总页导航、Cloudflare 邮箱改写保护、MakeThisBetter 反馈链接，以及 FrogDR、ToolRain、AIBlog.Tools、SaaSFame、ConfettiSaaS、DANG、ScrollLaunch、DevTool.io、Launchtory 友链
 - MethodPage.astro：五语言方法页、56条官方来源与10条自拟项、评分公式、版本与局限说明
 - Quiz.astro：V2题号/版本进度共用、旧题提示和真实保存错误提醒；共享计分、中立与并列解释、同语义分享卡、起始屏触控与主按钮视觉引导强化、首页不加载Clarity并保留遮罩防御、最小化统计与独立建议入口；66 题多语言交互式答题组件，含题目即时与服务端预渲染、安全音频调度保护、移动端答案反馈与选项文本触控推进、音频设置、1080×1350 Canvas 分享卡、GA4 分享与完成事件、独立下载、复制链接、iOS 保存弹窗、答案回顾、七灵魂图鉴，以及结果页下阶段功能需求投票（含一键投票与自定义输入）

@@ -10,6 +10,7 @@
 - verify_scoring.cjs：通过现有esbuild导入真实共享模块，验证V2来源数量/五语题号、正反向及题数归一、中立/缺失/并列/接近、存储版本、卡片和统计隐私边界
 - check_comparison_sample.mjs：验证6组对比页与5个汇总页共35个五语言路由、SEO 标签、证据边界、站点地图与内链
 - check_lang_prompt_mobile.mjs：验证语言提示窗的手机安全区域、触控尺寸、焦点状态与最大占屏高度
+- check_lang_switcher.mjs：验证桌面语言下拉可由点击/触屏与键盘（Enter/Space/方向键/Escape）打开关闭、收起时 inert 不占 Tab 序、data-open 变体匹配值以免关闭态仍可点击、且 5 语言选项与 aria 属性完整
 - check_quiz_answer_feedback.mjs：验证手机点击答案后先显示选中反馈，再进入下一题
 - check_answer_touch_labels.mjs：验证极值与当前选项文本标签具备移动端触控交互并在点击时触发答题推进
 - check_card_download_ios.mjs：验证 1080×1350 分享卡、系统分享来源标记、GA4 事件、独立下载、复制链接、iOS 保存弹窗与五语言文案

@@ -1,6 +1,6 @@
 ---
 // input: lang ('en' | 'ja' | 'es' | 'pt' | 'ru')
-// output: Sticky pixel-styled top navigation bar with in-page smooth anchor routing, test starter, responsive mobile menu, and 5-language switcher
+// output: Sticky pixel-styled top navigation bar with in-page smooth anchor routing, test starter, responsive mobile menu, and 5-language switcher. Desktop language dropdown opens on hover, click/tap (touch has no hover, FB-29) and keyboard (arrows/Escape) with aria-expanded state.
 // pos: src/components/Header.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import { getTranslations, locales, localeNames, type Locale } from '../i18n';
@@ -58,44 +58,59 @@ const russianPath = isUnlocalized ? '/ru/' : `/ru${currentPath === '/' ? '/' : c
       <div class="hidden md:block relative group" id="lang-menu-desktop">
         <button
           type="button"
-          class="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-mono font-bold uppercase tracking-wider text-gray-200 bg-black border-2 border-gray-600 hover:border-white hover:text-white transition-all cursor-pointer shadow-[2px_2px_0px_rgba(255,255,255,0.2)]"
+          id="lang-menu-desktop-toggle"
+          class="flex items-center gap-1.5 px-2.5 py-1.5 min-h-11 text-xs font-mono font-bold uppercase tracking-wider text-gray-200 bg-black border-2 border-gray-600 hover:border-white hover:text-white transition-all cursor-pointer touch-manipulation shadow-[2px_2px_0px_rgba(255,255,255,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
           aria-label="Select Language"
+          aria-haspopup="true"
+          aria-expanded="false"
+          aria-controls="lang-menu-desktop-list"
         >
-          <span class="text-sm">🌐</span>
+          <span class="text-sm" aria-hidden="true">🌐</span>
           <span>{localeNames[lang]?.name || 'Language'}</span>
-          <span class="text-[10px] text-gray-400">▼</span>
+          <span class="text-[10px] text-gray-400" aria-hidden="true">▼</span>
         </button>
 
-        <!-- Dropdown Menu -->
-        <div class="hidden group-hover:block hover:block focus-within:block absolute right-0 top-full pt-1.5 w-36 z-50">
+        <!-- Dropdown Menu: hover + click + keyboard. Tap-driven via data-open="true" (FB-29).
+             The data variant MUST match the value ("true"), otherwise Tailwind emits [data-open]
+             and the menu would stay display:block while closed, swallowing clicks. -->
+        <div
+          id="lang-menu-desktop-list"
+          class="hidden group-hover:block hover:block focus-within:block data-[open='true']:block absolute right-0 top-full pt-1.5 w-36 z-50"
+          data-open="false"
+        >
           <div class="bg-black border-2 border-white shadow-[3px_3px_0px_#ffffff] py-1 text-xs font-mono">
             <a
               href={englishPath}
-              class={`block px-3 py-1.5 hover:bg-white hover:text-black transition-colors ${lang === 'en' ? 'text-yellow-400 font-bold bg-gray-900/60' : 'text-gray-300'}`}
+              lang="en"
+              class="block px-3 py-2 min-h-11 flex items-center hover:bg-white hover:text-black transition-colors ${lang === 'en' ? 'text-yellow-400 font-bold bg-gray-900/60' : 'text-gray-300'}"
             >
               * English
             </a>
             <a
               href={japanesePath}
-              class={`block px-3 py-1.5 hover:bg-white hover:text-black transition-colors ${lang === 'ja' ? 'text-yellow-400 font-bold bg-gray-900/60' : 'text-gray-300'}`}
+              lang="ja"
+              class="block px-3 py-2 min-h-11 flex items-center hover:bg-white hover:text-black transition-colors ${lang === 'ja' ? 'text-yellow-400 font-bold bg-gray-900/60' : 'text-gray-300'}"
             >
               * 日本語
             </a>
             <a
               href={spanishPath}
-              class={`block px-3 py-1.5 hover:bg-white hover:text-black transition-colors ${lang === 'es' ? 'text-yellow-400 font-bold bg-gray-900/60' : 'text-gray-300'}`}
+              lang="es"
+              class="block px-3 py-2 min-h-11 flex items-center hover:bg-white hover:text-black transition-colors ${lang === 'es' ? 'text-yellow-400 font-bold bg-gray-900/60' : 'text-gray-300'}"
             >
               * Español
             </a>
             <a
               href={portuguesePath}
-              class={`block px-3 py-1.5 hover:bg-white hover:text-black transition-colors ${lang === 'pt' ? 'text-yellow-400 font-bold bg-gray-900/60' : 'text-gray-300'}`}
+              lang="pt"
+              class="block px-3 py-2 min-h-11 flex items-center hover:bg-white hover:text-black transition-colors ${lang === 'pt' ? 'text-yellow-400 font-bold bg-gray-900/60' : 'text-gray-300'}"
             >
               * Português
             </a>
             <a
               href={russianPath}
-              class={`block px-3 py-1.5 hover:bg-white hover:text-black transition-colors ${lang === 'ru' ? 'text-yellow-400 font-bold bg-gray-900/60' : 'text-gray-300'}`}
+              lang="ru"
+              class="block px-3 py-2 min-h-11 flex items-center hover:bg-white hover:text-black transition-colors ${lang === 'ru' ? 'text-yellow-400 font-bold bg-gray-900/60' : 'text-gray-300'}"
             >
               * Русский
             </a>
@@ -192,6 +207,8 @@ const russianPath = isUnlocalized ? '/ru/' : `/ru${currentPath === '/' ? '/' : c
       });
     }
 
+    initLangSwitcher();
+
     if (!document.documentElement.dataset.anchorBound) {
       document.documentElement.dataset.anchorBound = 'true';
       document.addEventListener('click', (e) => {
@@ -228,6 +245,117 @@ const russianPath = isUnlocalized ? '/ru/' : `/ru${currentPath === '/' ? '/' : c
         }
       });
     }
+  }
+
+  // Desktop language dropdown: hover (CSS) + click/tap + keyboard (JS).
+  // Touch devices have no hover, so click must open it on its own — FB-29.
+  function initLangSwitcher() {
+    const wrap = document.getElementById('lang-menu-desktop');
+    const toggle = document.getElementById('lang-menu-desktop-toggle');
+    const list = document.getElementById('lang-menu-desktop-list');
+    if (!wrap || !toggle || !list || toggle.dataset.langBound) return;
+    toggle.dataset.langBound = 'true';
+    // Start closed and inert so the five options never precede the toggle in tab order.
+    list.setAttribute('inert', '');
+
+    const setOpen = (open) => {
+      list.dataset.open = open ? 'true' : 'false';
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      // Keep the closed options out of the tab order, otherwise keyboard users
+      // tab into invisible links before ever reaching the toggle itself.
+      if (open) {
+        list.removeAttribute('inert');
+      } else {
+        list.setAttribute('inert', '');
+      }
+    };
+
+    const close = (returnFocus) => {
+      setOpen(false);
+      if (returnFocus) toggle.focus();
+    };
+
+    // Click / tap toggles the menu. No preventDefault() here on purpose: this button
+    // has no default action, and cancelling the event would suppress the native
+    // keyboard activation (Enter/Space on a <button> fires click) that keyboard
+    // users rely on. Touch browsers also synthesise hover on tap, so the visible
+    // state is driven by data-open rather than by pointer position.
+    toggle.addEventListener('click', () => {
+      setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+    });
+
+    // Enter/Space are handled explicitly rather than relying on native button
+    // activation: behaviour for synthetic key events is inconsistent across
+    // browsers, and a keyboard user must always be able to open this menu.
+    toggle.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+        e.preventDefault();
+        setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+        return;
+      }
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        setOpen(true);
+        const links = list.querySelectorAll('a');
+        if (links.length) {
+          const idx = e.key === 'ArrowDown' ? 0 : links.length - 1;
+          links[idx].focus();
+        }
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        close(false);
+      }
+    });
+
+    list.addEventListener('keydown', (e) => {
+      const links = Array.from(list.querySelectorAll('a'));
+      const idx = links.indexOf(document.activeElement);
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        close(true);
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        links[(idx + 1) % links.length]?.focus();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        links[(idx - 1 + links.length) % links.length]?.focus();
+      } else if (e.key === 'Tab' && idx === links.length - 1 && !e.shiftKey) {
+        close(false);
+      }
+    });
+
+    // Pointer leaves the whole control without selecting anything -> collapse.
+    wrap.addEventListener('mouseleave', () => setOpen(false));
+
+    // Dismiss when tapping/clicking anywhere outside the control.
+    if (!document.documentElement.dataset.langDismissBound) {
+      document.documentElement.dataset.langDismissBound = 'true';
+      document.addEventListener('click', (e) => {
+        const control = document.getElementById('lang-menu-desktop');
+        if (!control) return;
+        const open = control.querySelector('[data-open="true"]');
+        if (!open) return;
+        if (!control.contains(e.target)) closeState(control, false);
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key !== 'Escape') return;
+        const control = document.getElementById('lang-menu-desktop');
+        if (!control) return;
+        const open = control.querySelector('[data-open="true"]');
+        if (!open) return;
+        closeState(control, false);
+      });
+    }
+  }
+
+  // Shared close path so aria-expanded and inert always move together.
+  function closeState(control, returnFocus) {
+    const list = control.querySelector('[id$="-list"]');
+    const toggle = control.querySelector('[id$="-toggle"]');
+    if (list) list.dataset.open = 'false';
+    if (toggle) toggle.setAttribute('aria-expanded', 'false');
+    if (list) list.setAttribute('inert', '');
+    if (returnFocus && toggle) toggle.focus();
   }
 
   if (document.readyState === 'loading') {
