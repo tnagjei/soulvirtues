@@ -5,6 +5,7 @@
 > 一旦本目录内容变化，请更新本文件
 
 ## Files
+- recover_paid_report.py：支持人员核对购买邮箱和订单号后轮换私有链接，输出到新建 0600 本地文件；不发邮件。自检 `python3 scripts/recover_paid_report.py --self-test`。
 - check_field_guide.cjs：验证66题/14条依据的来源、反向计分、英西语、中立/缺记录与跨语言稳定报告ID
 - check_report_delivery.cjs：验证报告脚本语法、真实分数映射、中立结果、响应结构及 HTTP/JSON/超时失败分支；不调用付费 API
 - verify_scoring.cjs：通过现有esbuild导入真实共享模块，验证V2来源数量/五语题号、正反向及题数归一、中立/缺失/并列/接近、存储版本、卡片和统计隐私边界

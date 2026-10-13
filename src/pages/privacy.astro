@@ -31,7 +31,7 @@ const structuredData = {
   <div class="max-w-4xl mx-auto px-4 sm:px-6 py-16">
     <div class="mb-10 text-center">
       <h1 class="text-3xl sm:text-5xl font-black text-white font-mono mb-4">Privacy Policy</h1>
-      <p class="text-gray-400 text-xs font-mono">Last Updated: October 9, 2026</p>
+      <p class="text-gray-400 text-xs font-mono">Last Updated: October 13, 2026</p>
     </div>
 
     <div class="pixel-card p-6 sm:p-10 space-y-6 text-gray-300 text-sm leading-relaxed">
@@ -52,24 +52,27 @@ const structuredData = {
       <div>
         <h2 class="text-lg font-bold text-white mb-2">3. Local Storage</h2>
         <p>
-          The website uses your browser's local storage (LocalStorage) to save versioned answer progress, audio preferences, a submitted feature-vote choice, and a cached copy of any report you have generated on your own device. V2 progress is shared across our five language pages in this browser, keyed by question ID. Older-bank progress is not applied to new questions. This information remains strictly on your local browser and can be cleared through your browser settings. "Reset" starts a fresh answer session for the current bank without changing audio settings; older-bank records stay separate until cleared in the browser.
+          Browser local storage saves versioned answer progress, audio preferences, a submitted feature-vote choice, private report access credentials, and your practice notes. Notes stay on the device where you wrote them. V2 progress is shared across our five language pages in this browser, keyed by question ID. Older-bank progress is not applied to new questions. You can clear local records in your browser settings; doing so also removes the local report credential. Save the private link or PDF first. Paid-guide storage is described below.
         </p>
       </div>
 
       <div>
         <h2 class="text-lg font-bold text-white mb-2">4. Payments & Merchant of Record (Waffo Pancake)</h2>
         <p>
-          If you purchase a premium report, the sale is made by <strong>Waffo Pancake</strong> acting as merchant of record (the legal seller). Your payment card details and email address are collected and processed on Waffo Pancake's secure checkout page—never on our servers—to complete the order, issue your receipt and invoice, calculate and remit applicable taxes, prevent fraud, and handle refunds. We never see your full card number.
+          If you purchase a premium report, the sale is made by <strong>Waffo Pancake</strong> acting as merchant of record (the legal seller). Waffo collects card details and the purchasing email at its checkout for payment, receipts, tax compliance, fraud prevention, and refunds. We never receive your full card number. Waffo shares the order status, order number, and purchasing email with us so we can grant access and assist with support.
         </p>
         <p class="mt-2">
-          Through the Waffo Pancake merchant dashboard, we receive your order status and the email address associated with your order so that we can provide support, verify purchases, and assist with free report re-generation (you retake the quiz and generate the report again) if you request it. Your payment data is otherwise handled by Waffo Pancake under its own privacy and buyer protection policies. Because Waffo Pancake is the legal seller, it retains order and invoice records for the periods required by tax law.
+          When you choose checkout and accept the storage notice, your complete 66 answers are sent to our server to recalculate scores and save English and Spanish guide snapshots in a private Cloudflare D1 database. The saved guide includes scores and answer receipts. We link it to a report ID, a hashed access credential, and the verified Waffo order. Only the report ID and product-identification metadata go to Waffo; we do not send Waffo your quiz answers, scores, notes, or private access token. The token is stored in your browser and in the fragment of a private link; anyone holding that link can access the guide.
+        </p>
+        <p class="mt-2">
+          Online access ends 30 days after confirmed payment. Expired guide records and unpaid drafts older than 31 days are removed during checkout maintenance, rather than at a guaranteed exact deletion time. Payment-event identifiers are kept for retry deduplication until maintenance after 31 days. For checkout abuse prevention we retain a hashed hourly request bucket, not a raw IP address in the report database; old buckets are removed after a day during maintenance. To request deletion or a replacement link, contact us from the purchasing email with your order number. Waffo retains its own transaction records under its policies and legal obligations.
         </p>
       </div>
 
       <div>
         <h2 class="text-lg font-bold text-white mb-2">5. AI-Assisted Report Generation (Field Guide & Paid Report)</h2>
         <p>
-          When you open your Soul Field Guide or generate a paid report, your <strong>seven trait scores, dominant and secondary trait labels, and language preference</strong> are sent to our server endpoint, which forwards them to an AI provider (DeepSeek or OpenAI) to generate the personalized text of the report. These scores are numeric self-reflection values: they do not include your name, email address, IP address, or payment details, and we do not store them on our servers beyond generating the response. The AI provider processes the request under its own terms; the generated report is returned to your browser and cached only in your local browser storage.
+          Opening the core guide does not require an AI request. If you ask for the optional AI perspective after a verified purchase, we send your <strong>seven trait scores, dominant and secondary trait labels, and language preference</strong> to DeepSeek, or OpenAI if configured. The AI request does not contain your individual answers, name, email, notes, private access token, or payment details. The provider processes it under its own terms. We cache the returned text with your private guide to avoid repeating generation. If the provider is unavailable, the core guide remains available and any prepared alternative is explicitly labeled.
         </p>
       </div>
 

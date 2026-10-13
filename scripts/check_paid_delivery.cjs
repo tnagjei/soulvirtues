@@ -93,7 +93,7 @@ async function run() {
   const restored=client.resolveAccess(memory,new URL(link)); assert.equal(restored.token,token);
   assert(!new URL(link).search.includes(token),'Private token belongs in fragment, not query');
   assert.equal(client.validGuide(payload.guide),true);
-  const refund=await webhook.onRequest({request:signed('refund.succeeded',{orderId:'ORD_fixture',refundStatus:'succeeded',refundedAmount:'4.93',originalChargedAmount:'4.93'}),env}); assert.equal(refund.status,200);
+  const refund=await webhook.onRequest({request:signed('refund.succeeded',{orderId:'ORD_fixture',currency:'USD',refundStatus:'succeeded',refundedAmount:'4.93',originalChargedAmount:'4.93'}),env}); assert.equal(refund.status,200);
   assert.equal((await report.onRequest({request:get(),env})).status,403);
   assert.equal((await makeAI()).status,403);
   assert.equal((await webhook.onRequest({request:signed('order.completed',{}),env})).status,200);

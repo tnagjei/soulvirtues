@@ -22,7 +22,7 @@ export async function onRequest(context: { request: Request; env: PaymentEnv }):
     if (seen) return json({ received: true });
     const returned = moneyMinor(data.refundedAmount);
     const original = moneyMinor(data.originalChargedAmount);
-    if (event.eventType === 'refund.succeeded' && data.refundStatus === 'succeeded' && data.orderId === row.order_id && returned !== null && original !== null && original > 0 && returned >= original) {
+    if (event.eventType === 'refund.succeeded' && data.refundStatus === 'succeeded' && data.currency === 'USD' && data.orderId === row.order_id && returned !== null && original !== null && original > 0 && returned >= original) {
       await db.prepare("UPDATE paid_reports SET status='refunded',updated_at=? WHERE id=?").bind(new Date().toISOString(), row.id).run();
     } else {
       await refreshPayment(context.env, row, true);

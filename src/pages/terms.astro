@@ -1,6 +1,6 @@
 ---
 // input: None (static Terms of Service page)
-// output: Full Terms of Service covering MoR sales via Waffo Pancake, age eligibility, browser-session delivery with free re-generation, Waffo-aligned refunds, paid-content license, AI disclosure and fan-IP positioning
+// output: Terms covering verified purchases, saved private guides, recovery, refunds and optional AI
 // pos: src/pages/terms.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import Layout from '../layouts/Layout.astro';
@@ -31,7 +31,7 @@ const structuredData = {
   <div class="max-w-4xl mx-auto px-4 sm:px-6 py-16">
     <div class="mb-10 text-center">
       <h1 class="text-3xl sm:text-5xl font-black text-white font-mono mb-4">Terms of Service</h1>
-      <p class="text-gray-400 text-xs font-mono">Last Updated: October 9, 2026</p>
+      <p class="text-gray-400 text-xs font-mono">Last Updated: October 13, 2026</p>
     </div>
 
     <div class="pixel-card p-6 sm:p-10 space-y-6 text-gray-300 text-sm leading-relaxed">
@@ -69,11 +69,11 @@ const structuredData = {
       <div>
         <h2 class="text-lg font-bold text-white mb-2">5. Delivery of Digital Products</h2>
         <p>
-          The Paid Report is generated and displayed in your browser session immediately after payment is completed and you are redirected back to this website. <strong>Please download or save your report (for example, as a PDF) promptly.</strong> The report is rendered from data stored locally in your browser; clearing your browser data, using private/incognito browsing, or switching to another device may prevent the report from being displayed again.
+          Before checkout, we save a private guide generated from your complete 66-item answers. It contains seven trait readings, 14 answer receipts, practice scenarios, and a seven-day reflection plan. After payment, click <strong>Done</strong> in Waffo to return. We verify the order before granting access. If confirmation is delayed, use Check again; do not pay twice. Waffo sends the transaction receipt; it is separate from your private report link.
         </p>
         <p class="mt-2">
-          <strong>Lost access?</strong> The Paid Report is generated from your quiz answers and displayed in your browser — we do not store a copy on our servers. If you lose access, for example after clearing your browser data or switching devices, contact us at
-          <!--email_off--><a href="mailto:contact@soulvirtues.org" class="text-yellow-400 underline font-mono">contact@soulvirtues.org</a><!--/email_off--> with your Waffo order number within 30 days of purchase. We will respond within 24 hours and unlock a <strong>free re-generation</strong>: retake the quiz on the same website and your Paid Report will be generated again at no extra charge.
+          <strong>Save your PDF and private link.</strong> Online access lasts 30 days from confirmed payment and supports English and Spanish. The private link opens the saved guide on another device; anyone with the link can read it. Your practice notes stay in the browser where you wrote them, so include them in your saved PDF. If you lose the link, contact
+          <!--email_off--><a href="mailto:tangjei414@gmail.com" class="text-yellow-400 underline font-mono">tangjei414@gmail.com</a><!--/email_off--> from the purchasing email with your Waffo order number within 30 days. After verifying the purchase, we can issue a replacement link to the original guide without another payment. Support recovery is handled manually; report links are not automatically emailed. Refunded orders lose online access.
         </p>
       </div>
 
@@ -98,7 +98,7 @@ const structuredData = {
       <div>
         <h2 class="text-lg font-bold text-white mb-2">8. AI-Generated Content Disclosure</h2>
         <p>
-          The Paid Report is generated with the assistance of artificial intelligence based on your quiz scores, and is delivered as original creative self-reflection text. It may contain inaccuracies or generic statements, and it does not reflect the judgment of a human professional. All content is provided for entertainment and self-reflection only.
+          The core guide is assembled from our prepared readings and your quiz answers. An optional AI perspective uses your scores and is stored with the guide after generation. AI availability does not affect access to the core guide. AI text may contain inaccuracies or generic statements and is not a professional assessment. All content is for entertainment and self-reflection only.
         </p>
       </div>
 

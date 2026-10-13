@@ -3,7 +3,6 @@
 // pos: wrangler.jsonc (更新规则：绑定变化同步 README、付款回归与 Cloudflare 部署)
 {
   "name": "soulvirtues",
-  "account_id": "082320a811af438151c6f4743495c203",
   "pages_build_output_dir": "./dist",
   "compatibility_date": "2026-08-17",
   "d1_databases": [

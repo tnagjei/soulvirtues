@@ -44,9 +44,11 @@
 - 构建命令 (Build Command)：`npm run build`
 - 构建输出目录 (Build output directory)：`dist`
 - 生产域名：`https://soulvirtues.org`
-- 报告交付页 `/success/` 使用编译后的浏览器脚本；Functions 的 `DEEPSEEK_API_KEY` 与 `WAFFO_PRIVATE_KEY` 通过 Cloudflare Secrets 配置。Waffo 当前为测试环境，订单验签与付费权限仍待完成。
+- 报告交付页 `/success/` 使用编译后的浏览器脚本；`WAFFO_PRIVATE_KEY` 与 `DEEPSEEK_API_KEY` 保留在 Cloudflare Secrets。正式密钥决定付款环境；`wrangler.jsonc` 声明专用 `REPORTS_DB` 和验签公钥，Pages 配置不能包含 `account_id`。
+- 数据表上线前执行 `wrangler d1 migrations apply soulvirtues-reports --remote`。Waffo 生产回调为 `https://soulvirtues.org/api/waffo-webhook`，事件 `order.completed`、`refund.succeeded`。回调配置与真实扣款验收需分别确认。
+- 付款相关回归：`node scripts/check_paid_delivery.cjs`；仅使用临时 SQLite 和签名夹具，不发起真实付款或 AI 请求。
 
 ## 个人手册
 - 回归：node scripts/check_field_guide.cjs。开发预览 /success/?preview=1（明确标注样例，生产构建不启用），西语加 &lang=es。
-- 手册主体复用本地答案和计分，含七项解读、14条回答依据、情境演练、七日清单与笔记；笔记仅存本浏览器，原生打印可另存为带笔记的文本PDF。英文/西语可用。AI视角仅在用户点击时请求，不阻塞主体。
-- 此页面不把跳转作为付款证明；真实订单验证仍需在正式收费前完成。
+- 跳转付款前保存原始回答对应的英文/西语手册快照；确认订单后交付七项解读、14条回答依据、情境演练、七日清单与笔记。私有链接跨设备读取原报告，在线有效期为付款后 30 天。笔记只存本浏览器；原生打印另存为带笔记的 PDF。AI 视角按已购报告验证并缓存，不阻塞主体。
+- Waffo 交易邮件与报告链接分开；用户须在付款后点击 Done 返回并保存 PDF/私有链接。丢失链接后由支持人员核实购买邮箱和订单号，通过 `scripts/recover_paid_report.py` 轮换凭证；不自动发送邮件。
