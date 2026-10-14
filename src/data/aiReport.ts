@@ -23,7 +23,7 @@ export interface AIJobState {
   error: string | null;
 }
 export function reportWordCount(report: PersonalAIReport): number {
-  const prose=[...Object.values(report.summary),...report.traits.flatMap(t=>[t.interpretation,t.reflection,t.experiment]),...report.scenarios.flatMap(s=>[s.title,s.context,s.action,s.observe]),...report.plan.flatMap(p=>[p.title,p.task,p.observe])];
+  const prose=[report.summary.title,report.summary.interpretation,report.summary.tension,report.summary.nextStep,...report.traits.flatMap(t=>[t.interpretation,t.reflection,t.experiment]),...report.scenarios.flatMap(s=>[s.title,s.context,s.action,s.observe]),...report.plan.flatMap(p=>[p.title,p.task,p.observe])];
   return prose.join(' ').trim().split(/\s+/).length;
 }
 const object = (value: unknown): Record<string, unknown> => value && typeof value === 'object' && !Array.isArray(value) ? value as Record<string, unknown> : {};
