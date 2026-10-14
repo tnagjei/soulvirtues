@@ -56,6 +56,7 @@ export async function checkoutDraft(body: Record<string, unknown>) {
   const token = body.accessToken;
   if (typeof id !== 'string' || !REPORT_ID.test(id) || typeof token !== 'string' || !ACCESS_TOKEN.test(token)) throw new DeliveryError(400, 'Invalid report request.');
   if (body.consent !== true) throw new DeliveryError(400, 'Confirm the purchase and report-storage notice before continuing.');
+  if (body.aiConsent !== true) throw new DeliveryError(400, 'Confirm that DeepSeek may interpret your 66 quiz answers before purchasing.');
   const lang = guideLanguage(body.lang);
   const quiz = record(body.quiz);
   const answers = decodeAnswers(JSON.stringify(quiz), QUESTIONS);

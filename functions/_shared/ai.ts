@@ -16,8 +16,9 @@ export function cachedAI(row: ReportRow, lang: GuideLanguage) {
 export async function aiState(env: PaymentEnv, row: ReportRow, lang: GuideLanguage): Promise<AIJobState> {
   if (cachedAI(row,lang)) return { status:'ready', attempts:0, nextAttemptAt:null, error:null };
   if (!row.ai_consent) return { status:'awaiting-consent', attempts:0, nextAttemptAt:null, error:null };
-  return await database(env).prepare('SELECT status,attempts,next_attempt_at AS nextAttemptAt,error FROM report_ai_jobs WHERE report_id=? AND lang=?')
+  const state=await database(env).prepare('SELECT status,attempts,next_attempt_at AS nextAttemptAt,error FROM report_ai_jobs WHERE report_id=? AND lang=?')
     .bind(row.id,lang).first<AIJobState>() || { status:'queued',attempts:0,nextAttemptAt:null,error:null };
+  return state.status==='ready'?{...state,status:'failed',error:'The saved AI report could not be validated. Please contact support; do not pay again.'}:state;
 }
 function configured(env: PaymentEnv) {
   if (!env.AI_JOB_TOKEN || !env.REPORT_QUEUE) throw new DeliveryError(503,'AI delivery is not configured. Please contact support before purchasing.');
@@ -61,8 +62,8 @@ export async function aiReady(env: PaymentEnv, id: string) {
 export function modelRequest(guide: ReturnType<typeof snapshot>, lang: GuideLanguage) {
   const example={summary:{title:'A practical title',interpretation:'Personal overview',tension:'Answer-supported tension to explore',nextStep:'A specific next step'},traits:guide.traits.map(t=>({code:t.code,evidenceIds:t.evidence.map(i=>i.id),interpretation:'A detailed interpretation with evidence, limits and an alternative explanation',reflection:'A concrete question',experiment:'An action and how to evaluate it'})),scenarios:Array.from({length:3},()=>({title:'Scenario',context:'A possible everyday situation, not a known fact',action:'A small action',observe:'Observable outcome'})),plan:Array.from({length:7},()=>({title:'Practice day',task:'A specific 5–10 minute task',observe:'A concrete output'}))};
   return {model:MODEL,thinking:{type:'disabled'},response_format:{type:'json_object'},max_tokens:7600,messages:[
-    {role:'system',content:`Write a useful paid self-reflection guide in ${lang==='es'?'Spanish':'English'}. Return ONLY JSON matching the example. Write 2300–2700 words in total. Each of the seven trait interpretations needs 200–240 words; add substantial reflection and experiment text, a 200-word overview, three grounded rehearsal scenarios, and seven distinct practical days. Use all 66 supplied statements and actual responses, including mixed directions. For each trait cite both provided evidenceIds in your interpretation (the original strongest/least supporting receipts), using the actual response and reverse direction accurately. Refer to other answered items where they clarify a tension. Do not recalculate or invent scores, diagnosis, hidden trauma, personality certainty, population rarity, moral superiority, certified results or RPG combat abilities. Describe hypotheses with specific evidence and alternative explanations; low scores are not bad character and disagreement on reverse-scored items must be interpreted correctly. Scenarios are possibilities, never claimed facts about the user. Tasks must be realistic, low-risk and observable. Avoid generic praise, repeated advice and padding. No identifying or payment data is supplied. JSON structure example: ${JSON.stringify(example)}`},
-    {role:'user',content:JSON.stringify({language:lang,scale:'0–100 quiz answer scale, 50 neutral; not a percentile',traits:guide.traits.map(t=>({code:t.code,name:t.name,definition:t.focus,score:t.score,evidenceIds:t.evidence.map(i=>i.id),answers:t.items}))})}
+    {role:'system',content:`Write a useful paid self-reflection guide in ${lang==='es'?'Spanish':'English'}. Return ONLY JSON matching the example. Write 2300–2700 words in total. Each of the seven trait interpretations needs 200–240 words; add substantial reflection and experiment text, a 200-word overview, three grounded rehearsal scenarios, and seven distinct practical days. Use all 66 supplied statements and actual responses, including mixed directions. There are exactly66 answers, including all10 Determination statements. Do not state or estimate the total number in prose: the page supplies that fact. Never self-correct or use rhetorical questions in the interpretation; use questions only in reflection fields. Keep quoted response labels faithful to the actual statement rather than attaching them to an opposite paraphrase. For each trait cite both provided evidenceIds in your interpretation (the original strongest/least supporting receipts), using the actual response and reverse direction accurately. Refer to other answered items where they clarify a tension. Do not recalculate or invent scores, diagnosis, hidden trauma, personality certainty, population rarity, moral superiority, certified results or RPG combat abilities. Describe hypotheses with specific evidence and alternative explanations; low scores are not bad character and disagreement on reverse-scored items must be interpreted correctly. Scenarios are possibilities, never claimed facts about the user. Tasks must be realistic, low-risk and observable. Avoid generic praise, repeated advice and padding. No identifying or payment data is supplied. JSON structure example: ${JSON.stringify(example)}`},
+    {role:'user',content:JSON.stringify({language:lang,answeredItemCount:66,scale:'0–100 quiz answer scale, 50 neutral; not a percentile',traits:guide.traits.map(t=>({code:t.code,name:t.name,definition:t.focus,score:t.score,evidenceIds:t.evidence.map(i=>i.id),answers:t.items}))})}
   ]};
 }
 export async function generateAI(env: PaymentEnv, row: ReportRow, lang: GuideLanguage): Promise<PersonalAIReport> {
@@ -78,7 +79,7 @@ export async function generateAI(env: PaymentEnv, row: ReportRow, lang: GuideLan
   if(words<2000) throw new DeliveryError(502,'The AI report was too short and will be retried.');
   return report;
 }
-export async function processAI(env: PaymentEnv, id: string, lang: GuideLanguage, exhausted=false): Promise<boolean> {
+export async function processAI(env: PaymentEnv, id: string, lang: GuideLanguage): Promise<boolean> {
   let row=await rowById(env,id);
   if(!row) return true;
   if(row.status!=='paid' || !row.ai_consent || !row.expires_at || Date.parse(row.expires_at)<=Date.now()) return true;
@@ -87,12 +88,13 @@ export async function processAI(env: PaymentEnv, id: string, lang: GuideLanguage
   await db.prepare('INSERT OR IGNORE INTO report_ai_jobs(report_id,lang,updated_at) VALUES(?,?,?)').bind(id,lang,now).run();
   const job=await db.prepare('SELECT attempts,status,lease_at FROM report_ai_jobs WHERE report_id=? AND lang=?').bind(id,lang).first<{attempts:number;status:string;lease_at:string|null}>();
   if(job?.status==='failed') return true;
-  if(exhausted || (job && job.attempts>=ATTEMPTS && (!job.lease_at || job.lease_at<stale))) {
-    await db.prepare("UPDATE report_ai_jobs SET status='failed',error='AI generation could not finish. Contact support with your order number; do not pay again.',lease_at=NULL,updated_at=? WHERE report_id=? AND lang=? AND (lease_at IS NULL OR lease_at<?)").bind(now,id,lang,stale).run();
-    return true;
+  if(job?.lease_at && job.lease_at>=stale) return false;
+  if(job && job.attempts>=ATTEMPTS) {
+    const ended=await db.prepare("UPDATE report_ai_jobs SET status='failed',error='AI generation could not finish. Contact support with your order number; do not pay again.',lease_at=NULL,updated_at=? WHERE report_id=? AND lang=? AND status!='ready' AND (lease_at IS NULL OR lease_at<?)").bind(now,id,lang,stale).run();
+    return Boolean(ended.meta.changes) || Boolean(cachedAI((await rowById(env,id))!,lang));
   }
-  const locked=await db.prepare("UPDATE report_ai_jobs SET status='generating',attempts=attempts+1,lease_at=?,error=NULL,next_attempt_at=NULL,updated_at=? WHERE report_id=? AND lang=? AND attempts<? AND status!='failed' AND (lease_at IS NULL OR lease_at<?)").bind(now,now,id,lang,ATTEMPTS,stale).run();
-  if(!locked.meta.changes) return false;
+  const locked=await db.prepare("UPDATE report_ai_jobs SET status='generating',attempts=attempts+1,lease_at=?,error=NULL,next_attempt_at=NULL,updated_at=? WHERE report_id=? AND lang=? AND attempts<? AND status IN ('queued','retrying','generating') AND (lease_at IS NULL OR lease_at<?)").bind(now,now,id,lang,ATTEMPTS,stale).run();
+  if(!locked.meta.changes) return Boolean(cachedAI((await rowById(env,id))!,lang));
   try {
     const report=await generateAI(env,row,lang);
     // Check the order again after the network wait: a refund must prevent delivery.

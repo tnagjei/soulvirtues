@@ -3,7 +3,8 @@
 // pos: functions/api/report.ts (更新规则：协议变化同步 field-guide 脚本、付款回归与本目录 README)
 
 import { guideLanguage, ownedReport, refreshPayment, requirePaid, snapshot, type PaymentEnv } from '../_shared/reports';
-import { errorResponse, json } from '../_shared/waffo';
+import { errorResponse, json, testPayments } from '../_shared/waffo';
+import { aiState,cachedAI,enqueueAI } from '../_shared/ai';
 
 export async function onRequest(context: { request: Request; env: PaymentEnv }): Promise<Response> {
   if (context.request.method !== 'GET') return json({ error: 'Method not allowed.' }, 405);
@@ -16,7 +17,9 @@ export async function onRequest(context: { request: Request; env: PaymentEnv }):
     const order = { number: row.order_id, paidAt: row.paid_at };
     if (row.status !== 'paid') return json({ status: row.status === 'refunded' || row.status === 'cancelled' ? row.status : 'pending', order }, ['refunded','cancelled'].includes(row.status) ? 403 : 202);
     requirePaid(row);
-    const cached = lang === 'es' ? row.ai_es : row.ai_en;
-    return json({ status: 'paid', guide: snapshot(row, lang), order, expiresAt: row.expires_at, ai: cached ? JSON.parse(cached) : null });
+    let dispatchError: string|null=null;
+    try{await enqueueAI(context.env,row,lang);}catch{dispatchError='AI generation could not start. Please check again; do not pay again.';}
+    const state=await aiState(context.env,row,lang);
+    return json({ status: 'paid', testMode: testPayments(context.env), guide: snapshot(row, lang), order, expiresAt: row.expires_at, ai: cachedAI(row,lang), aiState:dispatchError?{...state,error:dispatchError}:state });
   } catch (error) { return errorResponse(error); }
 }

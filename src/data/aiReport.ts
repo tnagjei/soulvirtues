@@ -29,6 +29,8 @@ export function isPersonalAIReport(value: unknown, guide?: ReturnType<typeof bui
   const summary = object(report.summary);
   if (report.schemaVersion !== AI_SCHEMA_VERSION || report.source !== 'ai' || !['en','es'].includes(String(report.language)) || !text(report.model,100) || typeof report.generatedAt !== 'string' || !Number.isFinite(Date.parse(report.generatedAt))) return false;
   if (!text(summary.title,150) || !text(summary.interpretation) || !text(summary.tension,1200) || !text(summary.nextStep,1000)) return false;
+  const counts=JSON.stringify(report).matchAll(/(?:responses|answers)\s+to\s+(\d+)\s+(?:statements|questions|items)/gi);
+  if(Array.from(counts).some(match=>Number(match[1])!==66)) return false;
   if (!Array.isArray(report.traits) || report.traits.length !== 7) return false;
   const seen = new Set();
   for (const value of report.traits) {

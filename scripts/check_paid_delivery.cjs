@@ -13,12 +13,14 @@ function load(file) {
 }
 const sql = new DatabaseSync(':memory:');
 sql.exec(fs.readFileSync('migrations/0001_paid_reports.sql','utf8'));
+sql.exec(fs.readFileSync('migrations/0002_ai_delivery.sql','utf8'));
+let queued=[];
 const db = { prepare(query) {
   const statement = sql.prepare(query); let values=[];
   return { bind(...v) { values=v; return this; }, async first() { return statement.get(...values) || null; }, async all() { return {results:statement.all(...values)}; }, async run() { return {meta:{changes:Number(statement.run(...values).changes)}}; } };
 }};
 const keys = generateKeyPairSync('rsa',{modulusLength:2048});
-const env = { REPORTS_DB:db, WAFFO_PRIVATE_KEY:keys.privateKey.export({type:'pkcs8',format:'pem'}), WAFFO_WEBHOOK_PUBLIC_KEY:keys.publicKey.export({type:'spki',format:'pem'}) };
+const env = { REPORTS_DB:db, DEEPSEEK_API_KEY:'fixture', AI_JOB_TOKEN:'fixture', REPORT_QUEUE:{async send(message){queued.push(message);}}, WAFFO_PRIVATE_KEY:keys.privateKey.export({type:'pkcs8',format:'pem'}), WAFFO_WEBHOOK_PUBLIC_KEY:keys.publicKey.export({type:'spki',format:'pem'}) };
 const checkout = load('functions/api/create-checkout.ts');
 const report = load('functions/api/report.ts');
 const webhook = load('functions/api/waffo-webhook.ts');
@@ -27,19 +29,24 @@ const client = load('src/data/paidReport.ts');
 const session = load('src/data/quizSession.ts');
 const questions = load('src/data/questions.ts');
 const guide = load('src/data/fieldGuide.ts');
+const helpers = load('functions/_shared/waffo.ts');
+let origin = helpers.APP_ORIGIN;
 const id = 'd0536f4b-befb-4c62-a3a3-9d68f5519bda';
 const token = 'a'.repeat(64);
 const quiz = JSON.parse(session.encodeAnswers(guide.sampleGuideInput(), questions.QUESTIONS));
-const body = {reportId:id,accessToken:token,quiz,lang:'en',consent:true};
+env.AI_TEST_REPORT_ID=id;
+const body = {reportId:id,accessToken:token,quiz,lang:'en',consent:true,aiConsent:true};
 let checkoutCalls=0, queryCalls=0, upstream={onetimeOrders:[],payments:[]};
 const realFetch=global.fetch;
 global.fetch=async(url,init)=>{
+  if(String(url).endsWith('/user/balance'))return Response.json({is_available:true,balance_infos:[{currency:'CNY',total_balance:'2.00'}]});
   if (String(url).includes('create-session')) {
     checkoutCalls++;
     const sent=JSON.parse(init.body);
     assert.equal(sent.orderMerchantExternalId,id);
     assert.equal(sent.metadata.reportId,id);
-    assert.equal(sent.successUrl,'https://soulvirtues.org/success/?report='+id);
+    assert.equal(sent.successUrl,origin+'/success/?report='+id);
+    assert.deepEqual(sent.includePaymentMethods, env.WAFFO_MODE === 'test' ? ['wechat'] : undefined);
     assert(!('scores' in sent) && !('answers' in sent.metadata) && !('accessToken' in sent.metadata));
     assert(!('X-Environment' in init.headers));
     return Response.json({data:{sessionId:'cs_test_fixture',checkoutUrl:'https://checkout.waffo.ai/store/checkout/cs_test_fixture',expiresAt:new Date(Date.now()+3600000).toISOString()}});
@@ -48,19 +55,27 @@ global.fetch=async(url,init)=>{
   assert.equal(JSON.parse(init.body).variables.ref,id);
   return Response.json({data:upstream});
 };
-const post=(path,data,access)=>new Request('https://soulvirtues.org/api/'+path,{method:'POST',headers:{'Content-Type':'application/json',...(access?{Authorization:'Bearer '+access}:{})},body:JSON.stringify(data)});
-const get=(access=token)=>new Request('https://soulvirtues.org/api/report?report='+id+'&lang=en',{headers:access?{Authorization:'Bearer '+access}:{}});
+const post=(path,data,access)=>new Request(origin+'/api/'+path,{method:'POST',headers:{'Content-Type':'application/json',...(access?{Authorization:'Bearer '+access}:{})},body:JSON.stringify(data)});
+const get=(access=token)=>new Request(origin+'/api/report?report='+id+'&lang=en',{headers:access?{Authorization:'Bearer '+access}:{}});
 const signed=(type,data,age=0)=>{
-  const raw=JSON.stringify({id:type==='refund.succeeded'?'REF_fixture':'PAY_fixture',eventType:type,storeId:'STO_2U9mk624xX0VEC0DfgMtFw',mode:'prod',timestamp:new Date().toISOString(),data:{orderMerchantExternalId:id,...data}});
+  const raw=JSON.stringify({id:type==='refund.succeeded'?'REF_fixture':'PAY_fixture',eventType:type,storeId:'STO_2U9mk624xX0VEC0DfgMtFw',mode:env.WAFFO_MODE,timestamp:new Date().toISOString(),data:{orderMerchantExternalId:id,...data}});
   const time=String(Date.now()-age);
   const signature=sign('RSA-SHA256',Buffer.from(time+'.'+raw),keys.privateKey).toString('base64');
   return new Request('https://soulvirtues.org/api/waffo-webhook',{method:'POST',headers:{'X-Waffo-Signature':'t='+time+',v1='+signature},body:raw});
 };
-async function run() {
+async function run(mode) {
+  env.WAFFO_MODE = mode;
+  origin = helpers.paymentOrigin(env);
+  sql.exec('DELETE FROM report_ai_jobs; DELETE FROM paid_reports; DELETE FROM payment_events; DELETE FROM checkout_limits;');
+  queued=[]; checkoutCalls = 0; queryCalls = 0; upstream = {onetimeOrders:[],payments:[]};
+  const other = {...env,WAFFO_MODE:mode === 'test' ? 'prod' : 'test'};
+  assert.equal((await checkout.onRequest({request:post('create-checkout',body),env:other})).status,403,'Checkout origin must match server environment');
+  assert.equal((await (await webhook.onRequest({request:signed('order.completed',{}),env:other})).json()).ignored,true,'Wrong-environment webhook must be ignored');
   assert.equal((await checkout.onRequest({request:post('create-checkout',{...body,consent:false}),env})).status,400);
   const incomplete={...quiz,answers:{}};
   assert.equal((await checkout.onRequest({request:post('create-checkout',{...body,quiz:incomplete}),env})).status,400);
   const first=await checkout.onRequest({request:post('create-checkout',body),env}); assert.equal(first.status,200);
+  assert.equal(new URL((await first.json()).checkoutUrl).searchParams.get('test'),mode === 'test' ? 'true' : null);
   const saved=sql.prepare('SELECT * FROM paid_reports WHERE id=?').get(id);
   const snap=JSON.parse(saved.guide_en);
   assert.equal(snap.answers.length,66); assert.equal(snap.ranked[0].code,'PER');
@@ -81,13 +96,15 @@ async function run() {
   assert.equal((await webhook.onRequest({request:signed('order.completed',{}),env})).status,200);
   assert.equal(queryCalls,after,'Duplicate delivery must not process again');
   const delivered=await report.onRequest({request:get(),env}); assert.equal(delivered.status,200);
-  const payload=await delivered.json(); assert.equal(payload.status,'paid'); assert.equal(payload.order.number,'ORD_fixture'); assert.equal(payload.guide.id,snap.id);
+  const payload=await delivered.json(); assert.equal(payload.status,'paid'); assert.equal(payload.testMode,mode === 'test'); assert.equal(payload.order.number,'ORD_fixture'); assert.equal(payload.guide.id,snap.id);
   assert.equal((await checkout.onRequest({request:post('create-checkout',body),env})).status,200);
   assert.equal(checkoutCalls,1,'An already-paid customer must not be sent to pay again');
   const makeAI=()=>ai.onRequest({request:post('generate-report',{reportId:id,lang:'en',scores:{red:100}},token),env});
-  const optional=await makeAI(); assert.equal(optional.status,200); assert.equal((await optional.json()).source,'synthesis');
-  assert.equal((await makeAI()).status,200);
-  assert(sql.prepare('SELECT ai_en FROM paid_reports WHERE id=?').get(id).ai_en,'Optional interpretation must be cached');
+  const automatic=await makeAI(); assert.equal(automatic.status,202);
+  assert.equal((await makeAI()).status,202);
+  assert.equal(queued.length,1,'Payment callback triggers one generation; repeated reads never duplicate it');
+  assert.equal(sql.prepare('SELECT ai_en FROM paid_reports WHERE id=?').get(id).ai_en,null,'Never cache prepared text as AI success');
+  assert.equal(payload.aiState.status,'queued');
   const store=new Map(); const memory={getItem:k=>store.get(k)||null,setItem:(k,v)=>store.set(k,v)};
   const link=client.privateReportLink('https://soulvirtues.org',{id,token,fingerprint:'fixture'});
   const restored=client.resolveAccess(memory,new URL(link)); assert.equal(restored.token,token);
@@ -100,6 +117,6 @@ async function run() {
   assert.equal(sql.prepare('SELECT status FROM paid_reports WHERE id=?').get(id).status,'refunded','Late success cannot undo refund');
   const forged=await webhook.onRequest({request:new Request('https://soulvirtues.org/api/waffo-webhook',{method:'POST',body:'{}'}),env}); assert.equal(forged.status,401);
   const old=await webhook.onRequest({request:signed('refund.succeeded',{},46*60000),env}); assert.equal(old.status,401);
-  console.log('PASS: saved real answers, single checkout retry, unpaid/wrong-token denial, verified delivery, private cross-device link, cached AI, signed retries, deduplication and irreversible refund denial');
+  console.log('PASS '+mode+': saved real answers, single checkout retry, unpaid/wrong-token denial, verified delivery, private cross-device link, cached AI, signed retries, deduplication and irreversible refund denial');
 }
-run().catch(e=>{console.error(e);process.exitCode=1}).finally(()=>{global.fetch=realFetch;sql.close()});
+(async()=>{await run('prod'); await run('test');})().catch(e=>{console.error(e);process.exitCode=1}).finally(()=>{global.fetch=realFetch;sql.close()});

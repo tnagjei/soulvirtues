@@ -8,7 +8,7 @@ export default {
       const body=message.body;
       if(!body || !/^[a-f0-9-]{36}$/.test(body.reportId) || !['en','es'].includes(body.lang) || !['test','prod'].includes(body.mode)){message.ack();continue;}
       try {
-        const response=await fetch('https://soulvirtues-dz6.pages.dev/api/process-ai',{method:'POST',headers:{Authorization:'Bearer '+env.AI_JOB_TOKEN,'Content-Type':'application/json'},body:JSON.stringify({...body,exhausted:batch.queue.endsWith('-failed')}),signal:AbortSignal.timeout(130000)});
+        const response=await fetch('https://soulvirtues-dz6.pages.dev/api/process-ai',{method:'POST',headers:{Authorization:'Bearer '+env.AI_JOB_TOKEN,'Content-Type':'application/json'},body:JSON.stringify(body),signal:AbortSignal.timeout(130000)});
         if(response.ok)message.ack();else message.retry({delaySeconds:60});
       }catch{message.retry({delaySeconds:60});}
     }

@@ -383,7 +383,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
           Seven Virtues: Personal Trait Archive &amp; Guidebook
         </h4>
         <p class="text-xs sm:text-sm text-gray-300 max-w-lg mx-auto mb-4 leading-relaxed font-sans">
-          Seven trait readings, your actual answer receipts, practical exercises, and a PDF workbook based on your 66 answers.
+          AI interpretation of your 66 answers, seven trait readings, actual answer receipts, practical exercises, and a PDF workbook.
         </p>
 
         <!-- High-Contrast Sample Preview Area (Crystal Clear Top + Targeted Gradient Lock) -->
@@ -425,7 +425,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
 
         <label class="flex items-start gap-3 text-left text-[11px] text-gray-300 font-sans max-w-xl mx-auto mb-4 leading-relaxed">
           <input id="checkout-consent" type="checkbox" class="mt-1 flex-none w-4 h-4" />
-          <span>{lang === 'es' ? 'Tengo 18 años o permiso de mi tutor. Acepto guardar mis 66 respuestas y mi informe para la entrega y recuperación. El acceso online dura 30 días. Informe en inglés o español.' : 'I am 18+ or have guardian permission. I agree to save my 66 answers and report for secure delivery and recovery. Online access lasts 30 days. Report available in English or Spanish.'} <a href="/terms/" class="underline">Terms</a> · <a href="/privacy/" class="underline">Privacy</a></span>
+          <span>{lang === 'es' ? 'Tengo 18 años o permiso de mi tutor. Acepto guardar mis 66 respuestas y mi informe durante 30 días y enviarlos a DeepSeek para generar mi interpretación después del pago. No se envían mi correo, datos de pago ni notas. Informe en inglés o español.' : 'I am 18+ or have guardian permission. I agree to save my 66 answers and report for 30 days and send the quiz statements, answers and scores to DeepSeek for interpretation after payment. My email, payment details and notes are not sent to AI. Report available in English or Spanish.'} <a href="/terms/" class="underline">Terms</a> · <a href="/privacy/" class="underline">Privacy</a></span>
         </label>
         <button
           id="btn-checkout-waffo"
@@ -1951,7 +1951,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
           if (userAnswers.some(answer => answer === null)) throw new Error(es ? "Completa las 66 preguntas primero." : "Complete all 66 questions first.");
           const quiz = JSON.parse(encodeAnswers(userAnswers, QUESTIONS));
           const access = await checkoutAccess(localStorage, quiz);
-          const response = await reportApi("/api/create-checkout", null, { quiz, lang: es ? "es" : "en", reportId: access.id, accessToken: access.token, consent: true });
+          const response = await reportApi("/api/create-checkout", null, { quiz, lang: es ? "es" : "en", reportId: access.id, accessToken: access.token, consent: true, aiConsent:true });
           if (response.status === 202) {
             if (feedback) feedback.textContent = es ? "Tu enlace ya se está preparando. Espera unos segundos y comprueba de nuevo; no vuelvas a pagar." : "Your link is already being prepared. Wait a few seconds and check again; do not pay twice.";
           } else if (response.data.alreadyPaid === true) {

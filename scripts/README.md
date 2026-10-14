@@ -5,6 +5,7 @@
 > 一旦本目录内容变化，请更新本文件
 
 ## Files
+- check_paid_delivery.cjs：同一套付款回归分别验证正式/测试模式，覆盖域名隔离、微信限定、test 参数、回调环境拒绝及交付标识。
 - recover_paid_report.py：支持人员核对购买邮箱和订单号后轮换私有链接，输出到新建 0600 本地文件；不发邮件。自检 `python3 scripts/recover_paid_report.py --self-test`。
 - check_field_guide.cjs：验证66题/14条依据的来源、反向计分、英西语、中立/缺记录与跨语言稳定报告ID
 - check_report_delivery.cjs：验证报告脚本语法、真实分数映射、中立结果、响应结构及 HTTP/JSON/超时失败分支；不调用付费 API
@@ -25,3 +26,5 @@
 - seo_day15_review.mjs：上线第 15 天拉取 GSC 定稿数据、运行 crawl 与 index-coverage，并执行连续 3 天展示门禁；额度耗尽时保留 7 天重试
 - seo_day30_review.mjs：上线第 30 天运行 quick-wins 与 second-page，生成 Title、Meta、H2 人工复核建议；额度耗尽时保留 7 天重试
 - seo_weekly_watch.mjs：上线第 60 天后每周运行 technical-watch 与 decaying-pages，生成周报
+
+- check_report_delivery.cjs：自动AI的66题输入、同意、余额、权限、缓存、有限重试及生成中退款回归；不发真实API调用。

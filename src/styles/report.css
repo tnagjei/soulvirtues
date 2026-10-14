@@ -27,6 +27,7 @@ body {
   color:var(--text);
   font:16px/1.65 var(--sans)
 }
+.profile-note p,.trait-facts p {white-space:pre-line;overflow-wrap:anywhere}
 button,input,textarea,select {
   font:inherit
 }

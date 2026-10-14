@@ -3,7 +3,7 @@
 // pos: src/data/paidReport.ts (更新规则：协议变化同步报告脚本、付款接口与本目录 README)
 
 import type { buildFieldGuide, GuideLanguage } from './fieldGuide';
-import { isDossierReport, type DossierReport } from './reportDelivery';
+import { isPersonalAIReport,type PersonalAIReport,type AIJobState } from './aiReport';
 export type FieldGuide = ReturnType<typeof buildFieldGuide>;
 export interface ReportAccess { id: string; token: string; fingerprint: string; }
 export const PAID_ACCESS_KEY = 'soulvirtues_paid_access_v1';
@@ -74,7 +74,7 @@ export function validGuide(value: unknown): value is FieldGuide {
     guide.traits.every(t => typeof t.score === 'number' && t.score >= 0 && t.score <= 100 && Array.isArray(t.evidence)) &&
     Array.isArray(guide.answers) && guide.answers.length === 66 && !!guide.copy && Array.isArray(guide.copy.tasks) && guide.copy.tasks.length === 7;
 }
-export interface PaidReport { guide: FieldGuide; order: { number: string | null; paidAt: string | null }; expiresAt: string | null; ai: DossierReport | null; }
+export interface PaidReport { guide: FieldGuide; testMode: boolean; order: { number: string | null; paidAt: string | null }; expiresAt: string | null; ai: PersonalAIReport | null; aiState:AIJobState; }
 export async function paidReport(access: ReportAccess, lang: GuideLanguage, timeout = 16000): Promise<PaidReport | null> {
   const result = await reportApi(`/api/report?report=${encodeURIComponent(access.id)}&lang=${lang}`, access, undefined, timeout);
   if (result.status === 202) return null;
@@ -82,10 +82,14 @@ export async function paidReport(access: ReportAccess, lang: GuideLanguage, time
   const rawOrder = result.data.order;
   if (!rawOrder || typeof rawOrder !== 'object' || Array.isArray(rawOrder)) throw new Error('The order response is incomplete.');
   const order = rawOrder as Record<string, unknown>;
+  const state=result.data.aiState as AIJobState;
+  if(!state || !['awaiting-consent','queued','generating','retrying','ready','failed'].includes(state.status)) throw new Error('The AI delivery status is incomplete.');
   return {
     guide: result.data.guide,
+    testMode: result.data.testMode === true,
     order: { number: typeof order.number === 'string' ? order.number : null, paidAt: typeof order.paidAt === 'string' ? order.paidAt : null },
     expiresAt: typeof result.data.expiresAt === 'string' ? result.data.expiresAt : null,
-    ai: isDossierReport(result.data.ai) ? result.data.ai : null,
+    ai: isPersonalAIReport(result.data.ai,result.data.guide) ? result.data.ai : null,
+    aiState:state,
   };
 }

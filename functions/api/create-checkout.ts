@@ -4,18 +4,26 @@
 
 import { BANK_VERSION } from '../../src/data/quizSession';
 import { checkoutDraft, database, refreshPayment, rowById, type PaymentEnv } from '../_shared/reports';
-import { APP_ORIGIN, DeliveryError, digest, errorResponse, json, PRODUCT_ID, requestJson, sameOrigin, waffo } from '../_shared/waffo';
+import { DeliveryError, digest, errorResponse, json, paymentOrigin, PRODUCT_ID, requestJson, sameOrigin, testPayments, waffo } from '../_shared/waffo';
+import { aiReady,enqueueAI } from '../_shared/ai';
 
 export async function onRequest(context: { request: Request; env: PaymentEnv }): Promise<Response> {
   if (context.request.method !== 'POST') return json({ error: 'Method not allowed.' }, 405);
   try {
     sameOrigin(context.request);
-    if (new URL(context.request.url).origin !== APP_ORIGIN) throw new DeliveryError(403, 'Use soulvirtues.org for checkout. The local page is a design preview.');
+    const origin = paymentOrigin(context.env);
+    const test = testPayments(context.env);
+    if (new URL(context.request.url).origin !== origin) throw new DeliveryError(403, 'Use the configured website for checkout. The local page is a design preview.');
     const db = database(context.env);
     if (!context.env.WAFFO_PRIVATE_KEY) throw new DeliveryError(503, 'Checkout is not configured. Please contact support.');
     const draft = await checkoutDraft(await requestJson(context.request));
     const now = new Date().toISOString();
     const previous = await rowById(context.env, draft.id);
+    if(previous?.status==='paid' && previous.access_hash===draft.accessHash && previous.input_hash===draft.inputHash) {
+      await enqueueAI(context.env,previous,draft.lang);
+      return json({reportId:previous.id,alreadyPaid:true});
+    }
+    await aiReady(context.env,draft.id);
     if (!previous) {
       const ip = context.request.headers.get('CF-Connecting-IP');
       if (ip) {
@@ -31,14 +39,14 @@ export async function onRequest(context: { request: Request; env: PaymentEnv }):
       await db.prepare('DELETE FROM payment_events WHERE received_at<?').bind(new Date(Date.now()-31*86400000).toISOString()).run();
     }
     const inserted = await db.prepare(`INSERT OR IGNORE INTO paid_reports
-      (id,access_hash,input_hash,status,bank_version,guide_en,guide_es,created_at,updated_at,checkout_lease_at)
-      VALUES (?,?,?,'creating',?,?,?,?,?,?)`)
-      .bind(draft.id, draft.accessHash, draft.inputHash, BANK_VERSION, JSON.stringify(draft.guides.en), JSON.stringify(draft.guides.es), now, now, now).run();
+      (id,access_hash,input_hash,status,bank_version,guide_en,guide_es,created_at,updated_at,checkout_lease_at,ai_consent,purchase_lang)
+      VALUES (?,?,?,'creating',?,?,?,?,?,?,1,?)`)
+      .bind(draft.id, draft.accessHash, draft.inputHash, BANK_VERSION, JSON.stringify(draft.guides.en), JSON.stringify(draft.guides.es), now, now, now,draft.lang).run();
     let row = (await rowById(context.env, draft.id))!;
     if (row.access_hash !== draft.accessHash || row.input_hash !== draft.inputHash) throw new DeliveryError(409, 'This checkout request does not match these answers. Start a new report request.');
     if (!inserted.meta.changes) {
       row = await refreshPayment(context.env, row, true);
-      if (row.status === 'paid') return json({ reportId: row.id, alreadyPaid: true });
+      if (row.status === 'paid') { await enqueueAI(context.env,row,draft.lang);return json({ reportId: row.id, alreadyPaid: true }); }
       if (row.status === 'refunded' || (row.status === 'cancelled' && row.paid_at)) throw new DeliveryError(403, 'This report order is closed. Contact support before making another payment.');
       if (row.status === 'cancelled') {
         await db.prepare("UPDATE paid_reports SET status='pending',checkout_url=NULL,session_id=NULL,checkout_expires_at=NULL,checkout_lease_at=NULL WHERE id=? AND paid_at IS NULL").bind(row.id).run();
@@ -57,11 +65,13 @@ export async function onRequest(context: { request: Request; env: PaymentEnv }):
         language: draft.lang === 'es' ? 'es-MX' : 'en', expiresInSeconds: 3600,
         orderMerchantExternalId: draft.id,
         metadata: { application: 'soulvirtues', productId: PRODUCT_ID, reportId: draft.id },
-        successUrl: `${APP_ORIGIN}/success/?report=${draft.id}`,
+        successUrl: `${origin}/success/?report=${draft.id}`,
+        ...(test ? { includePaymentMethods: ['wechat'] } : {}),
       });
       if (typeof session.checkoutUrl !== 'string' || typeof session.sessionId !== 'string' || typeof session.expiresAt !== 'string' || !Number.isFinite(Date.parse(session.expiresAt))) throw new DeliveryError(502, 'The payment service returned an incomplete checkout link.');
       const url = new URL(session.checkoutUrl);
-      if (url.protocol !== 'https:' || !['checkout.waffo.ai', 'pancake.waffo.ai'].includes(url.hostname) || url.searchParams.get('test') === 'true') throw new DeliveryError(503, 'The checkout link is not a valid production payment link. Please contact support.');
+      if (url.protocol !== 'https:' || !['checkout.waffo.ai', 'pancake.waffo.ai'].includes(url.hostname) || (!test && url.searchParams.get('test') === 'true')) throw new DeliveryError(503, 'The checkout link does not match this payment environment. Please contact support.');
+      if (test) url.searchParams.set('test', 'true');
       await db.prepare(`UPDATE paid_reports SET status=CASE WHEN status='creating' THEN 'pending' ELSE status END,
         checkout_url=?,session_id=?,checkout_expires_at=?,checkout_lease_at=NULL,updated_at=?
         WHERE id=? AND status NOT IN ('refunded','cancelled')`)

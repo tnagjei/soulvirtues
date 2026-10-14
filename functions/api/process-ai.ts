@@ -17,7 +17,7 @@ export async function onRequest(context:{request:Request;env:PaymentEnv}):Promis
       env={...env,REPORTS_DB:env.TEST_REPORTS_DB};
     }
     if(body.action==='ready'){await checkBalance(env);return json({ready:true});}
-    const finished=await processAI(env,body.reportId,guideLanguage(body.lang),body.exhausted===true);
+    const finished=await processAI(env,body.reportId,guideLanguage(body.lang));
     return json({finished},finished?200:503);
   }catch(error){return errorResponse(error);}
 }
