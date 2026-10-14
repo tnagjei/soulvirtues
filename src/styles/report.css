@@ -907,7 +907,7 @@ a,button,textarea {
     font-size:11pt;
     margin-bottom:17pt
   }
-  .chapter-heading {
+  .chapter-heading,h2,h3,h4 {
     break-after:avoid
   }
   .trait-detail:first-of-type {
