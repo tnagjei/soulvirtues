@@ -1,7 +1,7 @@
 // input: Paid immutable 66-answer snapshots, consent and a durable generation job
 // output: Validated DeepSeek interpretation cached once per order and language
 // pos: functions/_shared/ai.ts (更新规则：协议变化同步阅读页、队列、迁移与本目录 README)
-import { readPersonalAIReport, isPersonalAIReport, type AIJobState, type PersonalAIReport } from '../../src/data/aiReport';
+import { readPersonalAIReport, isPersonalAIReport,reportWordCount, type AIJobState, type PersonalAIReport } from '../../src/data/aiReport';
 import { database, rowById, snapshot, requirePaid, type ReportRow, type PaymentEnv } from './reports';
 import { DeliveryError, record, testPayments } from './waffo';
 import type { GuideLanguage } from '../../src/data/fieldGuide';
@@ -75,7 +75,7 @@ export async function generateAI(env: PaymentEnv, row: ReportRow, lang: GuideLan
   let content;try{content=JSON.parse(typeof message.content==='string'?message.content:'');}catch{throw new DeliveryError(502,'The AI report could not be read and will be retried.');}
   const report={...record(content),schemaVersion:1,source:'ai',language:lang,model:typeof value.model==='string'?value.model:MODEL,generatedAt:new Date().toISOString()};
   if(!isPersonalAIReport(report,guide)) throw new DeliveryError(502,'The AI report did not match your saved answers and will be retried.');
-  const words=JSON.stringify({summary:report.summary,traits:report.traits,scenarios:report.scenarios,plan:report.plan}).split(/\s+/).length;
+  const words=reportWordCount(report);
   if(words<2000) throw new DeliveryError(502,'The AI report was too short and will be retried.');
   return report;
 }

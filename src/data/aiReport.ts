@@ -22,6 +22,10 @@ export interface AIJobState {
   nextAttemptAt: string | null;
   error: string | null;
 }
+export function reportWordCount(report: PersonalAIReport): number {
+  const prose=[...Object.values(report.summary),...report.traits.flatMap(t=>[t.interpretation,t.reflection,t.experiment]),...report.scenarios.flatMap(s=>[s.title,s.context,s.action,s.observe]),...report.plan.flatMap(p=>[p.title,p.task,p.observe])];
+  return prose.join(' ').trim().split(/\s+/).length;
+}
 const object = (value: unknown): Record<string, unknown> => value && typeof value === 'object' && !Array.isArray(value) ? value as Record<string, unknown> : {};
 const text = (value: unknown, max = 2500): value is string => typeof value === 'string' && value.trim().length >= 3 && value.length <= max;
 export function isPersonalAIReport(value: unknown, guide?: ReturnType<typeof buildFieldGuide>): value is PersonalAIReport {

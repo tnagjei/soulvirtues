@@ -1155,3 +1155,22 @@ astro-dev-toolbar {
 .private-report-link { display: block; width: calc(100% - 36px); max-width: 1136px; margin: 12px auto; padding: 12px; border: 1px solid #687a47; background: #151c16; color: #e5eed5; font: 13px var(--sans); }
 .private-report-link[hidden], .delivery-status[hidden] { display: none; }
 #save-report-link[hidden] { display: none; }
+/* Long AI readings need the full paper width so a card is not pushed onto several sparse pages. */
+@media print {
+  body[data-ai-state="ready"] .overview-grid { display:block; margin:12pt 0; }
+  body[data-ai-state="ready"] .profile-note { display:block; break-inside:auto; padding:0; border:0; background:none; }
+  body[data-ai-state="ready"] .profile-note h2 { font-size:19pt; line-height:1.2; margin:0 0 10pt; }
+  body[data-ai-state="ready"] .profile-note p { font-size:10pt; line-height:1.4; margin:0 0 8pt; }
+  body[data-ai-state="ready"] .spectrum { margin-top:12pt; padding:10pt; }
+  body[data-ai-state="ready"] .spectrum h3 { font-size:12pt; margin-bottom:8pt; }
+  body[data-ai-state="ready"] .spectrum-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:2pt 15pt; }
+  body[data-ai-state="ready"] .trait-facts { display:block; margin:10pt 0; }
+  body[data-ai-state="ready"] .trait-facts>div+div { margin-top:8pt; }
+  body[data-ai-state="ready"] .trait-facts h4 { font-size:10pt; margin:0 0 4pt; }
+  body[data-ai-state="ready"] .trait-facts p { font-size:10pt; line-height:1.4; margin:0 0 7pt; }
+  body[data-ai-state="ready"] #readings,body[data-ai-state="ready"] .trait-detail { break-before:auto; }
+  body[data-ai-state="ready"] .trait-detail { margin-top:18pt; }
+  body[data-ai-state="ready"] .trait-detail summary { break-inside:avoid; break-after:avoid; }
+  body[data-ai-state="ready"] .reflection-prompt p { line-height:1.4; }
+  body[data-ai-state="ready"] .ai-panel { break-before:auto; margin-top:14pt; }
+}
