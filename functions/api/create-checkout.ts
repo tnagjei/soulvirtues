@@ -4,7 +4,7 @@
 
 import { BANK_VERSION } from '../../src/data/quizSession';
 import { checkoutDraft, database, refreshPayment, rowById, type PaymentEnv } from '../_shared/reports';
-import { DeliveryError, digest, errorResponse, json, paymentOrigin, PRODUCT_ID, requestJson, sameOrigin, testPayments, waffo } from '../_shared/waffo';
+import { CHECKOUT_SECONDS, DeliveryError, digest, errorResponse, json, paymentOrigin, PRODUCT_ID, requestJson, sameOrigin, testPayments, waffo } from '../_shared/waffo';
 import { aiReady,enqueueAI } from '../_shared/ai';
 
 export async function onRequest(context: { request: Request; env: PaymentEnv }): Promise<Response> {
@@ -62,7 +62,7 @@ export async function onRequest(context: { request: Request; env: PaymentEnv }):
     try {
       const session = await waffo(context.env, '/v1/actions/checkout/create-session', {
         productId: PRODUCT_ID, currency: 'USD', darkMode: true,
-        language: draft.lang === 'es' ? 'es-MX' : 'en', expiresInSeconds: 3600,
+        language: draft.lang === 'es' ? 'es-MX' : 'en', expiresInSeconds: CHECKOUT_SECONDS,
         orderMerchantExternalId: draft.id,
         metadata: { application: 'soulvirtues', productId: PRODUCT_ID, reportId: draft.id },
         successUrl: `${origin}/success/?report=${draft.id}`,

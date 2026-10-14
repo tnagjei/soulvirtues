@@ -30,13 +30,14 @@ const session = load('src/data/quizSession.ts');
 const questions = load('src/data/questions.ts');
 const guide = load('src/data/fieldGuide.ts');
 const helpers = load('functions/_shared/waffo.ts');
+const reports = load('functions/_shared/reports.ts');
 let origin = helpers.APP_ORIGIN;
 const id = 'd0536f4b-befb-4c62-a3a3-9d68f5519bda';
 const token = 'a'.repeat(64);
 const quiz = JSON.parse(session.encodeAnswers(guide.sampleGuideInput(), questions.QUESTIONS));
 env.AI_TEST_REPORT_ID=id;
 const body = {reportId:id,accessToken:token,quiz,lang:'en',consent:true,aiConsent:true};
-let checkoutCalls=0, queryCalls=0, upstream={onetimeOrders:[],payments:[]};
+let checkoutCalls=0, queryCalls=0, upstream={onetimeOrders:[],payments:[]}, holdQuery=null;
 const realFetch=global.fetch;
 global.fetch=async(url,init)=>{
   if(String(url).endsWith('/user/balance'))return Response.json({is_available:true,balance_infos:[{currency:'CNY',total_balance:'2.00'}]});
@@ -49,11 +50,13 @@ global.fetch=async(url,init)=>{
     assert.deepEqual(sent.includePaymentMethods, env.WAFFO_MODE === 'test' ? ['wechat'] : undefined);
     assert(!('scores' in sent) && !('answers' in sent.metadata) && !('accessToken' in sent.metadata));
     assert(!('X-Environment' in init.headers));
-    return Response.json({data:{sessionId:'cs_test_fixture',checkoutUrl:'https://checkout.waffo.ai/store/checkout/cs_test_fixture',expiresAt:new Date(Date.now()+3600000).toISOString()}});
+    return Response.json({data:{sessionId:'cs_test_fixture_'+checkoutCalls,checkoutUrl:'https://checkout.waffo.ai/store/checkout/cs_test_fixture_'+checkoutCalls,expiresAt:new Date(Date.now()+helpers.CHECKOUT_SECONDS*1000).toISOString()}});
   }
   assert.equal(url,'https://api.waffo.ai/v1/graphql'); queryCalls++;
   assert.equal(JSON.parse(init.body).variables.ref,id);
-  return Response.json({data:upstream});
+  const snapshot=structuredClone(upstream);
+  if(holdQuery){const pause=holdQuery;holdQuery=null;await pause();}
+  return Response.json({data:snapshot});
 };
 const post=(path,data,access)=>new Request(origin+'/api/'+path,{method:'POST',headers:{'Content-Type':'application/json',...(access?{Authorization:'Bearer '+access}:{})},body:JSON.stringify(data)});
 const get=(access=token)=>new Request(origin+'/api/report?report='+id+'&lang=en',{headers:access?{Authorization:'Bearer '+access}:{}});
@@ -83,6 +86,26 @@ async function run(mode) {
   assert.equal(saved.status,'pending'); assert(!saved.guide_en.includes(token));
   assert.equal((await checkout.onRequest({request:post('create-checkout',body),env})).status,200);
   assert.equal(checkoutCalls,1,'Retry must reuse its existing checkout link');
+  upstream={onetimeOrders:[{id:'ORD_failed',status:'pending',orderMerchantExternalId:id,currency:'USD',metadata:{application:'soulvirtues',reportId:id,productId:helpers.PRODUCT_ID},priceSnapshot:{total:'4.93',currency:'USD'},createdAt:new Date().toISOString()}],payments:[{id:'PAY_failed',orderId:'ORD_failed',status:'failed',orderMerchantExternalId:id,createdAt:new Date().toISOString()}]};
+  assert.equal((await checkout.onRequest({request:post('create-checkout',body),env})).status,200);
+  assert.equal(checkoutCalls,2,'A failed payment must replace its unusable checkout link');
+  assert.equal((await checkout.onRequest({request:post('create-checkout',body),env})).status,200);
+  assert.equal(checkoutCalls,2,'An older failed payment must not discard the replacement checkout');
+  sql.prepare('UPDATE paid_reports SET checkout_expires_at=? WHERE id=?').run(new Date(Date.now()+helpers.CHECKOUT_SECONDS*1000-10000).toISOString(),id);
+  upstream.payments[0].createdAt=new Date(Date.now()-1000).toISOString();
+  const staleRow=sql.prepare('SELECT * FROM paid_reports WHERE id=?').get(id);
+  let releaseQuery,queryReached;
+  const blocked=new Promise(resolve=>{releaseQuery=resolve;});
+  const reached=new Promise(resolve=>{queryReached=resolve;});
+  holdQuery=()=>{queryReached();return blocked;};
+  const staleRequest=reports.refreshPayment(env,staleRow,true);
+  await reached;
+  try {
+    assert.equal((await checkout.onRequest({request:post('create-checkout',body),env})).status,200);
+    assert.equal(checkoutCalls,3);
+  } finally {releaseQuery();}
+  await staleRequest;
+  assert.equal(sql.prepare('SELECT session_id FROM paid_reports WHERE id=?').get(id).session_id,'cs_test_fixture_3','A delayed query about the old failure must not clear the newer checkout');
   const before=queryCalls;
   assert.equal((await report.onRequest({request:get(''),env})).status,401);
   assert.equal((await report.onRequest({request:get('b'.repeat(64)),env})).status,404);
@@ -98,7 +121,7 @@ async function run(mode) {
   const delivered=await report.onRequest({request:get(),env}); assert.equal(delivered.status,200);
   const payload=await delivered.json(); assert.equal(payload.status,'paid'); assert.equal(payload.testMode,mode === 'test'); assert.equal(payload.order.number,'ORD_fixture'); assert.equal(payload.guide.id,snap.id);
   assert.equal((await checkout.onRequest({request:post('create-checkout',body),env})).status,200);
-  assert.equal(checkoutCalls,1,'An already-paid customer must not be sent to pay again');
+  assert.equal(checkoutCalls,3,'An already-paid customer must not be sent to pay again');
   const makeAI=()=>ai.onRequest({request:post('generate-report',{reportId:id,lang:'en',scores:{red:100}},token),env});
   const automatic=await makeAI(); assert.equal(automatic.status,202);
   assert.equal((await makeAI()).status,202);

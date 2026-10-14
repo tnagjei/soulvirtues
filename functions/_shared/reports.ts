@@ -1,5 +1,5 @@
 // input: Versioned answers, private access tokens and Waffo order facts
-// output: Private D1 report snapshots and verified payment state
+// output: Private D1 snapshots, verified payment state and safe failed-checkout retries
 // pos: functions/_shared/reports.ts (更新规则：存储/权限变化同步迁移、付款回归与本目录 README)
 
 import { buildFieldGuide, type GuideLanguage } from '../../src/data/fieldGuide';
@@ -7,7 +7,7 @@ import { BANK_VERSION, decodeAnswers } from '../../src/data/quizSession';
 import { QUESTIONS } from '../../src/data/questions';
 import { computeScores } from '../../src/data/scoring';
 import { normalizeReportInput } from '../../src/data/reportDelivery';
-import { DeliveryError, digest, PRODUCT_ID, PRICE_MINOR, record, STORE_ID, waffo, type WaffoEnv } from './waffo';
+import { CHECKOUT_SECONDS, DeliveryError, digest, PRODUCT_ID, PRICE_MINOR, record, STORE_ID, waffo, type WaffoEnv } from './waffo';
 
 // The subset of the native D1 binding used here; checked against a real SQLite database in payment regression.
 export interface ReportStatement {
@@ -94,7 +94,7 @@ const ORDER_QUERY = `query($storeId:String!, $ref:String!) {
 }`;
 export function orderFacts(payload: Record<string, unknown>, id: string) {
   const orders = Array.isArray(payload.onetimeOrders) ? payload.onetimeOrders.map(record).sort((a,b) => String(b.createdAt || '').localeCompare(String(a.createdAt || ''))) : [];
-  const payments = Array.isArray(payload.payments) ? payload.payments.map(record) : [];
+  const payments = Array.isArray(payload.payments) ? payload.payments.map(record).sort((a,b) => String(b.createdAt || '').localeCompare(String(a.createdAt || ''))) : [];
   for (const order of orders) {
     if (typeof order.id !== 'string' || !/^ORD_[A-Za-z0-9]+$/.test(order.id)) continue;
     let meta = record(order.metadata);
@@ -102,11 +102,13 @@ export function orderFacts(payload: Record<string, unknown>, id: string) {
     const price = record(order.priceSnapshot);
     if (order.orderMerchantExternalId !== id || meta.reportId !== id || meta.application !== 'soulvirtues' || meta.productId !== PRODUCT_ID || order.currency !== 'USD' || moneyMinor(price.total) === null || moneyMinor(price.total)! < PRICE_MINOR) continue;
     const successful = payments.find(payment => payment.orderId === order.id && payment.orderMerchantExternalId === id && payment.status === 'succeeded' && record(payment.snapshotAmountDetails).currency === 'USD' && (moneyMinor(record(payment.snapshotAmountDetails).total) ?? 0) >= PRICE_MINOR);
+    const latestPayment = payments.find(payment => payment.orderId === order.id && payment.orderMerchantExternalId === id);
+    const failedPaymentAt = order.status === 'pending' && latestPayment?.status === 'failed' && typeof latestPayment.createdAt === 'string' && !payments.some(payment => payment.orderMerchantExternalId === id && payment.status === 'succeeded') ? latestPayment.createdAt : null;
     const refunded = successful && ['full', 'refunded', 'fully_refunded', 'fullyRefunded'].includes(String(successful.refundStatus));
     const paidDate = successful && typeof successful.createdAt === 'string' && Number.isFinite(Date.parse(successful.createdAt)) ? new Date(successful.createdAt).toISOString() : null;
-    return { status: refunded ? 'refunded' : order.status === 'completed' && successful ? 'paid' : order.status === 'canceled' || order.status === 'cancelled' ? 'cancelled' : 'pending', orderId: order.id, email: typeof order.buyerEmail === 'string' ? order.buyerEmail : null, paidAt: paidDate };
+    return { status: refunded ? 'refunded' : order.status === 'completed' && successful ? 'paid' : order.status === 'canceled' || order.status === 'cancelled' ? 'cancelled' : 'pending', orderId: order.id, email: typeof order.buyerEmail === 'string' ? order.buyerEmail : null, paidAt: paidDate, failedPaymentAt };
   }
-  return { status: 'pending', orderId: null, email: null, paidAt: null };
+  return { status: 'pending', orderId: null, email: null, paidAt: null, failedPaymentAt: null };
 }
 export async function refreshPayment(env: PaymentEnv, row: ReportRow, force = false): Promise<ReportRow> {
   if (row.status === 'refunded' || row.status === 'cancelled') return row;
@@ -116,6 +118,11 @@ export async function refreshPayment(env: PaymentEnv, row: ReportRow, force = fa
   const now = new Date().toISOString();
   const paidAt = row.paid_at || facts.paidAt || (facts.status === 'paid' ? now : null);
   const expiresAt = row.expires_at || (paidAt ? new Date(Date.parse(paidAt) + 30 * 86400000).toISOString() : null);
+  // A failed attempt invalidates only its checkout, never a newer replacement or an already-paid report.
+  const failedCheckout = !paidAt && facts.failedPaymentAt && row.checkout_expires_at && Date.parse(facts.failedPaymentAt) >= Date.parse(row.checkout_expires_at) - CHECKOUT_SECONDS * 1000;
+  if (failedCheckout) await database(env).prepare(`UPDATE paid_reports SET checkout_url=NULL,session_id=NULL,checkout_expires_at=NULL
+    WHERE id=? AND status='pending' AND paid_at IS NULL AND session_id IS ? AND checkout_expires_at IS ?`)
+    .bind(row.id, row.session_id, row.checkout_expires_at).run();
   // Once access is revoked, a delayed success query or replay must not enable it again.
   await database(env).prepare(`UPDATE paid_reports SET
     status = CASE WHEN ? = 'pending' AND status IN ('paid','creating') THEN status ELSE ? END,

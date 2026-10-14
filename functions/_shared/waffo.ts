@@ -6,6 +6,7 @@ export const MERCHANT_ID = 'MER_4djROqSKCYGehkfWy7Crv4';
 export const STORE_ID = 'STO_2U9mk624xX0VEC0DfgMtFw';
 export const PRODUCT_ID = 'PROD_7UkiV95uYBhM2uWnMqcEFc';
 export const PRICE_MINOR = 493;
+export const CHECKOUT_SECONDS = 3600;
 export const APP_ORIGIN = 'https://soulvirtues.org';
 export const TEST_ORIGIN = 'https://soulvirtues-paytest.pages.dev';
 export interface WaffoEnv { WAFFO_PRIVATE_KEY?: string; WAFFO_WEBHOOK_PUBLIC_KEY?: string; WAFFO_MODE?: string; }
