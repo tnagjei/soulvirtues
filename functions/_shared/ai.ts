@@ -9,7 +9,7 @@ import type { GuideLanguage } from '../../src/data/fieldGuide';
 const MODEL = 'deepseek-flash';
 const ATTEMPTS = 3;
 const LEASE_MS = 150000;
-export const PROCESS_URL = 'https://soulvirtues.org/api/process-ai';
+export const PROCESS_URL = 'https://soulvirtues-dz6.pages.dev/api/process-ai';
 export function cachedAI(row: ReportRow, lang: GuideLanguage) {
   return readPersonalAIReport(lang === 'es' ? row.ai_es : row.ai_en, snapshot(row,lang));
 }
@@ -69,7 +69,7 @@ export async function generateAI(env: PaymentEnv, row: ReportRow, lang: GuideLan
   const guide=snapshot(row,lang);
   const value=await providerJSON(env,'/chat/completions',modelRequest(guide,lang),110000);
   const choice=record(Array.isArray(value.choices)?value.choices[0]:null);
-  if(choice.finish_reason!=='stop') throw new DeliveryError(502,'The AI response was incomplete and will be retried.');
+  if(choice.finish_reason!=='stop') throw new DeliveryError(502,`The AI response was incomplete (${String(choice.finish_reason)}, ${Number(record(value.usage).completion_tokens)||0} output tokens) and will be retried.`);
   const message=record(choice.message);
   let content;try{content=JSON.parse(typeof message.content==='string'?message.content:'');}catch{throw new DeliveryError(502,'The AI report could not be read and will be retried.');}
   const report={...record(content),schemaVersion:1,source:'ai',language:lang,model:typeof value.model==='string'?value.model:MODEL,generatedAt:new Date().toISOString()};
