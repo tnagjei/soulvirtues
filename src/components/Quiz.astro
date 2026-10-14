@@ -1,6 +1,6 @@
 ---
 // input: lang ('en' | 'ja' | 'es' | 'pt' | 'ru'), static scoring data, localized dictionaries, and six approved comparison pairs
-// output: Five-language V2 quiz with versioned shared progress, mean scoring, neutral/tied readings, matching versioned cards, touch-accessible start actions, and private answer evidence
+// output: Five-language V2 quiz with versioned shared progress, mean scoring, neutral/tied readings, matching versioned cards, touch-accessible start actions, an explicit intro continue button, and private answer evidence
 // pos: src/components/Quiz.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import { ASSESSMENT_COPY } from '../data/assessmentContent';
@@ -181,6 +181,19 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       <div class="text-xl sm:text-3xl font-normal leading-relaxed text-white tracking-widest text-center max-w-2xl">
         <span id="intro-type" class="inline"></span>
       </div>
+    </div>
+    <!-- Explicit tap guidance: mobile users were stalling on the typing
+         intro because the only cue was a small grey line in the corner. -->
+    <div class="absolute bottom-16 sm:bottom-20 left-0 right-0 flex justify-center px-4">
+      <button
+        type="button"
+        id="btn-intro-continue"
+        class="inline-flex items-center gap-2 px-6 py-3 min-h-11 bg-black border-4 border-yellow-400 hover:bg-yellow-400 hover:text-black text-yellow-300 font-bold text-xs sm:text-sm uppercase tracking-widest cursor-pointer touch-manipulation active:scale-95 transition-all shadow-[4px_4px_0px_rgba(250,204,21,0.4)] animate-pulse focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+        aria-label={t.quizUI.introTapHint}
+      >
+        <span class="text-red-500" aria-hidden="true">❤</span>
+        <span>{t.quizUI.introTapHint}</span>
+      </button>
     </div>
     <div class="absolute bottom-1 right-1 sm:bottom-2 sm:right-2 flex items-center gap-3 sm:gap-4">
       <span class="text-[11px] sm:text-xs text-gray-500 tracking-wider font-sans">{t.quizUI.introContinueHint}</span>
@@ -1836,6 +1849,19 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
     document.getElementById("quiz-start-heart")?.addEventListener("click", triggerStartFromIntroOrCard);
 
     document.getElementById("quiz-intro")?.addEventListener("click", advanceIntro);
+    // Explicit "continue" affordance for touch users who cannot tell the whole
+    // intro area is tappable (FB-30). Jumps straight to the start screen.
+    document.getElementById("btn-intro-continue")?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (isTyping && typeInterval) {
+        clearInterval(typeInterval);
+        typeInterval = null;
+        isTyping = false;
+        const typeEl = document.getElementById("intro-type");
+        if (typeEl) typeEl.textContent = currentFullText;
+      }
+      showScreen("start");
+    });
     document.getElementById("btn-skip-intro")?.addEventListener("click", (e) => {
       e.stopPropagation();
       playSound("select");

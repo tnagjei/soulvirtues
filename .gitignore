@@ -24,7 +24,7 @@ public/screenshots/
 screenshots/
 public/8.24 GSC网页报错/
 scripts/capture_*.py
-scripts/verify_*.mjs
+scripts/verify_*
 .gstack/
 seo-input/gsc-api/
 seo-input/clarity-api/

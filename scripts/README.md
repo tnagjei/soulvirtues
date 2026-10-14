@@ -1,7 +1,7 @@
 # scripts
 - 用途：数据、算法、SEO 产物与外部提交验证脚本目录
 - 关键入口：scripts/verify_scoring.cjs, scripts/check_comparison_sample.mjs, scripts/submit_indexnow.mjs
-- 边界/依赖：Node.js 原生运行环境；已移除未使用的旧游戏音频下载脚本，避免把旧资源重新带入 public
+- 边界/依赖：Node.js 原生运行环境；已移除未使用的旧游戏音频下载脚本，避免把旧资源重新带入 public；scripts/verify_* 为一次性验证探针（已 gitignore），长期守护脚本统一用 check_* 前缀
 > 一旦本目录内容变化，请更新本文件
 
 ## Files
@@ -20,6 +20,9 @@
 - check_bgm_audio_control.mjs：验证背景音乐静音/取消静音与音量控制在各端的准确调用
 - check_start_test_navigation.mjs：验证顶部导航 Start Test 与所有测验锚点点击时平滑滚动并直接激活答题界面
 - check_quiz_question_loading.mjs：验证多语言测验题目文本即时完整加载、无隐藏防断行阻塞、且5语言66题完整无缺失
+- check_quiz_intro_guidance.mjs：验证 intro 打字机屏存在显式「继续」大按钮（44px 触控、焦点环、五语种 introTapHint 文案），点击后直达起始屏，且不破坏 Enter/Space 原生激活与原有 intro 点击推进
+- check_tdh_diff.py：逐字节对比两个 dist 树的 <title>/<meta name="description">/<h1>，用于 TDH 保护约定（0 号铁律）的未变证据；用法 `python3 scripts/check_tdh_diff.py <before_dist> <after_dist>`
+- update_sitemap_lastmod.py：按显式 URL 白名单更新手维护 sitemap 的 <lastmod>，打印每条 before/after 与最终日期分布，避免盲改；用法 `python3 scripts/update_sitemap_lastmod.py <url>...`
 - submit_indexnow.mjs：自动扫描站点全部路由并向 Bing/IndexNow 提交即时收录通知
 - fetch_clarity_data.mjs：读取环境变量或 macOS 钥匙串中的 Clarity API 密钥，拉取最近 1-3 天的整体、页面、页面×设备与页面×来源数据
 - audit_site_seo.mjs：验证 89 个可索引页面、独立 404、sitemap 路由一致性及综合 SEO 技术指标

@@ -246,6 +246,7 @@ export const ptTranslations: Translations = {
     soundEngineNote: "Áudio de pixels · Ajustes salvos",
     introScenes: ["ESTAMOS CONECTADOS?","UMA ALMA NO VAZIO...","VAMOS EXPLORAR SUAS RESPOSTAS."],
     introContinueHint: "pressione Z ou clique para continuar",
+    introTapHint: "TOQUE EM QUALQUER LUGAR PARA CONTINUAR",
     skipBtn: "PULAR",
     startTitle: "SOUL VIRTUES EXTRACTOR",
     startDesc: "Sete virtudes da alma humana. Sete cores. 66 afirmações projetadas para revelar sua ressonância em Determinação, Bravura, Justiça, Bondade, Paciência, Integridade e Perseverança.",

@@ -246,6 +246,7 @@ export const jaTranslations: Translations = {
     soundEngineNote: "ピクセル音 · 設定を保存",
     introScenes: ["つながっている？","ここに一つのタマシイがある…","あなたの回答を見てみよう。"],
     introContinueHint: "Zキーまたはクリックで進む",
+    introTapHint: "どこでもタップして進む",
     skipBtn: "スキップ",
     startTitle: "SOUL VIRTUES EXTRACTOR",
     startDesc: "7つの人間の魂の美徳。7つの色彩。ケツイ・ゆうき・せいぎ・やさしさ・にんたい・せいじつ・こんきの7つの共鳴度を解き明かす全66問の診断。",

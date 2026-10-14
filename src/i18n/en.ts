@@ -177,6 +177,7 @@ export const enTranslations: Translations = {
     soundEngineNote: "Pixel audio · Settings saved",
     introScenes: ["ARE WE CONNECTED?","A SOUL IN THE VOID...","LET US EXPLORE YOUR ANSWERS."],
     introContinueHint: "press Z or click to continue",
+    introTapHint: "TAP ANYWHERE TO CONTINUE",
     skipBtn: "SKIP",
     startTitle: "SOUL VIRTUES EXTRACTOR",
     startDesc: "Seven human soul virtues. Seven colors. 66 statements designed to reveal your multi-dimensional resonance across Determination, Bravery, Justice, Kindness, Patience, Integrity, and Perseverance.",

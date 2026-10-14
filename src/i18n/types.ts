@@ -143,6 +143,7 @@ export interface QuizUITranslations {
   soundEngineNote: string;
   introScenes: string[];
   introContinueHint: string;
+  introTapHint: string;
   skipBtn: string;
   startTitle: string;
   startDesc: string;
