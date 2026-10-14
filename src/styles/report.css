@@ -28,6 +28,7 @@ body {
   font:16px/1.65 var(--sans)
 }
 .profile-note p,.trait-facts p {white-space:pre-line;overflow-wrap:anywhere}
+body[data-ai-state="ready"] .focus-picker {display:none}
 button,input,textarea,select {
   font:inherit
 }
