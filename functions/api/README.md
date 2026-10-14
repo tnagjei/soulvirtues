@@ -15,3 +15,5 @@
 
 ## 密钥
 Cloudflare 密钥：DEEPSEEK_API_KEY、WAFFO_PRIVATE_KEY。公钥 WAFFO_WEBHOOK_PUBLIC_KEY 可入库（仅用于验签）。测试私钥曾进入 Git 历史，需在 Waffo 撤销并换新；仅删除当前源码不能消除泄露。新私钥保存到 Cloudflare，不放入 Git 或聊天。
+
+- process-ai.ts：仅受内部随机令牌认证的后台任务端点；测试处理限定指定演示订单，复用正式 DeepSeek 密钥。

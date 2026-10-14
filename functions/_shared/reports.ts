@@ -17,13 +17,19 @@ export interface ReportStatement {
   run(): Promise<{ meta: { changes: number } }>;
 }
 export interface ReportDatabase { prepare(sql: string): ReportStatement; }
-export interface PaymentEnv extends WaffoEnv { REPORTS_DB?: ReportDatabase; DEEPSEEK_API_KEY?: string; OPENAI_API_KEY?: string; }
+export interface ReportQueue { send(body: { reportId: string; lang: GuideLanguage; mode: 'test' | 'prod' }): Promise<void>; }
+export interface PaymentEnv extends WaffoEnv {
+  REPORTS_DB?: ReportDatabase; TEST_REPORTS_DB?: ReportDatabase;
+  DEEPSEEK_API_KEY?: string; OPENAI_API_KEY?: string;
+  REPORT_QUEUE?: ReportQueue; AI_JOB_TOKEN?: string; AI_PROCESS_URL?: string; AI_TEST_REPORT_ID?: string;
+}
 export interface ReportRow {
   id: string; access_hash: string; input_hash: string; status: string; bank_version: string;
   guide_en: string; guide_es: string; checkout_url: string | null; session_id: string | null; checkout_expires_at: string | null;
   checkout_lease_at: string | null; created_at: string; updated_at: string; paid_at: string | null; expires_at: string | null;
   order_id: string | null; buyer_email: string | null; last_checked_at: string | null;
   ai_en: string | null; ai_es: string | null; ai_lease_en: string | null; ai_lease_es: string | null;
+  ai_consent: number; purchase_lang: GuideLanguage;
 }
 export const REPORT_ID = /^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i;
 export const ACCESS_TOKEN = /^[a-f0-9]{64}$/;

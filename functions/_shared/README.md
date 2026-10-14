@@ -7,3 +7,5 @@
 ## Files
 - waffo.ts：有界 API 请求、RSA 签名及回调验签。
 - reports.ts：报告快照、D1 存储、访问凭证和订单核验。
+
+- ai.ts：基于已付款快照的真实 DeepSeek 调用、同意检查、任务缓存与有限重试。

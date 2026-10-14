@@ -22,3 +22,5 @@
 - compareHub.ts：/compare/ 汇总页的五语言页面级文案（TDH、导语、使用说明与 CTA）
 - indexnow.ts：IndexNow 搜索引擎自动索引公钥与 API 端点配置
 - paidReport.ts：已购报告的私有访问凭证存取与校验、结账重试保护，以及付款接口响应的边界解析；访问令牌仅存本地并用于向服务端换取订单真实状态
+
+- aiReport.ts：个人 AI 解读结构与实际题号验证；不接受旧模板作为 AI 完成。

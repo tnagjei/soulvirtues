@@ -11,15 +11,32 @@
       "database_name": "soulvirtues-reports",
       "database_id": "0afc3785-6cbe-4949-b09c-ef8524095e2f",
       "migrations_dir": "migrations"
+    },
+    {
+      "binding": "TEST_REPORTS_DB",
+      "database_name": "soulvirtues-reports-test",
+      "database_id": "4a4fd586-946f-4d4f-a4c1-f7d0c54f222d"
     }
   ],
   "vars": {
-    "WAFFO_WEBHOOK_PUBLIC_KEY": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAz+xApdTIb4ua+DgZKQ54iBsD82ybyhGCLRETONW4Jgbb3A8DUM1LqBk6r/CmTOCHqLalTQHNigvP3R5zkDNXiRJz6gA4MJ/+8K0+mnEE2RISQzN+Qu65TNd6svb+INm/kMaftY4uIXr6y6kchtTJdwnQhcKdAL2v7h7IFnkVelQsKxDdb2PqX8xX/qwd01iXvMcpCCaXovUwZsxH2QN5ZKBTseJivbhUeyJCco4fdUyxOMHe2ybCVhyvim2uxAl1nkvL5L8RCWMCAV55LLo09OhmLahz/DYNu13YLVP6dvIT09ZFBYU6Owj1NxdinTynlJCFS9VYwBgmftosSE1UdwIDAQAB"
+    "WAFFO_WEBHOOK_PUBLIC_KEY": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAz+xApdTIb4ua+DgZKQ54iBsD82ybyhGCLRETONW4Jgbb3A8DUM1LqBk6r/CmTOCHqLalTQHNigvP3R5zkDNXiRJz6gA4MJ/+8K0+mnEE2RISQzN+Qu65TNd6svb+INm/kMaftY4uIXr6y6kchtTJdwnQhcKdAL2v7h7IFnkVelQsKxDdb2PqX8xX/qwd01iXvMcpCCaXovUwZsxH2QN5ZKBTseJivbhUeyJCco4fdUyxOMHe2ybCVhyvim2uxAl1nkvL5L8RCWMCAV55LLo09OhmLahz/DYNu13YLVP6dvIT09ZFBYU6Owj1NxdinTynlJCFS9VYwBgmftosSE1UdwIDAQAB",
+    "AI_TEST_REPORT_ID": "453114fb-1106-45bd-ae4d-25149851f858"
   },
   "env": {
     "preview": {
       "d1_databases": [],
-      "vars": {}
+      "vars": {},
+      "queues": {
+        "producers": []
+      }
     }
+  },
+  "queues": {
+    "producers": [
+      {
+        "binding": "REPORT_QUEUE",
+        "queue": "soulvirtues-report-ai"
+      }
+    ]
   }
 }

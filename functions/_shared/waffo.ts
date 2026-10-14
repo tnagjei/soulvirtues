@@ -7,7 +7,8 @@ export const STORE_ID = 'STO_2U9mk624xX0VEC0DfgMtFw';
 export const PRODUCT_ID = 'PROD_7UkiV95uYBhM2uWnMqcEFc';
 export const PRICE_MINOR = 493;
 export const APP_ORIGIN = 'https://soulvirtues.org';
-export interface WaffoEnv { WAFFO_PRIVATE_KEY?: string; WAFFO_WEBHOOK_PUBLIC_KEY?: string; }
+export function testPayments(env: WaffoEnv): boolean { return env.WAFFO_MODE === 'test'; }
+export interface WaffoEnv { WAFFO_MODE?: string; WAFFO_PRIVATE_KEY?: string; WAFFO_WEBHOOK_PUBLIC_KEY?: string; }
 
 export class DeliveryError extends Error {
   constructor(public status: number, message: string) { super(message); }

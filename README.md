@@ -52,3 +52,9 @@
 - 回归：node scripts/check_field_guide.cjs。开发预览 /success/?preview=1（明确标注样例，生产构建不启用），西语加 &lang=es。
 - 跳转付款前保存原始回答对应的英文/西语手册快照；确认订单后交付七项解读、14条回答依据、情境演练、七日清单与笔记。私有链接跨设备读取原报告，在线有效期为付款后 30 天。笔记只存本浏览器；原生打印另存为带笔记的 PDF。AI 视角按已购报告验证并缓存，不阻塞主体。
 - Waffo 交易邮件与报告链接分开；用户须在付款后点击 Done 返回并保存 PDF/私有链接。丢失链接后由支持人员核实购买邮箱和订单号，通过 `scripts/recover_paid_report.py` 轮换凭证；不自动发送邮件。
+
+
+## 后台 AI 任务
+- workers/report-jobs/ 消费 Cloudflare 原生队列；内部令牌 AI_JOB_TOKEN 分别保存在 Pages 与 Worker Secrets。
+- process-ai 复用正式 Pages 的 DEEPSEEK_API_KEY；测试数据仅允许指定演示订单，不读取或复制正式密钥。
+- 使用0002迁移保存同意与任务状态；旧订单不自动处理原始答案。
