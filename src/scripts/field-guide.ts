@@ -252,6 +252,9 @@ language.addEventListener('change', () => {
   lang = language.value === 'es' ? 'es' : 'en';
   const url = new URL(location.href);url.searchParams.set('lang', lang);history.replaceState(null, '', url);init();
 });
+window.addEventListener('hashchange', () => {
+  if (new URLSearchParams(location.hash.slice(1)).has('access')) void init();
+});
 const openBeforePrint = new Map<HTMLDetailsElement, boolean>();
 window.addEventListener('beforeprint', () => { document.querySelectorAll<HTMLDetailsElement>('.trait-detail').forEach(detail => { if (!openBeforePrint.has(detail)) openBeforePrint.set(detail, detail.open);detail.open = true; }); });
 window.addEventListener('afterprint', () => { openBeforePrint.forEach((open, detail) => { detail.open = open; });openBeforePrint.clear(); });
