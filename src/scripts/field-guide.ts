@@ -259,11 +259,12 @@ pdf.addEventListener('click', () => { el('save-state').textContent = guide.copy.
 el('save-report-link').addEventListener('click', async () => {
   if (!access || preview) return;
   const link = privateReportLink(location.origin, access);
+  const input = el('private-report-link') as HTMLInputElement;
+  input.value = link; input.hidden = false;
   const warning = lang === 'es' ? 'Guarda este enlace en privado: quien lo tenga podrá leer tu informe. Las notas no se sincronizan entre dispositivos.' : 'Keep this link private: anyone with it can read your report. Notes do not sync between devices.';
   try { await navigator.clipboard.writeText(link); el('save-state').textContent = (lang === 'es' ? 'Enlace copiado. ' : 'Link copied. ') + warning; }
   catch {
-    const input = el('private-report-link') as HTMLInputElement;
-    input.value = link; input.hidden = false; input.focus(); input.select();
+    input.focus(); input.select();
     el('save-state').textContent = (lang === 'es' ? 'Copia manualmente el enlace mostrado. ' : 'Copy the displayed link manually. ') + warning;
   }
 });
