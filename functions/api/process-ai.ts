@@ -1,7 +1,7 @@
 // input: Internal authenticated queue work, never customer-supplied answers
 // output: Cached interpretation or an explicit retry response
 // pos: functions/api/process-ai.ts (更新规则：内部契约变化同步队列 Worker 与本目录 README)
-import { guideLanguage,REPORT_ID,type PaymentEnv } from '../_shared/reports';
+import { database,guideLanguage,REPORT_ID,type PaymentEnv } from '../_shared/reports';
 import { checkBalance,processAI } from '../_shared/ai';
 import { DeliveryError,digest,errorResponse,json,requestJson } from '../_shared/waffo';
 export async function onRequest(context:{request:Request;env:PaymentEnv}):Promise<Response>{
@@ -17,7 +17,9 @@ export async function onRequest(context:{request:Request;env:PaymentEnv}):Promis
       env={...env,REPORTS_DB:env.TEST_REPORTS_DB};
     }
     if(body.action==='ready'){await checkBalance(env);return json({ready:true});}
-    const finished=await processAI(env,body.reportId,guideLanguage(body.lang));
-    return json({finished},finished?200:503);
+    const lang=guideLanguage(body.lang);
+    const finished=await processAI(env,body.reportId,lang);
+    const job=finished?null:await database(env).prepare('SELECT next_attempt_at FROM report_ai_jobs WHERE report_id=? AND lang=?').bind(body.reportId,lang).first<{next_attempt_at:string|null}>();
+    return json({finished,nextAttemptAt:job?.next_attempt_at||null},finished?200:503);
   }catch(error){return errorResponse(error);}
 }

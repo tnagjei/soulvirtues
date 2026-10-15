@@ -22,6 +22,10 @@ export interface AIJobState {
   nextAttemptAt: string | null;
   error: string | null;
 }
+export function aiRefreshDelay(state: AIJobState, now=Date.now()): number {
+  const next=state.status==='retrying'?Date.parse(state.nextAttemptAt||''):NaN;
+  return Number.isFinite(next)&&next>now?next-now+1000:6000;
+}
 export function reportText(report: PersonalAIReport): string {
   const prose=[report.summary.title,report.summary.interpretation,report.summary.tension,report.summary.nextStep,...report.traits.flatMap(t=>[t.interpretation,t.reflection,t.experiment]),...report.scenarios.flatMap(s=>[s.title,s.context,s.action,s.observe]),...report.plan.flatMap(p=>[p.title,p.task,p.observe])];
   return prose.join(' ').trim();

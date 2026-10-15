@@ -4,6 +4,7 @@
 import { GUIDE_COPY, GUIDE_VERSION, type GuideLanguage } from '../data/fieldGuide';
 import { paidReport, privateReportLink, reportApi, resolveAccess, ReportApiError, type FieldGuide, type PaidReport, type ReportAccess } from '../data/paidReport';
 import { SOUL_CODES, type SoulCode } from '../data/souls';
+import { aiRefreshDelay } from '../data/aiReport';
 
 const el = (id: string) => document.getElementById(id)!;
 const escape = (s: unknown) => String(s).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[ch]!);
@@ -145,6 +146,7 @@ function updateAIStatus() {
   document.body.dataset.aiState=status;
   const source=paid.ai ? `DeepSeek · ${paid.ai.model} · ${new Date(paid.ai.generatedAt).toLocaleString(lang==='es'?'es-ES':'en-GB')}` : '';
   el('ai-status').textContent=paid.ai ? source+' · '+(lang==='es'?'Interpretación de tus 66 respuestas, integrada en las lecturas y el PDF. Compruébala con ejemplos propios.':'Interpretation of your 66 answers, included throughout the readings and PDF. Check it against your own examples.') : status==='awaiting-consent' ? (lang==='es'?'Guía original disponible; AI requiere tu consentimiento.':'Your original workbook is available; AI requires your consent.') : status==='failed' ? (lang==='es'?'No se pudo finalizar la interpretación. No vuelvas a pagar; contacta con soporte con tu pedido.':'The AI interpretation could not finish. Do not pay again; contact support with your order number.') : (lang==='es'?'Tu interpretación se está preparando automáticamente en segundo plano. Puedes cerrar esta página y volver mediante tu enlace privado.':'Your AI interpretation is preparing automatically in the background. You can close this page and return using your private link.')+(status==='retrying'?' '+(lang==='es'?'Se está reintentando.':'An automatic retry is scheduled.'):'');
+  if(status==='retrying' && paid.aiState.nextAttemptAt && Number.isFinite(Date.parse(paid.aiState.nextAttemptAt))) el('ai-status').textContent+=' '+(lang==='es'?'Próximo intento automático: ':'Next automatic attempt: ')+new Date(paid.aiState.nextAttemptAt).toLocaleString(lang==='es'?'es-ES':'en-GB')+'.';
   if(!paid.ai && status!=='awaiting-consent')el('delivery-status').textContent=(lang==='es'?'Pago confirmado':'Payment confirmed')+(paid.order.number?' · '+paid.order.number:'')+'. '+el('ai-status').textContent;
 }
 async function requestAI() {
@@ -223,9 +225,9 @@ async function init() {
   }
 }
 async function watchAI(version:number) {
-  const deadline=Date.now()+600000;
+  const deadline=Date.now()+6*60*60*1000;
   while(version===loadVersion && access && paid && Date.now()<deadline){
-    await new Promise(resolve=>setTimeout(resolve,6000));
+    await new Promise(resolve=>setTimeout(resolve,Math.min(aiRefreshDelay(paid.aiState),deadline-Date.now())));
     if(version!==loadVersion)return;
     try{
       const latest=await paidReport(access,lang);
@@ -254,6 +256,9 @@ language.addEventListener('change', () => {
 });
 window.addEventListener('hashchange', () => {
   if (new URLSearchParams(location.hash.slice(1)).has('access')) void init();
+});
+document.addEventListener('visibilitychange', () => {
+  if(document.visibilityState==='visible' && paid && !paid.ai && !['failed','awaiting-consent'].includes(paid.aiState.status)) void init();
 });
 const openBeforePrint = new Map<HTMLDetailsElement, boolean>();
 window.addEventListener('beforeprint', () => { document.querySelectorAll<HTMLDetailsElement>('.trait-detail').forEach(detail => { if (!openBeforePrint.has(detail)) openBeforePrint.set(detail, detail.open);detail.open = true; }); });

@@ -9,7 +9,11 @@ export default {
       if(!body || !/^[a-f0-9-]{36}$/.test(body.reportId) || !['en','es'].includes(body.lang) || !['test','prod'].includes(body.mode)){message.ack();continue;}
       try {
         const response=await fetch('https://soulvirtues-dz6.pages.dev/api/process-ai',{method:'POST',headers:{Authorization:'Bearer '+env.AI_JOB_TOKEN,'Content-Type':'application/json'},body:JSON.stringify(body),signal:AbortSignal.timeout(130000)});
-        if(response.ok)message.ack();else message.retry({delaySeconds:60});
+        if(response.ok)message.ack();else {
+          const data=await response.json().catch(()=>null) as {nextAttemptAt?:string}|null;
+          const next=Date.parse(data?.nextAttemptAt||'');
+          message.retry({delaySeconds:Number.isFinite(next)?Math.max(60,Math.min(43200,Math.ceil((next-Date.now())/1000))):60});
+        }
       }catch{message.retry({delaySeconds:60});}
     }
   },

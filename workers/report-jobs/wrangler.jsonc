@@ -4,8 +4,8 @@
   "compatibility_date":"2026-10-01",
   "workers_dev":false,
   "queues":{"consumers":[
-    {"queue":"soulvirtues-report-ai","max_batch_size":1,"max_batch_timeout":1,"max_retries":2,"retry_delay":60,"dead_letter_queue":"soulvirtues-report-ai-failed"},
-    {"queue":"soulvirtues-report-ai-test","max_batch_size":1,"max_batch_timeout":1,"max_retries":2,"retry_delay":60,"dead_letter_queue":"soulvirtues-report-ai-failed"},
+    {"queue":"soulvirtues-report-ai","max_batch_size":1,"max_batch_timeout":1,"max_retries":8,"retry_delay":60,"dead_letter_queue":"soulvirtues-report-ai-failed"},
+    {"queue":"soulvirtues-report-ai-test","max_batch_size":1,"max_batch_timeout":1,"max_retries":8,"retry_delay":60,"dead_letter_queue":"soulvirtues-report-ai-failed"},
     {"queue":"soulvirtues-report-ai-failed","max_batch_size":1,"max_batch_timeout":1,"max_retries":2,"retry_delay":60}
   ]}
 }

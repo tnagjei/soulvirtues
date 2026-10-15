@@ -7,8 +7,12 @@ import { DeliveryError, record, testPayments } from './waffo';
 import type { GuideLanguage } from '../../src/data/fieldGuide';
 
 const MODEL = 'deepseek-flash';
-const ATTEMPTS = 3;
+const ATTEMPTS = 6;
+const SERVICE_RETRY_SECONDS = [60,300,900,3600,14400];
 const LEASE_MS = 150000;
+class AIServiceError extends DeliveryError {
+  constructor(readonly retryable: boolean, message: string) { super(503,message); }
+}
 export const PROCESS_URL = 'https://soulvirtues-dz6.pages.dev/api/process-ai';
 export function cachedAI(row: ReportRow, lang: GuideLanguage) {
   return readPersonalAIReport(lang === 'es' ? row.ai_es : row.ai_en, snapshot(row,lang));
@@ -37,12 +41,15 @@ export async function enqueueAI(env: PaymentEnv, row: ReportRow, lang: GuideLang
   await db.prepare('UPDATE report_ai_jobs SET queued_at=?,updated_at=? WHERE report_id=? AND lang=?').bind(now,now,row.id,lang).run();
 }
 async function providerJSON(env: PaymentEnv, path: string, body?: unknown, timeout=8000) {
-  if (!env.DEEPSEEK_API_KEY) throw new DeliveryError(503,'The AI service is not configured.');
+  if (!env.DEEPSEEK_API_KEY) throw new AIServiceError(false,'The AI service is not configured.');
   const controller=new AbortController(), timer=setTimeout(()=>controller.abort(),timeout);
   try {
     const response=await fetch('https://api.deepseek.com'+path,{method:body===undefined?'GET':'POST',headers:{Authorization:'Bearer '+env.DEEPSEEK_API_KEY,'Content-Type':'application/json'},body:body===undefined?undefined:JSON.stringify(body),signal:controller.signal});
-    if (!response.ok) throw new DeliveryError(response.status===402?503:502,response.status===402?'AI balance is insufficient. Please contact support.':'The AI service could not complete this report.');
+    if (!response.ok) throw new AIServiceError([408,429].includes(response.status)||response.status>=500,response.status===402?'AI balance is insufficient. Please contact support.':`The AI service could not complete this report (HTTP ${response.status}).`);
     return record(await response.json());
+  } catch(error) {
+    if(error instanceof DeliveryError) throw error;
+    throw new AIServiceError(true,controller.signal.aborted?'The AI request timed out.':'The AI service response was interrupted.');
   } finally {clearTimeout(timer);}
 }
 export async function checkBalance(env: PaymentEnv) {
@@ -93,14 +100,15 @@ export async function processAI(env: PaymentEnv, id: string, lang: GuideLanguage
   if(cachedAI(row,lang)) return true;
   const db=database(env), now=new Date().toISOString(), stale=new Date(Date.now()-LEASE_MS).toISOString();
   await db.prepare('INSERT OR IGNORE INTO report_ai_jobs(report_id,lang,updated_at) VALUES(?,?,?)').bind(id,lang,now).run();
-  const job=await db.prepare('SELECT attempts,status,lease_at FROM report_ai_jobs WHERE report_id=? AND lang=?').bind(id,lang).first<{attempts:number;status:string;lease_at:string|null}>();
+  const job=await db.prepare('SELECT attempts,status,lease_at,next_attempt_at FROM report_ai_jobs WHERE report_id=? AND lang=?').bind(id,lang).first<{attempts:number;status:string;lease_at:string|null;next_attempt_at:string|null}>();
   if(job?.status==='failed') return true;
+  if(job?.next_attempt_at && Date.parse(job.next_attempt_at)>Date.now()) return false;
   if(job?.lease_at && job.lease_at>=stale) return false;
   if(job && job.attempts>=ATTEMPTS) {
     const ended=await db.prepare("UPDATE report_ai_jobs SET status='failed',error='AI generation could not finish. Contact support with your order number; do not pay again.',lease_at=NULL,updated_at=? WHERE report_id=? AND lang=? AND status!='ready' AND (lease_at IS NULL OR lease_at<?)").bind(now,id,lang,stale).run();
     return Boolean(ended.meta.changes) || Boolean(cachedAI((await rowById(env,id))!,lang));
   }
-  const locked=await db.prepare("UPDATE report_ai_jobs SET status='generating',attempts=attempts+1,lease_at=?,error=NULL,next_attempt_at=NULL,updated_at=? WHERE report_id=? AND lang=? AND attempts<? AND status IN ('queued','retrying','generating') AND (lease_at IS NULL OR lease_at<?)").bind(now,now,id,lang,ATTEMPTS,stale).run();
+  const locked=await db.prepare("UPDATE report_ai_jobs SET status='generating',attempts=attempts+1,lease_at=?,error=NULL,next_attempt_at=NULL,updated_at=? WHERE report_id=? AND lang=? AND attempts<? AND status IN ('queued','retrying','generating') AND (lease_at IS NULL OR lease_at<?) AND (next_attempt_at IS NULL OR next_attempt_at<=?)").bind(now,now,id,lang,ATTEMPTS,stale,now).run();
   if(!locked.meta.changes) return Boolean(cachedAI((await rowById(env,id))!,lang));
   try {
     const report=await generateAI(env,row,lang);
@@ -113,9 +121,13 @@ export async function processAI(env: PaymentEnv, id: string, lang: GuideLanguage
     return true;
   } catch(error) {
     const last=await db.prepare('SELECT attempts FROM report_ai_jobs WHERE report_id=? AND lang=?').bind(id,lang).first<{attempts:number}>();
-    const final=(last?.attempts||0)>=ATTEMPTS || error instanceof DeliveryError && [402,403,410].includes(error.status);
+    const attempts=last?.attempts||1;
+    const limit=error instanceof AIServiceError?(error.retryable?ATTEMPTS:1):3;
+    const final=attempts>=limit || error instanceof DeliveryError && [402,403,410].includes(error.status);
+    const delay=error instanceof AIServiceError?SERVICE_RETRY_SECONDS[attempts-1]:60;
+    const detail=(error instanceof DeliveryError?error.message:'AI generation was interrupted.').replace(/ and will be retried\.$/,'.');
     await db.prepare('UPDATE report_ai_jobs SET status=?,lease_at=NULL,error=?,next_attempt_at=?,updated_at=? WHERE report_id=? AND lang=? AND lease_at=?')
-      .bind(final?'failed':'retrying',error instanceof DeliveryError?error.message:'AI generation was interrupted and will be retried.',final?null:new Date(Date.now()+60000).toISOString(),new Date().toISOString(),id,lang,now).run();
+      .bind(final?'failed':'retrying',final?detail+' Contact support with your order number; do not pay again.':detail,final?null:new Date(Date.now()+delay*1000).toISOString(),new Date().toISOString(),id,lang,now).run();
     return final;
   }
 }
