@@ -34,6 +34,11 @@ const request=(auth='fixture-internal',extra={})=>new Request('https://soulvirtu
     const body=JSON.parse(init.body), payload=JSON.parse(body.messages[1].content), items=payload.traits.flatMap(t=>t.answers);
     assert.equal(items.length,66);assert.equal(new Set(items.map(i=>i.id)).size,66);
     assert.deepEqual(items.map(i=>i.id).sort(),questions.QUESTIONS.map(q=>q.id).sort());
+    for(const item of items) {
+      const saved=guide.traits.flatMap(t=>t.items).find(i=>i.id===item.id);
+      assert.equal(item.evidenceDirection,saved.keyed===3?'neutral: no directional evidence':saved.keyed>3?'supports this trait':'does not support this trait');
+      assert(!('reverse' in item)&&!('keyed' in item),'The model interprets trusted direction instead of inventing scoring mechanics');
+    }
     assert(!init.body.includes('access_hash')&&!init.body.includes('buyer_email')&&!init.body.includes('order_id'));
     assert.equal(body.thinking.type,'disabled');assert.equal(body.model,'deepseek-flash');
     return Response.json({model:'deepseek-flash',choices:[{finish_reason:'stop',message:{content:JSON.stringify(fixture)}}]});
@@ -46,6 +51,18 @@ const request=(auth='fixture-internal',extra={})=>new Request('https://soulvirtu
   assert.equal(await ai.processAI(env,id,'en'),true);assert.equal(calls,1,'Concurrent completion cannot cause another provider request');
   const incorrectCount=JSON.parse(completed);incorrectCount.summary.interpretation='This guide integrates your responses to 56 statements.';assert(!schema.isPersonalAIReport(incorrectCount,guide));
   const invalid=JSON.parse(row().ai_en);invalid.traits[0].evidenceIds[0]='V2-BRV-01';assert(!schema.isPersonalAIReport(invalid,guide));
+  // 新生成的报告不能编造计分标签或人群比较；已有缓存仍能读取。
+  for(const claim of ['This reverse-keyed item suggests a flexible style.', 'You are more flexible than the average person.', 'You are more flexible than most people.', 'Tu perfil es más flexible que otras personas.', 'That combination is unusual but coherent.', 'Tu perfil es más flexible que la mayoría de las personas.']) {
+    const bad=structuredClone(fixture);bad.traits[0].interpretation+=' '+claim;
+    global.fetch=async()=>Response.json({choices:[{finish_reason:'stop',message:{content:JSON.stringify(bad)}}]});
+    await assert.rejects(ai.generateAI(env,row(),'en'),/unsupported scoring or population claim/);
+    assert(schema.readPersonalAIReport(JSON.stringify({...bad,schemaVersion:1,source:'ai',language:'en',model:'deepseek-flash',generatedAt:now}),guide),'New generation rules must not revoke existing paid reports');
+  }
+  for(const nextStep of ['Practise listening to other people on an unusual day.', 'Elige una situación inusual de esta semana y anota tu respuesta.', 'Este informe no permite estimar la rareza de tu perfil.']) {
+    const ordinary=structuredClone(fixture);ordinary.summary.nextStep=nextStep;
+    global.fetch=async()=>Response.json({choices:[{finish_reason:'stop',message:{content:JSON.stringify(ordinary)}}]});
+    assert.equal((await ai.generateAI(env,row(),'en')).summary.nextStep,nextStep,'Ordinary situations and accurate limitations must not consume generation retries');
+  }
   sql.prepare('UPDATE paid_reports SET ai_en=NULL WHERE id=?').run(id);sql.exec('DELETE FROM report_ai_jobs');
   global.fetch=async()=>Response.json({is_available:false,balance_infos:[]});await assert.rejects(ai.checkBalance(env));
   global.fetch=async()=>new Response('',{status:500});

@@ -22,9 +22,12 @@ export interface AIJobState {
   nextAttemptAt: string | null;
   error: string | null;
 }
-export function reportWordCount(report: PersonalAIReport): number {
+export function reportText(report: PersonalAIReport): string {
   const prose=[report.summary.title,report.summary.interpretation,report.summary.tension,report.summary.nextStep,...report.traits.flatMap(t=>[t.interpretation,t.reflection,t.experiment]),...report.scenarios.flatMap(s=>[s.title,s.context,s.action,s.observe]),...report.plan.flatMap(p=>[p.title,p.task,p.observe])];
-  return prose.join(' ').trim().split(/\s+/).length;
+  return prose.join(' ').trim();
+}
+export function reportWordCount(report: PersonalAIReport): number {
+  return reportText(report).split(/\s+/).length;
 }
 const object = (value: unknown): Record<string, unknown> => value && typeof value === 'object' && !Array.isArray(value) ? value as Record<string, unknown> : {};
 const text = (value: unknown, max = 2500): value is string => typeof value === 'string' && value.trim().length >= 3 && value.length <= max;

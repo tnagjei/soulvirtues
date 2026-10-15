@@ -27,4 +27,4 @@
 - seo_day30_review.mjs：上线第 30 天运行 quick-wins 与 second-page，生成 Title、Meta、H2 人工复核建议；额度耗尽时保留 7 天重试
 - seo_weekly_watch.mjs：上线第 60 天后每周运行 technical-watch 与 decaying-pages，生成周报
 
-- check_report_delivery.cjs：自动AI的66题输入、同意、余额、权限、缓存、有限重试及生成中退款回归；不发真实API调用。
+- check_report_delivery.cjs：自动AI的66题输入、同意、余额、权限、旧缓存兼容、新正文错误计分/人群比较拒收、有限重试及生成中退款回归；不发真实API调用。
