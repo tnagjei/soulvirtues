@@ -1,6 +1,6 @@
 ---
 // input: lang ('en' | 'ja' | 'es' | 'pt' | 'ru'), static scoring data, localized dictionaries, and six approved comparison pairs
-// output: Five-language V2 quiz with versioned shared progress, mean scoring, neutral/tied readings, matching versioned cards, touch-accessible start actions, an explicit intro continue button, and private answer evidence
+// output: Five-language V2 quiz with versioned shared progress, mean scoring, neutral/tied readings, matching versioned cards, touch-accessible start actions, an explicit intro continue button, a result badge that jumps to the profile summary, and private answer evidence
 // pos: src/components/Quiz.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import { ASSESSMENT_COPY } from '../data/assessmentContent';
@@ -366,9 +366,19 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
         </svg>
       </div>
 
-      <div class="inline-block px-3 py-1 text-xs font-mono font-bold tracking-widest uppercase mb-2 border-2" id="result-badge" style="color: #ff0000; border-color: #ff0000;">
+      <!-- Result badge doubles as the jump control to the profile summary
+           below the fold (FB-31: it read like a tappable pill but was a
+           plain <div>, so taps did nothing on mobile). -->
+      <button
+        type="button"
+        id="result-badge"
+        class="inline-block px-3 py-1 text-xs font-mono font-bold tracking-widest uppercase mb-2 border-2 bg-transparent cursor-pointer touch-manipulation transition-[color,border-color,transform] active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+        style="color: #ff0000; border-color: #ff0000;"
+        aria-label={t.quizUI.resultReading.summaryJumpLabel}
+        aria-controls="result-summary"
+      >
         {t.quizUI.primaryVirtue}
-      </div>
+      </button>
 
       <h3 id="result-trait-name" class="text-2xl sm:text-4xl font-black tracking-wide text-white mb-2 uppercase break-words">
         DETERMINATION
@@ -490,7 +500,9 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       </div>
     </div>
 
-    <section class="mb-8 border-2 border-gray-700 bg-black p-4 sm:p-6 text-xs sm:text-sm leading-relaxed font-sans" aria-live="polite">
+    <!-- Profile summary: score scale, answer evidence and the seven-trait
+         breakdown. Anchor target of #result-badge (FB-31). -->
+    <section id="result-summary" class="mb-8 border-2 border-gray-700 bg-black p-4 sm:p-6 text-xs sm:text-sm leading-relaxed font-sans scroll-mt-24" aria-live="polite">
       <p id="result-score-note" class="text-gray-300">{t.quizUI.resultReading.scoreScaleNote}</p>
       <div id="result-evidence" class="mt-5 hidden">
         <h4 class="font-mono font-bold text-cyan-300 mb-3">{t.quizUI.resultReading.evidenceTitle}</h4>
@@ -1866,6 +1878,25 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       e.stopPropagation();
       playSound("select");
       showScreen("start");
+    });
+
+    // Result badge jumps to the profile summary that sits below the fold
+    // (FB-31: the badge read like a control but was a plain <div>, so taps
+    // on mobile did nothing). Native <button> keeps Enter/Space activation;
+    // no preventDefault() here on purpose.
+    document.getElementById("result-badge")?.addEventListener("click", () => {
+      const summary = document.getElementById("result-summary");
+      if (!summary) return;
+      summary.scrollIntoView({ behavior: "smooth", block: "start" });
+      // Web Animations instead of toggling a Tailwind class so the highlight
+      // works even though the class name never appears in the source.
+      if (typeof summary.animate === "function") {
+        summary.animate([
+          { boxShadow: "0 0 0 0 rgba(250, 204, 21, 0)" },
+          { boxShadow: "0 0 0 4px rgba(250, 204, 21, 0.65)" },
+          { boxShadow: "0 0 0 0 rgba(250, 204, 21, 0)" },
+        ], { duration: 1200, easing: "ease-out" });
+      }
     });
 
     document.getElementById("btn-review-answers")?.addEventListener("click", () => {

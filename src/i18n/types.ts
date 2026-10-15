@@ -120,6 +120,7 @@ export interface QuizUITranslations {
   resultReading: {
     cardScaleNote: string;
     summaryBadge: string;
+    summaryJumpLabel: string;
     noPreferenceTitle: string;
     noPreferenceBody: string;
     incompleteTitle: string;

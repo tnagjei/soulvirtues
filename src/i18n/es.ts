@@ -223,6 +223,7 @@ export const esTranslations: Translations = {
     resultReading: {
       "cardScaleNote": "50% = NEUTRAL · PUNTUACIONES INDEPENDIENTES",
       "summaryBadge": "RESUMEN DEL PERFIL",
+      "summaryJumpLabel": "Ir a tu resumen de perfil completo",
       "noPreferenceTitle": "SIN PREFERENCIA CLARA",
       "noPreferenceBody": "Estas respuestas no muestran ningún rasgo por encima del punto medio neutral. Revisa tus respuestas en vez de interpretar la primera barra como una personalidad dominante.",
       "incompleteTitle": "COMPLETA EL TEST",

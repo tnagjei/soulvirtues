@@ -223,6 +223,7 @@ export const ruTranslations: Translations = {
     resultReading: {
       "cardScaleNote": "50% — НЕЙТРАЛЬНО · НЕЗАВИСИМЫЕ БАЛЛЫ",
       "summaryBadge": "ОБЗОР ПРОФИЛЯ",
+      "summaryJumpLabel": "Перейти к полному обзору профиля",
       "noPreferenceTitle": "НЕТ ЯВНОГО ПРЕДПОЧТЕНИЯ",
       "noPreferenceBody": "В этих ответах ни одна черта не превышает нейтральную середину. Пересмотрите ответы, а не считайте первую шкалу ведущей чертой личности.",
       "incompleteTitle": "ЗАВЕРШИТЕ ТЕСТ",

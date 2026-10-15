@@ -21,6 +21,7 @@
 - check_start_test_navigation.mjs：验证顶部导航 Start Test 与所有测验锚点点击时平滑滚动并直接激活答题界面
 - check_quiz_question_loading.mjs：验证多语言测验题目文本即时完整加载、无隐藏防断行阻塞、且5语言66题完整无缺失
 - check_quiz_intro_guidance.mjs：验证 intro 打字机屏存在显式「继续」大按钮（44px 触控、焦点环、五语种 introTapHint 文案），点击后直达起始屏，且不破坏 Enter/Space 原生激活与原有 intro 点击推进
+- check_result_summary_jump.mjs：验证结果徽章 #result-badge 是原生 <button>（而非死链 <div>）、具备 cursor-pointer/touch-manipulation/焦点环/aria-label/aria-controls，点击平滑滚动到 #result-summary 锚点且不调用 preventDefault，五语种 summaryJumpLabel 齐全
 - check_tdh_diff.py：逐字节对比两个 dist 树的 <title>/<meta name="description">/<h1>，用于 TDH 保护约定（0 号铁律）的未变证据；用法 `python3 scripts/check_tdh_diff.py <before_dist> <after_dist>`
 - update_sitemap_lastmod.py：按显式 URL 白名单更新手维护 sitemap 的 <lastmod>，打印每条 before/after 与最终日期分布，避免盲改；用法 `python3 scripts/update_sitemap_lastmod.py <url>...`
 - submit_indexnow.mjs：自动扫描站点全部路由并向 Bing/IndexNow 提交即时收录通知

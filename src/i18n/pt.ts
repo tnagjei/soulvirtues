@@ -223,6 +223,7 @@ export const ptTranslations: Translations = {
     resultReading: {
       "cardScaleNote": "50% = NEUTRO · PONTUAÇÕES INDEPENDENTES",
       "summaryBadge": "RESUMO DO PERFIL",
+      "summaryJumpLabel": "Ir para o seu resumo de perfil completo",
       "noPreferenceTitle": "SEM PREFERÊNCIA CLARA",
       "noPreferenceBody": "Estas respostas não mostram nenhum traço acima do ponto médio neutro. Reveja suas respostas em vez de tratar a primeira barra como uma personalidade dominante.",
       "incompleteTitle": "CONCLUA O TESTE",

@@ -223,6 +223,7 @@ export const jaTranslations: Translations = {
     resultReading: {
       "cardScaleNote": "50%は中立・各スコアは独立",
       "summaryBadge": "プロフィールのまとめ",
+      "summaryJumpLabel": "プロフィール全体のまとめへ移動",
       "noPreferenceTitle": "明確な傾向はありません",
       "noPreferenceBody": "今回の回答では、中立の基準を超える特質がありません。最初の項目を主な性格と決めつけず、回答を見直してください。",
       "incompleteTitle": "すべての質問に回答してください",

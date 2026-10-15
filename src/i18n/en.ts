@@ -154,6 +154,7 @@ export const enTranslations: Translations = {
     resultReading: {
       "cardScaleNote": "50% = NEUTRAL · INDEPENDENT QUIZ SCORES",
       "summaryBadge": "PROFILE SUMMARY",
+      "summaryJumpLabel": "Jump to your full profile summary",
       "noPreferenceTitle": "NO CLEAR PREFERENCE",
       "noPreferenceBody": "These answers show no trait above the neutral midpoint. Review your answers rather than treating the first bar as a dominant personality.",
       "incompleteTitle": "FINISH THE TEST",
