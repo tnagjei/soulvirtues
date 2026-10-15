@@ -1174,4 +1174,5 @@ astro-dev-toolbar {
   body[data-ai-state="ready"] .trait-detail summary { break-inside:avoid; break-after:avoid; }
   body[data-ai-state="ready"] .reflection-prompt p { line-height:1.4; }
   body[data-ai-state="ready"] .ai-panel { break-before:auto; margin-top:14pt; }
+  body[data-ai-state="ready"] .plan-row { padding:5pt 0; }
 }
