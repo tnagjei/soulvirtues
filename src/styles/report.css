@@ -1173,6 +1173,10 @@ astro-dev-toolbar {
   body[data-ai-state="ready"] .trait-detail { margin-top:18pt; }
   body[data-ai-state="ready"] .trait-detail summary { break-inside:avoid; break-after:avoid; }
   body[data-ai-state="ready"] .reflection-prompt p { line-height:1.4; }
+  /* Keep each reflection question with its writing area instead of an empty tail page. */
+  body[data-ai-state="ready"] .reflection-prompt > div { break-inside:avoid; }
+  /* Blank writing space remains in the dedicated notes chapter; typed trait notes still print. */
+  body[data-ai-state="ready"] .trait-detail .print-note:empty { display:none; }
   body[data-ai-state="ready"] .ai-panel { break-before:auto; margin-top:14pt; }
   body[data-ai-state="ready"] .plan-row { padding:5pt 0; }
 }

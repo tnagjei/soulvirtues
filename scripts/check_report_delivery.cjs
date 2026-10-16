@@ -58,6 +58,13 @@ const request=(auth='fixture-internal',extra={})=>new Request('https://soulvirtu
     await assert.rejects(ai.generateAI(env,row(),'en'),/unsupported scoring or population claim/);
     assert(schema.readPersonalAIReport(JSON.stringify({...bad,schemaVersion:1,source:'ai',language:'en',model:'deepseek-flash',generatedAt:now}),guide),'New generation rules must not revoke existing paid reports');
   }
+  for(const [number,reject] of [['tres',true],['cinco',false]]) {
+    const counted=structuredClone(fixture);
+    counted.summary.interpretation+=` En ${number} de ellos –${guide.traits.slice(0,5).map(t=>t.name).join(', ')}– tus respuestas fueron Neutral.`;
+    global.fetch=async()=>Response.json({choices:[{finish_reason:'stop',message:{content:JSON.stringify(counted)}}]});
+    if(reject) await assert.rejects(ai.generateAI(env,row(),'en'),/inconsistent trait count/);
+    else assert(await ai.generateAI(env,row(),'en'));
+  }
   for(const nextStep of ['Practise listening to other people on an unusual day.', 'Elige una situación inusual de esta semana y anota tu respuesta.', 'Este informe no permite estimar la rareza de tu perfil.']) {
     const ordinary=structuredClone(fixture);ordinary.summary.nextStep=nextStep;
     global.fetch=async()=>Response.json({choices:[{finish_reason:'stop',message:{content:JSON.stringify(ordinary)}}]});

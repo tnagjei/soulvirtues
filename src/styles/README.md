@@ -9,3 +9,7 @@
 - global.css：Tailwind 导入、七灵魂色与像素字体主题变量（--font-mono 已覆盖为像素字体）、.pixel-box/.pixel-card/.pixel-card-sub 像素边框体系、打字机与像素滑杆样式、.bg-fx 纯 CSS 动效背景（已替代旧背景视频）
 - fonts.css：3 款内嵌 base64 像素字体（Determination Mono / Determination Sans / Skeleton Sans），由 global.css 引入
 - report.css：已完成AI手册的打印正文使用纸张全宽，七日练习压缩垂直留白以减少孤立尾页；网页仍沿用原阅读布局。
+
+- 报告打印时反思问题与其笔记区域一起分页，避免笔记提示单独占页。
+
+- 付费PDF不打印特质页的空笔记占位，已填写笔记照常打印；末尾专用笔记页保留。
