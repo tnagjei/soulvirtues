@@ -898,6 +898,8 @@ a,button,textarea {
     padding:0;
     border:0
   }
+  /* The cover starts the document; forcing a new page can leave a footer-only first page. */
+  .cover.print-page { break-before:auto; }
   .chapter {
     margin:0;
     padding:0;
