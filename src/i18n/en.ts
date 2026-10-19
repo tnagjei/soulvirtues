@@ -49,6 +49,7 @@ export const enTranslations: Translations = {
     p2: "50 marks the neutral midpoint of this answer scale. A higher score means your answers fit more of this site’s statements for that theme. It is not a population percentile or a moral grade. All-neutral answers have no leading theme. Ties are shown as ties; scores within 3 points are shown together as a reading aid, not a statistical finding.",
     p3: "The current bank adapts 56 public-domain IPIP statements and adds 10 independently written Determination statements. We selected material from the larger item pool, not a fixed IPIP 56-question test. Our seven groupings and wording are our own design.",
     p4: "The complete seven-score result, answer review and PNG card are free, with no account, payment or invitation required.",
+    quizNote: "Most visitors reach this page after searching for an <strong class=\"text-white\">Undertale soul quiz</strong> and expecting a single answer: one color, one trait. That question is answered here, but with seven independent scores instead of a forced single type, so a 72% Kindness result can sit next to a 61% Patience result without either one having to win. If you only want the headline, the result screen names your leading SOUL color first and keeps the full breakdown below it.",
   },
   why: {
     title: "Why Take the Soul Virtues Extractor?",

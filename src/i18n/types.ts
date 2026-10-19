@@ -39,6 +39,8 @@ export interface SectionWhat {
   p2: string;
   p3: string;
   p4: string;
+  // 可选正文段落（承接 "Undertale soul quiz" 类通用意图词），仅英文提供
+  quizNote?: string;
 }
 
 export interface SectionWhy {

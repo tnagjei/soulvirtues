@@ -109,6 +109,10 @@ const structuredData = {
           <p set:html={t.what.p4}></p>
         </div>
       </div>
+
+      {t.what.quizNote && (
+        <p class="mt-8 text-sm sm:text-base text-gray-300 leading-relaxed border-l-2 border-gray-700 pl-4" set:html={t.what.quizNote}></p>
+      )}
     </div>
   </section>
 

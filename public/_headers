@@ -1,0 +1,6 @@
+# input: Cloudflare Pages static header rules
+# output: Response headers for every route served by the soulvirtues Pages project
+# pos: public/_headers (更新规则：改动后需重新构建并 curl 验证线上响应头)
+
+/*
+  Strict-Transport-Security: max-age=31536000

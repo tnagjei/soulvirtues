@@ -276,6 +276,14 @@ export const ASSESSMENT_COPY = {
       {
         "q": "Can I use this as a Deltarune Soul test?",
         "a": "Deltarune fans can use it for self-reflection, but the quiz uses this site's Undertale-inspired seven-theme framework. It is not a separate Deltarune assessment and does not establish an official Deltarune SOUL type or battle mode."
+      },
+      {
+        "q": "Is this the same thing as an Undertale soul quiz?",
+        "a": "It is an Undertale soul quiz with a longer name. A typical Undertale soul quiz asks a handful of questions and returns one of seven SOUL colors. This one asks 66 statements and returns seven separate scores, then names your leading color from those scores. If you only want the single color, read the first result block; the remaining six scores are there for context, not as a requirement."
+      },
+      {
+        "q": "How long is the Undertale soul quiz here?",
+        "a": "66 statements, one tap each, five response options per statement. The result appears as soon as the last statement is answered, with no sign-up, email or payment step in between. Progress is saved in this browser, so closing the tab does not force a restart."
       }
     ],
     "whyPoints": [
