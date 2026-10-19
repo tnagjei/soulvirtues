@@ -47,7 +47,12 @@ export async function rowById(env: PaymentEnv, id: string): Promise<ReportRow | 
 export async function ownedReport(request: Request, env: PaymentEnv, id: unknown): Promise<ReportRow> {
   const token = /^Bearer ([a-f0-9]{64})$/.exec(request.headers.get('Authorization') || '')?.[1];
   if (!token || typeof id !== 'string' || !REPORT_ID.test(id)) throw new DeliveryError(401, 'Open your private report link or the browser where you purchased.');
-  const row = await database(env).prepare('SELECT * FROM paid_reports WHERE id = ? AND access_hash = ?').bind(id, await digest(token)).first<ReportRow>();
+  const hash=await digest(token);
+  const row = await database(env).prepare(`SELECT * FROM paid_reports WHERE id=? AND
+    (access_hash=? OR EXISTS(SELECT 1 FROM report_emails e WHERE e.report_id=paid_reports.id
+      AND e.access_hash=? AND e.original_access_hash=paid_reports.access_hash
+      AND e.purchase_email=paid_reports.buyer_email AND e.status IN ('sending','sent','uncertain')))`)
+    .bind(id,hash,hash).first<ReportRow>();
   if (!row) throw new DeliveryError(404, 'This private report link is not available. Contact support with your Waffo order number.');
   return row;
 }
@@ -126,7 +131,8 @@ export async function refreshPayment(env: PaymentEnv, row: ReportRow, force = fa
   // Once access is revoked, a delayed success query or replay must not enable it again.
   await database(env).prepare(`UPDATE paid_reports SET
     status = CASE WHEN ? = 'pending' AND status IN ('paid','creating') THEN status ELSE ? END,
-    order_id = COALESCE(?,order_id), buyer_email = COALESCE(?,buyer_email),
+    order_id = CASE WHEN paid_at IS NOT NULL THEN order_id ELSE COALESCE(?,order_id) END,
+    buyer_email = CASE WHEN paid_at IS NOT NULL THEN buyer_email ELSE COALESCE(?,buyer_email) END,
     paid_at = COALESCE(paid_at,?), expires_at = COALESCE(expires_at,?), last_checked_at = ?, updated_at = ?
     WHERE id = ? AND status NOT IN ('refunded','cancelled')`)
     .bind(facts.status, facts.status, facts.orderId, facts.email, paidAt, expiresAt, now, now, row.id).run();

@@ -7,3 +7,5 @@
 ## Files
 - 0001_paid_reports.sql：私有报告、付款状态及回调去重表。
 - 0002_ai_delivery.sql：答案AI处理同意、购买语言和持久任务状态；旧订单默认不发送。
+
+- 0003_delivery_maintenance.sql：新增对账时间、执行租约和去重邮件发件记录；保留原订单与浏览器访问凭证。

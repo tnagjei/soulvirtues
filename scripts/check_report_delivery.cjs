@@ -6,7 +6,7 @@ const {DatabaseSync}=require('node:sqlite'), {webcrypto}=require('node:crypto'),
 global.crypto=webcrypto;
 function load(file){const m={exports:{}};new Function('require','module','exports',buildSync({entryPoints:[file],bundle:true,write:false,platform:'node',format:'cjs'}).outputFiles[0].text)(require,m,m.exports);return m.exports;}
 const worker=load('workers/report-jobs/index.ts').default, ai=load('functions/_shared/ai.ts'), schema=load('src/data/aiReport.ts'), guides=load('src/data/fieldGuide.ts'), scores=load('src/data/scoring.ts'), inputs=load('src/data/reportDelivery.ts'), questions=load('src/data/questions.ts'), processor=load('functions/api/process-ai.ts');
-const sql=new DatabaseSync(':memory:');for(const f of ['0001_paid_reports.sql','0002_ai_delivery.sql'])sql.exec(fs.readFileSync('migrations/'+f,'utf8'));
+const sql=new DatabaseSync(':memory:');for(const f of ['0001_paid_reports.sql','0002_ai_delivery.sql','0003_delivery_maintenance.sql'])sql.exec(fs.readFileSync('migrations/'+f,'utf8'));
 let beforeClaim=null;
 const db={prepare(q){const statement=sql.prepare(q);let v=[];return {bind(...a){v=a;return this;},async first(){return statement.get(...v)||null;},async run(){if(beforeClaim && q.startsWith("UPDATE report_ai_jobs SET status='generating'")){const hook=beforeClaim;beforeClaim=null;hook();}return {meta:{changes:Number(statement.run(...v).changes)}};}};}};
 const id='453114fb-1106-45bd-ae4d-25149851f858', answers=guides.sampleGuideInput();

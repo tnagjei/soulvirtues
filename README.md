@@ -61,3 +61,11 @@
 - 使用0002迁移保存同意与任务状态；旧订单不自动处理原始答案。
 
 新购买在启动付款前检查后台配置和 DeepSeek 余额，缺配置或余额不足时不创建新付款。模型任务有限重试，明确显示失败，不使用模板冒充 AI。确认付款后自动生成；网页和 PDF 复用同一份正文。
+
+
+## 自动对账与报告就绪邮件
+- 上线顺序：先给正式/测试D1执行0003迁移，再部署Pages两个项目，最后部署report-jobs。迁移只增加字段/表；回退代码无需删除表。
+- report-jobs每5分钟检查新订单，旧待付款/已付款订单每小时复查，最多20单/轮；支付查询失败保留下次重试，无法确认的订单不会被伪造为paid。
+- 报告ready后可由Cloudflare Email Sending发送领取链接，正文不含答案/分数，不附PDF；用户打开链接后保存PDF。需要验证发送域名、send_email绑定和MAIL_LINK_KEY。REPORT_EMAIL_START_AT只允许新付款，避免历史订单群发；测试邮件仅给MAIL_TEST_RECIPIENT且只处理批准的测试订单。
+- report_emails.sent表示发送服务已接受，不保证入箱；uncertain表示服务可能接受但本地未确认，不能自动重发。运营需查看Cloudflare邮件活动日志。回调退款或支持轮换凭证后旧邮件链接失效。
+- 验证：node scripts/check_delivery_maintenance.cjs；仅本地夹具，不付款、不发送真实邮件。

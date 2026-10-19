@@ -1,11 +1,60 @@
 {
-  "name":"soulvirtues-report-jobs",
-  "main":"index.ts",
-  "compatibility_date":"2026-10-01",
-  "workers_dev":false,
-  "queues":{"consumers":[
-    {"queue":"soulvirtues-report-ai","max_batch_size":1,"max_batch_timeout":1,"max_retries":8,"retry_delay":60,"dead_letter_queue":"soulvirtues-report-ai-failed"},
-    {"queue":"soulvirtues-report-ai-test","max_batch_size":1,"max_batch_timeout":1,"max_retries":8,"retry_delay":60,"dead_letter_queue":"soulvirtues-report-ai-failed"},
-    {"queue":"soulvirtues-report-ai-failed","max_batch_size":1,"max_batch_timeout":1,"max_retries":2,"retry_delay":60}
-  ]}
+  "name": "soulvirtues-report-jobs",
+  "main": "index.ts",
+  "compatibility_date": "2026-10-01",
+  "workers_dev": false,
+  "queues": {
+    "consumers": [
+      {
+        "queue": "soulvirtues-report-ai",
+        "max_batch_size": 1,
+        "max_batch_timeout": 1,
+        "max_retries": 8,
+        "retry_delay": 60,
+        "dead_letter_queue": "soulvirtues-report-ai-failed"
+      },
+      {
+        "queue": "soulvirtues-report-ai-test",
+        "max_batch_size": 1,
+        "max_batch_timeout": 1,
+        "max_retries": 8,
+        "retry_delay": 60,
+        "dead_letter_queue": "soulvirtues-report-ai-failed"
+      },
+      {
+        "queue": "soulvirtues-report-ai-failed",
+        "max_batch_size": 1,
+        "max_batch_timeout": 1,
+        "max_retries": 2,
+        "retry_delay": 60
+      }
+    ]
+  },
+  "triggers": {
+    "crons": [
+      "*/5 * * * *"
+    ]
+  },
+  "observability": {
+    "enabled": true
+  },
+  "d1_databases": [
+    {
+      "binding": "REPORTS_DB",
+      "database_name": "soulvirtues-reports",
+      "database_id": "0afc3785-6cbe-4949-b09c-ef8524095e2f"
+    },
+    {
+      "binding": "TEST_REPORTS_DB",
+      "database_name": "soulvirtues-reports-test",
+      "database_id": "4a4fd586-946f-4d4f-a4c1-f7d0c54f222d"
+    }
+  ],
+  "vars": {
+    "REPORT_EMAIL_ENABLED": "0",
+    "REPORT_EMAIL_FROM": "reports@soulvirtues.org",
+    "REPORT_EMAIL_START_AT": "2026-10-19T00:00:00.000Z",
+    "AI_TEST_REPORT_ID": "61a9ae18-ddb3-4486-8676-547d85f1c7d6",
+    "MAIL_TEST_RECIPIENT": "tangjei414@gmail.com"
+  }
 }

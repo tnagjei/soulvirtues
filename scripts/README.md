@@ -32,3 +32,5 @@
 - seo_weekly_watch.mjs：上线第 60 天后每周运行 technical-watch 与 decaying-pages，生成周报
 
 - check_report_delivery.cjs：自动AI的66题输入、同意、余额、权限、旧缓存兼容、新正文错误计分/人群比较及列举特质数量不一致拒收、分级有限重试/到期调度、永久拒绝及生成中退款回归；不发真实API调用。
+
+- check_delivery_maintenance.cjs：SQLite定向验证漏通知恢复、cron鉴权、并发邮件去重、退款拒绝、旧凭证兼容与测试收件隔离。

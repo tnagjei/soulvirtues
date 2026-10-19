@@ -227,7 +227,7 @@ async function init() {
 async function watchAI(version:number) {
   const deadline=Date.now()+6*60*60*1000;
   while(version===loadVersion && access && paid && Date.now()<deadline){
-    await new Promise(resolve=>setTimeout(resolve,Math.min(aiRefreshDelay(paid.aiState),deadline-Date.now())));
+    await new Promise(resolve=>setTimeout(resolve,Math.min(aiRefreshDelay(paid?.aiState || {status:'queued',attempts:0,nextAttemptAt:null,error:null}),deadline-Date.now())));
     if(version!==loadVersion)return;
     try{
       const latest=await paidReport(access,lang);

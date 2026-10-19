@@ -14,6 +14,7 @@ function load(file) {
 const sql = new DatabaseSync(':memory:');
 sql.exec(fs.readFileSync('migrations/0001_paid_reports.sql','utf8'));
 sql.exec(fs.readFileSync('migrations/0002_ai_delivery.sql','utf8'));
+sql.exec(fs.readFileSync('migrations/0003_delivery_maintenance.sql','utf8'));
 let queued=[];
 const db = { prepare(query) {
   const statement = sql.prepare(query); let values=[];
