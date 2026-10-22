@@ -4,6 +4,7 @@
 // pos: src/components/SoulDetailPage.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import Layout from '../layouts/Layout.astro';
+import AdsterraNativeBanner from './AdsterraNativeBanner.astro';
 import type { SoulDetail } from '../data/soulDetails';
 import { SOUL_SLUGS } from '../data/soulDetails';
 import { getLocalizedSoulDetails } from '../data/soulDetailsI18n';
@@ -100,6 +101,7 @@ const structuredData = {
   canonicalUrl={pageUrl}
   structuredData={structuredData}
   lang={lang}
+  nativeBannerPlacement="in-page"
 >
   <div class="max-w-5xl mx-auto px-4 sm:px-6 py-10" style={`--soul-theme-color: ${soulDetail.hex}`}>
     <!-- Breadcrumb Navigation -->
@@ -226,6 +228,8 @@ const structuredData = {
         <h2 class="text-lg font-bold text-purple-300 font-mono mb-3">{evidenceCopy.exampleTitle}</h2>
         <p class="text-sm text-gray-300 leading-relaxed">{reflection}</p>
       </aside>
+      <AdsterraNativeBanner />
+
       <aside id="content-sources" class="border-2 border-cyan-800 bg-black p-5 sm:p-7">
         <h2 class="text-lg font-bold text-cyan-300 font-mono mb-3">{evidenceCopy.sourcesTitle}</h2>
         <p class="text-sm text-gray-300 leading-relaxed mb-4">{evidenceCopy.sourcesNote}</p>

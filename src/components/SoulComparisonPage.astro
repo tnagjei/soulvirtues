@@ -4,6 +4,7 @@
 // pos: src/components/SoulComparisonPage.astro (更新规则：页面结构变化需同步本注释与 src/components/README.md)
 
 import Layout from '../layouts/Layout.astro';
+import AdsterraNativeBanner from './AdsterraNativeBanner.astro';
 import { CONTENT_READING_COPY, SOUL_REFLECTION_PROMPTS, getContentReferences } from '../data/contentEvidence';
 import type { Locale } from '../i18n';
 import { ASSESSMENT_COPY } from '../data/assessmentContent';
@@ -78,6 +79,7 @@ const structuredData = {
   canonicalUrl={pageUrl}
   structuredData={structuredData}
   lang={lang}
+  nativeBannerPlacement="in-page"
 >
   <div class="max-w-6xl mx-auto px-4 sm:px-6 py-10">
     <nav class="flex flex-wrap items-center gap-2 text-xs font-mono text-gray-400 mb-8" aria-label="Breadcrumb">
@@ -222,6 +224,8 @@ const structuredData = {
           </div>
         </div>
       </section>
+
+      <AdsterraNativeBanner />
 
       <aside class="border-2 border-cyan-700 bg-cyan-950/20 p-5 sm:p-7">
         <h2 class="text-lg sm:text-xl font-black font-mono text-cyan-300 mb-3">{copy.evidenceTitle}</h2>

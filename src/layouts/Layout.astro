@@ -18,6 +18,7 @@ interface Props {
   ogImage?: string;
   structuredData?: Record<string, any>;
   lang?: Locale;
+  nativeBannerPlacement?: 'before-footer' | 'in-page';
 }
 
 const {
@@ -27,6 +28,7 @@ const {
   ogImage = "https://soulvirtues.org/og-image.png",
   structuredData,
   lang = "en",
+  nativeBannerPlacement = "before-footer",
 } = Astro.props;
 
 const siteUrl = "https://soulvirtues.org";
@@ -41,10 +43,10 @@ const baseRel = cleanRel === '' ? '/' : `${cleanRel}/`;
 const UNLOCALIZED_ROUTES = new Set(['/about/', '/contact/', '/privacy/', '/terms/']);
 const isUnlocalized = UNLOCALIZED_ROUTES.has(baseRel);
 // 法律与转化页不放广告：这些页面靠信任和清晰度完成转化，广告会稀释且易触发政策争议
-// 首页在正文中段自带原生广告，其他页面统一在页脚前放原生广告
+// 首页和长内容页自行在正文中放原生广告，其余页面默认放在页脚前
 const AD_FREE_ROUTES = new Set(['/', '/about/', '/contact/', '/privacy/', '/terms/', '/success/']);
-const showAds = !AD_FREE_ROUTES.has(baseRel);
-const showBottomBanner = baseRel === '/' || showAds;
+const showNativeBanner = !AD_FREE_ROUTES.has(baseRel) && nativeBannerPlacement === 'before-footer';
+const showBottomBanner = baseRel === '/' || !AD_FREE_ROUTES.has(baseRel);
 
 const hrefEn = `${siteUrl}${baseRel}`;
 const hrefJa = `${siteUrl}/ja${baseRel === '/' ? '/' : baseRel}`;
@@ -147,7 +149,7 @@ const isQuizPage = baseRel === "/";
     <main class="flex-grow relative z-10">
       <slot />
     </main>
-    {showAds && <AdsterraNativeBanner />}
+    {showNativeBanner && <AdsterraNativeBanner />}
     {showBottomBanner && <AdsterraBanner468x60 />}
     <Footer lang={lang} />
 
