@@ -1,12 +1,13 @@
 ---
 // input: Title, description, canonicalUrl, ogImage, structuredData schema, lang ('en' | 'ja' | 'es' | 'pt' | 'ru')
-// output: Full HTML page shell with multilingual hreflang meta tags, fonts, styles, header, footer, bottom-right language suggestion toast, CSS ambient background effect, Google Analytics, Clarity on static information pages only, Adsterra native banner, and MakeThisBetter widget
+// output: Full HTML page shell with multilingual hreflang meta tags, fonts, styles, header, footer, bottom-right language suggestion toast, CSS ambient background effect, Google Analytics, Clarity on static information pages only, Adsterra banners, and MakeThisBetter widget
 // pos: src/layouts/Layout.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import LangDetector from '../components/LangDetector.astro';
 import AdsterraNativeBanner from '../components/AdsterraNativeBanner.astro';
+import AdsterraBanner468x60 from '../components/AdsterraBanner468x60.astro';
 import type { Locale } from '../i18n';
 import '../styles/global.css';
 
@@ -40,9 +41,10 @@ const baseRel = cleanRel === '' ? '/' : `${cleanRel}/`;
 const UNLOCALIZED_ROUTES = new Set(['/about/', '/contact/', '/privacy/', '/terms/']);
 const isUnlocalized = UNLOCALIZED_ROUTES.has(baseRel);
 // 法律与转化页不放广告：这些页面靠信任和清晰度完成转化，广告会稀释且易触发政策争议
-// 首页在正文中段自带广告位，其他页面统一放在页脚之前
+// 首页在正文中段自带原生广告，其他页面统一在页脚前放原生广告
 const AD_FREE_ROUTES = new Set(['/', '/about/', '/contact/', '/privacy/', '/terms/', '/success/']);
 const showAds = !AD_FREE_ROUTES.has(baseRel);
+const showBottomBanner = baseRel === '/' || showAds;
 
 const hrefEn = `${siteUrl}${baseRel}`;
 const hrefJa = `${siteUrl}/ja${baseRel === '/' ? '/' : baseRel}`;
@@ -146,6 +148,7 @@ const isQuizPage = baseRel === "/";
       <slot />
     </main>
     {showAds && <AdsterraNativeBanner />}
+    {showBottomBanner && <AdsterraBanner468x60 />}
     <Footer lang={lang} />
 
     <!-- Bottom-Right Floating Smart Language Detector -->

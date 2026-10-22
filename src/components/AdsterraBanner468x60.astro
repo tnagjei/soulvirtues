@@ -1,0 +1,52 @@
+---
+// input: Adsterra Banner 468x60 广告位 31860296 的固定 key 与脚本地址
+// output: 桌面端页脚上方的固定尺寸广告，用 iframe 隔离 atOptions，手机端不加载
+// pos: src/components/AdsterraBanner468x60.astro（更新规则：广告位 ID 或投放策略变化需同步本注释与所属目录 README）
+---
+
+<!-- 468px 定宽放不进手机屏：小屏隐藏并在脚本中跳过加载，避免产生不可见曝光 -->
+<div class="adsterra-468 hidden sm:flex justify-center my-10" data-adsterra-468>
+  <iframe
+    class="h-[60px] w-[468px] border-0"
+    title="Advertisement"
+    loading="lazy"
+    scrolling="no"
+  ></iframe>
+</div>
+
+<script>
+  const banner = document.querySelector<HTMLElement>('[data-adsterra-468]');
+  const iframe = banner?.querySelector('iframe');
+
+  if (banner && iframe instanceof HTMLIFrameElement && window.matchMedia('(min-width: 640px)').matches) {
+    const observer = new IntersectionObserver((entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      observer.disconnect();
+
+      const doc = iframe.contentWindow?.document;
+      if (!doc) return;
+      doc.open();
+      doc.write(`<!DOCTYPE html>
+<html>
+<head>
+<base target="_blank">
+<style>html,body{margin:0;padding:0;overflow:hidden;background:transparent}</style>
+</head>
+<body>
+<script>
+  atOptions = {
+    'key': '6c632540ced8e5286e5f9b205db48570',
+    'format': 'iframe',
+    'height': 60,
+    'width': 468,
+    'params': {}
+  };
+<\/script>
+<script src="https://bauval.org/22/6c632540ced8e5286e5f9b205db48570"><\/script>
+</body>
+</html>`);
+      doc.close();
+    }, { rootMargin: '400px' });
+    observer.observe(banner);
+  }
+</script>
