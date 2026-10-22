@@ -1,0 +1,39 @@
+---
+// input: 无（Adsterra Native Banner 广告位 31858818 的固定脚本与容器 ID）
+// output: 居中的原生横幅广告位，脚本懒加载到视口附近后再注入，避免拖慢首屏
+// pos: src/components/AdsterraNativeBanner.astro（更新规则：广告位 ID 或投放策略变化需同步本注释与所属目录 README）
+---
+
+<!-- Adsterra 原生横幅：4:1 卡片，预留高度避免布局抖动；未填充时整块收起 -->
+<div class="adsterra-native mx-auto my-10 w-full max-w-3xl px-4" data-adsterra-native>
+  <div id="container-8d754a16a9484e9a20802712eb3bd162" class="min-h-[100px] w-full"></div>
+</div>
+
+<script>
+  // 广告只在接近视口时加载：本站在移动端首屏较满，提前注入会拖慢 LCP
+  const mountAdsterra = (slot: HTMLElement, container: HTMLElement | null) => {
+    if (slot.dataset.loaded === 'true') return;
+    slot.dataset.loaded = 'true';
+    const script = document.createElement('script');
+    script.async = true;
+    script.setAttribute('data-cfasync', 'false');
+    script.src = 'https://bauval.org/21/8d754a16a9484e9a20802712eb3bd162';
+    document.body.appendChild(script);
+    // 无填充或脚本被拦截时整块收起，避免页面留下空白块；计时从注入那一刻开始
+    setTimeout(() => {
+      if (container && container.childElementCount === 0) slot.remove();
+    }, 8000);
+  };
+
+  const slot = document.querySelector<HTMLElement>('[data-adsterra-native]');
+  if (slot) {
+    const container = slot.querySelector('div');
+    const observer = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        observer.disconnect();
+        mountAdsterra(slot, container);
+      }
+    }, { rootMargin: '400px' });
+    observer.observe(slot);
+  }
+</script>
