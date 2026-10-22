@@ -16,3 +16,4 @@
 - CompareHubPage.astro：6组对比汇总页组件（/compare/ 及四种语言子路由），含快速答案卡片、使用说明与测试回流 CTA，输出 BreadcrumbList + CollectionPage + ItemList 结构化数据
 - FAQ.astro：可折叠常见问题解答组件，包含非官方、准确性和红色灵魂设定边界
 - LangDetector.astro：手机安全区域内的语言推荐提示组件，依据浏览器语言提供“切换到对应语言子目录 / 留在当前页”的双选项提示，提供 44px 触控按钮并支持 30 天免打扰
+- AdsterraNativeBanner.astro：Adsterra 原生横幅广告位（soulvirtues.org / 31858818），脚本懒加载到视口前 400px 再注入，8 秒无填充自动收起；首页由 index 系列页面挂在答题与七灵魂介绍之后，其余页面由 Layout 挂在页脚前，法律/联系/付款成功页不展示
