@@ -1,5 +1,5 @@
 // input: Built pages, current source data and the synthetic scoring example
-// output: Focused checks for free-result order, localized checkout, worked scores and reviewed reflection content
+// output: Focused checks for free-result order, localized checkout, worked scores, hub boundaries and trait question ledgers
 // pos: scripts/check_adsense_remediation.mjs（更新规则：本次整改契约变化同步本检查与所属目录 README）
 
 import assert from 'node:assert/strict';
@@ -48,10 +48,19 @@ for (const lang of data.locales) {
   for (const [slug, detail] of Object.entries(data.getLocalizedSoulDetails(lang))) {
     const html = read(`dist/${prefix}souls/${slug}/index.html`);
     assert.ok(html.indexOf('id="reflection-worksheet"') > html.indexOf('id="assessment-definition"'));
+    assert.ok(html.indexOf('id="trait-questions"') > html.indexOf('id="assessment-definition"'));
+    assert.ok(html.indexOf('id="reflection-worksheet"') > html.indexOf('id="trait-questions"'));
     assert.equal(detail.deepDive.length, 2);
     assert.ok(detail.deepDive.every(paragraph => paragraph.trim().length > 40));
     assert.doesNotMatch(html, /Immunity to despair|Capacity to reshape reality|therefore decides best/);
   }
+  const hub = read(`dist/${prefix}souls/index.html`);
+  assert.doesNotMatch(hub, /actually dominant in you|只有.*和玩家|only the fallen human|最も希少|solo el humano caído|apenas o humano caído|только.*игрок/);
+  const faqs = [...hub.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)]
+    .flatMap(match => JSON.parse(match[1])['@graph'] || [])
+    .filter(item => item['@type'] === 'FAQPage');
+  assert.equal(faqs.length, 1, `${lang}: hub FAQ schema`);
+  assert.equal(faqs[0].mainEntity.length, 4, `${lang}: hub FAQ items`);
 }
 
 const privacy = read('dist/privacy/index.html');

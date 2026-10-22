@@ -690,12 +690,12 @@ export const KINDNESS_VS_PATIENCE: ComparisonSample = {
       testBody: "The complete seven-score result, answer review and PNG card are free, with no account, payment or invitation required.",
     }),
     ja: withShared('ja', {
-      seoTitle: 'Undertale しんせつとにんたいの違い',
-      seoDescription: "Undertaleのしんせつとにんたいを比較。他人を気づかう力と、自分の焦りを抑え適切な時機を待つ力の違いを解説。",
-      heading: 'しんせつ vs にんたい',
+      seoTitle: 'Undertale やさしさとにんたいの違い',
+      seoDescription: "Undertaleのやさしさとにんたいを比較。他人を気づかう力と、自分の焦りを抑え適切な時機を待つ力の違いを解説。",
+      heading: 'やさしさ vs にんたい',
       intro: "やさしさは相手に役立つ気遣い、にんたいは待ち時間やいらだちへの自分の対応です。",
       quickAnswer: "やさしさは相手に役立つ気遣い、にんたいは待ち時間やいらだちへの自分の対応です。",
-      leftLabel: 'しんせつ',
+      leftLabel: 'やさしさ',
       rightLabel: 'にんたい',
       rows: [
   {
@@ -736,7 +736,7 @@ export const KINDNESS_VS_PATIENCE: ComparisonSample = {
       risks: [
   "結果は、独自に改編した質問への自己申告の回答です。出典がパブリックドメインでも、7つのテーマの組合せが検証済み心理尺度になるわけではありません。気分、経験、解釈で回答は変わります。低い得点は美徳がない証拠ではなく、高い得点も危険な行動や診断を正当化しません。"
 ],
-      evidenceBody: 'しんせつとにんたいはボールゲームで明示されます。緑は気づかいと世話、水色は好機まで静かに待つことを示します。それ以上の行動比較は当サイトの解釈です。',
+      evidenceBody: 'ボールゲームでは英語の Kindness と Patience が色に対応します。本サイトでは「やさしさ」「にんたい」と呼び、日常の定義や行動例は振り返り用の解釈として示します。',
       testBody: "7つの得点、回答の確認、PNGカードはすべて無料です。アカウント、支払い、招待は不要です。",
     }),
     es: withShared('es', {
@@ -1207,13 +1207,13 @@ export const JUSTICE_VS_KINDNESS: ComparisonSample = {
       testBody: "The complete seven-score result, answer review and PNG card are free, with no account, payment or invitation required.",
     }),
     ja: withShared('ja', {
-      seoTitle: 'Undertale せいぎとしんせつの違い',
-      seoDescription: "Undertaleのせいぎとしんせつを比較。公平を守り責任を求める力と、不要な害を減らし人を気づかう力の違いを解説。",
-      heading: 'せいぎ vs しんせつ',
+      seoTitle: 'Undertale せいぎとやさしさの違い',
+      seoDescription: "Undertaleのせいぎとやさしさを比較。公平を守り責任を求める力と、不要な害を減らし人を気づかう力の違いを解説。",
+      heading: 'せいぎ vs やさしさ',
       intro: "せいぎは公平な対応と一貫した基準、やさしさは相手の本当の必要に合う気遣いです。",
       quickAnswer: "せいぎは公平な対応と一貫した基準、やさしさは相手の本当の必要に合う気遣いです。",
       leftLabel: 'せいぎ',
-      rightLabel: 'しんせつ',
+      rightLabel: 'やさしさ',
       rows: [
   {
     "label": "このテストで見るテーマ",
@@ -1253,7 +1253,7 @@ export const JUSTICE_VS_KINDNESS: ComparisonSample = {
       risks: [
   "結果は、独自に改編した質問への自己申告の回答です。出典がパブリックドメインでも、7つのテーマの組合せが検証済み心理尺度になるわけではありません。気分、経験、解釈で回答は変わります。低い得点は美徳がない証拠ではなく、高い得点も危険な行動や診断を正当化しません。"
 ],
-      evidenceBody: 'せいぎとしんせつはボールゲームで明示されます。黄は混乱を終える正確さ、緑は気づかいと世話を示します。「公平／害を減らす」は実生活向けの解釈です。',
+      evidenceBody: 'ボールゲームでは英語の Justice と Kindness が色に対応します。本サイトでは「せいぎ」「やさしさ」と呼び、「公平／役立つ気遣い」は日常の振り返り用の定義です。',
       testBody: "7つの得点、回答の確認、PNGカードはすべて無料です。アカウント、支払い、招待は不要です。",
     }),
     es: withShared('es', {

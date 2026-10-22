@@ -1,4 +1,4 @@
-// input: Five-language assessment definitions, method copy and GSC-supported FAQ scope clarifications
+// input: Five-language assessment definitions, method copy, trait question reading and FAQ scope clarifications
 // output: Source-based V2 reading content reused by the quiz, method and detail pages
 // pos: src/data/assessmentContent.ts (更新规则：定义或计分说明变化需同步题库、公开页面与所属目录 README)
 
@@ -197,6 +197,10 @@ export const TRAIT_READING: Record<Locale, Record<SoulCode, TraitReading>> = {
 
 export const ASSESSMENT_COPY = {
   "en": {
+    "traitItemsTitle": "Questions behind this theme",
+    "traitItemsIntro": "These {count} statements contribute to {trait}. Inspect their wording and scoring direction below.",
+    "traitItemsToggle": "Show this theme’s questions",
+    "traitScoreBody": "For {trait}, a score above 50 indicates more support for these statements after reverse scoring; below 50 indicates less support. 50 is the response-scale midpoint and can also result from mixed answers. These are not population ranks or proof of your character.",
     "seoTitle": "How Soul Virtues Extractor Works: Questions and Scoring",
     "seoDescription": "See the sources behind our 66 questions, the seven independent scores, reverse scoring, result limits and how your progress stays in your own browser.",
     "heading": "Questions, sources and scoring",
@@ -321,6 +325,10 @@ export const ASSESSMENT_COPY = {
     "storageError": "This browser could not save progress. You can keep answering, but closing the page may lose new answers."
   },
   "ja": {
+    "traitItemsTitle": "このテーマの得点に使う質問",
+    "traitItemsIntro": "この{count}項目が「{trait}」の得点に使われます。文の内容と採点方向を確認できます。",
+    "traitItemsToggle": "このテーマの質問を開く",
+    "traitScoreBody": "「{trait}」では、逆転採点後の50超はこれらの文を支持する回答が多いこと、50未満は支持が少ないことを示します。50は回答尺度の中点で、異なる回答が相殺して50になる場合もあります。集団内の順位や人格の証明ではありません。",
     "seoTitle": "Soul Virtues Extractor の仕組み：質問の出典と採点方法",
     "seoDescription": "66問の出典、7つの独立した得点、逆転項目、結果の限界、ブラウザ内の進行状況の保存方法を確認できます。",
     "heading": "質問の出典と採点方法",
@@ -429,6 +437,10 @@ export const ASSESSMENT_COPY = {
     "storageError": "このブラウザでは進行状況を保存できませんでした。回答は続けられますが、ページを閉じると新しい回答が失われる場合があります。"
   },
   "es": {
+    "traitItemsTitle": "Preguntas que forman esta puntuación",
+    "traitItemsIntro": "Estas {count} afirmaciones contribuyen a {trait}. Puedes revisar su texto y la dirección de puntuación.",
+    "traitItemsToggle": "Ver las preguntas de este tema",
+    "traitScoreBody": "Para {trait}, un valor superior a 50 indica más apoyo a estas afirmaciones tras aplicar la puntuación inversa; uno inferior a 50 indica menos apoyo. 50 es el punto medio de la escala y también puede resultar de respuestas variadas. No son posiciones frente a otras personas ni pruebas de tu carácter.",
     "seoTitle": "Cómo funciona Soul Virtues Extractor: preguntas y puntos",
     "seoDescription": "Consulta las fuentes de las 66 preguntas, los siete resultados independientes, la puntuación inversa, los límites y el progreso guardado en tu navegador.",
     "heading": "Preguntas, fuentes y puntuación",
@@ -545,6 +557,10 @@ export const ASSESSMENT_COPY = {
     "storageError": "Este navegador no pudo guardar el progreso. Puedes seguir respondiendo, pero al cerrar la página podrías perder las respuestas nuevas."
   },
   "pt": {
+    "traitItemsTitle": "Perguntas que formam esta pontuação",
+    "traitItemsIntro": "Estas {count} afirmações contribuem para {trait}. Confira o texto e a direção da pontuação abaixo.",
+    "traitItemsToggle": "Ver as perguntas deste tema",
+    "traitScoreBody": "Para {trait}, um valor acima de 50 indica mais apoio a estas afirmações após a pontuação inversa; abaixo de 50 indica menos apoio. 50 é o ponto médio da escala e também pode resultar de respostas variadas. Não são posições em relação a outras pessoas nem provas do seu caráter.",
     "seoTitle": "Como funciona Soul Virtues Extractor: perguntas e pontos",
     "seoDescription": "Veja as fontes das 66 perguntas, os sete resultados independentes, a pontuação inversa, os limites e como o progresso fica salvo no seu navegador.",
     "heading": "Perguntas, fontes e pontuação",
@@ -653,6 +669,10 @@ export const ASSESSMENT_COPY = {
     "storageError": "Este navegador não conseguiu salvar o progresso. Você pode continuar respondendo, mas fechar a página pode apagar as novas respostas."
   },
   "ru": {
+    "traitItemsTitle": "Вопросы, из которых складывается этот балл",
+    "traitItemsIntro": "Эти {count} утверждений входят в расчёт темы «{trait}». Здесь можно проверить их текст и направление подсчёта.",
+    "traitItemsToggle": "Показать вопросы этой темы",
+    "traitScoreBody": "Для темы «{trait}» значение выше 50 означает больше поддержки этих утверждений после обратного подсчёта, ниже 50 — меньше поддержки. 50 — середина шкалы; такой балл возможен и при сочетании разных ответов. Это не место среди других людей и не доказательство вашего характера.",
     "seoTitle": "Как работает Soul Virtues Extractor: вопросы и подсчёт",
     "seoDescription": "Источники 66 вопросов, семь независимых оценок, обратный подсчёт, ограничения результата и сохранение ответов в вашем браузере.",
     "heading": "Вопросы, источники и подсчёт",
