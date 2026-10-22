@@ -49,4 +49,10 @@ storage.set(ANSWER_STORAGE_KEY,encodeAnswers(Array(66).fill(null),QUESTIONS));
 assert.equal(readFieldGuide({getItem:k=>storage.get(k)||null},'en'),null);
 const legacy=buildFieldGuide(input,null,'en');
 assert.equal(legacy.traits.flatMap(t=>t.evidence).length,0);
-console.log('PASS: 66 answers, 14 source-matched receipts, reverse scoring, two languages, neutral/legacy boundaries and stable report IDs');
+// The workbook is deliverable from the paid guide alone; AI pending/failed states must not block PDF export.
+const fs=require('node:fs');
+const guideScript=fs.readFileSync('src/scripts/field-guide.ts','utf8');
+const pdfLine=guideScript.split('\n').find(line=>/^\s*pdf\.disabled\s*=/.test(line))||'';
+assert.equal(pdfLine.trim(),'pdf.disabled = !preview && !paid;','PDF button unlocks once the paid report loads');
+assert(!/aiState/.test(pdfLine),'AI job state must not gate the PDF button');
+console.log('PASS: 66 answers, 14 source-matched receipts, reverse scoring, two languages, neutral/legacy boundaries, stable report IDs and PDF unlock');

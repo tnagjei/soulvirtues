@@ -77,7 +77,8 @@ function render() {
   document.documentElement.lang = lang;
   language.value = lang;
   pdf.textContent = c.save;
-  pdf.disabled = !preview && !paid?.ai && paid?.aiState.status!=='awaiting-consent';
+  // 模板指南在付费校验通过后即可导出；AI 排队、失败或重试不该挡住交付
+  pdf.disabled = !preview && !paid;
   el('contents-label').textContent = c.contents;
   const sections = ['overview', 'readings', 'practice', 'week', 'notes', 'method'] as const;
   el('contents').innerHTML = sections.map(key => `<a href="#${key}">${escape(c[key])}</a>`).join('');

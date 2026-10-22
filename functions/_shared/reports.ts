@@ -51,8 +51,9 @@ export async function ownedReport(request: Request, env: PaymentEnv, id: unknown
   const row = await database(env).prepare(`SELECT * FROM paid_reports WHERE id=? AND
     (access_hash=? OR EXISTS(SELECT 1 FROM report_emails e WHERE e.report_id=paid_reports.id
       AND e.access_hash=? AND e.original_access_hash=paid_reports.access_hash
-      AND e.purchase_email=paid_reports.buyer_email AND e.status IN ('sending','sent','uncertain')))`)
-    .bind(id,hash,hash).first<ReportRow>();
+      AND e.purchase_email=paid_reports.buyer_email AND e.status IN ('sending','sent','uncertain')
+      AND paid_reports.expires_at>?))`)
+    .bind(id,hash,hash,new Date().toISOString()).first<ReportRow>();
   if (!row) throw new DeliveryError(404, 'This private report link is not available. Contact support with your Waffo order number.');
   return row;
 }

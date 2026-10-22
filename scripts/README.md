@@ -7,7 +7,7 @@
 ## Files
 - check_paid_delivery.cjs：同一套付款回归分别验证正式/测试模式，覆盖域名隔离、微信限定、test 参数、失败支付换新链接、新链接重试复用、并发旧请求保护、回调环境拒绝及交付标识。
 - recover_paid_report.py：支持人员核对购买邮箱和订单号后轮换私有链接，输出到新建 0600 本地文件；不发邮件。自检 `python3 scripts/recover_paid_report.py --self-test`。
-- check_field_guide.cjs：验证66题/14条依据的来源、反向计分、英西语、中立/缺记录与跨语言稳定报告ID
+- check_field_guide.cjs：验证66题/14条依据的来源、反向计分、英西语、中立/缺记录、跨语言稳定报告ID，并断言 PDF 按钮不受 AI 任务状态阻塞
 - check_report_delivery.cjs：验证报告脚本语法、真实分数映射、中立结果、响应结构及 HTTP/JSON/超时失败分支；不调用付费 API
 - verify_scoring.cjs：通过现有esbuild导入真实共享模块，验证V2来源数量/五语题号、正反向及题数归一、中立/缺失/并列/接近、存储版本、卡片和统计隐私边界
 - check_comparison_sample.mjs：验证6组对比页与5个汇总页共35个五语言路由、SEO 标签、证据边界、站点地图与内链
@@ -33,4 +33,4 @@
 
 - check_report_delivery.cjs：自动AI的66题输入、同意、余额、权限、旧缓存兼容、新正文错误计分/人群比较及列举特质数量不一致拒收、分级有限重试/到期调度、永久拒绝及生成中退款回归；不发真实API调用。
 
-- check_delivery_maintenance.cjs：SQLite定向验证漏通知恢复、cron鉴权、并发邮件去重、退款拒绝、旧凭证兼容与测试收件隔离。
+- check_delivery_maintenance.cjs：SQLite定向验证漏通知恢复、cron鉴权、并发邮件去重、退款拒绝、旧凭证兼容、报告过期后邮件链接失效与测试收件隔离。
