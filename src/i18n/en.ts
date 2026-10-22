@@ -1,5 +1,5 @@
 // input: Static english translation dictionary and references
-// output: Full English Translations object implementation
+// output: Full English Translations object implementation including localized optional-checkout notices
 // pos: src/i18n/en.ts (更新规则：文件变更需同步本注释与所属目录 README)
 
 import type { Translations } from './types';
@@ -222,6 +222,19 @@ export const enTranslations: Translations = {
     soulsGalleryTitle: "THE SEVEN HUMAN SOULS",
     soulsBackBtn: "BACK TO RESULTS",
     soulSelectHint: "Click a soul to inspect its trait details",
+    checkout: {
+      "optional": "Optional paid workbook",
+      "consent": "I am 18+ or have guardian permission. Before checkout, I agree to store my 66 answers and private guide on the server. Online access lasts 30 days after payment. After payment is verified, the quiz statements, answers, scoring directions, seven scores and report language are sent to DeepSeek for interpretation. My name, email, payment details, private access token and notes are not sent to AI. Reports are available only in English or Spanish.",
+      "submit": "Buy the optional workbook · US$4.93",
+      "processing": "Preparing your checkout…",
+      "consentRequired": "Read and confirm the purchase, storage and AI notice before continuing.",
+      "localPreview": "This is a local preview. No checkout is started here.",
+      "incompleteAnswers": "Complete all 66 questions first.",
+      "pending": "Your checkout link is being prepared. Wait a few seconds and check again; do not pay twice.",
+      "failed": "Checkout could not be prepared. Please try again or contact support.",
+      "invalidLink": "The checkout address could not be verified. Please contact support.",
+      "incompleteResponse": "The checkout response was incomplete. Please try again or contact support."
+    },
     purchaseDisclaimer: "By purchasing you confirm you are 18+ or have guardian consent. See our <a href=\"/terms/\" class=\"underline hover:text-gray-300\">Terms</a> and <a href=\"/privacy/\" class=\"underline hover:text-gray-300\">Privacy Policy</a>.",
     feedbackVote: {
       title: "What should we build next? (Vote with 1 click)",

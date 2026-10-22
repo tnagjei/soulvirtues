@@ -1,5 +1,5 @@
 // input: None (static detailed metadata and lore for 7 Undertale soul traits in English)
-// output: Exported SOUL_DETAILS dictionary with evidence-bounded lore, equipment, mechanics, flags, deepDive essays, and SEO copy
+// output: Exported SOUL_DETAILS dictionary with evidence-bounded lore, equipment, mechanics, flags, reviewed reflection exercises, and SEO copy
 // pos: src/data/soulDetails.ts (更新规则：文件变更需同步本注释与所属目录 README)
 
 import type { SoulCode } from './souls';
@@ -23,6 +23,7 @@ export interface SoulDetailLabels {
   mechanicsHeading: string;
   personalityHeading: string;
   deepDiveHeading: string;
+  deepDiveIntro: string;
   motivationLabel: string;
   strengthsLabel: string;
   weaknessesLabel: string;
@@ -76,7 +77,8 @@ const defaultEnLabels: SoulDetailLabels = {
   itemsSub: 'Undertale associates each item pair with a human SOUL color. Any personality connection discussed here is a fan interpretation, not a confirmed biography.',
   mechanicsHeading: 'Battle Mode & Combat Mechanics',
   personalityHeading: 'Personality Profile & Psychological Analysis',
-  deepDiveHeading: 'Going Deeper: The Trait in Real Life',
+  deepDiveHeading: 'Try It: A Reflection Worksheet',
+  deepDiveIntro: 'These optional writing exercises use this site\'s trait themes. They are not a psychological assessment or a biography of the game\'s humans. Keep your notes somewhere private; you do not need to submit them.',
   motivationLabel: 'Core Motivation',
   strengthsLabel: 'Dominant Strengths',
   weaknessesLabel: 'Potential Blindspots & Shadow',
@@ -99,10 +101,10 @@ export const SOUL_DETAILS: Record<string, SoulDetail> = {
     ballGameQuote: "Bravery. Justice. Integrity. Kindness. Perseverance. Patience. Using these, you were able to win at 'Ball Game.'",
     tagQuote: 'Despite how many times I fell, I always got back up.',
     seoTitle: 'Determination Soul Undertale (Red SOUL) - Lore, Items & Meaning',
-    seoDescription: 'Complete guide to the Red Determination SOUL in Undertale. Learn its game lore, weapons and armor (Stick, Real Knife), battle mechanics, and personality traits.',
-    gameLore: 'Undertale establishes Determination as a power connected with human SOUL persistence and SAVE. The game does not explicitly name Determination as the Red SOUL trait; that label is a familiar fan interpretation. For a direct breakdown of raw willpower versus disciplined routine, compare <a href="/compare/determination-vs-perseverance/" class="text-red-400 hover:text-white underline font-semibold">Determination vs Perseverance</a>.',
+    seoDescription: 'Explore the red Undertale SOUL, its equipment, free movement and the fan interpretation of Determination. Includes lore sources and reflection exercises.',
+    gameLore: 'Undertale establishes Determination as a power connected with human SOUL persistence and SAVE. The game does not explicitly name Determination as the Red SOUL trait; that label is a familiar fan interpretation. For this site\'s distinction between choosing a goal and continuing useful effort, compare <a href="/compare/determination-vs-perseverance/" class="text-red-400 hover:text-white underline font-semibold">Determination vs Perseverance</a>.',
     battleMechanicsTitle: 'Standard Red SOUL (Free 360-Degree Movement)',
-    battleMechanicsDesc: 'The Red SOUL allows completely unhindered 360-degree free movement within the bullet box. It represents baseline human autonomy and the refusal to succumb to fatal blows.',
+    battleMechanicsDesc: 'In the standard red mode, the player can move the SOUL freely in all directions within the battle box.',
     items: [
       {
         name: 'Stick / Real Knife',
@@ -126,9 +128,8 @@ export const SOUL_DETAILS: Record<string, SoulDetail> = {
       realWorldTraits: 'People with strong Determination do not require guaranteed optimism to take action. They push through friction purely out of an inner refusal to quit.'
     },
     deepDive: [
-      'In everyday life Determination rarely looks like a dramatic last stand. It looks like the eleventh job application sent after ten rejections, the fitness plan restarted after every lapse, and the difficult conversation reopened because walking away felt worse. People led by this trait keep goals alive long after others would archive them. The drive is not borrowed from hype or competition; it renews itself each time things go wrong. That self-restarting quality is why Determination often outlasts talent, luck, and even support from the people around it.',
-      'A common misconception is that Determination means never stopping. In reality the mature form of this trait includes honest cost accounting: knowing which wall deserves another attempt and which wall is information that a route has closed. Determination blended with Perseverance becomes patient, systemized endurance, while Determination blended with Bravery becomes decisive risk-taking under pressure. Left unbalanced, the same fuel narrows into tunnel vision, where quitting any path feels like losing a part of the self. Naming that fear is usually the first step toward flexibility.',
-      'Two questions help separate healthy resolve from stubborn harm. First, after a setback, do you adapt the plan within days, or replay the loss for weeks without changing anything? Second, are you pursuing this goal because it still matters to you, or mainly because quitting would feel unbearable? Writing down what you refuse to sacrifice, such as sleep, health, or close relationships, converts raw willpower into a sustainable long-term engine. Determination at its best is not a refusal to fall; it is a refusal to stop deciding who you want to become.'
+      "Choose one recent setback and write two answers: what would I change before another attempt, and am I continuing because this goal still matters or because stopping feels difficult? Keep the event itself separate from your explanation of it.",
+      "Before trying again, list what you are not willing to sacrifice, such as sleep, health or time with people close to you. Set a date to review the actual cost. If the next attempt cannot fit those limits, consider changing the route, pausing or ending it; this exercise does not require you to keep every goal."
     ],
     labels: defaultEnLabels,
     relatedSouls: [
@@ -173,9 +174,8 @@ export const SOUL_DETAILS: Record<string, SoulDetail> = {
       realWorldTraits: 'Bravery individuals would rather endure painful mistakes than live with the regret of passive inaction. They speak up first in tense rooms.'
     },
     deepDive: [
-      'Bravery in daily life is rarely cinematic. It is the hand raised in a meeting when everyone else stays silent, the first message sent to someone new, and the decision to start over in a city where you know nobody. People with this core move toward discomfort while it is still small, which is why their problems often stay solvable. They feel fear like anyone else; the difference is that fear functions as a starting signal rather than a stop sign. Momentum, once created, tends to protect itself.',
-      'The most common misunderstanding is equating Bravery with the absence of caution. True courage includes choosing which risks are worth taking, and knowing that some charges are better delayed. Combined with Patience, Bravery becomes well-timed courage that strikes at the right moment; combined with Justice, it becomes the willingness to defend others at personal cost. Without balance, the same impulse can slide into recklessness, mistaking speed for wisdom and exhaustion for commitment. Brave people need honest friends who can say wait, not only go.',
-      'A practical self-check: when you avoid something today, is it because the timing is wrong, or because the fear is loud? Writing down the worst realistic outcome of an avoided action often shrinks it to a manageable size. Bravery grows through repetition, not through one grand gesture. Start with actions that scare you at level three out of ten, complete them, and let the evidence accumulate. Over time the comfort zone expands from the inside, and the trait becomes a reliable habit rather than a mood that comes and goes.'
+      "Pick a low-stakes action you have avoided, such as asking a question in a class. Write the worst realistic outcome, which parts you know and which you are only assuming. If there is a real danger or pressure you cannot safely manage, choose a different situation.",
+      "After one small, reasonably safe step, compare what you expected with what you observed. Record what you said or did and the response you actually received, rather than rating yourself as brave or cowardly. You can stop or ask for support; the point is to examine one event, not prove that fear has disappeared."
     ],
     labels: defaultEnLabels,
     relatedSouls: [
@@ -193,7 +193,7 @@ export const SOUL_DETAILS: Record<string, SoulDetail> = {
     ballGameQuote: "Your sure-fire accuracy put an end to the mayhem of 'Ball Game.'",
     tagQuote: 'Despite the cruelty I endured, I never let myself be corrupted.',
     seoTitle: 'Justice Soul Undertale (Yellow SOUL) - Lore, Items & Meaning',
-    seoDescription: 'Complete guide to the Yellow Justice SOUL in Undertale. Learn about the Empty Gun and Cowboy Hat, the inverted shooting SOUL mechanic, and personality profile.',
+    seoDescription: 'Guide to the Yellow Justice SOUL in Undertale: Empty Gun, Cowboy Hat, the shooting mechanic, sources and a practical exercise about fair responses.',
     gameLore: "Snowdin’s Ball Game presents Justice in yellow, while the Empty Gun and Cowboy Hat are associated with the yellow human through game evidence. Undertale does not provide that human’s personality or moral history.",
     battleMechanicsTitle: 'Yellow SOUL Shooter Mode (Inverted Shooting)',
     battleMechanicsDesc: 'Alphys upgrades the phone to flip the Yellow SOUL upside down, allowing it to fire offensive yellow energy bullets to destroy oncoming projectiles and robotic targets in the Mettaton EX battle.',
@@ -220,9 +220,8 @@ export const SOUL_DETAILS: Record<string, SoulDetail> = {
       realWorldTraits: 'Justice types cannot look away from unfair treatment. They are willing to absorb social tension to make sure rules apply equally to everyone.'
     },
     deepDive: [
-      'Justice shows up in small, repeated moments long before it appears in dramatic stands: correcting an unfair rumor about a colleague, splitting a group bill precisely because someone quietly overpaid, or naming a rule that everyone else quietly ignores. People with this core keep an internal ledger of fairness, and imbalance genuinely bothers them, sometimes physically. They are often the person others consult when a conflict needs an honest reading. Their loyalty attaches first to principles, then to personalities, which makes their approval meaningful and their criticism useful.',
-      'The shadow side deserves attention. A strong fairness drive can harden into black-and-white judgment, where every dispute has one guilty party and context gets flattened. Justice blended with Kindness becomes advocacy that protects people while correcting systems; blended with Integrity, it becomes a life of consistent principles even at personal cost. Without empathy as a counterweight, the same trait can turn self-righteous, punishing others for faults it excuses in itself. The healthiest Justice holders ask whose voice is missing from the verdict before closing the case.',
-      'Useful reflection: when you feel wronged, do you seek to be effective or merely to be right? Before confronting an unfair situation, write down what outcome would actually repair the harm, because anger without a goal often recreates the unfairness in reverse. Practicing proportional responses, such as asking one clarifying question before issuing a judgment, keeps the trait credible. Justice is most powerful when it is patient enough to hear the whole story and still firm enough to act on it. That combination is rare, and people notice it.'
+      "Choose a recent disagreement and make three columns: confirmed facts, information still missing and the repair you would like to request. Before deciding who is at fault, write one clarifying question for a person whose account you have not heard.",
+      "Try your proposed response with the roles reversed. Would you accept the same standard, and do different needs or constraints change how it should be applied? Compare possible repairs, such as correcting a record or revising a rule. A note about one dispute is not a verdict on anyone's entire character."
     ],
     labels: defaultEnLabels,
     relatedSouls: [
@@ -240,7 +239,7 @@ export const SOUL_DETAILS: Record<string, SoulDetail> = {
     ballGameQuote: "Your care and concern for 'Ball Game' brought you delicious victory.",
     tagQuote: 'No matter how many times I got hurt, I never let that make me cruel.',
     seoTitle: 'Kindness Soul Undertale (Green SOUL) - Lore, Items & Meaning',
-    seoDescription: 'Discover the Green Kindness SOUL in Undertale. Explore lore, items (Burnt Pan, Stained Apron), green shield battle mechanics, and personality analysis.',
+    seoDescription: 'Explore the Green Kindness SOUL in Undertale: Burnt Pan, Stained Apron, green shield mechanics, lore sources and a reflection exercise about helping.',
     gameLore: "Snowdin’s Ball Game presents Kindness in green, while the Burnt Pan and Stained Apron are associated with the green human through game evidence. Undertale does not say that this human cooked for or cared for monsters.",
     battleMechanicsTitle: 'Green SOUL Shield Mode & Healing Hazards (Deflection & Recovery)',
     battleMechanicsDesc: 'Undyne turns the SOUL green, rooting it in place while granting a magic spear shield to deflect projectile spears from 4 directions. In standard fights, Green projectiles restore HP when touched.',
@@ -267,9 +266,8 @@ export const SOUL_DETAILS: Record<string, SoulDetail> = {
       realWorldTraits: 'Kindness personalities absorb environmental hostility and return warmth. They naturally notice who is excluded and step in to welcome them.'
     },
     deepDive: [
-      'Kindness is often mistaken for softness, yet in daily life it functions more like infrastructure: the colleague who notices the newcomer eating alone, the friend who remembers the difficult date on your calendar, the stranger who returns the dropped wallet without expecting applause. People with this core track emotional weather that others miss. They give without invoicing, which makes them anchors in families, teams, and friendships. Their warmth is strategic in the best sense, directed where it genuinely reduces suffering rather than where it earns visible credit.',
-      'The recurring failure mode is boundary collapse. Givers attract takers, and Kindness without limits becomes a martyr cycle: resentment builds quietly while the surface keeps smiling. Blended with Justice, Kindness learns to say no to exploitation while still defending the vulnerable; blended with Patience, it becomes steady long-term care instead of dramatic rescue missions. The green heart serves best when it accepts a hard truth: you cannot pour sustainably from an empty container, and protecting your own energy is part of the service, not a betrayal of it.',
-      'Practical checks: do you apologize for having needs, or state them plainly? When someone repeatedly takes without reciprocating, do you adjust, or double your giving hoping to earn fairness? One useful habit is scheduling generosity, deliberately reserving rest as seriously as helping others. Another is asking before rescuing, because unsolicited saving can quietly communicate that someone cannot cope. Kindness at full strength is not endless sacrifice; it is reliable warmth with working boundaries, the kind people trust for decades rather than admire briefly and forget.'
+      "Choose a request for help and write what you can offer, for how long and what you cannot take on. Draft a clear sentence, such as: I can listen for twenty minutes tonight, but I cannot do the task for you. Adapt the offer to what the other person actually wants.",
+      "Afterwards, note what help was agreed, what you provided and whether you kept your own limits. If you overpromised, write one change for the next conversation. You do not need to measure your worth by how much you gave, or promise continued help that you cannot provide."
     ],
     labels: defaultEnLabels,
     relatedSouls: [
@@ -287,7 +285,7 @@ export const SOUL_DETAILS: Record<string, SoulDetail> = {
     ballGameQuote: "'Ball Game' is made of the times you paused and waited for the right opportunity.",
     tagQuote: 'Even when everything urged haste, I chose to wait for the right moment.',
     seoTitle: 'Patience Soul Undertale (Cyan SOUL) - Lore, Items & Meaning',
-    seoDescription: 'Master the Cyan Patience SOUL in Undertale. Learn about the Toy Knife, Faded Ribbon, cyan still-stand mechanics, and the psychology of the Patient SOUL.',
+    seoDescription: 'Guide to the Cyan Patience SOUL in Undertale: Toy Knife, Faded Ribbon, light-blue attack mechanics and a worksheet for reviewing what you are waiting on.',
     gameLore: "Snowdin’s Ball Game presents Patience in light blue, while the Toy Knife and Faded Ribbon are associated with the light-blue human through game evidence. Undertale does not describe how long that human stayed in the Ruins.",
     battleMechanicsTitle: 'Cyan Attack Phase (Stationary Stillness)',
     battleMechanicsDesc: 'To safely pass through Cyan or Light Blue attacks (such as Doggo swords, Gyftrot ornaments, or Papyrus blue bones), the SOUL must remain completely stationary. Any movement triggers damage.',
@@ -314,9 +312,8 @@ export const SOUL_DETAILS: Record<string, SoulDetail> = {
       realWorldTraits: 'Patience individuals do not panic when answers are delayed. They understand that premature action often causes more damage than waiting.'
     },
     deepDive: [
-      'Patience is frequently misread as slowness, but in practice it is precise timing. It is the negotiator who lets a bad offer die without rushing to fill silence, the parent who repeats the same instruction calmly for the fifth time, and the builder who ships in a year what others abandon in a month. People with this core tolerate uncertainty without needing immediate relief. That tolerance lets them see patterns that hurried people miss, and their decisions carry fewer expensive corrections precisely because they were not made under artificial urgency.',
-      'The trap is hesitation disguised as wisdom. Waiting forever on a decision that deserves ten minutes is its own form of error. Patience blended with Bravery becomes strategic boldness, striking exactly when the window opens; blended with Perseverance, it becomes the long game, where slow visible progress compounds. The cyan heart works best with deadlines attached: patience for outcomes, urgency for preparation. Deciding in advance what signal will trigger action, such as a date, a threshold, or a repeated event, prevents calm observation from decaying into passivity.',
-      'A useful audit: list the three things you are currently waiting on, and for each ask whether waiting is a strategy or a hiding place. For genuine strategy, write down the condition that will end the wait. For hiding, take the smallest possible action this week. Patience also benefits from physical anchors, because calm is easier to maintain with steady sleep, walks, and breathing than through willpower alone. Managed well, this trait becomes quiet authority: the person in the room who panics last and therefore decides best.'
+      "List three things you are currently waiting for. For each, record what information or action you are waiting on, what would end the wait and what you can prepare meanwhile. If you cannot name an ending condition, choose a reasonable date to review it.",
+      "At that date, compare the original note with what actually changed. Did waiting bring new information, or is a follow-up or another route now needed? This is a way to inspect a delay, not a reason to remain in a harmful situation or postpone a matter that needs prompt attention."
     ],
     labels: defaultEnLabels,
     relatedSouls: [
@@ -361,9 +358,8 @@ export const SOUL_DETAILS: Record<string, SoulDetail> = {
       realWorldTraits: 'Integrity people do what is right even when no one is watching. They feel acute physical discomfort when asked to pretend or deceive.'
     },
     deepDive: [
-      'Integrity lives in unglamorous choices: admitting the mistake before anyone checks the records, giving back the extra change, refusing to laugh at the joke that targets someone absent. People with this core experience alignment between values and actions as physical comfort, and deception as a kind of low-grade pain. That internal consistency makes them predictable in the best way; colleagues hand them sensitive work without elaborate contracts. Their word functions like a signature, and over years this quietly compounds into a reputation that no marketing budget could buy.',
-      'The pressure point is rigidity. High principles can shade into harsh self-judgment and intolerance for moral gray zones, where ordinary compromises feel like betrayals. Integrity blended with Kindness becomes honesty delivered with care, truthful but not wounding; blended with Justice, it becomes principled conduct that also protects others from unfair systems. The blue heart stays healthy when it accepts that integrity concerns your own conduct, not the policing of everyone else. Standards applied inward build trust; the same standards weaponized outward build distance and quiet resentment.',
-      'Two habits protect this trait. First, decide hard cases before meeting them: define in advance what you will do when asked to cover for a friend, exaggerate on a resume, or stay silent about a harm. Pre-decided positions hold better under social pressure. Second, keep the repair path open: integrity is not flawlessness but a pattern of honest correction, and a fast apology is itself an act of alignment. Ask regularly whether your public story and private behavior would still match if everyone could read both.'
+      "Try a written rehearsal for a difficult request: covering up an error, exaggerating a qualification or sharing something confidential. Draft one truthful response that also respects information you are not entitled to disclose. You can decline to answer rather than invent an explanation.",
+      "Choose one promise or public claim and compare it with what you actually did. If they differ, write what needs correcting, who needs the correction and which commitment you can now keep. Review the repair after you make it; you do not need to disclose private notes to demonstrate honesty."
     ],
     labels: defaultEnLabels,
     relatedSouls: [
@@ -382,7 +378,7 @@ export const SOUL_DETAILS: Record<string, SoulDetail> = {
     tagQuote: 'When motivation faded, discipline carried me through to the end.',
     seoTitle: 'Perseverance Soul Undertale (Purple SOUL) - Lore, Items & Meaning',
     seoDescription: 'Complete guide to the Purple Perseverance SOUL in Undertale. Learn about the Torn Notebook, Cloudy Glasses, purple line-trap battle mode, and traits.',
-    gameLore: 'Snowdin’s Ball Game presents Perseverance in purple, while the Torn Notebook and Cloudy Glasses are associated with the purple human through game evidence. Undertale does not provide that human’s occupation or study history. To examine how quiet discipline contrasts with outcome-driven resolve, see our analysis of <a href="/compare/determination-vs-perseverance/" class="text-purple-400 hover:text-white underline font-semibold">Determination vs Perseverance</a>.',
+    gameLore: 'Snowdin’s Ball Game presents Perseverance in purple, while the Torn Notebook and Cloudy Glasses are associated with the purple human through game evidence. Undertale does not provide that human’s occupation or study history. For this site\'s distinction between continuing useful effort and choosing a goal, see <a href="/compare/determination-vs-perseverance/" class="text-purple-400 hover:text-white underline font-semibold">Determination vs Perseverance</a>.',
     battleMechanicsTitle: 'Purple SOUL Web Line Switching (Three-String Traversal)',
     battleMechanicsDesc: 'Muffet pours purple cider to trap the SOUL on 3 horizontal string lines. Movement is restricted to moving left/right and hopping up and down between strings to dodge spider pets.',
     items: [
@@ -408,9 +404,8 @@ export const SOUL_DETAILS: Record<string, SoulDetail> = {
       realWorldTraits: 'Perseverance types do not rely on sudden bursts of motivation. They rely on daily systems, notes, and consistent routines to finish hard work.'
     },
     deepDive: [
-      'Perseverance is the methodical cousin of grit: the language learner who completes the daily deck for two years, the researcher who fills the notebook before trusting a hunch, the small builder who ships weekly improvements while others wait for inspiration. People with this core convert effort into systems, and systems into results that survive bad days. They rarely need dramatic motivation because the structure carries them when enthusiasm dips. Their progress often looks unimpressive from week to week and unbeatable when viewed across whole years of accumulated work.',
-      'The cost is burnout risk. The same engine that refuses to skip a day can also refuse to rest, and over-analysis can stretch simple decisions into research projects. Perseverance blended with Patience becomes durable long-horizon consistency; blended with Determination, it becomes unstoppable follow-through on goals that genuinely matter. The purple heart stays healthy when rest is scheduled with the same discipline as work, treated as maintenance rather than theft. Progress metrics should include recovery, because a system that cannot pause eventually breaks at the worst possible moment.',
-      'Practical checks: do your goals have weekly processes attached, or only outcomes attached? Write the process version, such as thirty focused minutes rather than fluency, and let the streak do the motivating. When stuck, ask whether the problem needs more effort or a different method, because persisting with a broken approach is waste wearing the costume of virtue. Review your notes monthly to see the distance traveled. Perseverance at its best is not suffering beautifully; it is boring, repeatable progress that quietly outlasts every flashier strategy.'
+      "Turn one broad goal into a short weekly process, such as two twenty-minute vocabulary sessions rather than becoming fluent. Specify the task, a small output you can check and a stopping time. Leave room for rest instead of making an uninterrupted streak the goal.",
+      "At the end of the week, review your notes: what was completed, which errors remained and whether the workload was manageable. Keep one useful part of the process and change one part that did not help. Repeated effort is something to evaluate, not evidence that the method must be right."
     ],
     labels: defaultEnLabels,
     relatedSouls: [

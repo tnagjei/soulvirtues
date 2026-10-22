@@ -128,16 +128,16 @@ export const DETERMINATION_VS_PERSEVERANCE: ComparisonSample = {
       breadcrumbCompare: 'Comparisons',
     },
     ja: {
-      seoTitle: 'Undertale ケツイとふくつの違い',
-      seoDescription: "Undertaleのケツイとふくつを比較。望む結末を諦めない力と、習慣や方法を続ける力の違い、ゲーム内根拠、複合タイプを解説。",
+      seoTitle: 'Undertale ケツイとこんき（ふくつ）の違い',
+      seoDescription: "Undertaleのケツイとこんき（ふくつ）を比較。目標を選び直すことと、実行中の有用な努力の違いを、ゲーム内の根拠と本サイトの振り返り例に分けて解説します。",
       eyebrow: 'ソウル特質比較',
-      heading: 'ケツイ vs ふくつ',
+      heading: 'ケツイ vs こんき（ふくつ）',
       intro: "ケツイは選び直す目標、こんきは仕事を進める中での有用な努力に目を向けます。",
       quickAnswerLabel: 'ひとことで言うと',
       quickAnswer: "ケツイは選び直す目標、こんきは仕事を進める中での有用な努力に目を向けます。",
       matrixTitle: '本質的な違い',
       leftLabel: 'ケツイ',
-      rightLabel: 'ふくつ',
+      rightLabel: 'こんき',
       gameEvidenceLabel: 'ゲーム内根拠',
       interpretationLabel: 'サイト独自の解釈',
       rows: [
@@ -150,7 +150,7 @@ export const DETERMINATION_VS_PERSEVERANCE: ComparisonSample = {
   {
     "label": "Undertaleでの根拠",
     "left": "ケツイは人間の持続、SAVE、死後も続ける力と直接結びつく。",
-    "right": "ふくつはスノーフルのボールゲームで明示され、紫の結果は継続と記録を強調する。",
+    "right": "紫色に結びつく Perseverance を、本サイトでは「こんき」と呼びます。ボールゲームの紫の結果は継続と記録に触れます。",
     "evidence": "game"
   },
   {
@@ -185,7 +185,7 @@ export const DETERMINATION_VS_PERSEVERANCE: ComparisonSample = {
   "結果は、独自に改編した質問への自己申告の回答です。出典がパブリックドメインでも、7つのテーマの組合せが検証済み心理尺度になるわけではありません。気分、経験、解釈で回答は変わります。低い得点は美徳がない証拠ではなく、高い得点も危険な行動や診断を正当化しません。"
 ],
       evidenceTitle: '公式設定とコミュニティ解釈',
-      evidenceBody: 'ゲームは赤いソウルの特質を「ケツイ」と明言していません。ケツイは人間のソウルが生み出す力・物質として公式に描かれ、ふくつはスノーフルのボールゲームで示される6特質の一つです。このページは検索上分かりやすい一般的な「赤いソウル／ケツイ」という呼び方を使いますが、公式確定設定としては扱いません。',
+      evidenceBody: 'ゲームは赤いソウルの特質を「ケツイ」と明言していません。ケツイは人間のソウルが生み出す力・物質として描かれます。Perseverance はスノーフルのボールゲームで示される6特質の一つで、本サイトでは「こんき」と呼びます。このページでは一般的な「赤いソウル／ケツイ」という呼び方を使いますが、公式確定設定としては扱いません。',
       testTitle: 'あなたを動かすのはどちら？',
       testBody: "7つの得点、回答の確認、PNGカードはすべて無料です。アカウント、支払い、招待は不要です。",
       testButton: 'Undertale ソウル診断テストを受ける (全66問)',

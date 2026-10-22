@@ -5,6 +5,7 @@
 > 一旦本目录内容变化，请更新本文件
 
 ## Files
+- check_adsense_remediation.mjs：定向验证合成例真实正反向计分、五语言免费结果在购买前、购买文案、35 页审稿练习与隐私边界；不付款、不调用外部 API
 - check_paid_delivery.cjs：同一套付款回归分别验证正式/测试模式，覆盖域名隔离、微信限定、test 参数、失败支付换新链接、新链接重试复用、并发旧请求保护、回调环境拒绝及交付标识。
 - recover_paid_report.py：支持人员核对购买邮箱和订单号后轮换私有链接，输出到新建 0600 本地文件；不发邮件。自检 `python3 scripts/recover_paid_report.py --self-test`。
 - check_field_guide.cjs：验证66题/14条依据的来源、反向计分、英西语、中立/缺记录、跨语言稳定报告ID，并断言 PDF 按钮不受 AI 任务状态阻塞

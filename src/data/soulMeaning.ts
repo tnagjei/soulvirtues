@@ -1,4 +1,4 @@
-// input: None (static "what does this soul mean" copy for the 35 localized soul detail pages)
+// input: None (evidence-bounded color meanings and site reflection definitions for the 35 localized soul detail pages)
 // output: SOUL_MEANING dictionary keyed by locale, plus SoulsMeaningCopy type
 // pos: src/data/soulMeaning.ts（更新规则：文件变更需同步本注释与所属目录 README）
 //
@@ -23,19 +23,19 @@ export const SOUL_MEANING: Record<Locale, SoulsMeaningCopy> = {
     sectionHeading: 'What Does the {color} Soul Mean in Undertale?',
     bySlug: {
       determination:
-        'The red soul stands for Determination: the refusal to accept an ending you did not choose. It is the trait tied to SAVE, LOAD and RESET, and it is the one every player carries. In practice it shows up as stubborn forward motion — you keep going even when nothing suggests things will improve, and you find it genuinely hard to walk away from an unfinished story.',
+        "The red SOUL is commonly associated with Determination by fans. Undertale connects Determination with human SOUL persistence and SAVE, but does not explicitly name it as the red trait. Our quiz uses that community interpretation for a reflection theme: choosing a goal and reconsidering how to pursue it after a setback.",
       bravery:
-        'The orange soul stands for Bravery: not the absence of fear, but forward motion while afraid. Where others freeze, this trait pushes you to speak first, choose first and move first. In practice it looks like a willingness to accept a painful, visible failure over the quieter regret of never having tried at all.',
+        "Snowdin's Ball Game links orange with Bravery. For this site's reflection exercises, Bravery means considering an action despite fear while respecting real risks. The color does not establish how a person will behave or describe the orange human's life.",
       justice:
-        'The yellow soul stands for Justice: the conviction that fairness comes before comfort. Slights against you can sometimes be let go; slights against someone who could not defend themselves almost never can. In practice it makes you the person who names a wrongdoing out loud, often at a personal cost.',
+        "Snowdin's Ball Game links yellow with Justice. Our quiz uses Justice as a theme for considering fair standards, different needs and possible repairs. A result is not proof that someone is morally right, and the game does not supply the yellow human's moral history.",
       kindness:
-        'The green soul stands for Kindness: warm, active empathy rather than passive politeness. It is the choice to heal instead of harm, and to keep offering warmth even when the world has not earned it. In practice it shows up as noticing who has been left out and moving toward them, absorbing hostility without passing it on.',
+        "Snowdin's Ball Game links green with Kindness. Our reflection theme is listening and offering useful help within reasonable limits. It does not require endless sacrifice or establish that people with a green result notice more than others; the green human's personality is not confirmed.",
       patience:
-        'The cyan soul stands for Patience: emotional balance and the discipline to wait. It is the ability to observe clearly while a situation is still unresolved, instead of forcing an answer that is not ready yet. In practice it keeps you steady through delay, and it tends to make you the calmest person in a room that is panicking.',
+        "Snowdin's Ball Game links light blue with Patience. Here the theme concerns responding to waiting and minor frustration, with a clear point for following up or acting. It does not mean accepting harm, guarantee better decisions or establish the light-blue human's temperament.",
       integrity:
-        'The blue soul stands for Integrity: alignment between what you believe and what you actually do. It is doing the right thing when nobody is watching, and refusing to pretend to be someone you are not. In practice it produces a strong, almost physical discomfort when you are asked to perform or to bend your own code.',
+        "Snowdin's Ball Game links blue with Integrity. Our quiz focuses on honesty, confidentiality and commitments, including correcting mistakes. This is a reflection theme rather than a judgment of moral worth, and it does not establish the blue human's beliefs or personality.",
       perseverance:
-        'The purple soul stands for Perseverance: methodical endurance rather than burning motivation. Where Determination is hot and stubborn, Perseverance is cool and disciplined — notes, systems, repetition. In practice it is how you finish long, unglamorous work through habit and quiet dedication instead of waiting to feel inspired.',
+        "Snowdin's Ball Game links purple with Perseverance. Our quiz uses the name for continuing useful effort during a task, checking feedback and making room for rest. It does not mean repeating an ineffective method forever or establish the purple human's habits.",
     },
   },
 
@@ -44,19 +44,19 @@ export const SOUL_MEANING: Record<Locale, SoulsMeaningCopy> = {
     sectionHeading: '¿Qué significa el Alma {color} en Undertale?',
     bySlug: {
       determination:
-        'El Alma Roja representa la Determinación: negarse a aceptar un final que no elegiste. Es el rasgo ligado a GUARDAR, CARGAR y REINICIAR, y el que lleva todo jugador. En la práctica se manifiesta como avance obstinado: sigues adelante aunque nada indique que vaya a mejorar, y te cuesta de verdad abandonar una historia sin terminar.',
+        "Los fans suelen asociar el Alma Roja con la Determinación. Undertale vincula la Determinación con la persistencia de las Almas humanas y el GUARDADO, pero no la nombra explícitamente como rasgo rojo. Nuestro test usa esa interpretación de la comunidad para reflexionar sobre elegir una meta y reconsiderar cómo perseguirla tras un revés.",
       bravery:
-        'El Alma Naranja representa la Valentía: no la ausencia de miedo, sino avanzar con el miedo encima. Donde otros se bloquean, este rasgo te empuja a hablar primero, elegir primero y moverte primero. En la práctica se ve como preferir un fracaso visible y doloroso antes que el arrepentimiento silencioso de no haberlo intentado.',
+        "El Juego de Pelota de Snowdin asocia el naranja con la Valentía. En los ejercicios de este sitio, significa considerar una acción a pesar del miedo y respetar los riesgos reales. El color no determina cómo se comportará alguien ni describe la vida del humano naranja.",
       justice:
-        'El Alma Amarilla representa la Justicia: la convicción de que la equidad va antes que la comodidad. Las ofensas contra ti a veces se pueden soltar; las ofensas contra alguien que no podía defenderse, casi nunca. En la práctica te convierte en quien nombra una injusticia en voz alta, muchas veces pagando un coste personal.',
+        "El Juego de Pelota de Snowdin asocia el amarillo con la Justicia. Nuestro test la usa para reflexionar sobre criterios justos, distintas necesidades y posibles reparaciones. Un resultado no demuestra que alguien tenga razón moral ni establece la historia moral del humano amarillo.",
       kindness:
-        'El Alma Verde representa la Amabilidad: empatía cálida y activa, no cortesía pasiva. Es elegir curar en lugar de dañar, y seguir ofreciendo calidez aunque el entorno no se la haya ganado. En la práctica se nota en quien detecta a los excluidos y se acerca a ellos, absorbiendo la hostilidad sin devolverla.',
+        "El Juego de Pelota de Snowdin asocia el verde con la Amabilidad. Aquí el tema es escuchar y ofrecer ayuda útil dentro de límites razonables. No exige sacrificios sin fin ni demuestra que quienes obtienen verde perciban más que otros; la personalidad del humano verde no está confirmada.",
       patience:
-        'El Alma Cian representa la Paciencia: equilibrio emocional y disciplina para esperar. Es la capacidad de observar con claridad mientras una situación sigue sin resolverse, en lugar de forzar una respuesta que aún no está lista. En la práctica te mantiene estable ante la espera y suele hacerte la persona más calmada de una sala que entra en pánico.',
+        "El Juego de Pelota de Snowdin asocia el celeste con la Paciencia. Aquí se trata de responder a la espera y a pequeñas frustraciones, con un momento definido para preguntar o actuar. No significa aceptar daño ni garantiza mejores decisiones; tampoco establece el temperamento del humano celeste.",
       integrity:
-        'El Alma Azul representa la Integridad: coherencia entre lo que crees y lo que haces. Es hacer lo correcto cuando nadie mira y negarse a fingir ser alguien que no eres. En la práctica produce una incomodidad fuerte, casi física, cuando te piden interpretar un papel o ceder en tu propio código.',
+        "El Juego de Pelota de Snowdin asocia el azul con la Integridad. Nuestro test se centra en la honestidad, la confidencialidad y los compromisos, incluida la corrección de errores. Es un tema de reflexión, no un juicio de valor moral ni una descripción de las creencias del humano azul.",
       perseverance:
-        'El Alma Morada representa la Perseverancia: resistencia metódica, no motivación ardiente. Donde la Determinación es caliente y terca, la Perseverancia es fría y disciplinada: apuntes, sistemas, repetición. En la práctica es cómo terminas trabajos largos y poco vistosos, por hábito y dedicación silenciosa en vez de esperar a sentirte inspirado.',
+        "El Juego de Pelota de Snowdin asocia el morado con la Perseverancia. Nuestro test usa el nombre para continuar un esfuerzo útil, revisar la respuesta obtenida y reservar descanso. No significa repetir para siempre un método ineficaz ni establece los hábitos del humano morado.",
     },
   },
 
@@ -65,19 +65,19 @@ export const SOUL_MEANING: Record<Locale, SoulsMeaningCopy> = {
     sectionHeading: 'O que significa a Alma {color} em Undertale?',
     bySlug: {
       determination:
-        'A Alma Vermelha representa a Determinação: recusar um final que você não escolheu. É o traço ligado a SALVAR, CARREGAR e REINICIAR, e o que todo jogador carrega. Na prática aparece como avanço teimoso: você continua mesmo sem sinal de melhora, e sente dificuldade real em abandonar uma história inacabada.',
+        "Os fãs costumam associar a Alma Vermelha à Determinação. Undertale liga a Determinação à persistência das Almas humanas e ao SAVE, mas não a nomeia explicitamente como traço vermelho. Nosso teste usa essa interpretação da comunidade para refletir sobre escolher uma meta e reconsiderar como buscá-la após um revés.",
       bravery:
-        'A Alma Laranja representa a Bravura: não a ausência de medo, mas seguir em frente com medo. Onde outros travam, este traço empurra você a falar primeiro, escolher primeiro e agir primeiro. Na prática é preferir um fracasso visível e doloroso ao arrependimento silencioso de nunca ter tentado.',
+        "O Jogo da Bola de Snowdin associa o laranja à Bravura. Nos exercícios deste site, o tema é considerar uma ação apesar do medo, respeitando riscos reais. A cor não determina como alguém vai agir nem descreve a vida do humano laranja.",
       justice:
-        'A Alma Amarela representa a Justiça: a convicção de que a equidade vem antes do conforto. Ofensas contra você às vezes podem ser soltas; contra quem não podia se defender, quase nunca. Na prática faz de você quem nomeia uma injustiça em voz alta, muitas vezes pagando um custo pessoal por isso.',
+        "O Jogo da Bola de Snowdin associa o amarelo à Justiça. Nosso teste usa o tema para considerar critérios justos, necessidades diferentes e possíveis reparações. Um resultado não prova que alguém tem razão moral nem estabelece a história moral do humano amarelo.",
       kindness:
-        'A Alma Verde representa a Bondade: empatia quente e ativa, não gentileza passiva. É escolher curar em vez de ferir e continuar oferecendo acolhimento mesmo quando o ambiente não o mereceu. Na prática aparece em quem percebe os excluídos e se aproxima deles, absorvendo hostilidade sem repassá-la.',
+        "O Jogo da Bola de Snowdin associa o verde à Bondade. Aqui o tema é ouvir e oferecer ajuda útil dentro de limites razoáveis. Não exige sacrifício sem fim nem prova que quem recebe verde percebe mais que os outros; a personalidade do humano verde não está confirmada.",
       patience:
-        'A Alma Ciano representa a Paciência: equilíbrio emocional e disciplina para esperar. É a capacidade de observar com clareza enquanto a situação segue indefinida, em vez de forçar uma resposta que ainda não está pronta. Na prática mantém você estável diante da demora e costuma fazer de você a pessoa mais calma numa sala em pânico.',
+        "O Jogo da Bola de Snowdin associa o ciano à Paciência. Aqui o tema é lidar com espera e pequenas frustrações, definindo quando retomar o contato ou agir. Não significa aceitar dano nem garante decisões melhores; tampouco estabelece o temperamento do humano ciano.",
       integrity:
-        'A Alma Azul representa a Integridade: alinhamento entre o que você acredita e o que faz. É fazer o certo quando ninguém está olhando e recusar fingir ser quem você não é. Na prática gera um desconforto forte quando pedem que você atue ou ceda no seu próprio código.',
+        "O Jogo da Bola de Snowdin associa o azul à Integridade. Nosso teste se concentra em honestidade, confidencialidade e compromissos, incluindo corrigir erros. É um tema de reflexão, não um julgamento de valor moral nem uma descrição das crenças do humano azul.",
       perseverance:
-        'A Alma Roxa representa a Perseverança: resistência metódica, não motivação ardente. Onde a Determinação é quente e teimosa, a Perseverança é fria e disciplinada: anotações, sistemas, repetição. Na prática é como você termina trabalhos longos e sem brilho, por hábito e dedicação silenciosa, em vez de esperar inspiração.',
+        "O Jogo da Bola de Snowdin associa o roxo à Perseverança. Nosso teste usa o nome para continuar um esforço útil, avaliar o retorno obtido e reservar descanso. Não significa repetir para sempre um método ineficaz nem estabelece os hábitos do humano roxo.",
     },
   },
 
@@ -86,19 +86,19 @@ export const SOUL_MEANING: Record<Locale, SoulsMeaningCopy> = {
     sectionHeading: 'Undertale の{color}のタマシイに込められた意味',
     bySlug: {
       determination:
-        '赤いタマシイが表すのは「ケツイ」です。自分が選んでいない結末を受け入れない意志を指し、セーブ・ロード・リセットの能力に結びついた唯一の特質であり、プレイヤー自身が持つタマシイでもあります。実際には、先が見えなくても進み続け、未完の物語を手放すことが極端に難しい形で現れます。',
+        "赤いタマシイを「ケツイ」と結びつけるのは、ファンの間で広く使われる解釈です。ゲームはケツイを人間のタマシイの持続やSAVEと関連づけていますが、赤の特質とは明言していません。本サイトではこの解釈を使い、目標を選び、つまずいた後に取り組み方を見直すテーマとして扱います。",
       bravery:
-        'オレンジのタマシイが表すのは「ゆうき」です。恐れがないことではなく、恐れたまま前に進む力を指します。周囲が固まる場面で、最初に発言し、最初に選び、最初に動くよう後押しします。実際には、何もしなかった後悔よりも、痛みを伴う失敗を選ぶ姿勢として現れます。',
+        "スノーフルのボールゲームでは、オレンジ色が Bravery に結びつきます。本サイトでは「ゆうき」と呼び、現実の危険を考慮しながら、恐れがあっても行動を検討するテーマにしています。色だけで行動やオレンジ色の人間の生き方が分かるわけではありません。",
       justice:
-        '黄色のタマシイが表すのは「せいぎ」です。快適さより公平さを優先する信念を指します。自分への扱いには目を瞑れても、守れなかった誰かへの不当な扱いは見逃せません。実際には、不正をはっきり言葉にする役割として現れ、しばしば個人的な代償を伴います。',
+        "スノーフルのボールゲームでは、黄色が Justice に結びつきます。本サイトでは「せいぎ」と呼び、公平な基準、異なる必要、修正の方法を考えるテーマにしています。結果は道徳的な正しさの証明ではなく、黄色の人間の道徳的な経歴も示しません。",
       kindness:
-        '緑のタマシイが表すのは「やさしさ」です。受け身の礼儀ではなく、能動的で温かい共感を指します。傷つけるより癒すことを選び、周囲に報われていなくても温かさを差し出し続けます。実際には、仲間外れになっている人に気づいて近づき、敵意を引き受けても他者へ渡さない形で現れます。',
+        "スノーフルのボールゲームでは、緑色が Kindness に結びつきます。本サイトの「やさしさ」は、無理のない限度で話を聞き、役立つ助けを考えるテーマです。際限のない犠牲を求めるものではなく、緑の結果の人が他者よりよく気づくと証明するものでもありません。",
       patience:
-        '水色のタマシイが表すのは「にんたい」です。感情の均衡と、待つための規律を指します。状況が未解決のままでも冷静に観察し、準備のできていない答えを無理に引き出そうとしません。実際には、遅延の中でも姿勢を崩さず、混乱した場で最も落ち着いている人になります。',
+        "スノーフルのボールゲームでは、水色が Patience に結びつきます。本サイトの「にんたい」は、待ち時間や小さないらだちへの対応と、確認や行動に移す時点を考えるテーマです。害を受け入れることではなく、判断が優れるという保証や、水色の人間の性格の説明でもありません。",
       integrity:
-        '青いタマシイが表すのは「まこと」です。信じていることと実際の行動が一致している状態を指します。誰も見ていないときでも正しい選択をし、自分ではない誰かを演じることを拒みます。実際には、自分の中核を偽れと求められたときに強い違和感として現れます。',
+        "スノーフルのボールゲームでは、青色が Integrity に結びつきます。本サイトでは「せいじつ」と呼び、正直さ、秘密の保持、約束と間違いの訂正を扱います。人の道徳的な価値を決めたり、青色の人間の信念や性格を示したりするものではありません。",
       perseverance:
-        '紫のタマシイが表すのは「ふくつ」です。燃え上がるやる気ではなく、地道な持続力を指します。ケツイが熱く頑固であるのに対し、ふくつは冷静で規律的です。ノート、仕組み、反復によって、長く地味な作業をやり切る力として現れます。',
+        "スノーフルのボールゲームでは、紫色が Perseverance に結びつきます。本サイトでは「こんき」と呼び、有用な努力の継続、結果の確認、休息を考えるテーマにしています。役に立たない方法を続けることではなく、紫色の人間の習慣を示すものでもありません。",
     },
   },
 
@@ -107,19 +107,19 @@ export const SOUL_MEANING: Record<Locale, SoulsMeaningCopy> = {
     sectionHeading: 'Что означает {color} душа в Undertale?',
     bySlug: {
       determination:
-        'Красная душа — это Решимость: отказ принимать концовку, которую вы не выбирали. Это единственная черта, связанная со способностью СОХРАНЯТЬ, ЗАГРУЖАТЬ и СБРАСЫВАТЬ, и она есть у самого игрока. На практике она проявляется как упрямое движение вперёд, когда ничто не обещает улучшений.',
+        "Фанаты часто связывают Красную Душу с Решимостью. Undertale связывает Решимость с сохранением человеческих Душ и SAVE, но прямо не называет её красной чертой. Наш тест использует это толкование сообщества как тему для размышления: выбрать цель и пересмотреть способ её достижения после неудачи.",
       bravery:
-        'Оранжевая душа — это Храбрость: не отсутствие страха, а движение вперёд, пока страшно. Там, где другие замирают, эта черта заставляет говорить первым, выбирать первым и действовать первым. На практике это готовность принять болезненную ошибку вместо тихого сожаления о бездействии.',
+        "Игра с мячом в Сноудине связывает оранжевый цвет с Храбростью. В упражнениях сайта это тема действия вопреки страху с учётом реальных рисков. Цвет не определяет, как человек будет вести себя, и не описывает жизнь оранжевого человека.",
       justice:
-        'Жёлтая душа — это Справедливость: убеждение, что честность важнее комфорта. Обиду на себя иногда можно отпустить; обиду на того, кто не мог защититься, — почти никогда. На практике вы становитесь тем, кто называет несправедливость вслух, часто за собственный счёт.',
+        "Игра с мячом в Сноудине связывает жёлтый цвет со Справедливостью. Наш тест предлагает рассмотреть справедливые критерии, разные потребности и возможные исправления. Результат не доказывает моральную правоту и не устанавливает моральную историю жёлтого человека.",
       kindness:
-        'Зелёная душа — это Доброта: тёплое и деятельное сочувствие, а не пассивная вежливость. Это выбор лечить, а не ранить, и продолжать давать тепло даже без отдачи. На практике она проявляется в тех, кто замечает исключённых и подходит к ним, принимая враждебность без ответа.',
+        "Игра с мячом в Сноудине связывает зелёный цвет с Добротой. Здесь тема — слушать и предлагать полезную помощь в разумных пределах. Она не требует бесконечных жертв и не доказывает, что люди с зелёным результатом замечают больше других; характер зелёного человека не подтверждён.",
       patience:
-        'Голубая душа — это Терпение: эмоциональный баланс и дисциплина ожидания. Это способность ясно наблюдать, пока ситуация не разрешилась, вместо того чтобы вынуждать ответ, к которому ещё не готов. На практике оно удерживает вас спокойным в задержке и в паникующей комнате.',
+        "Игра с мячом в Сноудине связывает голубой цвет с Терпением. Здесь речь о реакции на ожидание и мелкие неприятности, с определённым моментом для уточнения или действия. Это не означает принимать вред, не гарантирует лучших решений и не устанавливает темперамент голубого человека.",
       integrity:
-        'Синяя душа — это Порядочность: согласованность между тем, во что вы верите, и тем, что вы делаете. Это поступать правильно, когда никто не смотрит, и отказываться играть чужую роль. На практике вызывает сильный дискомфорт, когда от вас требуют поступиться собственными принципами.',
+        "Игра с мячом в Сноудине связывает синий цвет с Порядочностью. Наш тест сосредоточен на честности, конфиденциальности и обязательствах, включая исправление ошибок. Это тема для размышления, а не оценка моральной ценности или описание убеждений синего человека.",
       perseverance:
-        'Фиолетовая душа — это Настойчивость: методичная выносливость, а не яркая мотивация. Где Решимость горяча и упряма, Настойчивость холодна и дисциплинированна: записи, системы, повторение. На практике это умение доводить долгую и неяркую работу до конца за счёт привычки.',
+        "Игра с мячом в Сноудине связывает фиолетовый цвет с Настойчивостью. Наш тест использует название для продолжения полезных усилий, проверки обратной связи и отдыха. Это не означает бесконечное повторение неработающего метода и не устанавливает привычки фиолетового человека.",
     },
   },
 };

@@ -1,5 +1,5 @@
 // input: Static russian translation dictionary aligned with Undertale community localizations
-// output: Full Russian Translations object implementation
+// output: Full Russian Translations object implementation including localized optional-checkout notices
 // pos: src/i18n/ru.ts (更新规则：文件变更需同步本注释与所属目录 README)
 
 import type { Translations } from './types';
@@ -290,6 +290,19 @@ export const ruTranslations: Translations = {
     soulsGalleryTitle: "СЕМЬ ЧЕЛОВЕЧЕСКИХ ДУШ",
     soulsBackBtn: "ВЕРНУТЬСЯ К РЕЗУЛЬТАТАМ",
     soulSelectHint: "Нажмите на душу, чтобы узнать подробности о её черте",
+    checkout: {
+      "optional": "Необязательная платная рабочая тетрадь",
+      "consent": "Мне исполнилось 18 лет или у меня есть разрешение родителя либо опекуна. До перехода к оплате я соглашаюсь сохранить 66 ответов и личный путеводитель на сервере. Онлайн-доступ действует 30 дней после оплаты. После подтверждения оплаты утверждения, ответы, направления подсчёта, семь баллов и язык отчёта передаются DeepSeek для интерпретации. Имя, почта, платёжные данные, закрытый ключ доступа и заметки не передаются AI. Отчёты доступны только на английском или испанском.",
+      "submit": "Купить необязательную тетрадь · US$4.93",
+      "processing": "Подготовка оплаты…",
+      "consentRequired": "Прочитайте и подтвердите условия покупки, хранения и обработки AI перед продолжением.",
+      "localPreview": "Это локальный предпросмотр. Оплата здесь не запускается.",
+      "incompleteAnswers": "Сначала ответьте на все 66 вопросов.",
+      "pending": "Ссылка на оплату готовится. Подождите несколько секунд и проверьте снова; не платите повторно.",
+      "failed": "Не удалось подготовить оплату. Повторите попытку или обратитесь в поддержку.",
+      "invalidLink": "Не удалось проверить адрес оплаты. Обратитесь в поддержку.",
+      "incompleteResponse": "Сервис оплаты вернул неполный ответ. Повторите попытку или обратитесь в поддержку."
+    },
     purchaseDisclaimer: "Совершая покупку, вы подтверждаете, что вам исполнилось 18 лет или есть согласие законного представителя. См. наши <a href=\"/terms/\" class=\"underline hover:text-gray-300\">Условия (English)</a> и <a href=\"/privacy/\" class=\"underline hover:text-gray-300\">Политику конфиденциальности (English)</a>.",
     feedbackVote: {
       title: "Что нам добавить в следующем обновлении? (Голосуйте в 1 клик)",

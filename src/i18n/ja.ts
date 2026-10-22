@@ -1,5 +1,5 @@
 // input: Static japanese translation dictionary aligned with official Undertale localizations
-// output: Full Japanese Translations object implementation
+// output: Full Japanese Translations object implementation including localized optional-checkout notices
 // pos: src/i18n/ja.ts (更新规则：文件变更需同步本注释与所属目录 README)
 
 import type { Translations } from './types';
@@ -290,6 +290,19 @@ export const jaTranslations: Translations = {
     soulsGalleryTitle: "7つの人間の魂",
     soulsBackBtn: "結果に戻る",
     soulSelectHint: "魂をクリックすると詳細を確認できます",
+    checkout: {
+      "optional": "任意購入のワークブック",
+      "consent": "18歳以上、または保護者の許可があることを確認します。決済に進む前に、66問の回答と非公開ガイドをサーバーに保存することに同意します。オンライン閲覧は支払い後30日間です。支払い確認後、質問文、回答、採点方向、7つの得点、レポート言語をDeepSeekに送り、解説を生成します。氏名、メール、支払情報、非公開のアクセス認証情報、メモはAIに送りません。レポートは英語またはスペイン語のみです。",
+      "submit": "任意のワークブックを購入 · US$4.93",
+      "processing": "決済ページを準備しています…",
+      "consentRequired": "購入・保存・AI処理の説明を読み、同意してからお進みください。",
+      "localPreview": "これはローカルのプレビューです。ここでは決済を開始しません。",
+      "incompleteAnswers": "先に66問すべてに回答してください。",
+      "pending": "決済リンクを準備中です。少し待ってから再確認してください。重複して支払わないでください。",
+      "failed": "決済を準備できませんでした。再試行するか、サポートにご連絡ください。",
+      "invalidLink": "決済先のアドレスを確認できませんでした。サポートにご連絡ください。",
+      "incompleteResponse": "決済サービスの応答が不完全です。再試行するか、サポートにご連絡ください。"
+    },
     purchaseDisclaimer: "ご購入により、18歳以上または保護者の同意があることを確認したものとみなされます。詳細は<a href=\"/terms/\" class=\"underline hover:text-gray-300\">利用規約（英語）</a>および<a href=\"/privacy/\" class=\"underline hover:text-gray-300\">プライバシーポリシー（英語）</a>をご覧ください。",
     feedbackVote: {
       title: "次に何を追加すべきですか？（1クリックで投票）",

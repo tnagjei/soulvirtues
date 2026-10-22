@@ -18,7 +18,6 @@ User-agent: DuckAssistBot
 
 # Direct AI crawlers to llms.txt
 LLM-Content: https://soulvirtues.org/llms.txt
-LLM-Full-Content: https://soulvirtues.org/llms-full.txt
 
 # Public routes
 Allow: /about/

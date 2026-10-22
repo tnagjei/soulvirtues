@@ -1,5 +1,5 @@
 // input: Static portuguese translation dictionary aligned with official Undertale localizations
-// output: Full Portuguese Translations object implementation
+// output: Full Portuguese Translations object implementation including localized optional-checkout notices
 // pos: src/i18n/pt.ts (更新规则：文件变更需同步本注释与所属目录 README)
 
 import type { Translations } from './types';
@@ -290,6 +290,19 @@ export const ptTranslations: Translations = {
     soulsGalleryTitle: "AS SETE ALMAS HUMANAS",
     soulsBackBtn: "VOLVER AOS RESULTADOS",
     soulSelectHint: "Clique em uma alma para ver detalhes de seus traços",
+    checkout: {
+      "optional": "Caderno pago opcional",
+      "consent": "Tenho 18 anos ou permissão do meu responsável. Antes do pagamento, concordo em salvar minhas 66 respostas e meu guia privado no servidor. O acesso on-line dura 30 dias após o pagamento. Após a confirmação, as afirmações, respostas, direções de pontuação, sete notas e idioma são enviados à DeepSeek para gerar a interpretação. Meu nome, e-mail, dados de pagamento, credencial privada e anotações não são enviados à AI. Os relatórios estão disponíveis apenas em inglês ou espanhol.",
+      "submit": "Comprar o caderno opcional · US$4.93",
+      "processing": "Preparando o pagamento…",
+      "consentRequired": "Leia e confirme o aviso de compra, armazenamento e AI antes de continuar.",
+      "localPreview": "Esta é uma prévia local. Nenhum pagamento é iniciado aqui.",
+      "incompleteAnswers": "Responda primeiro às 66 perguntas.",
+      "pending": "Seu link de pagamento está sendo preparado. Aguarde alguns segundos e confira novamente; não pague duas vezes.",
+      "failed": "Não foi possível preparar o pagamento. Tente novamente ou contate o suporte.",
+      "invalidLink": "Não foi possível verificar o endereço de pagamento. Contate o suporte.",
+      "incompleteResponse": "A resposta do serviço de pagamento está incompleta. Tente novamente ou contate o suporte."
+    },
     purchaseDisclaimer: "Ao comprar, você confirma que tem 18 anos ou mais, ou o consentimento do responsável. Consulte nossos <a href=\"/terms/\" class=\"underline hover:text-gray-300\">Termos (English)</a> e a <a href=\"/privacy/\" class=\"underline hover:text-gray-300\">Política de Privacidade (English)</a>.",
     feedbackVote: {
       title: "O que devemos construir a seguir? (Vote com 1 clique)",

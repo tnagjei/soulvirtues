@@ -1,5 +1,5 @@
 // input: Static spanish translation dictionary aligned with official Undertale localizations
-// output: Full Spanish Translations object implementation
+// output: Full Spanish Translations object implementation including localized optional-checkout notices
 // pos: src/i18n/es.ts (更新规则：文件变更需同步本注释与所属目录 README)
 
 import type { Translations } from './types';
@@ -290,6 +290,19 @@ export const esTranslations: Translations = {
     soulsGalleryTitle: "LAS SIETE ALMAS HUMANAS",
     soulsBackBtn: "VOLVER A RESULTADOS",
     soulSelectHint: "Haz clic en un alma para inspeccionar sus detalles",
+    checkout: {
+      "optional": "Cuaderno de pago opcional",
+      "consent": "Tengo 18 años o permiso de mi tutor. Antes de ir al pago, acepto guardar mis 66 respuestas y mi guía privada en el servidor. El acceso en línea dura 30 días después del pago. Cuando se verifica el pago, se envían a DeepSeek las afirmaciones, respuestas, direcciones de puntuación, siete puntuaciones e idioma para generar la interpretación. No se envían a AI mi nombre, correo, datos de pago, credencial privada ni notas. Los informes solo están disponibles en inglés o español.",
+      "submit": "Comprar el cuaderno opcional · US$4.93",
+      "processing": "Preparando el pago…",
+      "consentRequired": "Lee y confirma el aviso de compra, almacenamiento y AI antes de continuar.",
+      "localPreview": "Esta es una vista previa local. Aquí no se inicia ningún pago.",
+      "incompleteAnswers": "Completa las 66 preguntas primero.",
+      "pending": "Se está preparando tu enlace de pago. Espera unos segundos y comprueba de nuevo; no pagues dos veces.",
+      "failed": "No se pudo preparar el pago. Inténtalo de nuevo o contacta con soporte.",
+      "invalidLink": "No se pudo verificar la dirección de pago. Contacta con soporte.",
+      "incompleteResponse": "La respuesta del servicio de pago está incompleta. Inténtalo de nuevo o contacta con soporte."
+    },
     purchaseDisclaimer: "Al comprar confirmas que tienes 18 años o más, o el consentimiento de tu tutor legal. Consulta nuestros <a href=\"/terms/\" class=\"underline hover:text-gray-300\">Términos (English)</a> y la <a href=\"/privacy/\" class=\"underline hover:text-gray-300\">Política de Privacidad (English)</a>.",
     feedbackVote: {
       title: "¿Qué deberíamos agregar a continuación? (Vota con 1 clic)",

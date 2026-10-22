@@ -5,6 +5,7 @@
 > 一旦本目录内容变化，请更新本文件
 
 ## Files
+- scoringExample.ts：公开合成回答与当前 computeScores 同源的计分演示、中立参考及五语言说明，不读取用户数据
 - paidReport.ts：读取服务器核验的私有报告；testMode 仅来自服务器响应，用于测试报告提示。
 - fieldGuide.ts：英文/西语个人手册；复用V2题库/计分/定义，输出真实回答依据、情境演练和七日练习；样例仅供开发预览
 - reportDelivery.ts：统一真实分数到报告字段的映射、完整响应验证、按结果匹配缓存与覆盖响应正文的请求超时
@@ -14,10 +15,10 @@
 - questions.ts：V2 66题五语言文字、56条IPIP官方来源与10条自拟题、稳定题号及每题单一维度
 - souls.ts：七种灵魂特质名称、颜色、十六进制色值、代表金句与深度说明
 - scoring.ts：网页与验证共用的V2正反向平均分、有效答案校验、中立/缺失/并列/接近结果和本地回答贡献
-- soulDetails.ts：七大灵魂特质英文原作证据边界、专属装备、战斗机制、SEO 描述与 deepDive 深读正文
+- soulDetails.ts：七大灵魂特质英文原作证据边界、专属装备、战斗机制、SEO 描述与 deepDive 记录练习（旧人格分析字段不公开渲染）
 - soulDetailsI18n.ts：日、西、葡、俄多语言灵魂特质设定、证据边界与标签
-- soulDetailsLocalizedContent.ts：四种非英语语言的 28 组物品与性格分析完整正文，含各特质 deepDive 深读正文
-- soulComparisonSample.ts：决心 vs 毅力样板页五语言对比文案、证据等级与复合特质解释
+- soulDetailsLocalizedContent.ts：四种非英语语言的 28 组物品与性格分析完整正文，含各特质审稿后的 deepDive 记录练习
+- soulComparisonSample.ts：决心 vs 毅力样板页五语言对比文案、日文本站名称与原作证据边界、证据等级与复合特质解释
 - soulComparisons.ts：6组已审核双特质组合与新增5组五语言对比文案
 - soulsHub.ts：/souls/ 汇总页的五语言页面级文案（TDH、导语、小节正文、FAQ、证据边界说明与导航锚文本）
 - compareHub.ts：/compare/ 汇总页的五语言页面级文案（TDH、导语、使用说明与 CTA）

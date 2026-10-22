@@ -1,9 +1,10 @@
 ---
 // input: lang ('en' | 'ja' | 'es' | 'pt' | 'ru'), static scoring data, localized dictionaries, and six approved comparison pairs
-// output: Five-language V2 quiz with versioned shared progress, mean scoring, neutral/tied readings, matching versioned cards, touch-accessible start actions, an explicit intro continue button, a result badge that jumps to the profile summary, and private answer evidence
+// output: Five-language V2 quiz with free scores, answer evidence/review and PNG before an optional localized workbook purchase; versioned progress and scoring are unchanged
 // pos: src/components/Quiz.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import { ASSESSMENT_COPY } from '../data/assessmentContent';
+import { SCORING_EXAMPLE_COPY } from '../data/scoringExample';
 
 import { getTranslations, type Locale } from '../i18n';
 import { SOUL_CODES } from '../data/souls';
@@ -46,6 +47,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
 >
   <div class="border border-gray-800 bg-black px-4 py-1 mb-4 text-xs text-gray-400 leading-relaxed">
     <a href={lang === 'en' ? '/method/' : '/' + lang + '/method/'} class="flex min-h-11 items-center text-cyan-300 underline">{ASSESSMENT_COPY[lang].methodLink}</a>
+    <a href={lang === 'en' ? '/method/#worked-example' : '/' + lang + '/method/#worked-example'} class="flex min-h-11 items-center text-cyan-300 underline">{SCORING_EXAMPLE_COPY[lang].link}</a>
     <p id="quiz-bank-update" class="hidden mt-2 text-amber-300" role="status">{ASSESSMENT_COPY[lang].versionNotice}</p>
     <p id="quiz-storage-error" class="hidden mt-2 text-amber-300" role="status">{ASSESSMENT_COPY[lang].storageError}</p>
   </div>
@@ -396,76 +398,6 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
         <!-- Injected via JS -->
       </p>
 
-      <!-- First Screen Premium Card with Blurred Preview -->
-      <div id="premium-unlock-card" class="mt-8 mb-8 max-w-2xl mx-auto p-5 sm:p-7 bg-gradient-to-b from-yellow-950/50 via-black to-black border-2 border-yellow-400 shadow-[0_0_30px_rgba(250,204,21,0.3)] text-center relative overflow-hidden">
-        <div class="inline-flex items-center gap-2 px-3 py-1 bg-yellow-500/20 border border-yellow-400 text-yellow-300 text-xs font-mono font-bold uppercase tracking-widest mb-3">
-          <span>⚡ Introductory Special</span>
-        </div>
-
-        <h4 class="text-xl sm:text-3xl font-black font-mono tracking-tight text-white uppercase mb-2">
-          Seven Virtues: Personal Trait Archive &amp; Guidebook
-        </h4>
-        <p class="text-xs sm:text-sm text-gray-300 max-w-lg mx-auto mb-4 leading-relaxed font-sans">
-          AI interpretation of your 66 answers, seven trait readings, actual answer receipts, practical exercises, and a PDF workbook.
-        </p>
-
-        <!-- High-Contrast Sample Preview Area (Crystal Clear Top + Targeted Gradient Lock) -->
-        <div class="mb-5 text-left font-sans text-xs rounded border border-yellow-500/50 bg-black/95 overflow-hidden shadow-inner">
-          <!-- 1. Crystal clear excerpt: 100% visible, high-contrast, zero blur -->
-          <div class="p-4 sm:p-5 border-b border-yellow-500/30 bg-gradient-to-r from-yellow-950/30 via-black to-black">
-            <div class="flex items-center gap-2 font-mono font-bold text-yellow-400 text-[11px] uppercase tracking-wider mb-2">
-              <span class="inline-block w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></span>
-              <span>✦ PERSONAL WORKBOOK PREVIEW:</span>
-            </div>
-            <p id="preview-clear-text" class="text-xs sm:text-sm font-medium text-white leading-relaxed">
-              Your guide traces these scores back to the answers you gave. It includes seven readings, practical exercises and a seven-day plan to check what fits your experience.
-            </p>
-          </div>
-
-          <!-- 2. Targeted blurred lower section with gradient overlay -->
-          <div class="relative p-4 sm:p-5 overflow-hidden min-h-[90px]">
-            <p class="text-xs text-gray-400 blur-[3px] select-none opacity-40 leading-relaxed font-serif">
-              Each reading includes the theme, the actual answers behind it, a question to check in real life and a small practice exercise. Your full workbook also includes a seven-day plan and space for your own notes.
-            </p>
-            <!-- Lock gradient overlay centered over blurred section only -->
-            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/90 to-transparent flex flex-col items-center justify-center p-3">
-              <div class="px-4 py-2 bg-black/95 border-2 border-yellow-400 text-yellow-300 font-mono font-bold text-xs uppercase tracking-widest shadow-[0_0_20px_rgba(250,204,21,0.5)] flex items-center gap-2">
-                <span class="text-sm">🔒</span>
-                <span>FULL PERSONAL WORKBOOK LOCKED</span>
-              </div>
-              <span class="text-[10px] text-gray-400 font-mono mt-1.5 uppercase tracking-wider">
-                Unlock all seven readings, your answer receipts & PDF workbook below
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Price Anchor -->
-        <div class="flex items-center justify-center gap-3 mb-4 font-mono">
-          <span class="text-2xl sm:text-3xl font-black text-yellow-400">US$4.93</span>
-          <span class="text-[10px] px-2 py-0.5 bg-yellow-500/20 border border-yellow-400 text-yellow-300 font-bold uppercase">One-Time</span>
-        </div>
-
-        <label class="flex items-start gap-3 text-left text-[11px] text-gray-300 font-sans max-w-xl mx-auto mb-4 leading-relaxed">
-          <input id="checkout-consent" type="checkbox" class="mt-1 flex-none w-4 h-4" />
-          <span>{lang === 'es' ? 'Tengo 18 años o permiso de mi tutor. Acepto guardar mis 66 respuestas y mi informe durante 30 días y enviarlos a DeepSeek para generar mi interpretación después del pago. No se envían mi correo, datos de pago ni notas. Informe en inglés o español.' : 'I am 18+ or have guardian permission. I agree to save my 66 answers and report for 30 days and send the quiz statements, answers and scores to DeepSeek for interpretation after payment. My email, payment details and notes are not sent to AI. Report available in English or Spanish.'} <a href="/terms/" class="underline">Terms</a> · <a href="/privacy/" class="underline">Privacy</a></span>
-        </label>
-        <button
-          id="btn-checkout-waffo"
-          type="button"
-          class="w-full sm:w-auto px-8 py-3.5 bg-yellow-400 hover:bg-yellow-300 text-black font-mono font-black text-xs sm:text-sm uppercase tracking-wider shadow-[4px_4px_0_rgba(255,255,255,0.5)] active:translate-x-[2px] active:translate-y-[2px] cursor-pointer transition-all flex items-center justify-center gap-2 mx-auto"
-        >
-          <span id="btn-checkout-spinner" class="hidden animate-spin">✦</span>
-          <span id="btn-checkout-text">UNLOCK MY TRAIT ARCHIVE ($4.93) →</span>
-        </button>
-
-        <p class="text-[11px] text-gray-400 mt-3 font-sans">
-          Saved Personal Guide · PDF &amp; Private Access Link · Checkout by Waffo
-        </p>
-        <p id="checkout-status" class="text-xs text-amber-200 mt-3 font-sans" role="status" aria-live="polite"></p>
-        <p class="text-[10px] text-gray-500 mt-1.5 font-sans" set:html={t.quizUI.purchaseDisclaimer} />
-      </div>
-
       <!-- Direct High-Converting Soul Trait Subpage Internal Link -->
       <div class="mt-6 text-center">
         <a
@@ -576,6 +508,52 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       <p class="mt-4 px-3 py-2.5 bg-yellow-950/20 border border-yellow-700/60 text-yellow-300 text-[11px] sm:text-xs leading-relaxed font-sans">
         {t.quizUI.shareHint}
       </p>
+
+      <div class="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 mt-8">
+        <button
+          id="btn-review-answers"
+          type="button"
+          class="w-full sm:w-auto px-5 py-3 bg-black border-3 border-cyan-400 hover:bg-cyan-400 hover:text-black text-cyan-400 font-bold text-xs uppercase tracking-widest active:scale-95 transition-[background-color,color,transform] cursor-pointer shadow-[3px_3px_0px_rgba(6,182,212,0.4)]"
+        >
+          📝 {t.quizUI.reviewAnswersBtn}
+        </button>
+
+        <button
+          id="btn-browse-souls"
+          type="button"
+          class="w-full sm:w-auto px-5 py-3 bg-black border-3 border-purple-400 hover:bg-purple-400 hover:text-black text-purple-400 font-bold text-xs uppercase tracking-widest active:scale-95 transition-[background-color,color,transform] cursor-pointer shadow-[3px_3px_0px_rgba(192,132,252,0.4)]"
+        >
+          📖 {t.quizUI.browseSoulsBtn}
+        </button>
+
+        <button
+          id="btn-retake"
+          type="button"
+          class="w-full sm:w-auto px-5 py-3 bg-black border-3 border-white hover:bg-white hover:text-black text-white font-bold text-xs uppercase tracking-widest active:scale-95 transition-[background-color,color,transform] cursor-pointer shadow-[3px_3px_0px_rgba(255,255,255,0.4)]"
+        >
+          ↺ {t.quizUI.retakeBtn}
+        </button>
+      </div>
+
+      <section id="premium-unlock-card" aria-labelledby="workbook-title" class="mt-8 mb-8 p-5 sm:p-7 border-2 border-yellow-700 bg-black text-left font-sans">
+        <p class="text-xs font-mono text-yellow-300 mb-3">{t.quizUI.checkout.optional}</p>
+        <h4 id="workbook-title" class="text-base sm:text-lg font-bold text-white break-words mb-3">{t.pricing.paidTitle}</h4>
+        <p class="text-sm text-gray-300 leading-relaxed mb-4">{t.pricing.paidDesc}</p>
+        <ul class="list-disc pl-5 space-y-2 text-sm text-gray-300 leading-relaxed mb-4">
+          {t.pricing.paidItems.map(item => <li>{item}</li>)}
+        </ul>
+        <p class="text-sm text-gray-300 leading-relaxed mb-4">{t.pricing.paidHow}</p>
+        <p class="text-lg font-mono font-bold text-yellow-300 mb-4">{t.pricing.paidPrice} · {t.pricing.paidBadge}</p>
+        <label class="flex items-start gap-3 text-xs text-gray-300 leading-relaxed mb-5">
+          <input id="checkout-consent" type="checkbox" class="mt-1 flex-none w-4 h-4" />
+          <span>{t.quizUI.checkout.consent} <a href="/terms/" class="underline">{t.footer.termsLink}</a> · <a href="/privacy/" class="underline">{t.footer.privacyLink}</a></span>
+        </label>
+        <button id="btn-checkout-waffo" type="button" class="w-full px-4 py-3 min-h-11 border-2 border-yellow-400 bg-yellow-400 hover:bg-yellow-300 text-black font-mono font-bold text-xs sm:text-sm leading-relaxed cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
+          <span id="btn-checkout-spinner" class="hidden animate-spin">✦</span>
+          <span id="btn-checkout-text">{t.quizUI.checkout.submit}</span>
+        </button>
+        <p id="checkout-status" class="text-xs text-amber-200 mt-3 leading-relaxed" role="status" aria-live="polite"></p>
+      </section>
 
       <!-- Community Roadmap Vote Section (Post-Quiz Feedback) -->
       <div
@@ -690,32 +668,6 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
             ✎ Change your vote / Submit another idea
           </button>
         </div>
-      </div>
-
-      <div class="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 mt-8">
-        <button
-          id="btn-review-answers"
-          type="button"
-          class="w-full sm:w-auto px-5 py-3 bg-black border-3 border-cyan-400 hover:bg-cyan-400 hover:text-black text-cyan-400 font-bold text-xs uppercase tracking-widest active:scale-95 transition-[background-color,color,transform] cursor-pointer shadow-[3px_3px_0px_rgba(6,182,212,0.4)]"
-        >
-          📝 {t.quizUI.reviewAnswersBtn}
-        </button>
-
-        <button
-          id="btn-browse-souls"
-          type="button"
-          class="w-full sm:w-auto px-5 py-3 bg-black border-3 border-purple-400 hover:bg-purple-400 hover:text-black text-purple-400 font-bold text-xs uppercase tracking-widest active:scale-95 transition-[background-color,color,transform] cursor-pointer shadow-[3px_3px_0px_rgba(192,132,252,0.4)]"
-        >
-          📖 {t.quizUI.browseSoulsBtn}
-        </button>
-
-        <button
-          id="btn-retake"
-          type="button"
-          class="w-full sm:w-auto px-5 py-3 bg-black border-3 border-white hover:bg-white hover:text-black text-white font-bold text-xs uppercase tracking-widest active:scale-95 transition-[background-color,color,transform] cursor-pointer shadow-[3px_3px_0px_rgba(255,255,255,0.4)]"
-        >
-          ↺ {t.quizUI.retakeBtn}
-        </button>
       </div>
     </div>
   </div>
@@ -1348,10 +1300,6 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
         }));
       } catch (e) {}
 
-      const previewClearEl = document.getElementById("preview-clear-text");
-      if (previewClearEl) previewClearEl.textContent = LANG === 'es'
-        ? 'La guía relaciona tus puntuaciones con las respuestas que diste. Incluye siete lecturas, ejercicios prácticos y un plan de siete días para comprobar qué encaja con tu experiencia.'
-        : 'Your guide traces these scores back to the answers you gave. It includes seven readings, practical exercises and a seven-day plan to check what fits your experience.';
       const dominantSoul = getResultDisplay(score);
 
       const heartEl = document.getElementById("result-heart");
@@ -1992,36 +1940,37 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
         const consent = document.getElementById("checkout-consent") as HTMLInputElement | null;
         const original = textEl?.textContent;
         const es = LANG === "es";
+        const copy = QUIZ_UI.checkout;
         if (feedback) feedback.textContent = "";
         if (!consent?.checked) {
-          if (feedback) feedback.textContent = es ? "Confirma el aviso de compra y almacenamiento antes de continuar." : "Confirm the purchase and storage notice before continuing.";
+          if (feedback) feedback.textContent = copy.consentRequired;
           return;
         }
         if (["localhost", "127.0.0.1"].includes(location.hostname)) {
-          if (feedback) feedback.textContent = es ? "Esta es una vista previa local. Haz el test en soulvirtues.org para comprobar un pago." : "This is a local preview. Complete the quiz on soulvirtues.org to test payment.";
+          if (feedback) feedback.textContent = copy.localPreview;
           return;
         }
         checkoutBtn.disabled = true;
-        if (textEl) textEl.textContent = es ? "GUARDANDO TU INFORME…" : "SAVING YOUR REPORT…";
+        if (textEl) textEl.textContent = copy.processing;
         spinner?.classList.remove("hidden");
         try {
-          if (userAnswers.some(answer => answer === null)) throw new Error(es ? "Completa las 66 preguntas primero." : "Complete all 66 questions first.");
+          if (userAnswers.some(answer => answer === null)) throw new Error(copy.incompleteAnswers);
           const quiz = JSON.parse(encodeAnswers(userAnswers, QUESTIONS));
           const access = await checkoutAccess(localStorage, quiz);
           const response = await reportApi("/api/create-checkout", null, { quiz, lang: es ? "es" : "en", reportId: access.id, accessToken: access.token, consent: true, aiConsent:true });
           if (response.status === 202) {
-            if (feedback) feedback.textContent = es ? "Tu enlace ya se está preparando. Espera unos segundos y comprueba de nuevo; no vuelvas a pagar." : "Your link is already being prepared. Wait a few seconds and check again; do not pay twice.";
+            if (feedback) feedback.textContent = copy.pending;
           } else if (response.data.alreadyPaid === true) {
             location.assign("/success/?report=" + access.id);
           } else if (typeof response.data.checkoutUrl === "string") {
             const url = new URL(response.data.checkoutUrl);
-            if (url.protocol !== "https:" || !["checkout.waffo.ai", "pancake.waffo.ai"].includes(url.hostname)) throw new Error("Invalid checkout link.");
+            if (url.protocol !== "https:" || !["checkout.waffo.ai", "pancake.waffo.ai"].includes(url.hostname)) throw new Error(copy.invalidLink);
             location.assign(url.href);
-          } else throw new Error("The checkout response is incomplete.");
+          } else throw new Error(copy.incompleteResponse);
         } catch (error) {
-          if (feedback) feedback.textContent = error instanceof Error ? error.message : (es ? "No se pudo preparar el pago. Vuelve a comprobarlo." : "Checkout could not be prepared. Please check again.");
+          if (feedback) feedback.textContent = copy.failed + (error instanceof Error ? " (" + error.message + ")" : "");
         } finally {
-          if (textEl) textEl.textContent = original || "UNLOCK MY TRAIT ARCHIVE ($4.93) →";
+          if (textEl) textEl.textContent = original || copy.submit;
           spinner?.classList.add("hidden");
           checkoutBtn.disabled = false;
         }

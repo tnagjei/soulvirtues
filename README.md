@@ -26,7 +26,9 @@
 - 七灵魂汇总页：`/souls/`、`/ja/souls/`、`/es/souls/`、`/pt/souls/`、`/ru/souls/`，共5个五语言页面，含七色清单对比表与证据边界说明。
 - SEO 关联：5 个语种版本具备自动 `hreflang` 互相指向与 `x-default`，共 89 个可索引页面，另有独立 404 页面。
 
-- 方法页：`/method/` 与四个语言版本；逐题列出官方编号、原文、本站改编与方向，说明公开来源、计算和局限。
+- 结果展示：免费七分数、答案依据、PNG 与答案回顾先于可选工作簿；购买授权、状态和错误提示覆盖五语言，报告仍只提供英语/西语。
+- 内容说明：35 个特质详情页区分游戏事实、社区红魂解释与本站定义，并提供可记录/可复查的两段练习，不渲染旧人格优势清单。
+- 方法页：`/method/` 与四个语言版本；逐题列出官方编号、原文、本站改编与方向，说明公开来源、计算和局限；`#worked-example` 使用真实评分函数展示两条合成回答怎样得到七分数及全中立参考。
 
 ## 运行与构建命令
 - 本地开发：`npm run dev`
@@ -34,6 +36,8 @@
 - 本地预览：`npm run preview`
 - V2回归：`node scripts/verify_scoring.cjs`
 - 路由/站点地图核验：`npm run audit:seo`
+- 本轮内容/结果专项检查：`node scripts/check_adsense_remediation.mjs`
+- 交付边界：源码、检查脚本和公开验收记录进入 Git；本轮截图/构建证据及含账号后台数据的历史排查由 `.gitignore` 排除，保留在本机。
 - 报告交付回归：`node scripts/check_report_delivery.cjs`（无需外部 API）
 - 比较与题目渲染核验：`node scripts/check_comparison_sample.mjs`、`node scripts/check_quiz_question_loading.mjs`
 - SEO Day 15 门禁：`node scripts/seo_day15_review.mjs`（由 LaunchAgent 于 2026-09-01 09:00 运行；额度耗尽时保留 7 天重试窗口）
@@ -51,7 +55,7 @@
 ## 个人手册
 - 回归：node scripts/check_field_guide.cjs。开发预览 /success/?preview=1（明确标注样例，生产构建不启用），西语加 &lang=es。
 - 跳转付款前保存原始回答对应的英文/西语手册快照；确认订单后交付七项解读、14条回答依据、情境演练、七日清单与笔记。私有链接跨设备读取原报告，在线有效期为付款后 30 天。笔记只存本浏览器；原生打印另存为带笔记的 PDF。AI 在已同意的付款确认后由后台队列调用 DeepSeek 解读全部66题；完整PDF使用同一缓存正文，生成前不可标为最终AI交付。旧订单需另行同意。
-- Waffo 交易邮件与报告链接分开；用户须在付款后点击 Done 返回并保存 PDF/私有链接。丢失链接后由支持人员核实购买邮箱和订单号，通过 `scripts/recover_paid_report.py` 轮换凭证；不自动发送邮件。
+- Waffo 交易邮件与报告链接分开；用户须在付款后点击 Done 返回并保存 PDF/私有链接。丢失链接后由支持人员核实购买邮箱和订单号，通过 `scripts/recover_paid_report.py` 轮换凭证；支持恢复由人工处理，符合下述邮件条件的新购买可另收报告就绪链接。
 
 
 ## 后台 AI 任务

@@ -9,11 +9,11 @@
 
 ## Files
 - success.astro：付款状态、报告目录、英文/西语、PDF 与私有链接工具；仅本地开发启用样例。
-- terms.astro：免费测验与收费手册的交付、30 天访问、人工恢复、退款和可选 AI。
-- privacy.astro：免费本地处理、购买前报告快照、Waffo 订单信息、D1 保存与可选 AI 数据范围。
-- method.astro：英文V2题库来源与计分方法页
+- terms.astro：免费测验与收费手册的交付、30 天访问、人工恢复、条件报告就绪邮件、退款和已同意 AI。
+- privacy.astro：免费本地处理、购买前报告快照、Waffo 订单信息、D1 保存与完整题答/分数/语言的已同意 AI 数据范围。
+- method.astro：英文V2题库来源、公开合成计分示例与方法页
 - [lang]/：生成四个非英语方法页，使用相同版本与来源台账
-- index.astro：英文默认首页，包含 66 题测试、SEO 详解、七美德科普与 FAQ
+- index.astro：英文默认首页，包含 66 题测试、公开示例入口、精简重复简介、七美德科普与 FAQ
 - souls/：七大单特质详解动态路由子目录（souls/[trait].astro）与汇总页（souls/index.astro）。汇总页列出七色清单对比表、特质卡片与 FAQ，是全站「清单意图」查询（las 7 almas de Undertale 等）的唯一承接页
 - compare/：6组已审核双特质英语动态路由
 - ja/、es/、pt/、ru/：四个语言子目录（含首页、单特质页、汇总页与对比样板页）

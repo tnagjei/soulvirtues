@@ -1,5 +1,5 @@
 // input: None (TypeScript type definitions for internationalization dictionary)
-// output: Exported Translation schema interfaces for SEO, UI, Quiz, Souls, and FAQ
+// output: Translation schema interfaces for SEO, quiz results, optional checkout, souls and FAQ
 // pos: src/i18n/types.ts (更新规则：文件变更需同步本注释与所属目录 README)
 
 import type { SoulCode, SoulDefinition } from '../data/souls';
@@ -181,6 +181,19 @@ export interface QuizUITranslations {
   browseSoulsBtn: string;
   retakeBtn: string;
   purchaseDisclaimer: string;
+  checkout: {
+    optional: string;
+    consent: string;
+    submit: string;
+    processing: string;
+    consentRequired: string;
+    localPreview: string;
+    incompleteAnswers: string;
+    pending: string;
+    failed: string;
+    invalidLink: string;
+    incompleteResponse: string;
+  };
   reviewTitle: string;
   reviewBackBtn: string;
   soulsGalleryTitle: string;

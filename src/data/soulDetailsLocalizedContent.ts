@@ -1,4 +1,4 @@
-// input: Reviewed multilingual item and personality copy for 28 localized soul detail pages
+// input: Multilingual items, legacy unrendered personality copy, and reviewed reflection exercises for 28 localized soul detail pages
 // output: Localized items, personalityAnalysis, and deepDive fields keyed by locale and soul slug
 // pos: src/data/soulDetailsLocalizedContent.ts（更新规则：文件变更需同步本注释与所属目录 README）
 
@@ -41,9 +41,8 @@ export const LOCALIZED_SOUL_CONTENT: Record<'es' | 'ja' | 'pt' | 'ru', Record<st
         "realWorldTraits": "Las personas con una Determinación fuerte no necesitan confiar en que todo saldrá bien para actuar. Avanzan ante la dificultad porque algo dentro de ellas se niega a rendirse."
       },
       "deepDive": [
-        "En la vida cotidiana, la Determinación rara vez parece un gesto heroico: es la undécima solicitud enviada tras diez rechazos, el plan de ejercicio que se reinicia después de cada recaída y la conversación difícil que se reabre porque irse se siente peor. Las personas guiadas por este rasgo mantienen vivas sus metas mucho después de que otros las archivarían. Su impulso no depende del ánimo ni de la competencia; se renueva cada vez que algo sale mal. Esa capacidad de reinicio explica por qué la Determinación suele durar más que el talento o la suerte.",
-        "Un malentendido común es creer que la Determinación implica no detenerse nunca. Su forma madura incluye un cálculo honesto del costo: saber qué muro merece otro intento y qué muro solo indica que ese camino se cerró. Combinada con la Perseverancia se vuelve aguante metódico; combinada con la Valentía, toma de riesgos decidida bajo presión. Sin equilibrio, el mismo combustible se estrecha en visión de túnel, donde renunciar a cualquier senda se siente como perder una parte de uno mismo. Nombrar ese miedo es el primer paso hacia la flexibilidad.",
-        "Dos preguntas ayudan a separar la perseverancia sana del daño obstinado. Primera: tras un revés, ¿adaptas el plan en pocos días o repites la pérdida durante semanas sin cambiar nada? Segunda: ¿persigues esta meta porque todavía te importa o principalmente porque abandonarla sería insoportable? Anotar qué no estás dispuesto a sacrificar, como el sueño, la salud o las relaciones cercanas, convierte la voluntad bruta en un motor sostenible. La Determinación en su mejor versión no se niega a caer; se niega a dejar de decidir quién quiere ser."
+        "Elige un revés reciente y responde por escrito: ¿qué cambiaría antes de intentarlo otra vez? ¿Sigo porque esta meta todavía me importa o porque me cuesta dejarla? Separa lo que ocurrió de tu explicación de lo ocurrido.",
+        "Antes de volver a intentarlo, anota qué no estás dispuesto a sacrificar, como el sueño, la salud o el tiempo con personas cercanas. Fija una fecha para revisar el coste real. Si el siguiente intento no cabe en esos límites, considera cambiar de vía, hacer una pausa o terminar; el ejercicio no exige conservar todas las metas."
       ]
     },
     "bravery": {
@@ -79,9 +78,8 @@ export const LOCALIZED_SOUL_CONTENT: Record<'es' | 'ja' | 'pt' | 'ru', Record<st
         "realWorldTraits": "Las personas valientes prefieren cometer errores dolorosos antes que vivir con el arrepentimiento de no haber actuado. Suelen ser las primeras en alzar la voz en situaciones tensas."
       },
       "deepDive": [
-        "La Valentía cotidiana rara vez es cinematográfica: es levantar la mano en una reunión donde todos callan, enviar el primer mensaje a alguien nuevo o empezar de cero en una ciudad donde no conoces a nadie. Las personas con este núcleo se acercan a la incomodidad cuando todavía es pequeña, y por eso sus problemas suelen seguir siendo manejables. Sienten el miedo como cualquier persona; la diferencia es que el miedo funciona como señal de salida y no como señal de alto. Una vez creada, la inercia tiende a protegerse sola.",
-        "El malentendido más frecuente es confundir Valentía con ausencia de precaución. El valor real incluye elegir qué riesgos valen la pena y aceptar que algunas cargas conviene aplazarlas. Combinada con la Paciencia se convierte en coraje bien calculado que actúa en el momento justo; combinada con la Justicia, en la disposición a defender a otros aun con costo personal. Sin equilibrio, el mismo impulso se vuelve imprudencia, confundiendo velocidad con sabiduría y agotamiento con compromiso. Los valientes necesitan amigos honestos que sepan decir espera, no solo adelante.",
-        "Una comprobación práctica: cuando evitas algo hoy, ¿es porque el momento no es adecuado o porque el miedo es ruidoso? Escribir el peor resultado realista de la acción evitada suele reducirlo a un tamaño manejable. La valentía crece por repetición, no por un gran gesto único. Empieza por acciones que te asusten a un nivel tres sobre diez, complétalas y deja que la evidencia se acumule. Con el tiempo, la zona de confort se expande desde dentro y el rasgo se convierte en un hábito confiable, no en un ánimo que va y viene."
+        "Elige una acción de poca trascendencia que hayas evitado, como hacer una pregunta en clase. Anota el peor resultado realista, qué sabes y qué solo estás suponiendo. Si existe un peligro real o una presión que no puedes gestionar con seguridad, elige otra situación.",
+        "Después de un pequeño paso razonablemente seguro, compara lo que esperabas con lo que observaste. Registra qué dijiste o hiciste y la respuesta recibida, en lugar de juzgarte valiente o cobarde. Puedes detenerte o pedir apoyo: se trata de examinar un hecho, no de demostrar que el miedo desapareció."
       ]
     },
     "justice": {
@@ -117,9 +115,8 @@ export const LOCALIZED_SOUL_CONTENT: Record<'es' | 'ja' | 'pt' | 'ru', Record<st
         "realWorldTraits": "Las personas guiadas por la Justicia no pueden ignorar un trato injusto. Aceptan la tensión social con tal de que las mismas reglas se apliquen a todos."
       },
       "deepDive": [
-        "La Justicia aparece en momentos pequeños mucho antes que en grandes batallas: corregir un rumor injusto sobre un compañero, dividir una cuenta con precisión porque alguien pagó de más sin quejarse, o nombrar la regla que todos ignoran en silencio. Las personas con este núcleo llevan un registro interno de la equidad, y el desequilibrio les molesta de forma casi física. Suelen ser la referencia a la que otros acuden cuando un conflicto necesita una lectura honesta. Su lealtad se adhiere primero a los principios y después a las personas, y eso hace valiosa su aprobación y útil su crítica.",
-        "La sombra merece atención: un fuerte sentido de la equidad puede endurecerse en juicios de blanco y negro, donde cada disputa tiene un solo culpable y el contexto se aplana. Combinada con la Amabilidad, la Justicia se vuelve incidencia que protege a las personas mientras corrige sistemas; combinada con la Integridad, una vida de principios constantes incluso con costo personal. Sin empatía como contrapeso, el mismo rasgo puede volverse autojustificado, castigando en otros faltas que se perdona a sí mismo. Quienes practican la Justicia con salud preguntan qué voz falta en el veredicto antes de cerrar el caso.",
-        "Reflexión útil: cuando te sientes agraviado, ¿buscas ser eficaz o solo tener razón? Antes de confrontar una injusticia, anota qué resultado repararía realmente el daño, porque la ira sin objetivo suele recrear la injusticia en sentido inverso. Practicar respuestas proporcionales, como hacer una pregunta aclaratoria antes de emitir un juicio, mantiene la credibilidad del rasgo. La Justicia es más poderosa cuando es lo bastante paciente para escuchar la historia completa y lo bastante firme para actuar. Esa combinación es rara, y la gente la nota."
+        "Elige un desacuerdo reciente y crea tres columnas: hechos confirmados, información pendiente y reparación que te gustaría pedir. Antes de decidir quién tiene la culpa, escribe una pregunta aclaratoria para alguien cuya versión no hayas escuchado.",
+        "Prueba tu propuesta con los papeles invertidos. ¿Aceptarías el mismo criterio? ¿Las distintas necesidades o limitaciones cambian su aplicación? Compara reparaciones posibles, como corregir un registro o revisar una norma. Una nota sobre una disputa no es un veredicto sobre todo el carácter de una persona."
       ]
     },
     "kindness": {
@@ -155,9 +152,8 @@ export const LOCALIZED_SOUL_CONTENT: Record<'es' | 'ja' | 'pt' | 'ru', Record<st
         "realWorldTraits": "Las personas amables reciben la hostilidad del entorno y responden con calidez. Detectan con facilidad quién está siendo excluido y dan el primer paso para acogerlo."
       },
       "deepDive": [
-        "La Amabilidad suele confundirse con blandura, pero en la vida diaria funciona como infraestructura: el colega que nota al recién llegado comiendo solo, el amigo que recuerda la fecha difícil de tu calendario, el desconocido que devuelve la cartera caída sin esperar aplauso. Las personas con este núcleo registran el clima emocional que otros pasan por alto. Dan sin facturar, y por eso se vuelven anclas en familias, equipos y amistades. Su calidez es estratégica en el mejor sentido: se dirige donde reduce sufrimiento real, no donde compra crédito visible.",
-        "El modo de fallo recurrente es el colapso de límites. Quienes dan atraen a quienes toman, y la Amabilidad sin límites se convierte en un ciclo de martirio: el resentimiento crece en silencio mientras la sonrisa sigue en la superficie. Combinada con la Justicia, aprende a decir no a la explotación sin dejar de proteger a los vulnerables; combinada con la Paciencia, se vuelve cuidado constante en vez de rescates dramáticos. Este corazón verde rinde mejor al aceptar una verdad incómoda: no se puede servir de forma sostenible desde un recipiente vacío, y cuidar la propia energía es parte del servicio.",
-        "Comprobaciones prácticas: ¿te disculpas por tener necesidades o las enuncias con claridad? Cuando alguien toma repetidamente sin reciprocidad, ¿ajustas o duplicas tu entrega esperando ganar equidad? Un hábito útil es programar la generosidad, reservando el descanso con la misma seriedad que la ayuda. Otro es preguntar antes de rescatar, porque salvar sin que lo pidan puede comunicar en silencio que la otra persona no puede arreglárselas. La Amabilidad en su máxima fuerza no es sacrificio infinito; es calidez confiable con límites funcionales, del tipo que la gente confía durante décadas."
+        "Elige una petición de ayuda y escribe qué puedes ofrecer, durante cuánto tiempo y qué no puedes asumir. Ensaya una frase clara: puedo escucharte veinte minutos esta noche, pero no hacer la tarea por ti. Adapta la oferta a lo que la otra persona realmente quiere.",
+        "Después, anota qué ayuda acordasteis, qué ofreciste y si respetaste tus propios límites. Si prometiste demasiado, escribe un cambio para la siguiente conversación. No necesitas medir tu valor por cuánto diste ni prometer una ayuda continua que no puedes prestar."
       ]
     },
     "patience": {
@@ -193,9 +189,8 @@ export const LOCALIZED_SOUL_CONTENT: Record<'es' | 'ja' | 'pt' | 'ru', Record<st
         "realWorldTraits": "Las personas pacientes no entran en pánico cuando una respuesta tarda en llegar. Entienden que actuar antes de tiempo puede causar más daño que esperar."
       },
       "deepDive": [
-        "La Paciencia se malinterpreta a menudo como lentitud, pero en la práctica es precisión temporal: la negociadora que deja morir una mala oferta sin apurar el silencio, la madre que repite la misma indicación con calma por quinta vez, el constructor que entrega en un año lo que otros abandonan en un mes. Las personas con este núcleo toleran la incertidumbre sin necesitar alivio inmediato. Esa tolerancia les permite ver patrones que los apurados pierden, y sus decisiones llevan menos correcciones costosas porque no se toman bajo urgencia artificial.",
-        "La trampa es la vacilación disfrazada de sabiduría: esperar eternamente una decisión que merece diez minutos también es un error. Combinada con la Valentía, la Paciencia se vuelve audacia estratégica que actúa cuando la ventana se abre; combinada con la Perseverancia, se convierte en el juego largo, donde el progreso lento se acumula. Este corazón cian funciona mejor con plazos: paciencia para los resultados, urgencia para la preparación. Decidir por adelantado qué señal activará la acción, como una fecha, un umbral o un evento repetido, evita que la observación serena decaiga en pasividad.",
-        "Una auditoría útil: enumera tres cosas que estás esperando ahora y pregúntate, para cada una, si la espera es estrategia o escondite. Si es estrategia genuina, escribe la condición que terminará la espera; si es escondite, da esta semana el paso más pequeño posible. La paciencia también se apoya en anclas físicas, porque la calma se sostiene mejor con sueño estable, paseos y respiración que con pura voluntad. Bien administrada, este rasgo se vuelve autoridad silenciosa: la persona que entra en pánico al final y, por eso, decide mejor."
+        "Enumera tres cosas que estás esperando. Para cada una, anota qué información o acción falta, qué pondría fin a la espera y qué puedes preparar mientras tanto. Si no puedes definir una condición de cierre, elige una fecha razonable para revisarla.",
+        "En esa fecha, compara la nota inicial con lo que cambió. ¿La espera aportó información o necesitas preguntar de nuevo o buscar otra vía? Es una forma de examinar un retraso, no un motivo para permanecer en una situación dañina ni aplazar un asunto que exige atención pronta."
       ]
     },
     "integrity": {
@@ -231,9 +226,8 @@ export const LOCALIZED_SOUL_CONTENT: Record<'es' | 'ja' | 'pt' | 'ru', Record<st
         "realWorldTraits": "Las personas íntegras hacen lo correcto incluso cuando nadie las observa. Sienten un fuerte malestar cuando se les pide fingir o engañar."
       },
       "deepDive": [
-        "La Integridad vive en decisiones poco glamorosas: admitir el error antes de que alguien revise los registros, devolver el cambio de más, negarse a reírse del chiste que se burla de un ausente. Las personas con este núcleo sienten la coherencia entre valores y acciones como bienestar físico, y el engaño como un dolor sordo. Esa consistencia las hace predecibles en el mejor sentido: sus colegas les entregan trabajo sensible sin contratos elaborados. Su palabra funciona como una firma, y con los años eso se convierte en una reputación que ningún presupuesto de marketing podría comprar.",
-        "El punto de presión es la rigidez. Los principios altos pueden derivar en autocrítica severa e intolerancia a las zonas grises morales, donde los compromisos ordinarios se sienten como traiciones. Combinada con la Amabilidad, la Integridad se vuelve honestidad con cuidado, veraz sin herir; combinada con la Justicia, conducta principista que además protege a otros de sistemas injustos. Este corazón azul permanece sano cuando acepta que la integridad concierne a tu propia conducta, no a vigilar la de todos. Los estándares aplicados hacia dentro generan confianza; aplicados como arma hacia fuera, generan distancia.",
-        "Dos hábitos protegen este rasgo. Primero, decide los casos difíciles antes de enfrentarlos: define de antemano qué harás si te piden cubrir a un amigo, exagerar en un currículo o callar ante un daño. Las posiciones decididas con antelación resisten mejor la presión social. Segundo, mantén abierta la vía de reparación: la integridad no es perfección sino un patrón de corrección honesta, y una disculpa rápida es en sí misma un acto de alineación. Pregúntate con frecuencia si tu historia pública y tu conducta privada seguirían coincidiendo si todos pudieran leer ambas."
+        "Ensaya por escrito una petición difícil: encubrir un error, exagerar una cualificación o compartir algo confidencial. Redacta una respuesta veraz que también respete la información que no tienes derecho a revelar. Puedes negarte a responder en vez de inventar una explicación.",
+        "Elige una promesa o afirmación pública y compárala con lo que hiciste. Si hay diferencias, escribe qué debes corregir, quién necesita la corrección y qué compromiso puedes cumplir ahora. Revisa la reparación después de realizarla; no necesitas publicar notas privadas para demostrar honestidad."
       ]
     },
     "perseverance": {
@@ -269,9 +263,8 @@ export const LOCALIZED_SOUL_CONTENT: Record<'es' | 'ja' | 'pt' | 'ru', Record<st
         "realWorldTraits": "Las personas perseverantes no dependen de breves ráfagas de motivación. Se apoyan en sistemas diarios, apuntes y rutinas constantes para terminar trabajos difíciles."
       },
       "deepDive": [
-        "La Perseverancia es la prima metódica del empeño: el estudiante de idiomas que completa su baraja diaria durante dos años, la investigadora que llena el cuaderno antes de confiar en una intuición, quien construye en pequeño y publica mejoras semanales mientras otros esperan inspiración. Las personas con este núcleo convierten el esfuerzo en sistemas y los sistemas en resultados que sobreviven a los malos días. Rara vez necesitan motivación dramática porque la estructura las sostiene cuando el entusiasmo baja. Su avance parece modesto semana a semana e imbatible al mirar años acumulados.",
-        "El costo es el riesgo de quemarse: el mismo motor que se niega a saltarse un día también puede negarse a descansar, y el exceso de análisis puede convertir decisiones simples en proyectos de investigación. Combinada con la Paciencia, la Perseverancia se vuelve consistencia duradera a largo plazo; combinada con la Determinación, seguimiento imparable de las metas que importan. Este corazón morado se mantiene sano cuando el descanso se agenda con la misma disciplina que el trabajo, como mantenimiento y no como robo. Las métricas de progreso deberían incluir la recuperación.",
-        "Comprobaciones prácticas: ¿tus metas tienen procesos semanales asociados o solo resultados? Escribe la versión de proceso, como treinta minutos enfocados en lugar de fluidez, y deja que la racha motive. Cuando te atasques, pregunta si el problema necesita más esfuerzo o un método distinto, porque insistir con un enfoque roto es desperdicio disfrazado de virtud. Revisa tus apuntes cada mes para ver la distancia recorrida. La Perseverancia en su mejor versión no es sufrir con elegancia; es progreso aburrido, repetible y silencioso que supera cualquier estrategia más vistosa."
+        "Convierte una meta amplia en un proceso semanal breve: por ejemplo, dos sesiones de veinte minutos de vocabulario en vez de llegar a hablar con fluidez. Define la tarea, un resultado pequeño que puedas comprobar y una hora de cierre. Reserva descanso en vez de convertir una racha sin pausas en la meta.",
+        "Al terminar la semana, revisa qué completaste, qué errores siguen y si la carga fue manejable. Conserva una parte útil del proceso y cambia una que no ayudó. El esfuerzo repetido es algo que evaluar, no una prueba de que el método tiene que ser correcto."
       ]
     }
   },
@@ -309,9 +302,8 @@ export const LOCALIZED_SOUL_CONTENT: Record<'es' | 'ja' | 'pt' | 'ru', Record<st
         "realWorldTraits": "ケツイが強い人は、うまくいく保証や楽観がなくても行動できます。諦めることを拒む内なる意志で困難を押し切ります。"
       },
       "deepDive": [
-        "日常の中でケツイは、劇的な踏ん張りとして現れることは少ないものです。十回の不採用の後でも十一通目の応募書類を送ること、挫折のたびにトレーニング計画をやり直すこと、逃げる方が楽でも難しい話し合いをもう一度開くことです。この特質を核に持つ人は、周囲が見切りをつけた後も目標を生かし続けます。原動力は盛り上がりや競争から借りたものではなく、うまくいかないたびに自分で更新されます。この再起動の力こそ、ケツイが才能や運よりも長く続く理由です。",
-        "よくある誤解は、ケツイとは決して休まないことだというものです。成熟した形は、どの壁がもう一度の挑戦に値し、どの壁が道が閉じたことを教える情報なのかを見極める、誠実なコスト計算を含みます。こんきと組み合わされば粘り強く体系的な持久力に、ゆうきと組み合わさればプレッシャーの中での果断な決断力になります。バランスを失うと、同じエネルギーは一点だけを見つめる視野の狭さへと変わります。どんな道も断ることが自分の一部を失うように感じられるためです。その恐れを言葉にすることが、柔軟さへの第一歩です。",
-        "二つの自問が、健やかな意志と意地を分けます。一つ目:つまずいた後、数日で計画を修正しますか、それとも何も変えずに敗北を何週間も反芻しますか。二つ目:その目標は今も本当に大切だから追っていますか、それとも辞めるのが耐えられないからですか。睡眠、健康、大切な人間関係など、犠牲にしないと決めたことを書き出すと、生の意志力は持続可能なエンジンに変わります。ケツイの本質は倒れないことではなく、自分がなりたい姿を決め続けることです。"
+        "最近のつまずきを一つ選び、二つの問いに答えてください。もう一度試す前に何を変えますか。続けるのは今も目標が大切だからですか、それともやめることが難しいからですか。起きた出来事と、その理由についての自分の説明を分けて書きます。",
+        "再挑戦の前に、睡眠、健康、大切な人との時間など、犠牲にしないものを書き出し、実際の負担を見直す日を決めてください。その範囲に収まらないなら、方法の変更、休止、終了も選択肢です。この練習はすべての目標を続けるよう求めるものではありません。"
       ]
     },
     "bravery": {
@@ -347,9 +339,8 @@ export const LOCALIZED_SOUL_CONTENT: Record<'es' | 'ja' | 'pt' | 'ru', Record<st
         "realWorldTraits": "ゆうきの強い人は、何もしなかった後悔より、行動して痛い失敗をするほうを選びます。緊張した場でも最初に声を上げます。"
       },
       "deepDive": [
-        "日常のゆうきは、映画のように派手ではありません。全員が黙る会議で最初に手を上げること、初対面の相手に最初のメッセージを送ること、知り合いが誰もいない街で一からやり直すことです。この特質を核に持つ人は、不快感がまだ小さいうちにそれへ向かいます。だから問題が大きくなる前に手をつけられます。恐れを感じないのではなく、恐れが停止信号ではなく発進の合図として働きます。一度つくった勢いは、自らを守るように続きます。",
-        "最も多い誤解は、ゆうきを慎重さの欠けと同じにみなすことです。本当の勇気には、どのリスクが引き受ける価値があるかを選ぶ目が含まれます。にんたいと組み合わされば、好機を待って動く計算された勇気に。せいぎと組み合わされば、個人的な代償を払ってでも他者を守る意志になります。バランスを失うと、速度を賢さと、疲労を献身と混同する無謀さへ滑ります。ゆうきを持つ人には、前だけではなく待てとも言える正直な友人が必要です。",
-        "実践的なチェック:今日避けたことについて、タイミングが悪いからですか、それとも恐怖がうるさいからですか。避けている行動の現実的な最悪の結果を書き出すと、多くの場合は扱える大きさに縮まります。勇気は一度の大舞台ではなく、反復で育ちます。怖さの度合いが十段階の三くらいの行動から始め、やり遂げ、小さな証拠を積み上げてください。やがて安心領域は内側から広がり、気分に左右されない習慣としてこの特質が定着します。"
+        "授業で質問するなど、避けていた小さな行動を一つ選びます。現実的に考えられる最悪の結果と、分かっていること、想像しているだけのことを分けて書いてください。現実の危険や安全に対処できない圧力がある場合は、別の場面を選びます。",
+        "無理のない安全な一歩を試した後、予想と観察した結果を比べます。自分を勇敢か臆病かで評価する代わりに、何を言い、何をして、どんな返答があったか記録してください。中止したり助けを求めたりしても構いません。恐れが消えたと証明するのでなく、一つの出来事を検討する練習です。"
       ]
     },
     "justice": {
@@ -385,9 +376,8 @@ export const LOCALIZED_SOUL_CONTENT: Record<'es' | 'ja' | 'pt' | 'ru', Record<st
         "realWorldTraits": "せいぎの強い人は、不公平な扱いを見過ごせません。全員に同じルールが適用されるよう、対立や緊張を引き受けます。"
       },
       "deepDive": [
-        "せいぎは、大きな対決より先に小さな瞬間に現れます。同僚についての不当なうわさを訂正すること、黙って多く払った人がいるからと割り勘を正確にすること、全員が黙って無視しているルールを口にすることです。この特質を核に持つ人は公平さの内部台帳を持ち、不均衡に肉体的な不快感に近いものを覚えます。対立を誠実に読み取る相談役になることも多く、忠誠は人格より原則に先に向かいます。だからこそ、その承認は重く、その批判は役に立ちます。",
-        "影の部分にも目を向ける必要があります。強い公平感は白黒の判定に硬直し、どんな争いにも一人の加害者を求め、文脈を平らにしてしまうことがあります。やさしさと組み合わされば、制度を正しながら人を守る擁護に。せいじつと組み合わされば、個人的な代償があっても崩さない一貫した原則の生活になります。共感というカウンターがなければ、同じ特質は自分を赦して他人を罰する独りよがりへ変わります。健全なせいぎは、判決を下す前に欠けている声を探します。",
-        "有用な自問:不当な扱いを受けたと感じるとき、あなたは効果を求めていますか、それとも正しさだけを求めていますか。不公平に立ち向かう前に、何が本当に損害を修復するのかを書き出してください。目的のない怒りは、逆方向から不当を再生産しがちです。判定の前に一つ確認の質問をする、といった比例した対応を積み重ねると、この特質の信頼は保たれます。せいぎは、完全な話を聞く辛抱と、それでも行動する固さを両立するときに最も強くなります。"
+        "最近の意見の食い違いを一つ選び、確認できた事実、不足している情報、求めたい修正の三つに分けて書きます。誰が悪いかを決める前に、まだ話を聞いていない人への確認の質問を一つ作ってください。",
+        "立場を入れ替えて自分の提案を検討します。同じ基準を受け入れられますか。必要や制約の違いによって適用方法は変わりますか。記録の訂正やルールの見直しなど、対応を比べてください。一つの対立についてのメモは、その人全体の人格を判断するものではありません。"
       ]
     },
     "kindness": {
@@ -423,9 +413,8 @@ export const LOCALIZED_SOUL_CONTENT: Record<'es' | 'ja' | 'pt' | 'ru', Record<st
         "realWorldTraits": "やさしさの強い人は、周囲の冷たさに温かさを返します。仲間外れになっている人に気づき、自ら迎え入れようとします。"
       },
       "deepDive": [
-        "やさしさは弱さと混同されがちですが、日常ではむしろインフラのように働きます。一人で食べる新入社員に気づく同僚、つらい記念日を覚えている友人、拍手を期待せず落とした財布を届ける通行人。この特質を核に持つ人は、他の人が見落とす感情の天候を記録します。見返りを請求せずに与えるため、家族や職場や友情の支えになります。その温かさは最良の意味で戦略的です。目立つ功績ではなく、実際に苦しみを減らせる場所へ向かいます。",
-        "繰り返し起こる失敗モードは、境界の崩壊です。与える人は取る人を引き寄せ、限界のないやさしさは殉教のサイクルになります。表面は笑い続けるのに、不満が静かに育つのです。せいぎと組み合わされば、弱い立場の人を守りながら搾取にはノーと言えるようになり、にんたいと組み合わされば、劇的な救出ではなく地味な継続ケアになります。緑のタマシイが最も力を発揮するのは、空の容器からは注ぎ続けられない、という事実を受け入れたときです。自分のエネルギーを守ることも、奉仕の一部です。",
-        "実践的なチェック:自分のニーズについて、謝ってから話しますか、それとも普通に伝えますか。見返りのない誰かが繰り返し取ってくるとき、関係を調整しますか、それとも公平が戻ることを期待して与える量を倍にしますか。有用な習慣は、助けと同じだけの真剣さで休息を予定に入れることです。もう一つは、救う前に尋ねることです。頼まれない救助は、相手が自分で対応できないというメッセージになり得ます。やさしさの完成形は際限のない犠牲ではなく、機能する境界を持つ、何年も信頼される確かな温かさです。"
+        "助けを求められた場面を一つ選び、できること、使える時間、引き受けられないことを書きます。「今夜は二十分話を聞けるけれど、作業を代わりにすることはできない」のように、はっきりした言葉を用意してください。相手が実際に求める内容に合わせて提案します。",
+        "その後、どんな助けに合意したか、何を提供したか、自分の限度を守れたかを記録します。約束しすぎた場合は、次の会話で変える点を一つ書いてください。与えた量で自分の価値を測ったり、できない継続支援を約束したりする必要はありません。"
       ]
     },
     "patience": {
@@ -461,9 +450,8 @@ export const LOCALIZED_SOUL_CONTENT: Record<'es' | 'ja' | 'pt' | 'ru', Record<st
         "realWorldTraits": "にんたいの強い人は、答えがすぐに出なくても慌てません。早すぎる行動は、待つことより大きな損害を招く場合があると理解しています。"
       },
       "deepDive": [
-        "にんたいは遅さと誤解されがちですが、実態は正確なタイミングです。悪い条件の提案を、沈黙を急いで埋めずに消滅させる交渉者。五回目でも冷静に同じ注意を繰り返す親。一ヶ月で投げ出す他人の作業を一年かけて完成させる作り手。この特質を核に持つ人は、不確実さを、即座の安楽を要求されずに耐えられます。その耐性があるから、慌てた人が見落とすパターンが見え、人工的な切迫の下で決断しない分、高くつく修正が少なくなります。",
-        "罠は、知恵に見えるためらいです。十分間で決まる判断を永遠に待つことも、別種の誤りです。ゆうきと組み合わされば、窓が開いた瞬間に動く戦略的な大胆さに。こんきと組み合わされば、遅い進捗が複利のように積み上がる長期ゲームになります。シアンのタマシイは期限と組み合わせると最も強く、結果には忍耐を、準備には緊急さを使い分けます。日付や数値などの、行動を起こす合図を前もって決めておけば、冷静な観察が消極性に変わるのを防げます。",
-        "有用な点検:今待っていることを三つ書き出し、それぞれについて待つことが戦略か隠れ場所かを自問してください。戦略なら、待ちを終わらせる条件を書きます。隠れ場所なら、今週できる最小の行動を一つ取ります。にんたいは身体的な土台にも支えられます。睡眠や散歩や呼吸を整えた静けさは、意志力だけの静けさより長持ちします。うまく運用されると、この特質は静かな権威になります。部屋の中で最後に慌てる人、だから最もよく決断できる人です。"
+        "今待っていることを三つ書き出します。それぞれ、どんな情報や行動を待つのか、何が起きたら待つのを終えるか、その間に何を準備できるかを記録してください。終了条件が決まらない場合は、見直す日を決めます。",
+        "その日に最初のメモと実際の変化を比べます。待ったことで新しい情報が得られましたか。それとも確認や別の方法が必要ですか。遅れを検討するための練習であり、害のある状況にとどまったり、早い対応が必要な問題を先延ばししたりする理由ではありません。"
       ]
     },
     "integrity": {
@@ -499,9 +487,8 @@ export const LOCALIZED_SOUL_CONTENT: Record<'es' | 'ja' | 'pt' | 'ru', Record<st
         "realWorldTraits": "せいじつの強い人は、誰も見ていなくても正しい行いを選びます。演技や欺きを求められると、強い不快感を覚えます。"
       },
       "deepDive": [
-        "せいじつは地味な選択の中に生きています。誰も記録を確認する前に自分の誤りを認めること、多くもらった釣り銭を返すこと、いない人の悪口笑いに加わらないこと。この特質を核に持つ人は、価値観と行動が一致している状態を心地よさとして、欺きを鈍い痛みとして感じます。その一貫性は、良い意味で予測可能であることになります。同僚は複雑な契約なしに重要な仕事を任せ、その言葉は署名のように機能します。年月を重ねると、宣伝では買えない信頼が静かに積み上がります。",
-        "圧力点は硬直です。高い原則は厳しい自己批判や、道徳的なグレーゾーンへの不寛容につながり、普通の妥協さえ裏切りのように感じさせることがあります。やさしさと組み合わされば、傷つけない誠実さ、真実を丁寧に伝える言葉になり、せいぎと組み合わされば、不当な制度から他者も守る原則的な行動になります。青いタマシイが健やかである条件は、せいじつとは自分の行動についての話であり、すべての人を監視する話ではない、と受け入れることです。内に向けた基準は信頼を生み、武器として外に向けた基準は距離を生みます。",
-        "この特質を守る二つの習慣。一つ目は、難しい場面を会う前に決めておくことです。友人の嘘を被るよう頼まれたら、履歴書で盛るよう言われたら、害を見て黙っていたら、自分がどうするかを前もって定義します。事前に決めた立場は社会的圧力に強くなります。二つ目は、修復の道を開けておくことです。せいじつとは無欠ではなく、正直な訂正のパターンであり、速い謝罪そのものが一致の行為です。誰もが読めるとしたら、と言い聞かせて、外向きの物語と内向きの行動が一致するか定期的に確かめてください。"
+        "ミスを隠す、資格や経歴を誇張する、秘密を共有するよう頼まれた場面を想定し、返事を書いてみます。開示する権利のない情報を守りながら、事実に沿う一文を用意してください。説明を作り上げる代わりに、答えられないと伝える選択肢もあります。",
+        "約束や公に伝えたことを一つ選び、実際の行動と比べます。違いがあれば、何を訂正するか、誰に伝える必要があるか、今なら守れる約束は何かを書いてください。訂正後にその結果を見直します。正直さを示すために私的なメモを公開する必要はありません。"
       ]
     },
     "perseverance": {
@@ -537,9 +524,8 @@ export const LOCALIZED_SOUL_CONTENT: Record<'es' | 'ja' | 'pt' | 'ru', Record<st
         "realWorldTraits": "こんきの強い人は、一時的なやる気に頼りません。日々の仕組み、記録、変わらない習慣によって難しい仕事をやり遂げます。"
       },
       "deepDive": [
-        "こんきは粘り強さの几帳面な親戚です。二年間、毎日の単語カードを欠かさない語学学習者。直感を信じる前にノートを埋める研究者。ひらめきを待つ人の横で、週ごとの改善を出し続ける小さな作り手。この特質を核に持つ人は努力をシステムに変え、システムを悪い日に耐える結果に変えます。情熱が下がったときに構造が支えるため、劇的な動機をほとんど必要としません。週ごとの前進は地味でも、数年分重なると圧倒的になります。",
-        "代償は燃え尽きのリスクです。一日も休まないよう設計されたエンジンは、休むこと自体を拒むようになり、分析のしすぎは単純な決断を研究プロジェクト化します。にんたいと組み合わされば、長期にわたる堅実な継続力に。ケツイと組み合わされば、本当に大切な目標への止まらない遂行力になります。紫のタマシイが健やかなのは、休息を泥棒ではなく整備として、仕事と同じ規律で予定に組み込んだときです。回復も進捗の指標に含めてください。休めないシステムは、最悪のタイミングで壊れます。",
-        "実践的なチェック:目標に週次のプロセスが結びついていますか、結果だけが結びついていますか。流暢さではなく、三十分の集中、というプロセス版を書き、継続の記録に動かしてもらいましょう。詰まったら、努力が足りないのか、方法が違うのかを自問してください。壊れたやり方を続けるのは、美徳の衣を着た浪費です。月に一度ノートを見返し、移動した距離を確認してください。こんきの完成形は美しく苦しむことではなく、地味で繰り返される、どの派手な戦略より長く続く前進です。"
+        "大きな目標を短い週次の作業に置き換えます。「流暢に話せるようになる」ではなく、「単語を二十分ずつ週二回練習する」などです。作業、確認できる小さな成果、終える時刻を決めます。連続記録を目的にせず、休む余地も残してください。",
+        "週の終わりに、できたこと、残った間違い、負担が無理のないものだったかを見直します。役に立った点を一つ残し、役に立たなかった点を一つ変えてください。努力の反復は検討する対象であり、その方法が正しいと証明するものではありません。"
       ]
     }
   },
@@ -577,9 +563,8 @@ export const LOCALIZED_SOUL_CONTENT: Record<'es' | 'ja' | 'pt' | 'ru', Record<st
         "realWorldTraits": "Pessoas com forte Determinação não precisam acreditar que tudo dará certo para agir. Elas avançam porque algo dentro delas se recusa a desistir."
       },
       "deepDive": [
-        "No dia a dia, a Determinação raramente parece um gesto heroico: é a décima primeira candidatura enviada depois de dez recusas, o plano de treino reiniciado após cada recaída, a conversa difícil reaberta porque desistir parece pior. Pessoas movidas por esse traço mantêm objetivos vivos muito depois de outros os arquivarem. O impulso não vem de entusiasmo emprestado; ele se renova cada vez que algo dá errado. Essa capacidade de recomeço explica por que a Determinação costuma durar mais do que talento, sorte ou apoio externo.",
-        "Um equívoco comum é imaginar que Determinação significa nunca parar. A forma madura inclui uma contabilidade honesta de custos: saber qual parede merece outra tentativa e qual parede é apenas informação de que aquele caminho fechou. Combinada com Perseverança, vira resistência metódica; combinada com Coragem, vira assunção de riscos decisiva sob pressão. Sem equilíbrio, o mesmo combustível estreita-se em visão de túnel, na qual desistir de qualquer caminho parece perder parte de si mesmo. Nomear esse medo é o primeiro passo para a flexibilidade.",
-        "Duas perguntas separam determinação saudável de teimosia que machuca. Primeira: depois de um revés, você ajusta o plano em poucos dias ou repete a perda por semanas sem mudar nada? Segunda: você persegue essa meta porque ela ainda importa, ou principalmente porque parar seria insuportável? Escrever o que você se recusa a sacrificar, como sono, saúde e relações próximas, transforma força bruta em um motor sustentável. A Determinação no seu melhor não se recusa a cair; recusa-se a parar de decidir quem você quer se tornar."
+        "Escolha um revés recente e responda por escrito: o que eu mudaria antes de tentar outra vez? Continuo porque esta meta ainda importa ou porque é difícil parar? Separe o que aconteceu da sua explicação sobre o ocorrido.",
+        "Antes de tentar novamente, liste o que não está disposto a sacrificar, como sono, saúde ou tempo com pessoas próximas. Marque uma data para revisar o custo real. Se a próxima tentativa não couber nesses limites, considere mudar de caminho, pausar ou encerrar; o exercício não exige manter todas as metas."
       ]
     },
     "bravery": {
@@ -615,9 +600,8 @@ export const LOCALIZED_SOUL_CONTENT: Record<'es' | 'ja' | 'pt' | 'ru', Record<st
         "realWorldTraits": "Pessoas corajosas preferem cometer erros dolorosos a viver com o arrependimento da inação. Elas costumam ser as primeiras a falar em situações tensas."
       },
       "deepDive": [
-        "A Coragem cotidiana raramente é cinematográfica: é levantar a mão na reunião em que todos silenciam, enviar a primeira mensagem para alguém novo, recomeçar numa cidade onde você não conhece ninguém. Pessoas com esse núcleo caminham em direção ao desconforto enquanto ele ainda é pequeno, e por isso seus problemas costumam continuar solúveis. Elas sentem medo como qualquer pessoa; a diferença é que o medo funciona como sinal de largada, não de parada. Criado o movimento inicial, o impulso tende a se sustentar sozinho.",
-        "O equívoco mais comum é confundir Coragem com ausência de cautela. O valor verdadeiro inclui escolher quais riscos valem a pena e aceitar que algumas investidas devem esperar. Combinada com Paciência, torna-se coragem bem calculada, que age na janela certa; combinada com Justiça, torna-se disposição para defender outras pessoas mesmo com custo próprio. Sem equilíbrio, o mesmo impulso escorrega para a imprudência, trocando velocidade por sabedoria e exaustão por compromisso. Quem é corajoso precisa de amigos honestos que saibam dizer espere, e não apenas siga.",
-        "Uma checagem prática: quando você evita algo hoje, é porque o momento está errado ou porque o medo está alto? Escrever o pior resultado realista da ação evitada costuma reduzi-lo a um tamanho administrável. Coragem cresce por repetição, não por um único gesto grandioso. Comece por ações que assustem no nível três de dez, conclua-as e deixe as evidências se acumularem. Com o tempo, a zona de conforto se expande de dentro para fora, e o traço vira um hábito confiável, não um humor que vai e volta."
+        "Escolha uma ação de pouca consequência que tenha evitado, como fazer uma pergunta na aula. Anote o pior resultado realista, o que sabe e o que apenas supõe. Se houver um perigo real ou uma pressão que não pode administrar com segurança, escolha outra situação.",
+        "Depois de um pequeno passo razoavelmente seguro, compare a expectativa com o que observou. Registre o que disse ou fez e a resposta recebida, em vez de se julgar corajoso ou covarde. Pode parar ou pedir apoio: o objetivo é examinar um acontecimento, não provar que o medo desapareceu."
       ]
     },
     "justice": {
@@ -653,9 +637,8 @@ export const LOCALIZED_SOUL_CONTENT: Record<'es' | 'ja' | 'pt' | 'ru', Record<st
         "realWorldTraits": "Pessoas guiadas pela Justiça não conseguem ignorar um tratamento injusto. Elas aceitam a tensão social para garantir que as mesmas regras se apliquem a todos."
       },
       "deepDive": [
-        "A Justiça aparece em momentos pequenos antes das grandes batalhas: corrigir um boato injusto sobre um colega, dividir uma conta com precisão porque alguém pagou demais em silêncio, nomear a regra que todos ignoram em voz baixa. Pessoas com esse núcleo mantêm um registro interno de equidade, e o desequilíbrio as incomoda quase fisicamente. Costumam ser a pessoa procurada quando um conflito precisa de uma leitura honesta. Sua lealdade vai primeiro aos princípios e depois às personalidades; por isso sua aprovação pesa e sua crítica serve.",
-        "O lado sombra merece atenção: um forte senso de justiça pode endurecer em julgamentos preto no branco, em que toda disputa tem um culpado único e o contexto desaparece. Combinada com Bondade, a Justiça vira defesa que protege pessoas enquanto corrige sistemas; combinada com Integridade, vira uma vida de princípios consistentes mesmo com custo pessoal. Sem empatia como contrapeso, o mesmo traço pode se tornar autossuficiente em julgamentos, punindo nos outros falhas que perdoa em si. Quem pratica Justiça com saúde pergunta qual voz está faltando no veredicto antes de encerrar o caso.",
-        "Reflexão útil: quando você se sente prejudicado, busca ser eficaz ou apenas ter razão? Antes de confrontar uma injustiça, anote qual resultado repararia de fato o dano, porque raiva sem objetivo costuma reproduzir a injustiça em sentido contrário. Respostas proporcionais, como fazer uma pergunta de esclarecimento antes de julgar, mantêm o traço confiável. A Justiça é mais forte quando é paciente o bastante para ouvir a história inteira e firme o bastante para agir. Essa combinação é rara, e as pessoas percebem."
+        "Escolha um desacordo recente e faça três colunas: fatos confirmados, informações que faltam e a reparação que gostaria de pedir. Antes de decidir quem tem culpa, escreva uma pergunta de esclarecimento para alguém cuja versão ainda não ouviu.",
+        "Teste sua proposta com os papéis invertidos. Aceitaria o mesmo critério? Necessidades ou limitações diferentes mudam sua aplicação? Compare reparações possíveis, como corrigir um registro ou rever uma regra. Uma anotação sobre uma disputa não é um veredito sobre todo o caráter de alguém."
       ]
     },
     "kindness": {
@@ -691,9 +674,8 @@ export const LOCALIZED_SOUL_CONTENT: Record<'es' | 'ja' | 'pt' | 'ru', Record<st
         "realWorldTraits": "Pessoas bondosas recebem a hostilidade do ambiente e respondem com acolhimento. Elas percebem quem está sendo excluído e tomam a iniciativa de incluir essa pessoa."
       },
       "deepDive": [
-        "A Bondade é confundida com fraqueza, mas no cotidiano funciona como infraestrutura: o colega que nota o novato comendo sozinho, o amigo que lembra da data difícil da sua agenda, o desconhecido que devolve a carteira caída sem esperar aplauso. Pessoas com esse núcleo monitoram o clima emocional que os outros perdem. Elas dão sem cobrar, e por isso viram âncoras de famílias, equipes e amizades. O calor delas é estratégico no melhor sentido: vai onde reduz sofrimento real, não onde compra visibilidade.",
-        "O modo de falha recorrente é o colapso de limites. Quem dá atrai quem toma, e a Bondade sem limites vira um ciclo de martírio: o ressentimento cresce em silêncio enquanto o sorriso permanece na superfície. Combinada com Justiça, aprende a dizer não à exploração sem abandonar quem precisa de proteção; combinada com Paciência, vira cuidado contínuo em vez de resgates dramáticos. O coração verde rende mais quando aceita uma verdade dura: não se serve de forma sustentável com o recipiente vazio, e cuidar da própria energia é parte do serviço.",
-        "Checagens práticas: você pede desculpa por ter necessidades ou as afirma com clareza? Quando alguém repete o padrão de só receber, você ajusta a relação ou dobra a própria oferta esperando equilíbrio? Um hábito útil é agendar a generosidade, reservando descanso com a mesma seriedade da ajuda. Outro é perguntar antes de socorrer, porque resgate não solicitado pode comunicar, em silêncio, que a pessoa não dá conta sozinha. A Bondade no seu melhor não é sacrifício infinito; é calor confiável com limites funcionais, do tipo que gera confiança por décadas."
+        "Escolha um pedido de ajuda e escreva o que pode oferecer, por quanto tempo e o que não pode assumir. Ensaie uma frase clara: posso ouvir por vinte minutos esta noite, mas não fazer a tarefa por você. Adapte a oferta ao que a outra pessoa realmente quer.",
+        "Depois, anote a ajuda combinada, o que ofereceu e se respeitou seus limites. Se prometeu demais, escreva uma mudança para a próxima conversa. Não precisa medir seu valor pelo quanto deu nem prometer apoio contínuo que não consegue prestar."
       ]
     },
     "patience": {
@@ -729,9 +711,8 @@ export const LOCALIZED_SOUL_CONTENT: Record<'es' | 'ja' | 'pt' | 'ru', Record<st
         "realWorldTraits": "Pessoas pacientes não entram em pânico quando uma resposta demora. Elas entendem que agir cedo demais pode causar mais dano do que esperar."
       },
       "deepDive": [
-        "A Paciência costuma ser lida como lentidão, mas na prática é senso de tempo: a negociadora que deixa uma proposta ruim morrer sem preencher o silêncio às pressas, a mãe que repete a mesma orientação calmamente pela quinta vez, quem constrói em um ano o que os outros abandonam em um mês. Pessoas com esse núcleo toleram incerteza sem exigir alívio imediato. Essa tolerância lhes mostra padrões que os apressados não veem, e suas decisões carregam menos correções caras porque não foram tomadas sob urgência artificial.",
-        "A armadilha é a hesitação fantasiada de sabedoria: esperar para sempre uma decisão que merece dez minutos também é erro. Combinada com Coragem, a Paciência vira ousadia estratégica, que age quando a janela abre; combinada com Perseverança, vira o jogo longo, em que o progresso lento se acumula. O coração ciano funciona melhor com prazos: paciência para resultados, urgência para preparação. Decidir antecipadamente qual sinal dispara a ação, como uma data ou um número alcançado, impede que a observação calma apodreça em passividade.",
-        "Uma auditoria útil: liste três coisas que você está esperando agora e pergunte, para cada uma, se a espera é estratégia ou esconderijo. Se for estratégia, escreva a condição que encerra a espera; se for esconderijo, tome esta semana a menor ação possível. A paciência também se apoia em âncoras físicas, porque a calma sustentada por sono estável, caminhadas e respiração dura mais que a calma por força de vontade. Bem administrada, essa qualidade vira autoridade tranquila: a pessoa que entra em pânico por último e, por isso, decide melhor."
+        "Liste três coisas que está esperando. Para cada uma, registre qual informação ou ação falta, o que encerraria a espera e o que pode preparar enquanto isso. Se não souber definir uma condição de encerramento, escolha uma data razoável para revisar.",
+        "Nessa data, compare a anotação inicial com o que mudou. A espera trouxe informação ou é preciso retomar o contato ou buscar outro caminho? É uma forma de examinar um atraso, não uma razão para permanecer numa situação prejudicial ou adiar algo que exige atenção imediata."
       ]
     },
     "integrity": {
@@ -767,9 +748,8 @@ export const LOCALIZED_SOUL_CONTENT: Record<'es' | 'ja' | 'pt' | 'ru', Record<st
         "realWorldTraits": "Pessoas íntegras fazem o que é certo mesmo quando ninguém está olhando. Elas sentem forte desconforto quando são pressionadas a fingir ou enganar."
       },
       "deepDive": [
-        "A Integridade vive em escolhas sem glamour: admitir o erro antes de alguém conferir os registros, devolver o troco a mais, recusar-se a rir da piada que fere quem não está presente. Pessoas com esse núcleo sentem a coerência entre valores e ações como conforto físico, e o engano como uma dor surda. Essa consistência as torna previsíveis no melhor sentido: colegas entregam trabalho sensível sem contratos elaborados. A palavra delas funciona como assinatura, e com os anos isso vira uma reputação que nenhum orçamento de marketing compra.",
-        "O ponto de pressão é a rigidez. Princípios altos podem virar autocobrança severa e intolerância com zonas cinzentas morais, nas quais compromissos comuns parecem traições. Combinada com Bondade, a Integridade vira honestidade com cuidado, verdadeira sem ferir; combinada com Justiça, vira conduta principista que também protege pessoas de sistemas injustos. O coração azul fica saudável quando aceita que integridade diz respeito à sua própria conduta, não à vigilância dos outros. Padrões aplicados para dentro constroem confiança; aplicados como arma para fora, constroem distância.",
-        "Dois hábitos protegem essa qualidade. Primeiro, decida os casos difíceis antes de encontrá-los: defina antecipadamente o que fará se pedirem para cobrir um amigo, exagerar no currículo ou calar diante de um dano. Posições decididas antes resistem melhor à pressão social. Segundo, mantenha o caminho de reparo aberto: integridade não é perfeição, é um padrão de correção honesta, e um pedido de desculpas rápido já é um ato de alinhamento. Pergunte com frequência se sua história pública e sua conduta privada ainda combinariam se todos pudessem ler as duas."
+        "Ensaie por escrito um pedido difícil: esconder um erro, exagerar uma qualificação ou compartilhar algo confidencial. Redija uma resposta verdadeira que respeite informações que não tem o direito de revelar. Pode recusar-se a responder em vez de inventar uma explicação.",
+        "Escolha uma promessa ou afirmação pública e compare com o que fez. Se houver diferenças, escreva o que precisa corrigir, quem precisa da correção e qual compromisso consegue cumprir agora. Revise o reparo depois de realizá-lo; não precisa publicar notas privadas para demonstrar honestidade."
       ]
     },
     "perseverance": {
@@ -805,9 +785,8 @@ export const LOCALIZED_SOUL_CONTENT: Record<'es' | 'ja' | 'pt' | 'ru', Record<st
         "realWorldTraits": "Pessoas perseverantes não dependem de surtos passageiros de motivação. Elas usam sistemas diários, anotações e rotinas consistentes para concluir trabalhos difíceis."
       },
       "deepDive": [
-        "A Perseverança é a prima metódica da garra: quem estuda idiomas completando o baralho diário por dois anos, quem pesquisa preenchendo o caderno antes de confiar no palpite, quem constrói devagar e publica melhorias semanais enquanto os outros esperam inspiração. Pessoas com esse núcleo transformam esforço em sistema e sistema em resultado que sobrevive aos dias ruins. Elas raramente precisam de motivação dramática, porque a estrutura as carrega quando o entusiasmo cai. O avanço semanal parece modesto e vira algo imbatível quando visto em anos acumulados.",
-        "O custo é o risco de burnout: o mesmo motor que se recusa a pular um dia também pode se recusar a descansar, e o excesso de análise estica decisões simples em projetos de pesquisa. Combinada com Paciência, a Perseverança vira consistência duradoura de longo prazo; combinada com Determinação, vira execução imparável das metas que importam. O coração roxo fica saudável quando o descanso entra na agenda com a mesma disciplina do trabalho, tratado como manutenção, não como roubo. Métricas de progresso devem incluir recuperação.",
-        "Checagens práticas: seus objetivos têm processos semanais ligados a eles, ou apenas resultados? Escreva a versão de processo, como trinta minutos focados em vez de fluência, e deixe a sequência motivar. Quando travar, pergunte se o problema precisa de mais esforço ou de um método diferente, porque insistir numa abordagem quebrada é desperdício fantasiado de virtude. Revise suas anotações todo mês para enxergar a distância percorrida. A Perseverança no seu melhor não é sofrer com elegância; é progresso simples, repetível e silencioso, que supera qualquer estratégia mais chamativa."
+        "Transforme uma meta ampla num processo semanal curto: por exemplo, duas sessões de vinte minutos de vocabulário em vez de alcançar fluência. Defina a tarefa, um pequeno resultado verificável e a hora de encerrar. Reserve descanso em vez de transformar uma sequência sem pausas na meta.",
+        "Ao fim da semana, revise o que completou, quais erros permanecem e se a carga foi administrável. Mantenha uma parte útil do processo e altere uma que não ajudou. O esforço repetido é algo a avaliar, não uma prova de que o método tem de estar certo."
       ]
     }
   },
@@ -845,9 +824,8 @@ export const LOCALIZED_SOUL_CONTENT: Record<'es' | 'ja' | 'pt' | 'ru', Record<st
         "realWorldTraits": "Людям с сильной Решимостью не нужна уверенность в благополучном исходе, чтобы действовать. Они преодолевают препятствия благодаря внутреннему отказу сдаваться."
       },
       "deepDive": [
-        "В повседневной жизни Решимость редко выглядит как драматичное последнее сражение. Она выглядит как одиннадцатая заявка на работу, отправленная после десяти отказов, план тренировок, начатый заново после каждой осечки, и трудный разговор, к которому возвращаются, потому что уйти кажется ещё хуже. Люди, которыми руководит эта черта, сохраняют цели живыми тогда, когда другие давно отправили бы их в архив. Этот внутренний импульс не приходит из азарта или соревнования; он возобновляется каждый раз, когда всё идёт наперекосяк. Именно эта способность к самоперезапуску позволяет Решимости пережить талант, удачу и даже поддержку окружающих.",
-        "Распространённое заблуждение — считать, что Решимость означает никогда не останавливаться. На деле зрелая форма этой черты включает честный учёт цены: понимать, какую стену стоит штурмовать снова, а какая лишь сообщает, что путь закрыт. Решимость в сочетании с Настойчивостью становится терпеливой, выстроенной в систему выносливостью, а в сочетании с Храбростью — решительным принятием риска под давлением. Без баланса тот же заряд сужается до туннельного зрения, когда отказ от любого пути воспринимается как потеря части себя. Назвать этот страх — обычно первый шаг к гибкости.",
-        "Два вопроса помогают отличить здоровую решимость от упрямого вреда. Во-первых, после неудачи вы корректируете план за считанные дни или неделями прокручиваете проигрыш, ничего не меняя? Во-вторых, вы идёте к цели, потому что она всё ещё важна вам, или в основном потому, что бросить было бы невыносимо? Записать, чем вы отказываетесь жертвовать — сном, здоровьем, близкими отношениями, — значит превратить сырую силу воли в устойчивый долгосрочный двигатель. Решимость в лучшем виде — это не отказ падать, а отказ переставать решать, кем вы хотите стать."
+        "Выберите недавнюю неудачу и письменно ответьте: что я изменю перед новой попыткой? Продолжаю ли я потому, что цель всё ещё важна, или потому, что трудно остановиться? Отделите само событие от своего объяснения произошедшего.",
+        "Перед новой попыткой перечислите, чем не готовы жертвовать: например, сном, здоровьем или временем с близкими. Назначьте дату проверки реальных затрат. Если следующая попытка не укладывается в эти пределы, рассмотрите другой путь, паузу или завершение; упражнение не требует сохранять все цели."
       ]
     },
     "bravery": {
@@ -883,9 +861,8 @@ export const LOCALIZED_SOUL_CONTENT: Record<'es' | 'ja' | 'pt' | 'ru', Record<st
         "realWorldTraits": "Храбрые люди скорее переживут болезненную ошибку, чем будут сожалеть о бездействии. В напряжённой ситуации они обычно говорят первыми."
       },
       "deepDive": [
-        "Храбрость в повседневной жизни редко бывает кинематографичной. Это поднятая рука на совещании, когда все молчат, первое сообщение незнакомому человеку, решение начать заново в городе, где вы никого не знаете. Люди с этим ядром идут навстречу дискомфорту, пока тот мал, поэтому их проблемы обычно остаются решаемыми. Они боятся как все; разница в том, что страх работает как стартовый сигнал, а не как стоп-знак. Созданное ускорение, как правило, начинает защищать себя само.",
-        "Самое частое недопонимание — приравнивать Храбрость к отсутствию осторожности. Подлинное мужество включает выбор рисков, которые того стоят, и понимание, что некоторые атаки лучше отложить. В сочетании с Терпением Храбрость становится точным по времени мужеством, бьющим в нужный момент; в сочетании со Справедливостью — готовностью защищать других ценой личных удобств. Без баланса тот же импульс скатывается в безрассудство, принимая скорость за мудрость, а истощение за преданность. Храбрым людям нужны честные друзья, способные сказать подожди, а не только вперёд.",
-        "Практическая самопроверка: когда вы сегодня чего-то избегаете, это потому, что время не подошло, или потому, что страх громкий? Записать худший реалистичный исход избегаемого действия часто уменьшает его до управляемого размера. Храбрость растёт через повторение, а не через один великий жест. Начните с действий, которые пугают вас на три из десяти, завершите их и позвольте доказательствам накапливаться. Со временем зона комфорта расширяется изнутри, а черта становится надёжной привычкой, а не настроением, которое приходит и уходит."
+        "Выберите действие с небольшими последствиями, которого избегали, например вопрос на занятии. Запишите худший реалистичный исход, что вам известно и что вы только предполагаете. При реальной опасности или давлении, с которым нельзя справиться безопасно, выберите другую ситуацию.",
+        "После одного небольшого и достаточно безопасного шага сравните ожидания с наблюдениями. Запишите свои слова или действия и полученный ответ, вместо того чтобы называть себя храбрым или трусливым. Можно остановиться или попросить поддержки: задача — изучить одно событие, а не доказать, что страх исчез."
       ]
     },
     "justice": {
@@ -921,9 +898,8 @@ export const LOCALIZED_SOUL_CONTENT: Record<'es' | 'ja' | 'pt' | 'ru', Record<st
         "realWorldTraits": "Люди Справедливости не могут игнорировать несправедливое обращение. Они готовы выдержать социальное напряжение, чтобы правила одинаково применялись ко всем."
       },
       "deepDive": [
-        "Справедливость проявляется в малых повторяющихся моментах задолго до драматических поступков: выправить несправедливый слух о коллеге, точно разделить общий счёт, потому что кто-то тихо переплатил, или назвать правило, которое все молча игнорируют. Люди с этим ядром ведут внутреннюю книгу справедливости, и дисбаланс действительно беспокоит их, порой физически. К ним часто приходят за честной оценкой конфликта. Их верность привязана сначала к принципам, затем к личностям, поэтому их одобрение весомо, а критика полезна.",
-        "Теневая сторона заслуживает внимания. Сильная тяга к справедливости может затвердеть в чёрно-белые суждения, где в любом споре есть один виновный, а контекст стирается. Справедливость в сочетании с Добротой становится защитой людей при исправлении систем; в сочетании с Порядочностью — жизнью по последовательным принципам даже ценой личных удобств. Без эмпатии в качестве противовеса та же черта может стать самоправедностью, карающей других за ошибки, которые она прощает себе. Самые здоровые носители Справедливости перед закрытием дела спрашивают: чей голос отсутствует в вердикте?",
-        "Полезное размышление: когда вы чувствуете себя обиженным, вы стремитесь быть действенным или просто правым? Перед конфронтацией с несправедливой ситуацией запишите, какой исход действительно исправит вред, потому что гнев без цели часто воссоздаёт несправедливость наоборот. Практика соразмерных реакций — например, один уточняющий вопрос перед вынесением суждения — сохраняет доверие к черте. Справедливость сильнее всего, когда терпелива настолько, чтобы выслушать историю целиком, и тверда настолько, чтобы действовать по ней. Такое сочетание редкость, и люди его замечают."
+        "Выберите недавнее разногласие и сделайте три колонки: подтверждённые факты, недостающая информация и исправление, о котором хотите попросить. Прежде чем решать, кто виноват, запишите один уточняющий вопрос человеку, чью версию ещё не слышали.",
+        "Проверьте своё предложение, поменяв участников местами. Примете ли вы тот же критерий? Меняют ли разные потребности или ограничения способ его применения? Сравните возможные исправления, например запись в документе или само правило. Заметка об одном споре не является приговором всему характеру человека."
       ]
     },
     "kindness": {
@@ -959,9 +935,8 @@ export const LOCALIZED_SOUL_CONTENT: Record<'es' | 'ja' | 'pt' | 'ru', Record<st
         "realWorldTraits": "Добрые люди отвечают теплом на враждебность окружения. Они замечают тех, кого исключили из группы, и первыми стараются их принять."
       },
       "deepDive": [
-        "Доброту часто принимают за мягкость, но в повседневной жизни она работает скорее как инфраструктура: коллега, который замечает новичка, обедающего в одиночестве; друг, помнящий о трудной дате в вашем календаре; незнакомец, вернувший оброненный кошелёк без ожидания аплодисментов. Люди с этим ядром считывают эмоциональную погоду, которую другие пропускают. Они дают, не выставляя счетов, и потому становятся опорой в семьях, командах и дружбе. Их тепло стратегично в лучшем смысле: направлено туда, где оно по-настоящему уменьшает страдания, а не туда, где приносит видимые заслуги.",
-        "Повторяющийся сбой — обвал границ. Дающие притягивают берущих, и Доброта без пределов превращается в цикл мученика: обида копится тихо, пока снаружи всё улыбается. В сочетании со Справедливостью Доброта учится говорить нет эксплуатации, продолжая защищать уязвимых; в сочетании с Терпением — становится ровной долгосрочной заботой вместо драматичных спасательных миссий. Зелёное сердце служит лучше всего, когда принимает суровую правду: из пустого сосуда не налить надолго, а защита собственной энергии — часть служения, а не предательство его.",
-        "Практические проверки: вы извиняетесь за то, что у вас есть потребности, или называете их прямо? Когда кто-то снова и снова берёт, не отдавая, вы корректируете поведение или удваиваете даяние в надежде заслужить справедливость? Полезная привычка — планировать щедрость, бронируя отдых так же серьёзно, как помощь другим. Другая — спрашивать перед спасением, потому что непрошеное спасение тихо сообщает человеку, что он не справится сам. Доброта в полной силе — не бесконечная жертва; это надёжное тепло с работающими границами, которому доверяют десятилетиями, а не восхищаются мельком и забывают."
+        "Выберите просьбу о помощи и запишите, что можете предложить, на какое время и чего не можете взять на себя. Подготовьте ясную фразу: сегодня вечером я могу выслушать тебя двадцать минут, но не могу сделать задачу за тебя. Соотнесите предложение с тем, чего человек действительно хочет.",
+        "После этого запишите, о какой помощи договорились, что вы предоставили и соблюли ли собственные пределы. Если обещали слишком много, отметьте одно изменение для следующего разговора. Не нужно измерять свою ценность объёмом помощи или обещать постоянную поддержку, которую не можете оказать."
       ]
     },
     "patience": {
@@ -997,9 +972,8 @@ export const LOCALIZED_SOUL_CONTENT: Record<'es' | 'ja' | 'pt' | 'ru', Record<st
         "realWorldTraits": "Терпеливые люди не паникуют, когда ответ задерживается. Они понимают, что преждевременное действие часто причиняет больше вреда, чем ожидание."
       },
       "deepDive": [
-        "Терпение часто читают как медлительность, но на деле это точный расчёт времени. Это переговорщик, дающий скверному предложению умереть, не спеша заполнять паузу; родитель, спокойно повторяющий одну инструкцию в пятый раз; строитель, выпускающий за год то, что другие бросают через месяц. Люди с этим ядром выносят неопределённость без потребности в немедленном облегчении. Эта выносливость позволяет видеть закономерности, которые спешащие пропускают, а их решения несут меньше дорогих исправлений именно потому, что не принимались под искусственной спешкой.",
-        "Ловушка — нерешительность, маскирующаяся под мудрость. Бесконечное ожидание решения, которое заслуживает десяти минут, — тоже вид ошибки. Терпение в сочетании с Храбростью становится стратегической смелостью, бьющей точно в открытое окно; в сочетании с Настойчивостью — долгой игрой, где медленный видимый прогресс накапливается. Голубое сердце работает лучше всего с дедлайнами: терпение к результатам, срочность к подготовке. Заранее решить, какой сигнал запустит действие — дата, порог, повторяющееся событие, — не даёт спокойному наблюдению выродиться в пассивность.",
-        "Полезный аудит: выпишите три вещи, ожидания которых вы сейчас держите, и для каждой спросите, является ли ожидание стратегией или укрытием. Для настоящей стратегии запишите условие, которое завершит ожидание. Для укрытия сделайте на этой неделе самое маленькое возможное действие. Терпению помогают и физические якоря: спокойствие легче удерживать ровным сном, прогулками и дыханием, чем одной силой воли. Управляемое хорошо, эта черта становится тихим авторитетом: человеком в комнате, который паникует последним и потому решает лучше всех."
+        "Выпишите три вещи, которых сейчас ждёте. Для каждой укажите, какой информации или действия не хватает, что завершит ожидание и что можно подготовить тем временем. Если не можете назвать условие завершения, назначьте разумную дату пересмотра.",
+        "В этот день сравните исходную заметку с тем, что изменилось. Дало ли ожидание новую информацию или пора уточнить ответ либо выбрать другой путь? Это способ рассмотреть задержку, а не причина оставаться во вредной ситуации или откладывать вопрос, требующий быстрого внимания."
       ]
     },
     "integrity": {
@@ -1035,9 +1009,8 @@ export const LOCALIZED_SOUL_CONTENT: Record<'es' | 'ja' | 'pt' | 'ru', Record<st
         "realWorldTraits": "Порядочные люди поступают правильно, даже когда никто не видит. Необходимость притворяться или обманывать вызывает у них сильный внутренний дискомфорт."
       },
       "deepDive": [
-        "Порядочность живёт в неброских выборах: признать ошибку до того, как кто-то проверит записи, вернуть лишнюю сдачу, не смеяться над шуткой, бьющей по тому, кого нет рядом. Люди с этим ядром переживают совпадение ценностей и действий как физический комфорт, а обман — как глухую ноющую боль. Эта внутренняя последовательность делает их предсказуемыми в лучшем смысле: коллеги отдают им чувствительную работу без сложных контрактов. Их слово работает как подпись, и за годы это тихо складывается в репутацию, которую не купит ни один маркетинговый бюджет.",
-        "Точка давления — ригидность. Высокие принципы могут переходить в суровое самоосуждение и нетерпимость к моральным полутонам, где обычные компромиссы ощущаются как предательство. Порядочность в сочетании с Добротой становится честностью, поданной с заботой, — правдивой, но не ранящей; в сочетании со Справедливостью — принципиальным поведением, которое к тому же защищает других от несправедливых систем. Синее сердце остаётся здоровым, когда принимает: порядочность касается вашего поведения, а не надзора за всеми остальными. Стандарты, обращённые внутрь, строят доверие; те же стандарты, обращённые наружу как оружие, строят дистанцию и тихую обиду.",
-        "Две привычки защищают эту черту. Первая — решать трудные случаи до встречи с ними: заранее определите, что вы сделаете, когда попросят прикрыть друга, приукрасить резюме или промолчать о вреде. Заранее принятые позиции лучше держат социальное давление. Вторая — держать путь исправления открытым: порядочность — не безупречность, а модель честных исправлений, и быстрая извинительная реакция сама по себе акт соответствия. Регулярно спрашивайте себя: совпали бы ваша публичная история и частное поведение, если бы каждый мог прочитать и то и другое?"
+        "Письменно отрепетируйте ответ на трудную просьбу: скрыть ошибку, преувеличить квалификацию или раскрыть конфиденциальную информацию. Составьте правдивую фразу, которая также сохраняет сведения, раскрывать которые вы не вправе. Можно отказаться от ответа вместо придуманного объяснения.",
+        "Выберите одно обещание или публичное утверждение и сравните с тем, что сделали. При расхождении запишите, что нужно исправить, кому сообщить и какое обязательство теперь можете выполнить. После исправления проверьте результат; для подтверждения честности не нужно публиковать личные заметки."
       ]
     },
     "perseverance": {
@@ -1073,9 +1046,8 @@ export const LOCALIZED_SOUL_CONTENT: Record<'es' | 'ja' | 'pt' | 'ru', Record<st
         "realWorldTraits": "Настойчивые люди не зависят от кратких всплесков мотивации. Они используют ежедневные системы, записи и постоянные привычки, чтобы завершать сложную работу."
       },
       "deepDive": [
-        "Настойчивость — методичная родня упорства: изучающий язык, два года проходящий ежедневную колоду; исследователь, заполняющий блокнот, прежде чем довериться догадке; маленький строитель, выпускающий улучшения каждую неделю, пока другие ждут вдохновения. Люди с этим ядром превращают усилия в системы, а системы — в результаты, которые переживают плохие дни. Им редко нужна драматичная мотивация, потому что структура несёт их, когда энтузиазм падает. Их прогресс часто выглядит скромно от недели к неделе и неудержимо — в масштабе накопленных лет.",
-        "Цена — риск выгорания. Тот же двигатель, который отказывается пропускать день, может отказываться и отдыхать, а избыточный анализ растягивает простые решения в исследовательские проекты. Настойчивость в сочетании с Терпением становится долговечной согласованностью на длинной дистанции; в сочетании с Решимостью — неудержимым доведением до конца по-настоящему важных целей. Фиолетовое сердце остаётся здоровым, когда отдых стоит в расписании с той же дисциплиной, что и работа, — как обслуживание, а не кража. В метрики прогресса стоит включать восстановление: система, которая не умеет делать паузу, в конце концов ломается в худший момент.",
-        "Практические проверки: у ваших целей есть еженедельные процессы или только итоги? Запишите процессную версию — например, тридцать сосредоточенных минут вместо свободного владения языком, — и пусть серия сама вас мотивирует. Застряв, спросите, нужна проблеме большая сила усилий или другой метод, ведь упорствовать в сломанном подходе — трата, переодетая в добродетель. Раз в месяц просматривайте записи, чтобы увидеть пройденную дистанцию. Настойчивость в лучшем виде — не изящное страдание; это скучный, повторяемый прогресс, который тихо переживает любую более яркую стратегию."
+        "Превратите широкую цель в короткий недельный процесс: например, два занятия по двадцать минут со словами вместо свободного владения языком. Определите задачу, небольшой проверяемый результат и время окончания. Оставьте место для отдыха вместо цели поддерживать непрерывную серию.",
+        "В конце недели проверьте, что выполнено, какие ошибки остались и была ли нагрузка посильной. Сохраните одну полезную часть процесса и измените одну, которая не помогла. Повторные усилия — предмет оценки, а не доказательство того, что метод обязательно верен."
       ]
     }
   }

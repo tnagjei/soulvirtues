@@ -1,17 +1,22 @@
 ---
 // input: Locale, V2 item source ledger, and shared scoring explanation
-// output: Localized method page with traceable sources, formula, limits and version history
+// output: Localized method page with traceable sources, a reproducible synthetic scoring example, formula, limits and version history
 // pos: src/components/MethodPage.astro (更新规则：题库或计分变化需同步本页与所属目录 README)
 
 import Layout from '../layouts/Layout.astro';
 import { getTranslations, type Locale } from '../i18n';
 import { ASSESSMENT_COPY, TRAIT_READING } from '../data/assessmentContent';
 import { QUESTION_BANK, BANK_VERSION, IPIP_PERMISSION_URL } from '../data/questions';
+import { SCORING_EXAMPLE, SCORING_EXAMPLE_COPY } from '../data/scoringExample';
+import { SOUL_CODES } from '../data/souls';
 
 interface Props { lang?: Locale; }
 const { lang = 'en' } = Astro.props;
 const copy = ASSESSMENT_COPY[lang];
 const t = getTranslations(lang);
+const exampleCopy = SCORING_EXAMPLE_COPY[lang];
+const example = SCORING_EXAMPLE;
+const formatScore = (value: number) => new Intl.NumberFormat(lang, { maximumFractionDigits: 1 }).format(value);
 const prefix = lang === 'en' ? '' : '/' + lang;
 const url = 'https://soulvirtues.org' + prefix + '/method/';
 const structuredData = {
@@ -49,6 +54,35 @@ const codes = Object.keys(t.souls) as (keyof typeof t.souls)[];
       <ol class="list-decimal pl-5 space-y-3 text-sm text-gray-300 leading-relaxed">
         {copy.formulaSteps.map(step => <li>{step}</li>)}
       </ol>
+    </section>
+
+    <section id="worked-example" class="scroll-mt-24 pixel-card-sub p-5 sm:p-8 space-y-5">
+      <h2 class="text-xl font-bold font-mono text-white">{exampleCopy.title}</h2>
+      <p class="text-sm text-cyan-200 leading-relaxed">{exampleCopy.notice}</p>
+      <p class="text-sm text-gray-300 leading-relaxed">{exampleCopy.intro.replace('{count}', String(example.neutralCount))}</p>
+      <ol class="space-y-4">
+        {example.changed.map(item => (
+          <li class="border border-gray-700 p-4 space-y-3 text-sm leading-relaxed" data-example-item={item.id}>
+            <h3 class="text-white font-bold">{item.id} · {t.questions[item.index].q}</h3>
+            <p class="text-gray-300">{exampleCopy.response}: {t.questions[item.index].labels[item.answer]} ({item.answer + 1})</p>
+            <p class="text-gray-300">{item.reverse ? copy.reverseLabel : copy.directLabel} · {exampleCopy.keyed}: {item.reverse ? `6 − ${item.answer + 1} = ${item.keyed}` : item.keyed}</p>
+          </li>
+        ))}
+      </ol>
+      <h3 class="text-white font-bold">{exampleCopy.calculation}</h3>
+      <p class="text-sm text-gray-300 leading-relaxed">{exampleCopy.calculationBody}</p>
+      <p class="text-sm font-mono text-cyan-200 break-words">100 × (({example.totalKeyed} ÷ {example.itemCount}) − 1) ÷ 4 ≈ {formatScore(example.result.pct.BRV)} / 100</p>
+      <h3 class="text-white font-bold">{exampleCopy.result}</h3>
+      <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-sm">
+        {SOUL_CODES.map(code => <div class="flex justify-between gap-3 border-b border-gray-800 pb-2"><dt class="text-gray-200">{t.souls[code].name}</dt><dd class="text-white font-mono tabular-nums whitespace-nowrap" data-example-score={code}>{formatScore(example.result.pct[code])} / 100</dd></div>)}
+      </dl>
+      <p class="text-sm text-gray-300 leading-relaxed">{exampleCopy.reading}</p>
+      <details class="border border-gray-700 p-4">
+        <summary class="text-cyan-200 cursor-pointer min-h-11 flex items-center">{exampleCopy.neutralTitle}</summary>
+        <p class="text-sm text-gray-300 leading-relaxed mt-3">{exampleCopy.neutralBody}</p>
+      </details>
+      <h3 class="text-white font-bold">{exampleCopy.practiceTitle}</h3>
+      <p class="text-sm text-gray-300 leading-relaxed">{exampleCopy.practiceBody}</p>
     </section>
 
     <section id="themes" class="scroll-mt-24 pixel-card-sub p-5 sm:p-8">

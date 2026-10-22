@@ -33,3 +33,8 @@ reports/gsc/launchd/*.log
 reports/gsc/launchd/*.err
 reports/gsc/day15-review.md
 .waffo_key
+
+# Local account-level audits and remediation evidence
+/reports/content-remediation-2026-10-22/
+/DOC/AdSense-拒审排查与整改计划-2026-10-21.md
+/DOC/AdSense-独立排查与整改计划-2026-10-22.md

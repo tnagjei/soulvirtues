@@ -5,5 +5,5 @@
 > 一旦本目录内容变化，请更新本文件
 
 ## Files
-- index.astro：俄语版首页，包含全量 66 题俄语测试、Undertale 俄语社区术语科普与 FAQ
+- index.astro：含公开计分示例入口并去掉重复简介的俄语版首页，包含全量 66 题俄语测试、Undertale 俄语社区术语科普与 FAQ
 
