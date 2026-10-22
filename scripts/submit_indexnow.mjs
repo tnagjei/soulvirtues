@@ -9,7 +9,7 @@ import { fileURLToPath } from "node:url";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const siteUrl = (process.env.SITE_URL || "https://soulvirtues.org").replace(/\/$/, "");
 const host = new URL(siteUrl).host;
-const indexNowKey = "e74f83b2d1c94a5ea6e0b7f8c9d1a2e3";
+const indexNowKey = "a56779c264400a831229a41cbe2b3493";
 const keyLocation = `${siteUrl}/${indexNowKey}.txt`;
 const endpoints = [
   "https://api.indexnow.org/indexnow",
