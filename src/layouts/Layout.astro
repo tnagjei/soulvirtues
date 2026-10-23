@@ -1,6 +1,6 @@
 ---
 // input: Title, description, canonicalUrl, ogImage, structuredData schema, lang ('en' | 'ja' | 'es' | 'pt' | 'ru')
-// output: Full HTML page shell with multilingual hreflang meta tags, fonts, styles, header, footer, bottom-right language suggestion toast, CSS ambient background effect, Google Analytics, Clarity on static information pages only, Adsterra banners, and MakeThisBetter widget
+// output: Full HTML page shell with multilingual hreflang meta tags, fonts, styles, header, footer, bottom-right language suggestion toast, CSS ambient background effect, Google Analytics, Clarity on static information pages only, Umami, Adsterra banners, and MakeThisBetter widget
 // pos: src/layouts/Layout.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import Header from '../components/Header.astro';
@@ -68,6 +68,9 @@ const isQuizPage = baseRel === "/";
     <!-- Yandex site ownership verification -->
     <meta name="yandex-verification" content="46fdce885b6ef94a" />
     <link rel="canonical" href={fullCanonical} />
+
+    <!-- Umami Analytics -->
+    <script is:inline async src="https://umami-stats-beryl.vercel.app/script.js" data-website-id="3feaa031-8dda-4eba-8f20-47ee94bdc3d8" data-domains="soulvirtues.org"></script>
 
     <!-- Google Analytics (GA4) -->
     <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-8FYG42X74J"></script>

@@ -14,6 +14,16 @@ import '../styles/report.css';
     <title>Your Soul Field Guide - Soul Virtues Extractor</title>
     <meta name="description" content="Your quiz answers, seven trait readings and a practical personal reflection workbook." />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- Strip the private report id, language and access token before Umami sees the URL. -->
+    <script is:inline>
+      window.umamiUrl = (event, payload) => {
+        const safe = new URL(payload.url);
+        safe.search = "";
+        safe.hash = "";
+        return { ...payload, url: safe.toString() };
+      };
+    </script>
+    <script is:inline async src="https://umami-stats-beryl.vercel.app/script.js" data-website-id="3feaa031-8dda-4eba-8f20-47ee94bdc3d8" data-domains="soulvirtues.org" data-before-send="umamiUrl"></script>
   </head>
   <body>
     <a class="skip-link no-print" href="#guide">Skip to your guide</a>
