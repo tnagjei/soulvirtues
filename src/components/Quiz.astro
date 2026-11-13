@@ -167,6 +167,12 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
             >
               * Português
             </a>
+            <a
+              href="/ru/#test"
+              class={`col-span-2 px-2 py-1.5 text-center border transition-colors ${lang === 'ru' ? 'border-yellow-400 text-yellow-400 bg-gray-900 font-bold' : 'border-gray-700 text-gray-400 hover:border-white hover:text-white'}`}
+            >
+              * Русский
+            </a>
           </div>
         </div>
 
@@ -262,6 +268,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       <a href="/es/#test" class={`px-2 py-0.5 border ${lang === 'es' ? 'border-yellow-400 text-yellow-400 font-bold' : 'border-gray-700 text-gray-400 hover:text-white'}`}>Español</a>
       <a href="/ja/#test" class={`px-2 py-0.5 border ${lang === 'ja' ? 'border-yellow-400 text-yellow-400 font-bold' : 'border-gray-700 text-gray-400 hover:text-white'}`}>日本語</a>
       <a href="/pt/#test" class={`px-2 py-0.5 border ${lang === 'pt' ? 'border-yellow-400 text-yellow-400 font-bold' : 'border-gray-700 text-gray-400 hover:text-white'}`}>Português</a>
+      <a href="/ru/#test" class={`px-2 py-0.5 border ${lang === 'ru' ? 'border-yellow-400 text-yellow-400 font-bold' : 'border-gray-700 text-gray-400 hover:text-white'}`}>Русский</a>
     </div>
  </div>
 
@@ -1022,7 +1029,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       showPersistenceError();
     }
 
-    function showScreen(screen) {
+    function showScreen(screen, scroll = true) {
       ["intro", "start", "active", "result", "review", "souls"].forEach(s => {
         const el = document.getElementById("quiz-" + s);
         if (el) {
@@ -1033,9 +1040,11 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
           }
         }
       });
-      const testSection = document.getElementById("test") || document.getElementById("quiz-root");
-      if (testSection) {
-        testSection.scrollIntoView({ behavior: "smooth" });
+      if (scroll) {
+        const testSection = document.getElementById("test") || document.getElementById("quiz-root");
+        if (testSection) {
+          testSection.scrollIntoView({ behavior: "smooth" });
+        }
       }
     }
 
@@ -1072,12 +1081,11 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
 
     const answeredCount = userAnswers.filter(a => a !== null).length;
     if (answeredCount === QUESTIONS.length) {
-      showScreen("result");
-      showResults();
+      showResults(window.location.hash === "#test");
     } else if (window.location.hash === "#test") {
       window.startSoulQuiz();
     } else {
-      showScreen("intro");
+      showScreen("intro", false);
       runIntroScene(0);
       if (answeredCount > 0) {
         const resumeBtn = document.getElementById("btn-resume-quiz");
@@ -1182,10 +1190,6 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
         scaleRow.appendChild(btn);
       });
 
-      scaleRow.addEventListener("mouseleave", () => {
-        updateSelectedLabel(q);
-      });
-
       updateSelectedLabel(q);
    }
 
@@ -1286,7 +1290,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
     // -------------------------------------------------------------
     // Results Rendering & Exports
     // -------------------------------------------------------------
-    function showResults() {
+    function showResults(scroll = true) {
       playSound("appear");
       const score = computeScores();
       const { pct, ranked } = score;
@@ -1428,7 +1432,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
         successEl?.classList.add("hidden");
       }
 
-      showScreen("result");
+      showScreen("result", scroll);
     }
 
     // Share Card Canvas Generator
@@ -1669,9 +1673,13 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
         trackEvent("share_link_copy", { language: LANG });
         const btn = button;
         if (btn) {
-          const orig = btn.innerHTML;
+          if (!btn.dataset.origHtml) btn.dataset.origHtml = btn.innerHTML;
+          if (btn._copyTimer) clearTimeout(btn._copyTimer);
           btn.textContent = `✓ ${QUIZ_UI.linkCopiedNotice}`;
-          setTimeout(() => { btn.innerHTML = orig; }, 2000);
+          btn._copyTimer = setTimeout(() => {
+            if (btn.dataset.origHtml) btn.innerHTML = btn.dataset.origHtml;
+            btn._copyTimer = null;
+          }, 2000);
         }
       } catch (error) {
         window.prompt(QUIZ_UI.copyLinkBtn, shareUrl);
@@ -1900,6 +1908,10 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
     document.getElementById("tap-answer-hint")?.addEventListener("click", () => {
       selectAndAdvance(currentSelection);
     });
+    document.getElementById("scale-row")?.addEventListener("mouseleave", () => {
+      const q = QUESTIONS[currentIndex];
+      if (q) updateSelectedLabel(q);
+    });
 
     document.getElementById("label-extreme-left")?.addEventListener("mouseenter", () => {
       const labelEl = document.getElementById("selected-label-text");
@@ -1961,7 +1973,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
           if (response.status === 202) {
             if (feedback) feedback.textContent = copy.pending;
           } else if (response.data.alreadyPaid === true) {
-            location.assign("/success/?report=" + access.id);
+            location.assign("/success/?report=" + access.id + (es ? "&lang=es" : ""));
           } else if (typeof response.data.checkoutUrl === "string") {
             const url = new URL(response.data.checkoutUrl);
             if (url.protocol !== "https:" || !["checkout.waffo.ai", "pancake.waffo.ai"].includes(url.hostname)) throw new Error(copy.invalidLink);
@@ -2010,7 +2022,7 @@ const comparisonPairsJson = JSON.stringify(Object.fromEntries(
       });
 
       function submitVote(choice) {
-        playSound("click");
+        playSound("select");
         trackEvent("feedback_roadmap_vote", {
           choice,
           language: LANG,

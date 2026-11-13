@@ -78,7 +78,6 @@ export const JA_QUESTIONS: QuestionItem[] = getQuestions('ja');
 
 export const jaTranslations: Translations = {
   locale: 'ja',
-  localeName: '日本語',
   pageTitle: "Soul Virtues Extractor - 無料のUndertale魂の特質・ソウル診断(全66問)",
   pageDescription: "無料・全66問のUndertale（アンダーテール）魂の特質・ソウル診断テスト。あなたのタマシイの色とケツイ・ゆうき・せいぎ・やさしさ・にんたい・せいじつ・こんきの7つの美徳比率を完全測定。登録不要ですぐに診断できます。",
   heroBadge: "無料・全66問 魂の特質・ソウル診断",
@@ -101,7 +100,6 @@ export const jaTranslations: Translations = {
     exploreTitle: "コンテンツ",
     testLink: "魂の美徳テスト",
     traitsLink: "7つの魂の特質",
-    scoringLink: "スコア計算ロジック",
     faqLink: "よくある質問 (FAQ)",
     legalTitle: "規約・情報",
     aboutLink: "About Us",
@@ -121,7 +119,6 @@ export const jaTranslations: Translations = {
   },
   why: {
     title: "なぜ Soul Virtues Extractor を受けるのか？",
-    intro: "Soul Virtues Extractor は、自分を振り返るための無料の独立したファンテストです。Undertale に着想を得た表現で、66の文から日常の7つのテーマを考えます。公式ゲームテストや臨床評価ではありません。",
     points: [
   {
     "title": "7つの得点をまとめて読む",
@@ -267,8 +264,6 @@ export const jaTranslations: Translations = {
     likertLabels: ["まったくそう思わない","そう思わない","どちらでもない","そう思う","強くそう思う"],
     backBtn: "もどる",
     confirmBtn: "決定",
-    skipNeutralBtn: "スキップ（中立）",
-    resultComplete: "抽出完了",
     primaryVirtue: "あなたの主たる魂の美徳",
     secondaryVirtue: "第2の美徳 / シャドウ特性",
     breakdownTitle: "7つの魂の美徳 詳細割合",
@@ -289,7 +284,6 @@ export const jaTranslations: Translations = {
     reviewBackBtn: "結果に戻る",
     soulsGalleryTitle: "7つの人間の魂",
     soulsBackBtn: "結果に戻る",
-    soulSelectHint: "魂をクリックすると詳細を確認できます",
     checkout: {
       "optional": "任意購入のワークブック",
       "consent": "18歳以上、または保護者の許可があることを確認します。決済に進む前に、66問の回答と非公開ガイドをサーバーに保存することに同意します。オンライン閲覧は支払い後30日間です。支払い確認後、質問文、回答、採点方向、7つの得点、レポート言語をDeepSeekに送り、解説を生成します。氏名、メール、支払情報、非公開のアクセス認証情報、メモはAIに送りません。レポートは英語またはスペイン語のみです。",
@@ -303,7 +297,6 @@ export const jaTranslations: Translations = {
       "invalidLink": "決済先のアドレスを確認できませんでした。サポートにご連絡ください。",
       "incompleteResponse": "決済サービスの応答が不完全です。再試行するか、サポートにご連絡ください。"
     },
-    purchaseDisclaimer: "ご購入により、18歳以上または保護者の同意があることを確認したものとみなされます。詳細は<a href=\"/terms/\" class=\"underline hover:text-gray-300\">利用規約（英語）</a>および<a href=\"/privacy/\" class=\"underline hover:text-gray-300\">プライバシーポリシー（英語）</a>をご覧ください。",
     feedbackVote: {
       title: "次に何を追加すべきですか？（1クリックで投票）",
       subtitle: "あなたの魂の特質が抽出されました。この世界の次の章を共に創りましょう：",
@@ -313,8 +306,6 @@ export const jaTranslations: Translations = {
       optDeltarune: "DELTARUNE版ソウル診断 — 新たな特質と仕組みの追加",
       optEnough: "今のテストで十分素晴らしい",
       optOther: "または独自のアイデアを直接提案：",
-      otherPlaceholder: "アイデアを入力してください...",
-      submitBtn: "投票する",
       thankYouTitle: "あなたの魂（SOUL）の声は、これからの未来に刻まれました。",
       thankYouMessage: "あなたはただの訪問者ではなく、私たちと共にこの世界を創る仲間です。あなたの選択が次の章の形を決めます。共に歩んでくれてありがとう。新たな旅が始まるとき、あなたの残した光が道を照らします。",
     },

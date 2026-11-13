@@ -78,7 +78,6 @@ export const RU_QUESTIONS: QuestionItem[] = getQuestions('ru');
 
 export const ruTranslations: Translations = {
   locale: 'ru',
-  localeName: 'Русский',
   pageTitle: "Soul Virtues Extractor - Бесплатный тест души Undertale (66 вопросов)",
   pageDescription: "Пройдите бесплатный тест Soul Virtues Extractor из 66 вопросов по мотивам Undertale: Решимость, Храбрость, Справедливость, Доброта, Терпение, Порядочность и Настойчивость.",
   heroBadge: "Бесплатный тест души из 66 вопросов",
@@ -101,7 +100,6 @@ export const ruTranslations: Translations = {
     exploreTitle: "Навигация",
     testLink: "Тест добродетелей души",
     traitsLink: "7 черт души Undertale",
-    scoringLink: "Логика подсчёта",
     faqLink: "Частые вопросы (FAQ)",
     legalTitle: "Инфо и правила",
     aboutLink: "О нас",
@@ -121,7 +119,6 @@ export const ruTranslations: Translations = {
   },
   why: {
     title: "Почему именно Soul Virtues Extractor?",
-    intro: "Soul Virtues Extractor — бесплатный независимый фанатский тест для самоанализа. В 66 утверждениях рассматриваются семь повседневных тем в оформлении, вдохновлённом Undertale. Это не официальный игровой тест и не клиническая оценка.",
     points: [
   {
     "title": "Семь оценок в одном полном результате",
@@ -267,8 +264,6 @@ export const ruTranslations: Translations = {
     likertLabels: ["Совершенно не согласен","Не согласен","Нейтрально","Согласен","Полностью согласен"],
     backBtn: "НАЗАД",
     confirmBtn: "ПОДТВЕРДИТЬ",
-    skipNeutralBtn: "НЕЙТРАЛЬНО",
-    resultComplete: "ИЗВЛЕЧЕНИЕ ЗАВЕРШЕНО",
     primaryVirtue: "ГЛАВНАЯ ДОБРОДЕТЕЛЬ ДУШИ",
     secondaryVirtue: "ВТОРОСТЕПЕННАЯ ЧЕРТА / ТЕНЬ",
     breakdownTitle: "РАСПРЕДЕЛЕНИЕ 7 ДОБРОДЕТЕЛЕЙ ДУШИ",
@@ -289,7 +284,6 @@ export const ruTranslations: Translations = {
     reviewBackBtn: "ВЕРНУТЬСЯ К РЕЗУЛЬТАТАМ",
     soulsGalleryTitle: "СЕМЬ ЧЕЛОВЕЧЕСКИХ ДУШ",
     soulsBackBtn: "ВЕРНУТЬСЯ К РЕЗУЛЬТАТАМ",
-    soulSelectHint: "Нажмите на душу, чтобы узнать подробности о её черте",
     checkout: {
       "optional": "Необязательная платная рабочая тетрадь",
       "consent": "Мне исполнилось 18 лет или у меня есть разрешение родителя либо опекуна. До перехода к оплате я соглашаюсь сохранить 66 ответов и личный путеводитель на сервере. Онлайн-доступ действует 30 дней после оплаты. После подтверждения оплаты утверждения, ответы, направления подсчёта, семь баллов и язык отчёта передаются DeepSeek для интерпретации. Имя, почта, платёжные данные, закрытый ключ доступа и заметки не передаются AI. Отчёты доступны только на английском или испанском.",
@@ -303,7 +297,6 @@ export const ruTranslations: Translations = {
       "invalidLink": "Не удалось проверить адрес оплаты. Обратитесь в поддержку.",
       "incompleteResponse": "Сервис оплаты вернул неполный ответ. Повторите попытку или обратитесь в поддержку."
     },
-    purchaseDisclaimer: "Совершая покупку, вы подтверждаете, что вам исполнилось 18 лет или есть согласие законного представителя. См. наши <a href=\"/terms/\" class=\"underline hover:text-gray-300\">Условия (English)</a> и <a href=\"/privacy/\" class=\"underline hover:text-gray-300\">Политику конфиденциальности (English)</a>.",
     feedbackVote: {
       title: "Что нам добавить в следующем обновлении? (Голосуйте в 1 клик)",
       subtitle: "Вы раскрыли черты своей души. Помогите нам определить следующую главу этого мира:",
@@ -313,8 +306,6 @@ export const ruTranslations: Translations = {
       optDeltarune: "Тест душ Deltarune — Новые черты и механики из Deltarune",
       optEnough: "Текущий тест уже идеален",
       optOther: "Или у вас своя идея? Напишите нам напрямую:",
-      otherPlaceholder: "Напишите ваше предложение здесь...",
-      submitBtn: "Проголосовать",
       thankYouTitle: "Голос вашей ДУШИ навеки запечатлен в нашем будущем.",
       thankYouMessage: "Вы не просто гость — вы строите этот мир вместе с нами. Каждый искренний выбор определяет следующую главу. Спасибо, что вы с нами; когда начнется новое путешествие, ваша искра укажет путь.",
     },

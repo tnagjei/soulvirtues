@@ -1,8 +1,11 @@
 // input: Paid saved answers, automatic AI interpretation and local workbook notes
 // output: A readable, interactive personal field guide with a print-ready workbook
 // pos: src/scripts/field-guide.ts (更新规则：页面变化同步报告样式、数据模块与本目录 README)
-import { GUIDE_COPY, GUIDE_VERSION, type GuideLanguage } from '../data/fieldGuide';
+import { buildFieldGuide, GUIDE_COPY, GUIDE_VERSION, sampleGuideInput, type GuideLanguage } from '../data/fieldGuide';
 import { paidReport, privateReportLink, reportApi, resolveAccess, ReportApiError, type FieldGuide, type PaidReport, type ReportAccess } from '../data/paidReport';
+import { QUESTIONS } from '../data/questions';
+import { normalizeReportInput } from '../data/reportDelivery';
+import { computeScores } from '../data/scoring';
 import { SOUL_CODES, type SoulCode } from '../data/souls';
 import { aiRefreshDelay } from '../data/aiReport';
 
@@ -175,10 +178,6 @@ async function init() {
   root.setAttribute('aria-busy', 'true');
   try {
     if (preview) {
-      const { buildFieldGuide, sampleGuideInput } = await import('../data/fieldGuide');
-      const { computeScores } = await import('../data/scoring');
-      const { QUESTIONS } = await import('../data/questions');
-      const { normalizeReportInput } = await import('../data/reportDelivery');
       const answers = sampleGuideInput();
       const input = normalizeReportInput({ pct: computeScores(answers, QUESTIONS).pct, lang: 'en' })!;
       guide = buildFieldGuide(input, answers, lang);

@@ -78,7 +78,6 @@ export const PT_QUESTIONS: QuestionItem[] = getQuestions('pt');
 
 export const ptTranslations: Translations = {
   locale: 'pt',
-  localeName: 'Português',
   pageTitle: "Soul Virtues Extractor - Teste das Almas Undertale Grátis",
   pageDescription: "Descubra seu traço de alma de Undertale com o teste gratuito de 66 perguntas do Soul Virtues Extractor: Determinação, Bravura, Justiça, Bondade e muito mais.",
   heroBadge: "Teste Grátis de 66 Perguntas",
@@ -101,7 +100,6 @@ export const ptTranslations: Translations = {
     exploreTitle: "Explorar",
     testLink: "Teste das Almas",
     traitsLink: "7 Traços de Alma",
-    scoringLink: "Lógica de Pontuação",
     faqLink: "Perguntas Frequentes (FAQ)",
     legalTitle: "Legal e Sobre",
     aboutLink: "Sobre Nós",
@@ -121,7 +119,6 @@ export const ptTranslations: Translations = {
   },
   why: {
     title: "Por que fazer o Soul Virtues Extractor?",
-    intro: "Soul Virtues Extractor é um teste de fãs independente, gratuito e voltado à reflexão. Suas 66 afirmações exploram sete temas cotidianos com uma apresentação inspirada em Undertale. Não é um teste oficial nem uma avaliação clínica.",
     points: [
   {
     "title": "Sete pontuações em um resultado completo",
@@ -267,8 +264,6 @@ export const ptTranslations: Translations = {
     likertLabels: ["Discordo totalmente","Discordo","Neutro","Concordo","Concordo totalmente"],
     backBtn: "VOLTAR",
     confirmBtn: "CONFIRMAR",
-    skipNeutralBtn: "PULAR (NEUTRO)",
-    resultComplete: "EXTRAÇÃO CONCLUÍDA",
     primaryVirtue: "VIRTUDE PRINCIPAL DA ALMA",
     secondaryVirtue: "VIRTUDE SECUNDÁRIA / TRAÇO SOMBRA",
     breakdownTitle: "DETALHAMENTO DAS 7 VIRTUDES",
@@ -289,7 +284,6 @@ export const ptTranslations: Translations = {
     reviewBackBtn: "VOLTAR AOS RESULTADOS",
     soulsGalleryTitle: "AS SETE ALMAS HUMANAS",
     soulsBackBtn: "VOLVER AOS RESULTADOS",
-    soulSelectHint: "Clique em uma alma para ver detalhes de seus traços",
     checkout: {
       "optional": "Caderno pago opcional",
       "consent": "Tenho 18 anos ou permissão do meu responsável. Antes do pagamento, concordo em salvar minhas 66 respostas e meu guia privado no servidor. O acesso on-line dura 30 dias após o pagamento. Após a confirmação, as afirmações, respostas, direções de pontuação, sete notas e idioma são enviados à DeepSeek para gerar a interpretação. Meu nome, e-mail, dados de pagamento, credencial privada e anotações não são enviados à AI. Os relatórios estão disponíveis apenas em inglês ou espanhol.",
@@ -303,7 +297,6 @@ export const ptTranslations: Translations = {
       "invalidLink": "Não foi possível verificar o endereço de pagamento. Contate o suporte.",
       "incompleteResponse": "A resposta do serviço de pagamento está incompleta. Tente novamente ou contate o suporte."
     },
-    purchaseDisclaimer: "Ao comprar, você confirma que tem 18 anos ou mais, ou o consentimento do responsável. Consulte nossos <a href=\"/terms/\" class=\"underline hover:text-gray-300\">Termos (English)</a> e a <a href=\"/privacy/\" class=\"underline hover:text-gray-300\">Política de Privacidade (English)</a>.",
     feedbackVote: {
       title: "O que devemos construir a seguir? (Vote com 1 clique)",
       subtitle: "Você extraiu as virtudes da sua alma. Ajude-nos a moldar o próximo capítulo deste mundo:",
@@ -313,8 +306,6 @@ export const ptTranslations: Translations = {
       optDeltarune: "Teste de almas de Deltarune — Novos traços e mecânicas de Deltarune",
       optEnough: "O teste atual já está perfeito assim",
       optOther: "Ou tem outra ideia? Escreva diretamente para nós:",
-      otherPlaceholder: "Digite sua sugestão aqui...",
-      submitBtn: "Enviar voto",
       thankYouTitle: "A voz da sua ALMA agora está gravada em nosso destino.",
       thankYouMessage: "Você não é apenas um visitante — você está construindo este mundo conosco. Cada escolha molda o próximo capítulo. Obrigado por caminhar ao nosso lado; sua centelha guiará o que está por vir.",
     },

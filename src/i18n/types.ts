@@ -21,7 +21,6 @@ export interface FooterTranslations {
   exploreTitle: string;
   testLink: string;
   traitsLink: string;
-  scoringLink: string;
   faqLink: string;
   legalTitle: string;
   aboutLink: string;
@@ -45,7 +44,6 @@ export interface SectionWhat {
 
 export interface SectionWhy {
   title: string;
-  intro: string;
   points: Array<{ title: string; desc: string }>;
 }
 
@@ -112,8 +110,6 @@ export interface FeedbackVoteTranslations {
   optDeltarune: string;
   optEnough: string;
   optOther: string;
-  otherPlaceholder: string;
-  submitBtn: string;
   thankYouTitle: string;
   thankYouMessage: string;
 }
@@ -162,8 +158,6 @@ export interface QuizUITranslations {
   likertLabels: string[];
   backBtn: string;
   confirmBtn: string;
-  skipNeutralBtn: string;
-  resultComplete: string;
   primaryVirtue: string;
   secondaryVirtue: string;
   breakdownTitle: string;
@@ -180,7 +174,6 @@ export interface QuizUITranslations {
   reviewAnswersBtn: string;
   browseSoulsBtn: string;
   retakeBtn: string;
-  purchaseDisclaimer: string;
   checkout: {
     optional: string;
     consent: string;
@@ -198,7 +191,6 @@ export interface QuizUITranslations {
   reviewBackBtn: string;
   soulsGalleryTitle: string;
   soulsBackBtn: string;
-  soulSelectHint: string;
   feedbackVote: FeedbackVoteTranslations;
 }
 
@@ -206,7 +198,6 @@ export type Locale = 'en' | 'ja' | 'es' | 'pt' | 'ru';
 
 export interface Translations {
   locale: Locale;
-  localeName: string;
   pageTitle: string;
   pageDescription: string;
   heroBadge: string;

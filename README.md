@@ -37,7 +37,7 @@
 - V2回归：`node scripts/verify_scoring.cjs`
 - 路由/站点地图核验：`npm run audit:seo`
 - 本轮内容/结果专项检查：`node scripts/check_adsense_remediation.mjs`
-- 交付边界：源码、检查脚本和公开验收记录进入 Git；本轮截图/构建证据及含账号后台数据的历史排查由 `.gitignore` 排除，保留在本机。
+- 交付边界：源码、检查脚本和公开验收记录进入 Git；本轮截图、GSC 原始报错压缩包与构建证据保存在本机 `reports/local-evidence/`，由 `.gitignore` 排除，不再进入 `public/` 或部署产物。
 - 报告交付回归：`node scripts/check_report_delivery.cjs`（无需外部 API）
 - 比较与题目渲染核验：`node scripts/check_comparison_sample.mjs`、`node scripts/check_quiz_question_loading.mjs`
 - SEO Day 15 门禁：`node scripts/seo_day15_review.mjs`（由 LaunchAgent 于 2026-09-01 09:00 运行；额度耗尽时保留 7 天重试窗口）

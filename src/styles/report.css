@@ -574,14 +574,6 @@ p {
 .ai-panel button {
   margin-top:5px
 }
-.ai-result {
-  border-top:1px solid var(--line);
-  padding-top:20px;
-  margin-top:24px
-}
-.ai-result h3 {
-  font-size:22px
-}
 .empty-state {
   padding:80px 0;
   max-width:700px
@@ -1057,13 +1049,6 @@ a,button,textarea {
   }
   .ai-panel p {
     font-size:10pt
-  }
-  .ai-result {
-    margin-top:12pt;
-    padding-top:12pt
-  }
-  .ai-panel:has(.ai-result[hidden]) {
-    display:none
   }
   .spectrum,.profile-note {
     break-inside:avoid

@@ -78,7 +78,6 @@ export const ES_QUESTIONS: QuestionItem[] = getQuestions('es');
 
 export const esTranslations: Translations = {
   locale: 'es',
-  localeName: 'Español',
   pageTitle: "Soul Virtues Extractor - Test de Almas Undertale Gratis",
   pageDescription: "Descubre tu rasgo de alma de Undertale con el test gratuito de 66 preguntas de Soul Virtues Extractor: Determinación, Valentía, Justicia, Amabilidad y más.",
   heroBadge: "Test Gratis de 66 Preguntas",
@@ -101,7 +100,6 @@ export const esTranslations: Translations = {
     exploreTitle: "Explorar",
     testLink: "Test de Almas",
     traitsLink: "7 Rasgos de Alma",
-    scoringLink: "Lógica de Puntuación",
     faqLink: "Preguntas Frecuentes (FAQ)",
     legalTitle: "Legal e Información",
     aboutLink: "Acerca de Nosotros",
@@ -121,7 +119,6 @@ export const esTranslations: Translations = {
   },
   why: {
     title: "¿Por qué hacer Soul Virtues Extractor?",
-    intro: "Soul Virtues Extractor es un test de fans independiente, gratuito y pensado para reflexionar. Sus 66 afirmaciones exploran siete temas cotidianos con una presentación inspirada en Undertale. No es una prueba oficial ni una evaluación clínica.",
     points: [
   {
     "title": "Siete puntuaciones en un resultado completo",
@@ -267,8 +264,6 @@ export const esTranslations: Translations = {
     likertLabels: ["Totalmente en desacuerdo","En desacuerdo","Neutral","De acuerdo","Totalmente de acuerdo"],
     backBtn: "ATRÁS",
     confirmBtn: "CONFIRMAR",
-    skipNeutralBtn: "SALTAR (NEUTRAL)",
-    resultComplete: "EXTRACCIÓN COMPLETADA",
     primaryVirtue: "VIRTUD PRINCIPAL DEL ALMA",
     secondaryVirtue: "VIRTUD SECUNDARIA / RASGO SOMBRA",
     breakdownTitle: "DESGLOSE DE LAS 7 VIRTUDES",
@@ -289,7 +284,6 @@ export const esTranslations: Translations = {
     reviewBackBtn: "VOLVER A RESULTADOS",
     soulsGalleryTitle: "LAS SIETE ALMAS HUMANAS",
     soulsBackBtn: "VOLVER A RESULTADOS",
-    soulSelectHint: "Haz clic en un alma para inspeccionar sus detalles",
     checkout: {
       "optional": "Cuaderno de pago opcional",
       "consent": "Tengo 18 años o permiso de mi tutor. Antes de ir al pago, acepto guardar mis 66 respuestas y mi guía privada en el servidor. El acceso en línea dura 30 días después del pago. Cuando se verifica el pago, se envían a DeepSeek las afirmaciones, respuestas, direcciones de puntuación, siete puntuaciones e idioma para generar la interpretación. No se envían a AI mi nombre, correo, datos de pago, credencial privada ni notas. Los informes solo están disponibles en inglés o español.",
@@ -303,7 +297,6 @@ export const esTranslations: Translations = {
       "invalidLink": "No se pudo verificar la dirección de pago. Contacta con soporte.",
       "incompleteResponse": "La respuesta del servicio de pago está incompleta. Inténtalo de nuevo o contacta con soporte."
     },
-    purchaseDisclaimer: "Al comprar confirmas que tienes 18 años o más, o el consentimiento de tu tutor legal. Consulta nuestros <a href=\"/terms/\" class=\"underline hover:text-gray-300\">Términos (English)</a> y la <a href=\"/privacy/\" class=\"underline hover:text-gray-300\">Política de Privacidad (English)</a>.",
     feedbackVote: {
       title: "¿Qué deberíamos agregar a continuación? (Vota con 1 clic)",
       subtitle: "Has extraído las virtudes de tu alma. Ayúdanos a dar forma al próximo capítulo de este mundo:",
@@ -313,8 +306,6 @@ export const esTranslations: Translations = {
       optDeltarune: "Test de almas de Deltarune — Nuevos rasgos y mecánicas de Deltarune",
       optEnough: "La prueba actual ya es genial tal como está",
       optOther: "¿Tienes otra idea? Escríbenos directamente:",
-      otherPlaceholder: "Escribe tu sugerencia aquí...",
-      submitBtn: "Emitir voto",
       thankYouTitle: "La voz de tu ALMA ahora está grabada en nuestro destino.",
       thankYouMessage: "No eres solo un visitante: estás construyendo este mundo junto a nosotros. Cada elección da forma al siguiente capítulo. Gracias por caminar a nuestro lado; tu chispa guiará lo que está por venir.",
     },

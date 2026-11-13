@@ -6,15 +6,14 @@
 
 ## Files
 - check_adsense_remediation.mjs：定向验证合成例真实正反向计分、五语言免费结果在购买前、购买文案、35 页审稿练习与隐私边界；不付款、不调用外部 API
-- check_paid_delivery.cjs：同一套付款回归分别验证正式/测试模式，覆盖域名隔离、微信限定、test 参数、失败支付换新链接、新链接重试复用、并发旧请求保护、回调环境拒绝及交付标识。
+- check_paid_delivery.cjs：用真实 D1（临时库）分别验证正式/测试模式，覆盖域名隔离、微信限定、test 参数、保存真实答案、失败支付换新链接、新链接重试复用、并发旧请求保护、未付款与错误令牌拒付、已付款交付、跨设备私有链接、AI 缓存、签名重试、回调去重及退款后不可逆拒付
 - recover_paid_report.py：支持人员核对购买邮箱和订单号后轮换私有链接，输出到新建 0600 本地文件；不发邮件。自检 `python3 scripts/recover_paid_report.py --self-test`。
 - check_field_guide.cjs：验证66题/14条依据的来源、反向计分、英西语、中立/缺记录、跨语言稳定报告ID，并断言 PDF 按钮不受 AI 任务状态阻塞
-- check_report_delivery.cjs：验证报告脚本语法、真实分数映射、中立结果、响应结构及 HTTP/JSON/超时失败分支；不调用付费 API
+- check_report_delivery.cjs：验证自动 AI 的 66 题输入、同意、权限、余额、一个订单一份缓存、新正文错误计分/人群比较及列举特质数量不一致拒收、分级有限重试/到期调度、永久拒绝及生成中退款回归；不调用付费 API
 - verify_scoring.cjs：通过现有esbuild导入真实共享模块，验证V2来源数量/五语题号、正反向及题数归一、中立/缺失/并列/接近、存储版本、卡片和统计隐私边界
 - check_comparison_sample.mjs：验证6组对比页与5个汇总页共35个五语言路由、SEO 标签、证据边界、站点地图与内链
 - check_lang_prompt_mobile.mjs：验证语言提示窗的手机安全区域、触控尺寸、焦点状态与最大占屏高度
 - check_lang_switcher.mjs：验证桌面语言下拉可由点击/触屏与键盘（Enter/Space/方向键/Escape）打开关闭、收起时 inert 不占 Tab 序、data-open 变体匹配值以免关闭态仍可点击、且 5 语言选项与 aria 属性完整
-- check_paid_delivery.cjs：用真实 D1（临时库）验证保存真实答案、结账仅可重试一次、未付款与错误令牌拒付、已付款交付、跨设备私有链接、AI 缓存、签名重试、回调去重，以及退款后不可逆拒付
 - check_quiz_answer_feedback.mjs：验证手机点击答案后先显示选中反馈，再进入下一题
 - check_answer_touch_labels.mjs：验证极值与当前选项文本标签具备移动端触控交互并在点击时触发答题推进
 - check_card_download_ios.mjs：验证 1080×1350 分享卡、系统分享来源标记、GA4 事件、独立下载、复制链接、iOS 保存弹窗与五语言文案
@@ -25,7 +24,7 @@
 - check_result_summary_jump.mjs：验证结果徽章 #result-badge 是原生 <button>（而非死链 <div>）、具备 cursor-pointer/touch-manipulation/焦点环/aria-label/aria-controls，点击平滑滚动到 #result-summary 锚点且不调用 preventDefault，五语种 summaryJumpLabel 齐全
 - check_tdh_diff.py：逐字节对比两个 dist 树的 <title>/<meta name="description">/<h1>，用于 TDH 保护约定（0 号铁律）的未变证据；用法 `python3 scripts/check_tdh_diff.py <before_dist> <after_dist>`
 - update_sitemap_lastmod.py：按显式 URL 白名单更新手维护 sitemap 的 <lastmod>，打印每条 before/after 与最终日期分布，避免盲改；用法 `python3 scripts/update_sitemap_lastmod.py <url>...`
-- submit_indexnow.mjs：自动扫描站点全部路由并向 Bing/IndexNow 提交即时收录通知
+- submit_indexnow.mjs：读取 public/ 下唯一的 IndexNow 密钥文件，自动扫描站点全部可索引路由并排除 /success/、404、本地截图与 GSC 报错目录，向 Bing/IndexNow 提交即时收录通知
 - fetch_clarity_data.mjs：读取环境变量或 macOS 钥匙串中的 Clarity API 密钥，拉取最近 1-3 天的整体、页面、页面×设备与页面×来源数据
 - audit_site_seo.mjs：验证 89 个可索引页面、独立 404、sitemap 路由一致性及综合 SEO 技术指标
 - seo_day15_review.mjs：上线第 15 天拉取 GSC 定稿数据、运行 crawl 与 index-coverage，并执行连续 3 天展示门禁；额度耗尽时保留 7 天重试
@@ -34,6 +33,4 @@
 - check_gsc_bi_monthly_metrics.py：GSC 定稿数据指标计算器（W1=08-18~09-16 / W2=09-17~10-16 / W3=10-17~数据截止日），产出语言占比、分窗对比、词簇、无尾斜杠等 metrics 快照 JSON，供 reports/gsc 月度/季度复盘逐字引用；口径与第 30 天一致
 - check_gsc_day90_p0p3_review.py：第 90 天 P0-P3 策略逐项复核计算器，从 GSC 定稿 JSON 重算西语美德页 CTR、英语单数词、对比页止损线、俄语导航流量占比、品牌/品类词分窗与无尾斜杠残留，并读取 seo report JSON 的技术项明细
 
-- check_report_delivery.cjs：自动AI的66题输入、同意、余额、权限、旧缓存兼容、新正文错误计分/人群比较及列举特质数量不一致拒收、分级有限重试/到期调度、永久拒绝及生成中退款回归；不发真实API调用。
-
-- check_delivery_maintenance.cjs：SQLite定向验证漏通知恢复、cron鉴权、并发邮件去重、退款拒绝、旧凭证兼容、报告过期后邮件链接失效与测试收件隔离。
+- check_delivery_maintenance.cjs：SQLite 定向验证漏通知恢复、cron 鉴权、并发邮件去重、退款拒绝、旧凭证兼容、报告过期后邮件链接失效与测试收件隔离

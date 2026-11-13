@@ -82,35 +82,35 @@ const russianPath = isUnlocalized ? '/ru/' : `/ru${currentPath === '/' ? '/' : c
             <a
               href={englishPath}
               lang="en"
-              class="block px-3 py-2 min-h-11 flex items-center hover:bg-white hover:text-black transition-colors ${lang === 'en' ? 'text-yellow-400 font-bold bg-gray-900/60' : 'text-gray-300'}"
+              class={`flex items-center px-3 py-2 min-h-11 hover:bg-white hover:text-black transition-colors ${lang === 'en' ? 'text-yellow-400 font-bold bg-gray-900/60' : 'text-gray-300'}`}
             >
               * English
             </a>
             <a
               href={japanesePath}
               lang="ja"
-              class="block px-3 py-2 min-h-11 flex items-center hover:bg-white hover:text-black transition-colors ${lang === 'ja' ? 'text-yellow-400 font-bold bg-gray-900/60' : 'text-gray-300'}"
+              class={`flex items-center px-3 py-2 min-h-11 hover:bg-white hover:text-black transition-colors ${lang === 'ja' ? 'text-yellow-400 font-bold bg-gray-900/60' : 'text-gray-300'}`}
             >
               * 日本語
             </a>
             <a
               href={spanishPath}
               lang="es"
-              class="block px-3 py-2 min-h-11 flex items-center hover:bg-white hover:text-black transition-colors ${lang === 'es' ? 'text-yellow-400 font-bold bg-gray-900/60' : 'text-gray-300'}"
+              class={`flex items-center px-3 py-2 min-h-11 hover:bg-white hover:text-black transition-colors ${lang === 'es' ? 'text-yellow-400 font-bold bg-gray-900/60' : 'text-gray-300'}`}
             >
               * Español
             </a>
             <a
               href={portuguesePath}
               lang="pt"
-              class="block px-3 py-2 min-h-11 flex items-center hover:bg-white hover:text-black transition-colors ${lang === 'pt' ? 'text-yellow-400 font-bold bg-gray-900/60' : 'text-gray-300'}"
+              class={`flex items-center px-3 py-2 min-h-11 hover:bg-white hover:text-black transition-colors ${lang === 'pt' ? 'text-yellow-400 font-bold bg-gray-900/60' : 'text-gray-300'}`}
             >
               * Português
             </a>
             <a
               href={russianPath}
               lang="ru"
-              class="block px-3 py-2 min-h-11 flex items-center hover:bg-white hover:text-black transition-colors ${lang === 'ru' ? 'text-yellow-400 font-bold bg-gray-900/60' : 'text-gray-300'}"
+              class={`flex items-center px-3 py-2 min-h-11 hover:bg-white hover:text-black transition-colors ${lang === 'ru' ? 'text-yellow-400 font-bold bg-gray-900/60' : 'text-gray-300'}`}
             >
               * Русский
             </a>
@@ -132,6 +132,8 @@ const russianPath = isUnlocalized ? '/ru/' : `/ru${currentPath === '/' ? '/' : c
         type="button"
         class="md:hidden p-2 text-gray-300 hover:text-white border-2 border-gray-600 hover:border-white bg-black cursor-pointer shadow-[2px_2px_0px_rgba(255,255,255,0.2)]"
         aria-label="Toggle navigation menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu-panel"
       >
         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
@@ -198,11 +200,13 @@ const russianPath = isUnlocalized ? '/ru/' : `/ru${currentPath === '/' ? '/' : c
     if (btn && panel && !btn.dataset.bound) {
       btn.dataset.bound = 'true';
       btn.addEventListener('click', () => {
-        panel.classList.toggle('hidden');
+        const isHidden = panel.classList.toggle('hidden');
+        btn.setAttribute('aria-expanded', isHidden ? 'false' : 'true');
       });
       panel.querySelectorAll('.mobile-nav-link').forEach(link => {
         link.addEventListener('click', () => {
           panel.classList.add('hidden');
+          btn.setAttribute('aria-expanded', 'false');
         });
       });
     }

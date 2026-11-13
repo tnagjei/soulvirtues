@@ -9,7 +9,6 @@ import { QUESTIONS } from '../data/questions';
 
 export const enTranslations: Translations = {
   locale: 'en',
-  localeName: 'English',
   pageTitle: "Soul Virtues Extractor - Free 66-Question Soul Virtues Test",
   pageDescription: "Take the free 66-question Soul Virtues Extractor test. Discover your Undertale SOUL trait and color percentage across Determination, Bravery, Justice, and more.",
   heroBadge: "Free 66-Question Soul Trait Test",
@@ -32,7 +31,6 @@ export const enTranslations: Translations = {
     exploreTitle: "Explore",
     testLink: "Soul Virtues Test",
     traitsLink: "7 Soul Traits",
-    scoringLink: "Scoring Logic",
     faqLink: "Frequently Asked Questions",
     legalTitle: "Legal & About",
     aboutLink: "About Us",
@@ -53,7 +51,6 @@ export const enTranslations: Translations = {
   },
   why: {
     title: "Why Take the Soul Virtues Extractor?",
-    intro: "Soul Virtues Extractor is a free, independent fan quiz for self-reflection. Its 66 statements explore seven everyday themes using an Undertale-inspired presentation. It is not an official game test or a clinical assessment.",
     points: [
   {
     "title": "Seven scores, one complete result",
@@ -199,8 +196,6 @@ export const enTranslations: Translations = {
     likertLabels: ["Strongly disagree","Disagree","Neutral","Agree","Strongly agree"],
     backBtn: "BACK",
     confirmBtn: "CONFIRM",
-    skipNeutralBtn: "SKIP (NEUTRAL)",
-    resultComplete: "EXTRACTION COMPLETE",
     primaryVirtue: "PRIMARY SOUL VIRTUE",
     secondaryVirtue: "SECONDARY VIRTUE / SHADOW TRAIT",
     breakdownTitle: "7 SOUL VIRTUES BREAKDOWN",
@@ -221,7 +216,6 @@ export const enTranslations: Translations = {
     reviewBackBtn: "BACK TO RESULTS",
     soulsGalleryTitle: "THE SEVEN HUMAN SOULS",
     soulsBackBtn: "BACK TO RESULTS",
-    soulSelectHint: "Click a soul to inspect its trait details",
     checkout: {
       "optional": "Optional paid workbook",
       "consent": "I am 18+ or have guardian permission. Before checkout, I agree to store my 66 answers and private guide on the server. Online access lasts 30 days after payment. After payment is verified, the quiz statements, answers, scoring directions, seven scores and report language are sent to DeepSeek for interpretation. My name, email, payment details, private access token and notes are not sent to AI. Reports are available only in English or Spanish.",
@@ -235,7 +229,6 @@ export const enTranslations: Translations = {
       "invalidLink": "The checkout address could not be verified. Please contact support.",
       "incompleteResponse": "The checkout response was incomplete. Please try again or contact support."
     },
-    purchaseDisclaimer: "By purchasing you confirm you are 18+ or have guardian consent. See our <a href=\"/terms/\" class=\"underline hover:text-gray-300\">Terms</a> and <a href=\"/privacy/\" class=\"underline hover:text-gray-300\">Privacy Policy</a>.",
     feedbackVote: {
       title: "What should we build next? (Vote with 1 click)",
       subtitle: "You've extracted your soul virtues. Help us shape the next chapter of this realm:",
@@ -245,8 +238,6 @@ export const enTranslations: Translations = {
       optDeltarune: "Deltarune Soul Test — New traits and mechanics from Deltarune",
       optEnough: "The current test is already great as it is",
       optOther: "Or have your own idea? Write to us directly:",
-      otherPlaceholder: "Type your suggestion here...",
-      submitBtn: "Cast Vote",
       thankYouTitle: "Your SOUL's voice is now etched into our future timeline.",
       thankYouMessage: "You're not just a visitor—you're building this realm with us. Every honest choice shapes what comes next. Thank you for walking this path with us; when the next chapter awakens, your spark will have guided it.",
     },

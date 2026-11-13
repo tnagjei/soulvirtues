@@ -5,10 +5,12 @@
 
 import type { SoulDefinition } from '../data/souls';
 import { SOUL_SLUGS_BY_CODE } from '../data/souls';
+import { SOULS_HUB_COPY } from '../data/soulsHub';
+import type { Locale } from '../i18n';
 
 interface Props {
   soul: SoulDefinition;
-  lang?: string;
+  lang?: Locale;
 }
 
 const { soul, lang = 'en' } = Astro.props;
@@ -16,6 +18,7 @@ const { soul, lang = 'en' } = Astro.props;
 const slug = (soul.code && SOUL_SLUGS_BY_CODE[soul.code]) || soul.name.toLowerCase();
 const soulsPrefix = lang === 'en' ? '/souls' : `/${lang}/souls`;
 const detailLink = `${soulsPrefix}/${slug}/`;
+const linkLabel = lang === 'en' ? `Explore ${soul.name} Lore & Items →` : `${SOULS_HUB_COPY[lang].detailLinkLabel} →`;
 ---
 
 <div
@@ -58,7 +61,7 @@ const detailLink = `${soulsPrefix}/${slug}/`;
       class="inline-flex items-center gap-1 text-xs font-mono font-semibold transition-colors hover:underline"
       style={`color: ${soul.hex}`}
     >
-      Explore {soul.name} Lore & Items →
+      {linkLabel}
     </a>
   </div>
 </div>

@@ -2,14 +2,17 @@
 // output: Submission of full URL list to IndexNow API (Bing/Yandex/etc.) and status report
 // pos: scripts/submit_indexnow.mjs (更新规则：文件变更需同步本注释与 scripts/README.md)
 
-import { readFile, readdir } from "node:fs/promises";
+import { readdir } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const siteUrl = (process.env.SITE_URL || "https://soulvirtues.org").replace(/\/$/, "");
 const host = new URL(siteUrl).host;
-const indexNowKey = "a56779c264400a831229a41cbe2b3493";
+const publicFiles = await readdir(path.join(root, "public"));
+const keyFiles = publicFiles.filter(name => /^[a-f0-9]{32}\.txt$/.test(name));
+if (keyFiles.length !== 1) throw new Error("Expected exactly one IndexNow key file in public/");
+const indexNowKey = keyFiles[0].replace(/\.txt$/, "");
 const keyLocation = `${siteUrl}/${indexNowKey}.txt`;
 const endpoints = [
   "https://api.indexnow.org/indexnow",
@@ -17,6 +20,7 @@ const endpoints = [
   "https://yandex.com/indexnow",
   "https://indexnow.seznam.cz/indexnow"
 ];
+const nonIndexableDirs = new Set(["success", "screenshots", "8.24 GSC网页报错"]);
 
 async function getAllDistUrls() {
   const distDir = path.join(root, "dist");
@@ -27,9 +31,13 @@ async function getAllDistUrls() {
     for (const entry of entries) {
       const fullPath = path.join(dir, entry.name);
       if (entry.isDirectory()) {
+        const topSegment = path.relative(distDir, fullPath).split(path.sep)[0];
+        if (nonIndexableDirs.has(topSegment)) continue;
         await scan(fullPath);
-      } else if (entry.name === "index.html") {
-        const relativeDir = path.relative(distDir, dir);
+      } else if (entry.name !== "index.html") {
+        continue;
+      } else {
+        const relativeDir = path.relative(distDir, dir).split(path.sep).join("/");
         if (relativeDir === "") {
           urls.push(`${siteUrl}/`);
         } else {

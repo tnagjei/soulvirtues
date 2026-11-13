@@ -20,9 +20,8 @@ Thumbs.db
 
 # Local research & screenshot scratchpads
 .freebuff/
-public/screenshots/
 screenshots/
-public/8.24 GSC网页报错/
+/reports/local-evidence/
 scripts/capture_*.py
 scripts/verify_*
 .gstack/

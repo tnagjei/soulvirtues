@@ -15,7 +15,10 @@ export async function onRequest(context: { request: Request; env: PaymentEnv }):
     // A completed purchase is durable proof. Its delivered guide must not depend on a payment-provider outage.
     const row = stored.status === 'paid' ? stored : await refreshPayment(context.env, stored);
     const order = { number: row.order_id, paidAt: row.paid_at };
-    if (row.status !== 'paid') return json({ status: row.status === 'refunded' || row.status === 'cancelled' ? row.status : 'pending', order }, ['refunded','cancelled'].includes(row.status) ? 403 : 202);
+    if (row.status !== 'paid') {
+      const revoked = row.status === 'refunded' || row.status === 'cancelled';
+      return json({ status: revoked ? row.status : 'pending', order, ...(revoked ? { error: 'This order no longer has online report access. Please contact support.' } : {}) }, revoked ? 403 : 202);
+    }
     requirePaid(row);
     let dispatchError: string|null=null;
     try{await enqueueAI(context.env,row,lang);}catch{dispatchError='AI generation could not start. Please check again; do not pay again.';}
