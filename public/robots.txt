@@ -10,6 +10,9 @@ Sitemap: https://soulvirtues.org/sitemap.xml
 
 # AI web crawlers
 User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
 User-agent: Claude-Web
 User-agent: Anthropic-AI
 User-agent: PerplexityBot
