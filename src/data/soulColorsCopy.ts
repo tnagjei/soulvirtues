@@ -78,16 +78,24 @@ const EN_SOUL_COLORS_COPY: SoulColorsCopy = {
   },
   "faq": [
     {
-      "q": "Is this the official Undertale soul test?",
-      "a": "No. This is an unofficial fan project, not affiliated with Toby Fox."
+      "q": "What are the soul colors in Undertale?",
+      "a": "There are seven: red for determination, orange for bravery, yellow for justice, green for kindness, cyan for patience, blue for integrity and purple for perseverance. Your own soul appears red in the game."
     },
     {
-      "q": "How long does it take?",
-      "a": "66 statements, one tap each, five response options per statement. The result appears as soon as the last statement is answered, with no sign-up, email or payment step in between. Progress is saved in this browser, so closing the tab does not force a restart."
+      "q": "Is this a soul color generator?",
+      "a": "Yes. Answer the questions and the page generates your soul color, your score on all seven traits and a share card you can download. Nothing to install and no account needed."
     },
     {
-      "q": "Is it free?",
-      "a": "Yes. The complete seven-score result, answer review and PNG card are free, with no account, payment or invitation required."
+      "q": "Can I pick a soul color myself instead of taking the test?",
+      "a": "You can. The seven-color picker lets you build a combination by hand and turn it into a card, which is handy if you already know your color or you are making one for a character."
+    },
+    {
+      "q": "How accurate is the soul color test?",
+      "a": "It is a fan quiz, so treat it as fun rather than measurement. The questions are written to be answered honestly in under three minutes, and the result is meant to start a conversation, not end one."
+    },
+    {
+      "q": "Is this an official Undertale site?",
+      "a": "No. This is an unofficial fan project. Undertale and its characters belong to their creator; we are not affiliated with or endorsed by them."
     }
   ],
   "cta": {

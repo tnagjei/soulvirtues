@@ -35,9 +35,7 @@ const colorCards = SOUL_CODES.map(code => ({
   copyKey: soulColorCopyKey(code),
   anchor: `${colorLabels[code]} soul color test`,
 }));
-const faqs = copy.faq.map((faq, index) => index === 1
-  ? { ...faq, a: ASSESSMENT_COPY.en.faqItems.find(item => item.q === 'How long is the Undertale soul quiz here?')?.a ?? faq.a }
-  : faq);
+const faqs = copy.faq;
 const structuredData = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -84,6 +82,43 @@ const structuredData = {
 
     <section id="test" class="scroll-mt-24">
       <Quiz lang={lang as Locale} />
+    </section>
+
+    <section class="pixel-card-sub p-5 sm:p-7">
+      <h2 class="text-xl sm:text-2xl font-bold text-white font-mono mb-4">Undertale Soul Colors Chart</h2>
+      <p class="text-sm text-gray-300 leading-relaxed mb-5">In Undertale, every human soul shows up as one color, and each color is tied to a single trait. There are seven of them. The chart below is the quick version: color on the left, the trait it stands for in the middle, and a plain-language read of what that trait actually means on the right.</p>
+      <div class="overflow-x-auto mb-5">
+        <table class="w-full min-w-[640px] text-left text-xs sm:text-sm">
+          <thead class="text-gray-400 font-mono uppercase">
+            <tr>
+              <th class="py-2 pr-4">Color</th>
+              <th class="py-2 pr-4">Trait</th>
+              <th class="py-2 pr-4">What it means</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-t border-gray-800 align-top"><td class="py-3 pr-4 text-gray-300">Red</td><td class="py-3 pr-4 text-gray-300"><a href="/souls/determination/" class="text-cyan-300 underline">Determination</a></td><td class="py-3 pr-4 text-gray-300">The color your soul shows in the game. Refusing to quit when quitting would be easier.</td></tr>
+            <tr class="border-t border-gray-800 align-top"><td class="py-3 pr-4 text-gray-300">Orange</td><td class="py-3 pr-4 text-gray-300"><a href="/souls/bravery/" class="text-cyan-300 underline">Bravery</a></td><td class="py-3 pr-4 text-gray-300">Acting while you are still scared, not after the fear is gone.</td></tr>
+            <tr class="border-t border-gray-800 align-top"><td class="py-3 pr-4 text-gray-300">Yellow</td><td class="py-3 pr-4 text-gray-300"><a href="/souls/justice/" class="text-cyan-300 underline">Justice</a></td><td class="py-3 pr-4 text-gray-300">A strong sense of what is fair, and the will to do something about it.</td></tr>
+            <tr class="border-t border-gray-800 align-top"><td class="py-3 pr-4 text-gray-300">Green</td><td class="py-3 pr-4 text-gray-300"><a href="/souls/kindness/" class="text-cyan-300 underline">Kindness</a></td><td class="py-3 pr-4 text-gray-300">Helping when helping costs you time, attention or comfort.</td></tr>
+            <tr class="border-t border-gray-800 align-top"><td class="py-3 pr-4 text-gray-300">Cyan</td><td class="py-3 pr-4 text-gray-300"><a href="/souls/patience/" class="text-cyan-300 underline">Patience</a></td><td class="py-3 pr-4 text-gray-300">Waiting, watching, and not rushing an answer you do not have yet.</td></tr>
+            <tr class="border-t border-gray-800 align-top"><td class="py-3 pr-4 text-gray-300">Blue</td><td class="py-3 pr-4 text-gray-300"><a href="/souls/integrity/" class="text-cyan-300 underline">Integrity</a></td><td class="py-3 pr-4 text-gray-300">Doing what you said you would do when nobody is checking.</td></tr>
+            <tr class="border-t border-gray-800 align-top"><td class="py-3 pr-4 text-gray-300">Purple</td><td class="py-3 pr-4 text-gray-300"><a href="/souls/perseverance/" class="text-cyan-300 underline">Perseverance</a></td><td class="py-3 pr-4 text-gray-300">Continuing after the interesting part is over.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-sm text-gray-300 leading-relaxed">Tap any trait to read the full page on it, including how that soul is described in the game and what people usually mean when they say they got it.</p>
+    </section>
+
+    <section class="pixel-card-sub p-5 sm:p-7">
+      <h2 class="text-xl sm:text-2xl font-bold text-white font-mono mb-4">Soul Colors and Their Traits</h2>
+      <p class="text-sm text-gray-300 leading-relaxed mb-4">The mapping is simple but easy to get backwards: the color is not a personality type you are assigned, and the trait is not a mood. Each color is one virtue, and the test is asking which of those seven you lean on when something is actually hard.</p>
+      <p class="text-sm text-gray-300 leading-relaxed">That is why two people can get the same color for very different reasons. Someone might score high on kindness because they help without being asked; someone else might score high on it because they cannot say no. The color is the same. The behavior is not.<br /><br />Read the chart as a starting point rather than a verdict. If a color surprises you, the more useful question is not "is this wrong" but "when did I last act like this, and when did I last avoid it".</p>
+    </section>
+
+    <section class="pixel-card-sub p-5 sm:p-7">
+      <h2 class="text-xl sm:text-2xl font-bold text-white font-mono mb-4">Color Test or Trait Test: What's the Difference?</h2>
+      <p class="text-sm text-gray-300 leading-relaxed">A soul color test gives you one color out of seven. A soul traits test measures all seven separately and shows you the percentages, so you can see a strong second trait instead of just the winner.<br /><br />Both are on this site, and they answer different questions. If you want the quick, shareable answer, take the color test above and you will have a color and a card in about three minutes. If you want the full breakdown, the <a href="/" class="text-cyan-300 underline">soul virtues test</a> runs 66 questions and scores all seven traits, which is the version worth taking if you are comparing yourself with a friend or writing something longer.<br /><br />Neither one is a diagnosis. They are quizzes built around the game's seven souls, not a psychological assessment.</p>
     </section>
 
     <section class="pixel-card-sub p-5 sm:p-7">
