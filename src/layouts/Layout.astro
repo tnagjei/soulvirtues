@@ -18,6 +18,7 @@ interface Props {
   ogImage?: string;
   structuredData?: Record<string, any>;
   lang?: Locale;
+  alternateLocales?: Array<'en' | 'es'>;
   nativeBannerPlacement?: 'before-footer' | 'in-page';
 }
 
@@ -28,6 +29,7 @@ const {
   ogImage = "https://soulvirtues.org/og-image.png",
   structuredData,
   lang = "en",
+  alternateLocales,
   nativeBannerPlacement = "before-footer",
 } = Astro.props;
 
@@ -54,8 +56,11 @@ const hrefEs = `${siteUrl}/es${baseRel === '/' ? '/' : baseRel}`;
 const hrefPt = `${siteUrl}/pt${baseRel === '/' ? '/' : baseRel}`;
 const hrefRu = `${siteUrl}/ru${baseRel === '/' ? '/' : baseRel}`;
 const hrefDefault = `${siteUrl}${baseRel}`;
+const enUrl = `${siteUrl}/soul-colors/`;
+const esUrl = `${siteUrl}/es/soul-colors/`;
 // 答题操作和动态结果不进入会话录屏；其余静态内容页保留现有统计。
 const isQuizPage = baseRel === "/";
+const isSoulColorsPage = baseRel === "/soul-colors/";
 ---
 
 <!doctype html>
@@ -82,7 +87,13 @@ const isQuizPage = baseRel === "/";
     </script>
 
     <!-- Multilingual Hreflang SEO Tags -->
-    {isUnlocalized ? (
+    {alternateLocales ? (
+      <>
+        <link rel="alternate" hreflang="en" href={enUrl} />
+        <link rel="alternate" hreflang="es" href={esUrl} />
+        <link rel="alternate" hreflang="x-default" href={enUrl} />
+      </>
+    ) : isUnlocalized ? (
       <>
         <link rel="alternate" hreflang="en" href={fullCanonical} />
         <link rel="alternate" hreflang="x-default" href={fullCanonical} />
@@ -123,7 +134,7 @@ const isQuizPage = baseRel === "/";
       <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
     )}
 
-    {!isQuizPage && (
+    {!isQuizPage && !isSoulColorsPage && (
     <!-- Microsoft Clarity Analytics -->
     <script is:inline type="text/javascript">
       (function(c,l,a,r,i,t,y){

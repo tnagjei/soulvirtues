@@ -34,6 +34,7 @@ const codes = Object.keys(t.souls) as (keyof typeof t.souls)[];
   <article class="max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-16 space-y-8">
     <header>
       <a href={prefix + '/'} class="text-sm text-cyan-300 underline">{t.nav.takeQuiz} →</a>
+      <a href={`${prefix}/soul-colors/`} class="ml-4 text-sm text-cyan-300 underline">soul color test</a>
       <h1 class="text-3xl sm:text-5xl font-black font-mono text-white mt-5 mb-4">{copy.heading}</h1>
       <p class="text-sm sm:text-base text-gray-300 leading-relaxed">{copy.intro}</p>
       <p class="text-xs font-mono text-gray-400 mt-4">{copy.updatedLabel}: {BANK_VERSION} · {QUESTION_BANK.length} · {ipipCount} IPIP + {QUESTION_BANK.length - ipipCount}</p>
