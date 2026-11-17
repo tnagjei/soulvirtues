@@ -32,7 +32,7 @@ const soulsPrefix = lang === 'en' ? '/souls' : `/${lang}/souls`;
 const rawCurrentPath = Astro.url.pathname.replace(/^\/(ja|es|pt|ru)(?=\/|$)/, '') || '/';
 const currentPath = rawCurrentPath.replace(/\/?$/, '/');
 const UNLOCALIZED_ROUTES = new Set(['/about/', '/contact/', '/privacy/', '/terms/']);
-const isUnlocalized = UNLOCALIZED_ROUTES.has(currentPath);
+const isUnlocalized = UNLOCALIZED_ROUTES.has(currentPath) || currentPath === '/soul-colors/';
 
 const englishPath = currentPath;
 const japanesePath = isUnlocalized ? '/ja/' : `/ja${currentPath === '/' ? '/' : currentPath}`;

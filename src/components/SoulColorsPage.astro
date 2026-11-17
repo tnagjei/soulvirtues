@@ -1,5 +1,5 @@
 ---
-// input: lang ('en' | 'es') plus the approved soul color copy and the existing /souls/ data source
+// input: The approved English soul color copy and the existing /souls/ data source
 // output: Soul color landing page with the existing 66-question quiz and seven color links
 // pos: src/components/SoulColorsPage.astro（更新规则：文件变更需同步本注释与所属目录 README）
 
@@ -12,18 +12,11 @@ import { SOUL_CODES, SOUL_SLUGS_BY_CODE, SOULS, type SoulCode } from '../data/so
 import { ASSESSMENT_COPY } from '../data/assessmentContent';
 import type { Locale } from '../i18n';
 
-interface Props {
-  lang?: 'en' | 'es';
-}
-
-const { lang = 'en' } = Astro.props;
-const copy = SOUL_COLORS_COPY[lang];
+const lang = 'en';
+const copy = SOUL_COLORS_COPY;
 const siteUrl = 'https://soulvirtues.org';
-const langPrefix = lang === 'en' ? '' : `/${lang}`;
-const pagePath = `${langPrefix}/soul-colors/`;
+const pagePath = '/soul-colors/';
 const pageUrl = `${siteUrl}${pagePath}`;
-const enUrl = `${siteUrl}/soul-colors/`;
-const esUrl = `${siteUrl}/es/soul-colors/`;
 const colorLabels: Record<SoulCode, string> = {
   DET: 'red',
   BRV: 'orange',
@@ -38,7 +31,7 @@ const colorCards = SOUL_CODES.map(code => ({
   color: colorLabels[code],
   name: SOULS[code].name,
   hex: SOULS[code].hex,
-  path: `${langPrefix}/souls/${SOUL_SLUGS_BY_CODE[code]}/`,
+  path: `/souls/${SOUL_SLUGS_BY_CODE[code]}/`,
   copyKey: soulColorCopyKey(code),
   anchor: `${colorLabels[code]} soul color test`,
 }));
@@ -62,9 +55,7 @@ const structuredData = {
       mainEntity: faqs.map(item => ({
         '@type': 'Question',
         name: item.q,
-        acceptedAnswer: item.a.startsWith('<a ')
-          ? { '@type': 'Answer', text: `${siteUrl}/es/soul-colors/` }
-          : { '@type': 'Answer', text: item.a },
+        acceptedAnswer: { '@type': 'Answer', text: item.a },
       })),
     },
   ],
@@ -77,7 +68,6 @@ const structuredData = {
   canonicalUrl={pageUrl}
   structuredData={structuredData}
   lang={lang as Locale}
-  alternateLocales={['en', 'es']}
 >
   <article class="max-w-5xl mx-auto px-4 sm:px-6 py-10 space-y-10">
     <header>
@@ -146,10 +136,9 @@ const structuredData = {
     </section>
 
     <nav class="border-t border-gray-800 pt-6 text-xs sm:text-sm font-mono flex flex-wrap gap-4" aria-label="Soul color page links">
-      <a href={`${langPrefix}/souls/`} class="text-cyan-300 underline">/souls/</a>
-      <a href={`${langPrefix}/method/`} class="text-cyan-300 underline">/method/</a>
-      <a href={lang === 'en' ? esUrl : enUrl} class="text-cyan-300 underline">{lang === 'en' ? '/es/soul-colors/' : '/soul-colors/'}</a>
-        {colorCards.map(card => <a href={`${langPrefix}/#test`} class="sr-only">{card.anchor}</a>)}
+      <a href="/souls/" class="text-cyan-300 underline">/souls/</a>
+      <a href="/method/" class="text-cyan-300 underline">/method/</a>
+      {colorCards.map(card => <a href="/#test" class="sr-only">{card.anchor}</a>)}
     </nav>
   </article>
 </Layout>

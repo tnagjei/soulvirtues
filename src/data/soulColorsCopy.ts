@@ -1,5 +1,5 @@
 // input: None (exact C-site soul color page copy from the approved plan)
-// output: SoulColorsCopy dictionary for English and the Spanish route wrapper
+// output: English-only soul color copy for /soul-colors/
 // pos: src/data/soulColorsCopy.ts (更新规则：文件变更需同步本注释与所属目录 README)
 
 export interface SoulColorsCopy {
@@ -17,7 +17,7 @@ export interface SoulColorsCopy {
 
 const EN_SOUL_COLORS_COPY: SoulColorsCopy = {
   "title": "Soul Color Test - Undertale Soul Colors Quiz",
-  "desc": "Take the free soul color test: 66 questions, 7 Undertale soul colors, instant result with a shareable card. No sign-up, English and Espanol.",
+  "desc": "Take the free soul color test: 66 questions, 7 Undertale soul colors, instant result with a shareable card. No sign-up required.",
   "h1": "Soul Color Test: Find Your Undertale Soul Color",
   "intro": "The soul color test matches you to one of the seven Undertale soul colors by scoring 66 statements across Determination, Bravery, Justice, Kindness, Patience, Integrity, and Perseverance. This page is an unofficial fan project and is not affiliated with Toby Fox.",
   "facts": [
@@ -88,10 +88,6 @@ const EN_SOUL_COLORS_COPY: SoulColorsCopy = {
     {
       "q": "Is it free?",
       "a": "Yes. The complete seven-score result, answer review and PNG card are free, with no account, payment or invitation required."
-    },
-    {
-      "q": "Is there a Spanish version?",
-      "a": "Yes. Open the <a href=\"/es/soul-colors/\">Spanish soul color test</a>."
     }
   ],
   "cta": {
@@ -100,10 +96,7 @@ const EN_SOUL_COLORS_COPY: SoulColorsCopy = {
   }
 };
 
-export const SOUL_COLORS_COPY: Record<"en" | "es", SoulColorsCopy> = {
-  en: EN_SOUL_COLORS_COPY,
-  es: EN_SOUL_COLORS_COPY,
-};
+export const SOUL_COLORS_COPY: SoulColorsCopy = EN_SOUL_COLORS_COPY;
 
 export const SOUL_COLORS_COPY_PLAN_LINES = {
   title: 91,
