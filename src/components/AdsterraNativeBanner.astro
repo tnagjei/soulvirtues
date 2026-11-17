@@ -2,12 +2,18 @@
 // input: 无（Adsterra Native Banner 广告位 31858818 的固定脚本与容器 ID）
 // output: 居中的原生横幅广告位，脚本懒加载到视口附近后再注入，避免拖慢首屏
 // pos: src/components/AdsterraNativeBanner.astro（更新规则：广告位 ID 或投放策略变化需同步本注释与所属目录 README）
+
+// 2026-11-17：线上出现进入即被跳转到 CPA 落地页，原生脚本在页面上下文执行、可改写顶层地址；
+// 先停挂载定位来源。恢复时改回 true，并确认脚本不再触发跳转。容器不存在时下方脚本会自行跳过注入。
+const ADS_ENABLED = false;
 ---
 
 <!-- Adsterra 原生横幅：4:1 卡片，预留高度避免布局抖动；未填充时整块收起 -->
-<div class="adsterra-native mx-auto w-full max-w-3xl px-4" data-adsterra-native>
-  <div id="container-8d754a16a9484e9a20802712eb3bd162" class="w-full"></div>
-</div>
+{ADS_ENABLED && (
+  <div class="adsterra-native mx-auto w-full max-w-3xl px-4" data-adsterra-native>
+    <div id="container-8d754a16a9484e9a20802712eb3bd162" class="w-full"></div>
+  </div>
+)}
 
 <script>
   // 广告只在接近视口时加载：本站在移动端首屏较满，提前注入会拖慢 LCP
