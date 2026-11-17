@@ -575,11 +575,79 @@ p {
   margin-top:5px
 }
 .empty-state {
-  padding:80px 0;
-  max-width:700px
+  min-height:min(66vh,620px);
+  display:grid;
+  place-items:center;
+  align-content:center;
+  padding:48px 16px 72px;
+  text-align:center
 }
 .empty-state h1 {
-  font-size:42px
+  font-size:clamp(30px,4vw,46px)
+}
+.empty-scene {
+  width:min(280px,72vw);
+  margin:0 auto 22px
+}
+.empty-art {
+  display:block;
+  width:100%;
+  height:auto;
+  overflow:visible;
+  shape-rendering:crispEdges
+}
+.empty-art .float {
+  animation:empty-float 4s ease-in-out infinite
+}
+.empty-art .twinkle {
+  animation:empty-twinkle 2.4s steps(2,end) infinite
+}
+.empty-art .twinkle.late {
+  animation-delay:1.1s
+}
+.empty-art .blink {
+  transform-box:fill-box;
+  transform-origin:center;
+  animation:empty-blink 5.2s steps(1,end) infinite
+}
+.empty-card {
+  max-width:560px;
+  margin:0 auto;
+  padding:30px 26px;
+  border:2px solid var(--line);
+  background:linear-gradient(180deg,#1c2a22 0%,#141c17 100%);
+  box-shadow:6px 6px 0 rgba(217,233,157,.12)
+}
+.empty-card h1 {
+  margin-bottom:12px
+}
+.empty-card p {
+  color:var(--muted);
+  font-size:15px;
+  line-height:1.8;
+  margin:0 auto 18px;
+  max-width:44ch
+}
+.empty-card .secondary,.empty-card .primary {
+  min-width:150px
+}
+.empty-card>a:not(.secondary):not(.primary) {
+  display:inline-block;
+  margin-top:15px;
+  color:var(--accent);
+  font-size:14px
+}
+@keyframes empty-float {
+  0%,100% { transform:translateY(0) }
+  50% { transform:translateY(-7px) }
+}
+@keyframes empty-twinkle {
+  0%,100% { opacity:.25; transform:scale(.75) }
+  50% { opacity:1; transform:scale(1) }
+}
+@keyframes empty-blink {
+  0%,92%,100% { transform:scaleY(1) }
+  94%,97% { transform:scaleY(.12) }
 }
 .source-footer {
   font-size:13px;
@@ -770,6 +838,21 @@ a,button,textarea {
   }
   .ai-panel {
     padding:20px
+  }
+  .empty-state {
+    min-height:auto;
+    padding:26px 8px 48px
+  }
+  .empty-scene {
+    width:min(220px,62vw);
+    margin-bottom:14px
+  }
+  .empty-card {
+    padding:24px 18px;
+    box-shadow:4px 4px 0 rgba(217,233,157,.12)
+  }
+  .empty-card p {
+    font-size:14px
   }
   .section-intro {
     font-size:15px

@@ -42,10 +42,24 @@ import '../styles/report.css';
     <div class="guide-layout">
       <aside class="guide-nav no-print"><p id="contents-label">Inside your guide</p><nav id="contents" aria-label="Report sections"></nav><p id="save-state" role="status"></p></aside>
       <main id="guide" aria-busy="true">
-        <section class="empty-state"><h1>Your personal guide</h1><p>Reading your saved answers…</p></section>
+        <section class="empty-state"><div class="empty-scene"><svg class="empty-art" viewBox="0 0 240 180" role="img" aria-label="A tiny soul waiting beside an unlit lantern">
+          <g class="twinkle" fill="#d9e99d"><path d="M50 24h4v10h-4zM46 28h12v4H46z"/></g>
+          <g class="twinkle late" fill="#42fcff"><path d="M190 42h4v10h-4zM186 46h12v4h-12z"/></g>
+          <g fill="#38473b"><path d="M31 151h178v4H31zM43 158h154v3H43z"/></g>
+          <g class="float">
+            <path d="M77 62h86v12h12v76h-12v12H77v-12H65V74h12z" fill="#18201b" stroke="#d9e99d" stroke-width="4"/>
+            <path d="M86 78h68v8H86zM78 86h84v48H78zM86 134h68v8H86z" fill="#101613" stroke="#4f604f" stroke-width="2"/>
+            <g fill="#d9e99d"><path d="M98 100h12v12H98zM130 100h12v12h-12z"/></g>
+            <g class="blink" fill="#101613"><path d="M101 103h6v6h-6zM133 103h6v6h-6z"/></g>
+            <path d="M112 120h16v4h-16z" fill="#d9e99d"/>
+            <path d="M96 136h8v8h-8zM136 136h8v8h-8z" fill="#42fcff"/>
+            <path d="M70 58h12v4H70zM158 58h12v4h-12z" fill="#d9e99d"/>
+          </g>
+          <g fill="#d9e99d"><path d="M196 91h5v15h-5zM191 96h15v5h-15zM202 76h4v10h-4zM199 79h10v4h-10z"/></g>
+        </svg></div><div class="empty-card"><h1>Your personal guide is waking up</h1><p>We are reading your saved answers and lighting the lantern one page at a time.</p></div></section>
       </main>
     </div>
-    <noscript><p class="empty-state">Enable JavaScript to read your saved quiz answers and open your guide.</p></noscript>
+    <noscript><section class="empty-state"><div class="empty-card"><h1>Light missing</h1><p>Enable JavaScript to read your saved quiz answers and open your guide.</p></div></section></noscript>
     <script>
       import '../scripts/field-guide';
     </script>

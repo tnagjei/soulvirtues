@@ -25,6 +25,23 @@ let loadVersion = 0;
 let state: { createdAt: string; focus: SoulCode; notes: Record<string, string>; completed: Record<string, boolean[]> };
 let storageKey = '';
 const note = (id: string, label: string, large = false) => `<div><label for="note-${id}">${escape(label)}</label><textarea class="note-input" id="note-${id}" data-note="${id}" maxlength="2000" rows="${large ? 5 : 3}" placeholder="${escape(guide.copy.notePlaceholder)}"></textarea><div class="print-note" data-print-note="${id}" data-placeholder="${escape(guide.copy.noteBlank)}"></div></div>`;
+function emptyState(title: string, body: string, action = '', footer = '') {
+  return `<section class="empty-state"><div class="empty-scene"><svg class="empty-art" viewBox="0 0 240 180" role="img" aria-label="A tiny soul waiting beside an unlit lantern">
+    <g class="twinkle" fill="#d9e99d"><path d="M50 24h4v10h-4zM46 28h12v4H46z"/></g>
+    <g class="twinkle late" fill="#42fcff"><path d="M190 42h4v10h-4zM186 46h12v4h-12z"/></g>
+    <g fill="#38473b"><path d="M31 151h178v4H31zM43 158h154v3H43z"/></g>
+    <g class="float">
+      <path d="M77 62h86v12h12v76h-12v12H77v-12H65V74h12z" fill="#18201b" stroke="#d9e99d" stroke-width="4"/>
+      <path d="M86 78h68v8H86zM78 86h84v48H78zM86 134h68v8H86z" fill="#101613" stroke="#4f604f" stroke-width="2"/>
+      <g fill="#d9e99d"><path d="M98 100h12v12H98zM130 100h12v12h-12z"/></g>
+      <g class="blink" fill="#101613"><path d="M101 103h6v6h-6zM133 103h6v6h-6z"/></g>
+      <path d="M112 120h16v4h-16z" fill="#d9e99d"/>
+      <path d="M96 136h8v8h-8zM136 136h8v8h-8z" fill="#42fcff"/>
+      <path d="M70 58h12v4H70zM158 58h12v4h-12z" fill="#d9e99d"/>
+    </g>
+    <g fill="#d9e99d"><path d="M196 91h5v15h-5zM191 96h15v5h-15zM202 76h4v10h-4zM199 79h10v4h-10z"/></g>
+  </svg></div><div class="empty-card"><h1>${escape(title)}</h1><p>${escape(body)}</p>${action}${footer}</div></section>`;
+}
 function applyInterpretation() {
   if(!paid)return;
   guide=structuredClone(paid.guide);
@@ -194,7 +211,10 @@ async function init() {
         if (version !== loadVersion) return;
         paid = await paidReport(access, lang, Math.min(16000, Math.max(1, deadline - Date.now())));
         if (paid) break;
-        root.innerHTML = `<section class="empty-state"><h1>${lang === 'es' ? 'Confirmando tu pago' : 'Confirming your payment'}</h1><p>${lang === 'es' ? 'Estamos comprobando el pedido con Waffo. No vuelvas a pagar. Después del pago, pulsa Done en Waffo para regresar.' : 'We are checking the order with Waffo. Do not pay again. After payment, click Done in Waffo to return.'}</p></section>`;
+        root.innerHTML = emptyState(
+          lang === 'es' ? 'Tu pequeña alma está esperando' : 'Your little soul is waiting',
+          lang === 'es' ? 'Estamos comprobando el pedido con Waffo. No vuelvas a pagar; la lámpara se encenderá en cuanto llegue la confirmación. Tras pagar, pulsa Done en Waffo para volver.' : 'We are checking the order with Waffo. Do not pay again; the lantern will light up as soon as the confirmation arrives. After paying, click Done in Waffo to return.'
+        );
         document.body.dataset.reportState = 'payment-pending';
         await new Promise(resolve => setTimeout(resolve, Math.min(4000, Math.max(0, deadline - Date.now()))));
       }
@@ -217,7 +237,12 @@ async function init() {
     if (version !== loadVersion) return;
     const c = GUIDE_COPY[lang];
     const message = error instanceof Error ? error.message : c.noAnswersBody;
-    root.innerHTML = `<section class="empty-state"><h1>${lang === 'es' ? 'Acceso a tu informe' : 'Your report access'}</h1><p>${escape(message)}</p><p>${lang === 'es' ? 'Si pagaste, no necesitas volver a pagar. Contacta con nosotros con tu número de pedido.' : 'If you already paid, do not pay again. Contact us with your Waffo order number if you need help.'}</p><button id="retry-report" class="secondary">${lang === 'es' ? 'Volver a comprobar' : 'Check again'}</button><p><a href="mailto:tangjei414@gmail.com">tangjei414@gmail.com</a></p><a href="/#test">${escape(c.home)} →</a></section>`;
+    root.innerHTML = emptyState(
+      lang === 'es' ? 'La lámpara sigue apagada' : 'The lantern is still dark',
+      message,
+      `<button id="retry-report" class="secondary">${lang === 'es' ? 'Volver a comprobar' : 'Check again'}</button>`,
+      `<p>${lang === 'es' ? 'Si pagaste, no vuelvas a pagar. Escríbenos con tu número de pedido.' : 'If you already paid, do not pay again. Contact us with your Waffo order number.'}</p><a href="mailto:tangjei414@gmail.com">tangjei414@gmail.com</a><br><a href="/#test">${escape(c.home)} →</a>`
+    );
     el('retry-report').addEventListener('click', init);
     root.setAttribute('aria-busy', 'false');
     document.body.dataset.reportState = error instanceof ReportApiError && error.status === 202 ? 'payment-pending' : 'access-error';
