@@ -4,7 +4,7 @@
 // pos: src/components/SoulDetailPage.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import Layout from '../layouts/Layout.astro';
-import AdsterraNativeBanner from './AdsterraNativeBanner.astro';
+import AdsterraBanner300x250 from './AdsterraBanner300x250.astro';
 import type { SoulDetail } from '../data/soulDetails';
 import { SOUL_SLUGS } from '../data/soulDetails';
 import { getLocalizedSoulDetails } from '../data/soulDetailsI18n';
@@ -257,7 +257,7 @@ const structuredData = {
         <p class="text-sm text-gray-300 leading-relaxed">{reflection}</p>
       </aside>
 
-      <AdsterraNativeBanner />
+      <AdsterraBanner300x250 />
 
       <aside id="content-sources" class="border-2 border-cyan-800 bg-black p-5 sm:p-7">
         <h2 class="text-lg font-bold text-cyan-300 font-mono mb-3">{evidenceCopy.sourcesTitle}</h2>

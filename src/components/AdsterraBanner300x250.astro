@@ -1,0 +1,38 @@
+---
+// input: Adsterra Banner 300x250 广告位 32320900 的 key 与脚本地址
+// output: 内容中部固定尺寸广告位，sandbox iframe 隔离，广告脚本无权改写顶层地址
+// pos: src/components/AdsterraBanner300x250.astro（更新规则：广告位 ID 或隔离策略变化需同步本注释与所属目录 README）
+
+const AD_KEY = '7b1b37c3ff79bedbc4b7dfb5273f8786';
+const AD_SRC = `https://bauval.org/22/${AD_KEY}`;
+
+// 沙箱刻意不给 allow-same-origin 与 allow-top-navigation：广告即使被恶意创意污染，
+// 也没有能力访问父页面或把用户顶走；allow-popups 只保留点击新开标签页的正常行为。
+const adDoc = `<!DOCTYPE html><html><head><meta charset="utf-8"><base target="_blank"><style>html,body{margin:0;padding:0;overflow:hidden;background:transparent}iframe{border:0;display:block}</style></head><body><script>atOptions=${JSON.stringify({ key: AD_KEY, format: 'iframe', height: 250, width: 300, params: {} })};<\/script><script src="${AD_SRC}"><\/script></body></html>`;
+---
+
+<!-- 固定 300×250：预留尺寸，避免加载时推挤正文 -->
+<div class="adsterra-300 mx-auto my-10 flex justify-center" data-adsterra-300>
+  <iframe
+    class="h-[250px] w-[300px] border-0"
+    title="Advertisement"
+    loading="lazy"
+    scrolling="no"
+    sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox"
+    data-ad-doc={adDoc}
+  ></iframe>
+</div>
+
+<script>
+  // srcdoc 在接近视口时才写入，首屏不承担广告脚本的加载成本
+  const slot = document.querySelector<HTMLElement>('[data-adsterra-300]');
+  const frame = slot?.querySelector('iframe');
+  if (slot && frame && !frame.srcdoc) {
+    const observer = new IntersectionObserver((entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      observer.disconnect();
+      frame.srcdoc = frame.dataset.adDoc || '';
+    }, { rootMargin: '300px' });
+    observer.observe(slot);
+  }
+</script>
