@@ -5,6 +5,7 @@ Soul Virtues Extractor provides an interactive, client-side personality quiz bas
 
 ## Core Features
 - [Soul Virtues Test](https://soulvirtues.org/): Free 66-question online assessment and instant analysis
+- [Soul Color Test](https://soulvirtues.org/soul-colors/): Free 66-question Undertale soul color quiz with instant seven-virtue scores and shareable card
 - [Seven Soul Virtues](https://soulvirtues.org/#virtues): In-depth guide to Determination, Bravery, Justice, Kindness, Patience, Integrity, and Perseverance
 - [Questions and Scoring Method](https://soulvirtues.org/method/): Official source ledger, one theme per statement, reverse responses, mean-based independent 0–100 scores and result limits
 
