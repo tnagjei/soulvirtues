@@ -1,5 +1,5 @@
 // input: src/components/LangDetector.astro mobile prompt markup and utility classes
-// output: Fails when the prompt lacks mobile safe-area, size, focus, or overflow protections
+// output: Fails when the prompt lacks top safe-area positioning or mobile size, focus, and overflow protections
 // pos: scripts/check_lang_prompt_mobile.mjs（更新规则：弹窗移动端交互规范变化时同步本脚本与 scripts/README.md）
 
 import assert from 'node:assert/strict';
@@ -17,8 +17,12 @@ const promptClasses = classesFor('pixel-lang-prompt');
 assert(promptClasses.includes('left-4 right-4'), 'Prompt must keep 16px mobile side margins');
 assert(promptClasses.includes('mx-auto'), 'Prompt must remain centered on wider phones');
 assert(
-  promptClasses.includes('bottom-[calc(1rem+env(safe-area-inset-bottom))]'),
-  'Prompt must clear the iPhone bottom safe area',
+  promptClasses.split(/\s+/).includes('top-[calc(4.5rem+env(safe-area-inset-top))]'),
+  'Prompt must sit below the header with the top safe-area inset',
+);
+assert(
+  !promptClasses.includes('bottom-[calc(1rem+env(safe-area-inset-bottom))]'),
+  'Remove the previous bottom safe-area class from the prompt',
 );
 assert(promptClasses.includes('max-h-[30dvh]'), 'Prompt must stay within 30% of the visible viewport height');
 assert(promptClasses.includes('overflow-y-auto'), 'Prompt must scroll instead of overflowing on short screens');

@@ -1,6 +1,6 @@
 ---
 // input: lang ('en' | 'ja' | 'es' | 'pt' | 'ru')
-// output: Mobile-safe bottom language recommendation prompt with 44px controls based on browser language detection
+// output: Mobile-safe language recommendation below the header with 44px controls based on browser language detection
 // pos: src/components/LangDetector.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import type { Locale } from '../i18n';
@@ -14,7 +14,7 @@ const { lang = 'en' } = Astro.props;
 
 <div
   id="pixel-lang-prompt"
-  class="hidden fixed left-4 right-4 bottom-[calc(1rem+env(safe-area-inset-bottom))] z-50 mx-auto max-w-sm max-h-[30dvh] overflow-y-auto overscroll-contain bg-black border-4 border-white p-4 shadow-[6px_6px_0px_rgba(255,255,255,0.4)] font-mono text-white select-none transition-[opacity,transform] duration-300"
+  class="hidden fixed left-4 right-4 top-[calc(4.5rem+env(safe-area-inset-top))] z-50 mx-auto max-w-sm max-h-[30dvh] overflow-y-auto overscroll-contain bg-black border-4 border-white p-4 shadow-[6px_6px_0px_rgba(255,255,255,0.4)] font-mono text-white select-none transition-[opacity,transform] duration-300"
   data-current-lang={lang}
   role="dialog"
   aria-label="Language Suggestion"

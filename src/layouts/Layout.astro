@@ -1,6 +1,6 @@
 ---
 // input: Title, description, canonicalUrl, ogImage, structuredData schema, lang ('en' | 'ja' | 'es' | 'pt' | 'ru')
-// output: Full HTML page shell with multilingual hreflang meta tags, fonts, styles, header, footer, bottom-right language suggestion toast, CSS ambient background effect, Google Analytics, Clarity on static information pages only, Umami, Adsterra banners, and MakeThisBetter widget
+// output: Full HTML page shell with multilingual hreflang meta tags, fonts, styles, header, footer, language suggestion below the header, one retry for failed Astro scripts, CSS ambient background effect, Google Analytics, Clarity on static information pages only, Umami, Adsterra banners, and MakeThisBetter widget
 // pos: src/layouts/Layout.astro (更新规则：文件变更需同步本注释与所属目录 README)
 
 import Header from '../components/Header.astro';
@@ -69,6 +69,22 @@ const isQuizPage = baseRel === "/";
     <!-- Yandex site ownership verification -->
     <meta name="yandex-verification" content="46fdce885b6ef94a" />
     <link rel="canonical" href={fullCanonical} />
+
+    <script is:inline>
+      window.addEventListener('error', ({ target }) => {
+        if (!(target instanceof HTMLScriptElement) || target.dataset.retried !== undefined) return;
+
+        const { src } = target;
+        if (!src.startsWith(`${location.origin}/_astro/`) || !/^\/_astro\/[^/]+\.js$/.test(new URL(src).pathname)) return;
+
+        target.dataset.retried = 'true';
+        const retry = document.createElement('script');
+        retry.type = 'module';
+        retry.src = src;
+        retry.dataset.retried = 'true';
+        document.head.append(retry);
+      }, true);
+    </script>
 
     <!-- Umami Analytics -->
     <script is:inline async src="https://umami-224lxlg6qa-uw.a.run.app/script.js" data-website-id="3feaa031-8dda-4eba-8f20-47ee94bdc3d8" data-domains="soulvirtues.org"></script>
@@ -152,7 +168,7 @@ const isQuizPage = baseRel === "/";
     {showBottomBanner && <AdsterraBanner468x60 />}
     <Footer lang={lang} />
 
-    <!-- Bottom-Right Floating Smart Language Detector -->
+    <!-- Floating Language Suggestion -->
     <LangDetector lang={lang} />
 
     <!-- MakeThisBetter Feedback Widget -->
