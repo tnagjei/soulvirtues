@@ -7,7 +7,6 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import LangDetector from '../components/LangDetector.astro';
 import AdsterraBanner300x250 from '../components/AdsterraBanner300x250.astro';
-import AdsterraBanner468x60 from '../components/AdsterraBanner468x60.astro';
 import type { Locale } from '../i18n';
 import '../styles/global.css';
 
@@ -46,7 +45,6 @@ const isUnlocalized = UNLOCALIZED_ROUTES.has(baseRel);
 // 首页和长内容页自行在正文中放 sandbox iframe 广告，其余页面默认放在页脚前
 const AD_FREE_ROUTES = new Set(['/', '/about/', '/contact/', '/privacy/', '/terms/', '/success/']);
 const showInContentBanner = !AD_FREE_ROUTES.has(baseRel) && nativeBannerPlacement === 'before-footer';
-const showBottomBanner = baseRel === '/' || !AD_FREE_ROUTES.has(baseRel);
 
 const hrefEn = `${siteUrl}${baseRel}`;
 const hrefJa = `${siteUrl}/ja${baseRel === '/' ? '/' : baseRel}`;
@@ -168,8 +166,7 @@ const isQuizPage = baseRel === "/";
       <slot />
     </main>
     {showInContentBanner && <AdsterraBanner300x250 />}
-    {showBottomBanner && <AdsterraBanner468x60 />}
-    <Footer lang={lang} />
+        <Footer lang={lang} />
 
     <!-- Floating Language Suggestion -->
     <LangDetector lang={lang} />

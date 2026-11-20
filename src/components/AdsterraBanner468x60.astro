@@ -8,6 +8,11 @@ const AD_SRC = `https://bauval.org/22/${AD_KEY}`;
 const adDoc = `<!DOCTYPE html><html><head><meta charset="utf-8"><base target="_blank"><style>html,body{margin:0;padding:0;overflow:hidden;background:transparent}</style></head><body><script>atOptions=${JSON.stringify({ key: AD_KEY, format: 'iframe', height: 60, width: 468, params: {} })};<\/script><script src="${AD_SRC}"><\/script></body></html>`;
 ---
 
+<!--
+  2026-11-20 停用：atOptions 是全局变量，同页再挂一个 /22/ 广告位会互相覆盖尺寸，
+  导致两个位子都拿不到广告。全站改为每页只保留 300×250 一个位子，本组件保留但不再挂载。
+-->
+
 <!-- 468px 定宽放不进手机屏：小屏隐藏并在脚本中跳过加载，避免产生不可见曝光 -->
 <div class="adsterra-468 hidden sm:flex justify-center my-10 max-w-5xl mx-auto" data-adsterra-468>
   <iframe
