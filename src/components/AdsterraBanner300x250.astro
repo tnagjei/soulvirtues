@@ -2,13 +2,11 @@
 // input: Adsterra Banner 300x250 广告位 32320900 的 key
 // output: 内容中部固定尺寸广告位，脚本懒加载，挂在页面上下文执行
 // pos: src/components/AdsterraBanner300x250.astro（更新规则：广告位 ID 或加载方式变化需同步本注释与所属目录 README）
+// 2026-11-20：改回页面上下文加载。/22/ 是 iframe 格式的 Banner zone，脚本需要真实 referrer
+// 和自身所在域才能校验投放；套 sandbox iframe 后三天只有 2 次展示。同账号 creepylink 用
+// 同样的写法每天稳定出量。atOptions 是全局变量，所以全站每页只挂这一个 /22/ 广告位。
 ---
 
-<!--
-  2026-11-20：改回页面上下文加载。/22/ 是 iframe 格式的 Banner zone，脚本需要真实 referrer
-  和自身所在域才能校验投放；套 sandbox iframe 后三天只有 2 次展示。同账号 creepylink 用
-  同样的写法每天稳定出量。atOptions 是全局变量，所以全站每页只挂这一个 /22/ 广告位。
--->
 <div class="adsterra-300 mx-auto my-10 flex justify-center" data-adsterra-300 data-key="7b1b37c3ff79bedbc4b7dfb5273f8786">
   <div id="container-7b1b37c3ff79bedbc4b7dfb5273f8786" class="min-h-[250px] w-[300px]"></div>
 </div>
